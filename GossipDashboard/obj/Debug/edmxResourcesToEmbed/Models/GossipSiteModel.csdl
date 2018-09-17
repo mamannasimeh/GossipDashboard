@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GossipSiteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="PostID" />
+    </Key>
+    <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContentPost" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Views" Type="Int32" />
+    <Property Name="Image1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image2" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="LikePost" Type="Int32" />
+    <Property Name="DislikePost" Type="Int32" />
+    <Property Name="ModifyUserID_fk" Type="Int32" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Url" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="PublishCount" Type="Int32" />
+  </EntityType>
+  <EntityType Name="PostCategory">
+    <Key>
+      <PropertyRef Name="PostCategoryID" />
+    </Key>
+    <Property Name="PostCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostID_fk" Type="Int32" />
+    <Property Name="CategoryID_fk" Type="Int32" />
+  </EntityType>
+  <EntityType Name="PostComment">
+    <Key>
+      <PropertyRef Name="PostCommentID" />
+    </Key>
+    <Property Name="PostCommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostID_fk" Type="Int32" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="LikeComment" Type="Int32" />
+    <Property Name="DislikeComment" Type="Int32" />
+  </EntityType>
+  <EntityType Name="PubBase">
+    <Key>
+      <PropertyRef Name="PubBaseID" />
+    </Key>
+    <Property Name="PubBaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParentID" Type="Int32" />
+    <Property Name="NameFa" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NameEn" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="GroupBase" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="ModifyUserID_fk" Type="Int32" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="GossipSiteEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Posts" EntityType="Self.Post" />
+    <EntitySet Name="PostCategories" EntityType="Self.PostCategory" />
+    <EntitySet Name="PostComments" EntityType="Self.PostComment" />
+    <EntitySet Name="PubBases" EntityType="Self.PubBase" />
+  </EntityContainer>
+</Schema>
