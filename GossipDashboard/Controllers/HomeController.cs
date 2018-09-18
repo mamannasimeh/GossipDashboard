@@ -51,7 +51,7 @@ namespace GossipDashboard.Controllers
                         {
                             HtmlNode oldChild = itemNode.ChildNodes[1];
 
-                            HtmlNode newChild = HtmlNode.CreateNode("<a href='' name='imagequiz'>  <img width='290' height='170' src='Image/book/jTest.jpeg'  alt='براي تست' />  </a>");
+                            HtmlNode newChild = HtmlNode.CreateNode("<a href='" + item.Url + "' name='" + item.PostID + "'>  <img width='290' height='170' src='" + item.Image1 + "'  alt='" + item.Subject + "' />  </a>");
 
                             itemNode.ReplaceChild(newChild, oldChild);
                         }
@@ -59,7 +59,7 @@ namespace GossipDashboard.Controllers
                 }
             }
 
-    
+
 
 
 
