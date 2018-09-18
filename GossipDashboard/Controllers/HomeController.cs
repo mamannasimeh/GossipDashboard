@@ -38,32 +38,57 @@ namespace GossipDashboard.Controllers
                 }
             }
 
+
             var postQuiz = context.Posts.ToList();
             foreach (var item in postQuiz)
             {
-                var nodes = docTemplates.DocumentNode.SelectNodes("//div");
-                foreach (var itemNode in nodes)
+                var itSelfNode = CreateHeadForContent(docTemplates, item);
+                if (itSelfNode != null)
                 {
-                    var attrs = itemNode.Attributes;
-                    foreach (var itemAttr in attrs)
+                    AddHeadToContent(nodesIndex, itSelfNode);
+                }
+            }
+            return View();
+        }
+
+
+        private HtmlNode CreateHeadForContent(HtmlDocument docTemplates, Post item)
+        {
+            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+            foreach (var itemNode in nodes)
+            {
+                var attrs = itemNode.Attributes;
+                foreach (var itemAttr in attrs)
+                {
+                    if (itemAttr.Value == "entry-cover")
                     {
-                        if (itemAttr.Value == "entry-cover")
-                        {
-                            HtmlNode oldChild = itemNode.ChildNodes[1];
-
-                            HtmlNode newChild = HtmlNode.CreateNode("<a href='" + item.Url + "' name='" + item.PostID + "'>  <img width='290' height='170' src='" + item.Image1 + "'  alt='" + item.Subject + "' />  </a>");
-
-                            itemNode.ReplaceChild(newChild, oldChild);
-                        }
+                        HtmlNode oldChild = itemNode.ChildNodes[1];
+                        HtmlNode newChild = HtmlNode.CreateNode("<a href='" + item.Url + "' name='" + item.PostID + "'>  <img width='290' height='170' src='" + item.Image1 + "'  alt='" + item.Subject + "' />  </a>");
+                        itemNode.ReplaceChild(newChild, oldChild);
+                        return itemNode;
                     }
                 }
             }
 
+            return null;
+        }
 
+        private HtmlNode AddHeadToContent(HtmlNodeCollection nodesIndex, HtmlNode itSelfNode)
+        {
+            foreach (var itemNode in nodesIndex)
+            {
+                var attrs = itemNode.Attributes;
+                foreach (var itemAttr in attrs)
+                {
+                    if (itemAttr.Value == "author-grid")
+                    {
+                        itemNode.AppendChild(itSelfNode);
+                        return itemNode;
+                    }
+                }
+            }
 
-
-
-            return View();
+            return null;
         }
 
         public ActionResult About()
