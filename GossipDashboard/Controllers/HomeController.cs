@@ -13,6 +13,7 @@ namespace GossipDashboard.Controllers
     public class HomeController : Controller
     {
         GossipSiteEntities context = new GossipSiteEntities();
+        private HtmlNode result;
 
         public ActionResult Index()
         {
@@ -47,14 +48,14 @@ namespace GossipDashboard.Controllers
                 var itSelfNode = CreateHead(docTemplates, item);
                 if (itSelfNode != null)
                 {
-                   var result =  AddHeadToContent(nodesIndex, itSelfNode);
-
-                    var htmlDoc = new HtmlDocument();
-                    htmlDoc.LoadHtml(result.OuterHtml);
-
-                    htmlDoc.Save("Mountain1.html", Encoding.UTF8);
-                }
+                    result =  AddHeadToContent(nodesIndex, itSelfNode);
+                 }
             }
+
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(result.OuterHtml);
+            htmlDoc.Save("Mountain1.html", Encoding.UTF8);
+
             return View();
         }
 
