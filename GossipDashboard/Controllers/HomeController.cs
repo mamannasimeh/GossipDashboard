@@ -5,12 +5,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GossipDashboard.Models;
+using System.IO;
+using System.Text;
 
 namespace GossipDashboard.Controllers
 {
     public class HomeController : Controller
     {
         GossipSiteEntities context = new GossipSiteEntities();
+        private HtmlNode result;
 
         public ActionResult Index()
         {
@@ -42,17 +45,23 @@ namespace GossipDashboard.Controllers
             var postQuiz = context.Posts.ToList();
             foreach (var item in postQuiz)
             {
-                var itSelfNode = CreateHeadForContent(docTemplates, item);
+                var itSelfNode = CreateHead(docTemplates, item);
                 if (itSelfNode != null)
                 {
-                    AddHeadToContent(nodesIndex, itSelfNode);
-                }
+                    result =  AddHeadToContent(nodesIndex, itSelfNode);
+                 }
             }
+
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(result.OuterHtml);
+            htmlDoc.Save("Mountain1.html", Encoding.UTF8);
+
             return View();
         }
 
 
-        private HtmlNode CreateHeadForContent(HtmlDocument docTemplates, Post item)
+        //ايجاد محتوا براي وسط صفحه-- author-grid 
+        private HtmlNode CreateHead(HtmlDocument docTemplates, Post item)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -60,19 +69,34 @@ namespace GossipDashboard.Controllers
                 var attrs = itemNode.Attributes;
                 foreach (var itemAttr in attrs)
                 {
+                    //entry-cover پيدا كردن تگ ديو با كلاس 
                     if (itemAttr.Value == "entry-cover")
                     {
-                        HtmlNode oldChild = itemNode.ChildNodes[1];
+                        //ايجاد entry-cover
+                        HtmlNode oldChild = itemNode.FirstChild;
                         HtmlNode newChild = HtmlNode.CreateNode("<a href='" + item.Url + "' name='" + item.PostID + "'>  <img width='290' height='170' src='" + item.Image1 + "'  alt='" + item.Subject + "' />  </a>");
                         itemNode.ReplaceChild(newChild, oldChild);
-                        return itemNode;
+
+                        //برادر بعدي
+                        //ايجاد entry-content
+
+
+                        // برادر بعدي
+                        //ايجاد entry-footer
+
+
+                        //article ايجاد تگ 
+                        HtmlNode articleNode = HtmlNode.CreateNode("<article class='col-md-4 format-standard hentry category-quiz'></article>");
+                        articleNode.AppendChild(nodes.FirstOrDefault());
+                        return articleNode;
                     }
                 }
-            }
+            }  
 
             return null;
         }
 
+        //اضافه كردن محتوا به وسط صفحه -- author-grid 
         private HtmlNode AddHeadToContent(HtmlNodeCollection nodesIndex, HtmlNode itSelfNode)
         {
             foreach (var itemNode in nodesIndex)
@@ -83,7 +107,7 @@ namespace GossipDashboard.Controllers
                     if (itemAttr.Value == "author-grid")
                     {
                         itemNode.AppendChild(itSelfNode);
-                        return itemNode;
+                        return nodesIndex.FirstOrDefault();
                     }
                 }
             }

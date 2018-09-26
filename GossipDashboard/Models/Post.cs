@@ -22,8 +22,8 @@ namespace GossipDashboard.Models
         public string Image2 { get; set; }
         public Nullable<int> LikePost { get; set; }
         public Nullable<int> DislikePost { get; set; }
-        public int ModifyUserID_fk { get; set; }
-        public System.DateTime ModifyDate { get; set; }
+        public Nullable<int> ModifyUserID_fk { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
         public string Url { get; set; }
         public Nullable<int> PublishCount { get; set; }
     }
