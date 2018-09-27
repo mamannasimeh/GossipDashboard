@@ -14,8 +14,8 @@
     <Property Name="LikePost" Type="int" />
     <Property Name="DislikePost" Type="int" />
     <Property Name="PublishCount" Type="int" />
-    <Property Name="ModifyUserID_fk" Type="int" Nullable="false" />
-    <Property Name="ModifyDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifyUserID_fk" Type="int" />
+    <Property Name="ModifyDate" Type="datetime" />
   </EntityType>
   <EntityType Name="PostCategory">
     <Key>

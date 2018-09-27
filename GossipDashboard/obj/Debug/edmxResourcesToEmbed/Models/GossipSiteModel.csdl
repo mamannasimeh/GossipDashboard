@@ -12,8 +12,8 @@
     <Property Name="Image2" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="LikePost" Type="Int32" />
     <Property Name="DislikePost" Type="Int32" />
-    <Property Name="ModifyUserID_fk" Type="Int32" Nullable="false" />
-    <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifyUserID_fk" Type="Int32" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
     <Property Name="Url" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <Property Name="PublishCount" Type="Int32" />
   </EntityType>

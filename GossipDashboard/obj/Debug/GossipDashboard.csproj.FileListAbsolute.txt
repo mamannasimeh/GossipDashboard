@@ -149,7 +149,7 @@ E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\Microsoft.AI.DependencyCo
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\Microsoft.AI.ServerTelemetryChannel.xml
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\Microsoft.AI.WindowsServer.xml
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\Microsoft.AI.Web.xml
-E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.csprojResolveAssemblyReference.cache
 E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.csproj.CoreCompileInputs.cache
 E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.pdb
+E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.csprojResolveAssemblyReference.cache

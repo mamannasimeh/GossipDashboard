@@ -14,14 +14,18 @@ namespace GossipDashboard.Controllers
     {
         GossipSiteEntities context = new GossipSiteEntities();
         private HtmlNode result;
+        string path = "";
 
         public ActionResult Index()
         {
             //string path = ControllerContext.HttpContext.Server.MapPath("~/Templates/category-quiz.html");
-            string path = ControllerContext.HttpContext.Server.MapPath("~");
+            path = ControllerContext.HttpContext.Server.MapPath("~");
 
             var docTemplates = new HtmlDocument();
             docTemplates.Load(path + "/Templates/category-quiz.html", System.Text.Encoding.UTF8);
+
+            //HtmlDocument copyDocTemplates = new HtmlDocument();
+            //copyDocTemplates.DocumentNode.CopyFrom(docTemplates.DocumentNode);
 
             var docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
@@ -41,15 +45,14 @@ namespace GossipDashboard.Controllers
                 }
             }
 
-
             var postQuiz = context.Posts.ToList();
             foreach (var item in postQuiz)
             {
-                var itSelfNode = CreateHead(docTemplates, item);
+                var itSelfNode = CreateHead(item);
                 if (itSelfNode != null)
                 {
-                    result =  AddHeadToContent(nodesIndex, itSelfNode);
-                 }
+                    result = AddHeadToContent(nodesIndex, itSelfNode);
+                }
             }
 
             var htmlDoc = new HtmlDocument();
@@ -61,8 +64,11 @@ namespace GossipDashboard.Controllers
 
 
         //ايجاد محتوا براي وسط صفحه-- author-grid 
-        private HtmlNode CreateHead(HtmlDocument docTemplates, Post item)
+        private HtmlNode CreateHead(Post post)
         {
+            var docTemplates = new HtmlDocument();
+            docTemplates.Load(path + "/Templates/category-quiz.html", System.Text.Encoding.UTF8);
+
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
             {
@@ -73,8 +79,8 @@ namespace GossipDashboard.Controllers
                     if (itemAttr.Value == "entry-cover")
                     {
                         //ايجاد entry-cover
-                        HtmlNode oldChild = itemNode.FirstChild;
-                        HtmlNode newChild = HtmlNode.CreateNode("<a href='" + item.Url + "' name='" + item.PostID + "'>  <img width='290' height='170' src='" + item.Image1 + "'  alt='" + item.Subject + "' />  </a>");
+                        HtmlNode oldChild = itemNode.SelectSingleNode("//a");//FirstChild;
+                        HtmlNode newChild = HtmlNode.CreateNode("<a href='" + post.Url + "' name='" + post.PostID + "'>  <img width='290' height='170' src='" + post.Image1 + "'  alt='" + post.Subject + "' />  </a>");
                         itemNode.ReplaceChild(newChild, oldChild);
 
                         //برادر بعدي
@@ -91,7 +97,7 @@ namespace GossipDashboard.Controllers
                         return articleNode;
                     }
                 }
-            }  
+            }
 
             return null;
         }
@@ -129,4 +135,6 @@ namespace GossipDashboard.Controllers
             return View();
         }
     }
+
+
 }
