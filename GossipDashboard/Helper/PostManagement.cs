@@ -30,7 +30,7 @@ namespace GossipDashboard.Helper
         internal HtmlNode CreateHead(Post post, string templateCategory)
         {
             var docTemplates = new HtmlDocument();
-            docTemplates.Load(path + templateCategory , System.Text.Encoding.UTF8);
+            docTemplates.Load(path + templateCategory, System.Text.Encoding.UTF8);
 
 
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
@@ -43,16 +43,30 @@ namespace GossipDashboard.Helper
                     if (itemAttr.Value == "entry-cover")
                     {
                         //ايجاد entry-cover
-                        HtmlNode oldChild = itemNode.SelectSingleNode("//a");//FirstChild;
+                        //برادر اول
+                        HtmlNode oldChild = itemNode.SelectSingleNode("//a");
                         HtmlNode newChild = HtmlNode.CreateNode("<a href='" + post.Url + "' name='" + post.PostID + "'>  <img width='290' height='170' src='" + post.Image1 + "'  alt='" + post.Subject + "' />  </a>");
                         itemNode.ReplaceChild(newChild, oldChild);
 
                         //برادر بعدي
-                        //ايجاد entry-content
-
+                        oldChild = itemNode.SelectSingleNode("//div/div/div");
+                        newChild = HtmlNode.CreateNode(@"<div class='post-category'><a href='@Url.Action(""Index"",""Quiz"")' class='cat-quiz'>شوخی</a></div>");
+                        itemNode.ReplaceChild(newChild, oldChild);
 
                         // برادر بعدي
+                        oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]/a[2]");
+                        newChild = HtmlNode.CreateNode(@"<a href='"+ post.Url +"' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>");
+                        itemNode.ReplaceChild(newChild, oldChild);
+
+
+                        //ايجاد entry-content
+                        oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[2]/h3");
+                        newChild = HtmlNode.CreateNode(@"<h3 class=""entry-title""> <a href='" + post.Url + "'>" + post.Subject + "</a></h3>");
+                        itemNode.ReplaceChild(newChild, oldChild);
+
+
                         //ايجاد entry-footer
+
 
 
                         //article ايجاد تگ 

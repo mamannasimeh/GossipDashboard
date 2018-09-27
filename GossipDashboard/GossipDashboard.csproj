@@ -402,11 +402,11 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Quiz\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Posts\" />
-    <Folder Include="Views\Quiz\" />
     <Folder Include="Views\SiteManage\" />
   </ItemGroup>
   <ItemGroup>
