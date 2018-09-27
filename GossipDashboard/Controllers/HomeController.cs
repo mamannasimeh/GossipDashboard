@@ -8,6 +8,7 @@ using GossipDashboard.Models;
 using System.IO;
 using System.Text;
 using GossipDashboard.Helper;
+using GossipDashboard.Repository;
 
 namespace GossipDashboard.Controllers
 {
@@ -31,7 +32,8 @@ namespace GossipDashboard.Controllers
             postManagement.ClearContentNode(nodesIndex, "author-grid");
 
             //ایجاد  تگ آرتیکل به ازای هر پست
-            var postQuiz = context.Posts.ToList();
+            var repo = new PostRepository();
+            var postQuiz = repo.SelectPostUser().ToList();
             foreach (var item in postQuiz)
             {
                 //ايجاد محتوا براي وسط صفحه-- author-grid 
@@ -44,7 +46,7 @@ namespace GossipDashboard.Controllers
 
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(result.OuterHtml);
-            htmlDoc.Save("Mountain1.html", Encoding.UTF8);
+            htmlDoc.Save(path + "/Views/Home/Index.cshtml", Encoding.UTF8);
 
             return View();
         }

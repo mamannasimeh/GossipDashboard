@@ -14,6 +14,12 @@ namespace GossipDashboard.Models
     
     public partial class PubBase
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PubBase()
+        {
+            this.PostCategories = new HashSet<PostCategory>();
+        }
+    
         public int PubBaseID { get; set; }
         public Nullable<int> ParentID { get; set; }
         public string NameFa { get; set; }
@@ -23,5 +29,8 @@ namespace GossipDashboard.Models
         public Nullable<bool> Active { get; set; }
         public Nullable<int> ModifyUserID_fk { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PostCategory> PostCategories { get; set; }
     }
 }

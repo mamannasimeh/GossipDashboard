@@ -19,5 +19,7 @@ namespace GossipDashboard.Models
         public string Comment { get; set; }
         public Nullable<int> LikeComment { get; set; }
         public Nullable<int> DislikeComment { get; set; }
+    
+        public virtual Post Post { get; set; }
     }
 }

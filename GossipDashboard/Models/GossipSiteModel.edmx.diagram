@@ -5,10 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b8c95f9bbc5940e38e5fd1a51d2e359c" Name="Diagram1">
-        <EntityTypeShape EntityType="GossipSiteModel.Post" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GossipSiteModel.PostCategory" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GossipSiteModel.PostComment" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GossipSiteModel.PubBase" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GossipSiteModel.User" Width="1.5" PointX="2.75" PointY="7.375" />
+        <EntityTypeShape EntityType="GossipSiteModel.UserPost" Width="1.5" PointX="5" PointY="4.625" />
+        <AssociationConnector Association="GossipSiteModel.FK_PostCategory_PubBase" />
+        <AssociationConnector Association="GossipSiteModel.FK_UserPost_User" />
+        <EntityTypeShape EntityType="GossipSiteModel.Post" Width="1.5" PointX="0.75" PointY="1.875" />
+        <AssociationConnector Association="GossipSiteModel.FK_PostCategory_Post" />
+        <AssociationConnector Association="GossipSiteModel.FK_PostComment_Post" />
+        <AssociationConnector Association="GossipSiteModel.FK_UserPost_Post" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

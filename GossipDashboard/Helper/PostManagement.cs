@@ -1,4 +1,5 @@
 ﻿using GossipDashboard.Models;
+using GossipDashboard.ViewModel;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace GossipDashboard.Helper
         /// <param name="post">شی پست</param>
         /// <param name="templateCategory">تمپلیتی که قصد داریم از روی آن آرتیکل را بسازیم</param>
         /// <returns></returns>
-        internal HtmlNode CreateHead(Post post, string templateCategory)
+        internal HtmlNode CreateHead(VM_Post post, string templateCategory)
         {
             var docTemplates = new HtmlDocument();
             docTemplates.Load(path + templateCategory, System.Text.Encoding.UTF8);
@@ -50,34 +51,55 @@ namespace GossipDashboard.Helper
 
                         //برادر بعدي
                         oldChild = itemNode.SelectSingleNode("//div/div/div");
-                        newChild = HtmlNode.CreateNode(@"<div class='post-category'><a href='@Url.Action(""Index"",""Quiz"")' class='cat-quiz'>شوخی</a></div>");
+                        newChild = HtmlNode.CreateNode(@"<div class='post-category'><a href='Quiz/Index' class='cat-quiz'>شوخی</a></div>");
                         itemNode.ReplaceChild(newChild, oldChild);
 
                         // برادر بعدي
                         oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]/a[2]");
-                        newChild = HtmlNode.CreateNode(@"<a href='"+ post.Url +"' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>");
+                        newChild = HtmlNode.CreateNode(@"<a href='" + post.Url + "' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>");
                         itemNode.ReplaceChild(newChild, oldChild);
+                    }
 
-
+                    //entry-content پيدا كردن تگ ديو با كلاس 
+                    if (itemAttr.Value == "entry-content")
+                    {
                         //ايجاد entry-content
-                        oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[2]/h3");
-                        newChild = HtmlNode.CreateNode(@"<h3 class=""entry-title""> <a href='" + post.Url + "'>" + post.Subject + "</a></h3>");
+                        HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[2]/h3");
+                        HtmlNode newChild = HtmlNode.CreateNode(@"<h3 class=""entry-title""> <a href='" + post.Url + "'>" + post.Subject + "</a></h3>");
                         itemNode.ReplaceChild(newChild, oldChild);
+                    }
 
-
-                        //ايجاد entry-footer
-
-
-
-                        //article ايجاد تگ 
-                        HtmlNode articleNode = HtmlNode.CreateNode("<article class='col-md-4 format-standard hentry category-quiz'></article>");
-                        articleNode.AppendChild(nodes.FirstOrDefault());
-                        return articleNode;
+                    //entry-footer پيدا كردن تگ ديو با كلاس 
+                    if (itemAttr.Value == "entry-footer")
+                    {
+                        HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[3]/div[1]");
+                        HtmlNode newChild = HtmlNode.CreateNode(@"<div class=' row'>
+                                                                        <div class='col-md-12'>
+                                                                            <ul class='common-meta' style='width:auto'>
+                                                                                <li>
+                                                                                    <i class='fa fa-user'></i>
+                                                                                    <a href='Admin/" + post.Fullname + "' title=ایجادکننده'" + post.Fullname + "' rel='author'>" + post.Fullname + "</a>" +
+                                                                                "</li>" +
+                                                                                "<li>" +
+                                                                                    "<i class='fa fa-comment'> " + post.CommentCount + "</i>" +
+                                                                                    "<a href='Comment/" + post.PostID + "' > " +
+                                                                                "</li>" +
+                                                                                "<li class='post-like'>" +
+                                                                                    "<a href='#'>" +
+                                                                                        "<p class='fa fa-eye'></p> " + post.Views +
+                                                                                   "</a>" +
+                                                                                "</li>" +
+                                                                            "</ul>" +
+                                                                        "</div>" +
+                                                                    "</div>");
+                        itemNode.ReplaceChild(newChild, oldChild);
                     }
                 }
             }
-
-            return null;
+            //article ايجاد تگ 
+            HtmlNode articleNode = HtmlNode.CreateNode("<article class='col-md-4 format-standard hentry category-quiz'></article>");
+            articleNode.AppendChild(nodes.FirstOrDefault());
+            return articleNode;
         }
 
         /// <summary>

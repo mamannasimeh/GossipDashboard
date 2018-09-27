@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="GossipSiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+<Schema Namespace="GossipSiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Post">
     <Key>
       <PropertyRef Name="PostID" />
@@ -14,7 +14,7 @@
     <Property Name="LikePost" Type="int" />
     <Property Name="DislikePost" Type="int" />
     <Property Name="PublishCount" Type="int" />
-    <Property Name="ModifyUserID_fk" Type="int" />
+    <Property Name="ModifyUserID" Type="int" />
     <Property Name="ModifyDate" Type="datetime" />
   </EntityType>
   <EntityType Name="PostCategory">
@@ -49,10 +49,115 @@
     <Property Name="ModifyUserID_fk" Type="int" />
     <Property Name="ModifyDate" Type="datetime" />
   </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="200" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="500" />
+    <Property Name="Salt" Type="nvarchar" MaxLength="1000" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="1000" Nullable="false" />
+    <Property Name="ModifyUserID" Type="int" />
+    <Property Name="ModifyDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="UserPost">
+    <Key>
+      <PropertyRef Name="UserPostID" />
+    </Key>
+    <Property Name="UserPostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID_fk" Type="int" Nullable="false" />
+    <Property Name="PostID_fk" Type="int" Nullable="false" />
+    <Property Name="ModifyUserID" Type="int" />
+    <Property Name="ModifyDate" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_PostCategory_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+    <End Role="PostCategory" Type="Self.PostCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="PostCategory">
+        <PropertyRef Name="PostID_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostCategory_PubBase">
+    <End Role="PubBase" Type="Self.PubBase" Multiplicity="0..1" />
+    <End Role="PostCategory" Type="Self.PostCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PubBase">
+        <PropertyRef Name="PubBaseID" />
+      </Principal>
+      <Dependent Role="PostCategory">
+        <PropertyRef Name="CategoryID_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostComment_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="PostComment" Type="Self.PostComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="PostComment">
+        <PropertyRef Name="PostID_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPost_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="UserPost" Type="Self.UserPost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="UserPost">
+        <PropertyRef Name="PostID_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPost_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="UserPost" Type="Self.UserPost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserPost">
+        <PropertyRef Name="UserID_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="GossipSiteModelStoreContainer">
-    <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-    <EntitySet Name="PostCategory" EntityType="Self.PostCategory" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-    <EntitySet Name="PostComment" EntityType="Self.PostComment" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-    <EntitySet Name="PubBase" EntityType="Self.PubBase" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PostCategory" EntityType="Self.PostCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PostComment" EntityType="Self.PostComment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PubBase" EntityType="Self.PubBase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserPost" EntityType="Self.UserPost" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_PostCategory_Post" Association="Self.FK_PostCategory_Post">
+      <End Role="Post" EntitySet="Post" />
+      <End Role="PostCategory" EntitySet="PostCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostCategory_PubBase" Association="Self.FK_PostCategory_PubBase">
+      <End Role="PubBase" EntitySet="PubBase" />
+      <End Role="PostCategory" EntitySet="PostCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostComment_Post" Association="Self.FK_PostComment_Post">
+      <End Role="Post" EntitySet="Post" />
+      <End Role="PostComment" EntitySet="PostComment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPost_Post" Association="Self.FK_UserPost_Post">
+      <End Role="Post" EntitySet="Post" />
+      <End Role="UserPost" EntitySet="UserPost" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPost_User" Association="Self.FK_UserPost_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserPost" EntitySet="UserPost" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

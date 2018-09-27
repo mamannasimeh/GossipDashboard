@@ -244,8 +244,17 @@
     <Compile Include="Models\PubBase.cs">
       <DependentUpon>GossipSiteModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>GossipSiteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserPost.cs">
+      <DependentUpon>GossipSiteModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\PostRepository.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\VM_Post.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Audio\sample.mp3" />

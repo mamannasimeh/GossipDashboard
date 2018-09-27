@@ -1,45 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="GossipSiteModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
-  <EntityType Name="Post">
-    <Key>
-      <PropertyRef Name="PostID" />
-    </Key>
-    <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Subject" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="ContentPost" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Views" Type="Int32" />
-    <Property Name="Image1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-    <Property Name="Image2" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-    <Property Name="LikePost" Type="Int32" />
-    <Property Name="DislikePost" Type="Int32" />
-    <Property Name="ModifyUserID_fk" Type="Int32" />
-    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-    <Property Name="Url" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-    <Property Name="PublishCount" Type="Int32" />
-  </EntityType>
+<Schema Namespace="GossipSiteModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
   <EntityType Name="PostCategory">
     <Key>
       <PropertyRef Name="PostCategoryID" />
     </Key>
-    <Property Name="PostCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
     <Property Name="PostID_fk" Type="Int32" />
     <Property Name="CategoryID_fk" Type="Int32" />
+    <NavigationProperty Name="PubBase" Relationship="GossipSiteModel.FK_PostCategory_PubBase" FromRole="PostCategory" ToRole="PubBase" />
+    <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostCategory_Post" FromRole="PostCategory" ToRole="Post" />
   </EntityType>
   <EntityType Name="PostComment">
     <Key>
       <PropertyRef Name="PostCommentID" />
     </Key>
-    <Property Name="PostCommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostCommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
     <Property Name="PostID_fk" Type="Int32" Nullable="false" />
     <Property Name="Comment" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
     <Property Name="LikeComment" Type="Int32" />
     <Property Name="DislikeComment" Type="Int32" />
+    <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="PostComment" ToRole="Post" />
   </EntityType>
   <EntityType Name="PubBase">
     <Key>
       <PropertyRef Name="PubBaseID" />
     </Key>
-    <Property Name="PubBaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PubBaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
     <Property Name="ParentID" Type="Int32" />
     <Property Name="NameFa" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="NameEn" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -48,11 +34,140 @@
     <Property Name="Active" Type="Boolean" />
     <Property Name="ModifyUserID_fk" Type="Int32" />
     <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="PostCategories" Relationship="GossipSiteModel.FK_PostCategory_PubBase" FromRole="PubBase" ToRole="PostCategory" />
   </EntityType>
-  <EntityContainer Name="GossipSiteEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Posts" EntityType="Self.Post" />
+  <EntityContainer Name="GossipSiteEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
     <EntitySet Name="PostCategories" EntityType="Self.PostCategory" />
     <EntitySet Name="PostComments" EntityType="Self.PostComment" />
     <EntitySet Name="PubBases" EntityType="Self.PubBase" />
+    <EntitySet Name="Users" EntityType="GossipSiteModel.User" />
+    <EntitySet Name="UserPosts" EntityType="GossipSiteModel.UserPost" />
+    <AssociationSet Name="FK_PostCategory_PubBase" Association="GossipSiteModel.FK_PostCategory_PubBase">
+      <End Role="PubBase" EntitySet="PubBases" />
+      <End Role="PostCategory" EntitySet="PostCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPost_User" Association="GossipSiteModel.FK_UserPost_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserPost" EntitySet="UserPosts" />
+    </AssociationSet>
+    <EntitySet Name="Posts" EntityType="GossipSiteModel.Post" />
+    <AssociationSet Name="FK_PostCategory_Post" Association="GossipSiteModel.FK_PostCategory_Post">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="PostCategory" EntitySet="PostCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostComment_Post" Association="GossipSiteModel.FK_PostComment_Post">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="PostComment" EntitySet="PostComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPost_Post" Association="GossipSiteModel.FK_UserPost_Post">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="UserPost" EntitySet="UserPosts" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Salt" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyUserID" Type="Int32" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="UserPosts" Relationship="GossipSiteModel.FK_UserPost_User" FromRole="User" ToRole="UserPost" />
+  </EntityType>
+  <EntityType Name="UserPost">
+    <Key>
+      <PropertyRef Name="UserPostID" />
+    </Key>
+    <Property Name="UserPostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID_fk" Type="Int32" Nullable="false" />
+    <Property Name="PostID_fk" Type="Int32" Nullable="false" />
+    <Property Name="ModifyUserID" Type="Int32" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="User" Relationship="GossipSiteModel.FK_UserPost_User" FromRole="UserPost" ToRole="User" />
+    <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="UserPost" ToRole="Post" />
+  </EntityType>
+  <Association Name="FK_PostCategory_PubBase">
+    <End Type="GossipSiteModel.PubBase" Role="PubBase" Multiplicity="0..1" />
+    <End Type="GossipSiteModel.PostCategory" Role="PostCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PubBase">
+        <PropertyRef Name="PubBaseID" />
+      </Principal>
+      <Dependent Role="PostCategory">
+        <PropertyRef Name="CategoryID_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPost_User">
+    <End Type="GossipSiteModel.User" Role="User" Multiplicity="1" />
+    <End Type="GossipSiteModel.UserPost" Role="UserPost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserPost">
+        <PropertyRef Name="UserID_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="PostID" />
+    </Key>
+    <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="ContentPost" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Url" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Views" Type="Int32" />
+    <Property Name="Image1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image2" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="LikePost" Type="Int32" />
+    <Property Name="DislikePost" Type="Int32" />
+    <Property Name="PublishCount" Type="Int32" />
+    <Property Name="ModifyUserID" Type="Int32" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="PostCategories" Relationship="GossipSiteModel.FK_PostCategory_Post" FromRole="Post" ToRole="PostCategory" />
+    <NavigationProperty Name="PostComments" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
+    <NavigationProperty Name="UserPosts" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="Post" ToRole="UserPost" />
+  </EntityType>
+  <Association Name="FK_PostCategory_Post">
+    <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="0..1" />
+    <End Type="GossipSiteModel.PostCategory" Role="PostCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="PostCategory">
+        <PropertyRef Name="PostID_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostComment_Post">
+    <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="1" />
+    <End Type="GossipSiteModel.PostComment" Role="PostComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="PostComment">
+        <PropertyRef Name="PostID_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPost_Post">
+    <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="1" />
+    <End Type="GossipSiteModel.UserPost" Role="UserPost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="UserPost">
+        <PropertyRef Name="PostID_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
