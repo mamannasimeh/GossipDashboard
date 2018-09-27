@@ -37,7 +37,7 @@ namespace GossipDashboard.Controllers
             foreach (var item in postQuiz)
             {
                 //ايجاد محتوا براي وسط صفحه-- author-grid 
-                var itSelfNode = postManagement.CreateHead(item, "/Templates/category-quiz.html");
+                var itSelfNode = postManagement.CreateHead(item, PostType.Cute, "/Templates/category-quiz.html");
                 if (itSelfNode != null)
                 {
                     result = postManagement.AddHeadToContent(nodesIndex, "author-grid", itSelfNode);

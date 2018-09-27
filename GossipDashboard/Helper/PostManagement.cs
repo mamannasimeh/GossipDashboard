@@ -23,15 +23,36 @@ namespace GossipDashboard.Helper
         }
 
         /// <summary>
-        /// ساخت آرتیکل های معمولی وسط صفحه
+        /// ساخت آرتیکل های شوخی وسط صفحه
         /// </summary>
         /// <param name="post">شی پست</param>
         /// <param name="templateCategory">تمپلیتی که قصد داریم از روی آن آرتیکل را بسازیم</param>
         /// <returns></returns>
-        internal HtmlNode CreateHead(VM_Post post, string templateCategory)
+        internal HtmlNode CreateHead(VM_Post post, PostType postType, string templateCategory)
         {
+            string categoryClass = "", articleClass = "";
+            string categoryName = "";
             var docTemplates = new HtmlDocument();
             docTemplates.Load(path + templateCategory, System.Text.Encoding.UTF8);
+
+            switch (postType)
+            {
+                case PostType.Quiz:
+                     categoryClass = "cat-quiz";
+                     categoryName = "شوخی";
+                    articleClass = "category-quiz";
+                    break;
+                case PostType.Cute:
+                    categoryClass = "cat-cute";
+                    categoryName = "ناز";
+                    articleClass = "category-cute category-entertainment";
+                    break;
+                default:
+                    categoryClass = "cat-quiz";
+                    categoryName = "شوخی";
+                    articleClass = "category-quiz";
+                    break;
+            }
 
 
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
@@ -51,7 +72,7 @@ namespace GossipDashboard.Helper
 
                         //برادر بعدي
                         oldChild = itemNode.SelectSingleNode("//div/div/div");
-                        newChild = HtmlNode.CreateNode(@"<div class='post-category'><a href='Quiz/Index' class='cat-quiz'>شوخی</a></div>");
+                        newChild = HtmlNode.CreateNode(@"<div class='post-category'><a href='Quiz/Index' class='" + categoryClass + "'>" + categoryName + "</a></div>");
                         itemNode.ReplaceChild(newChild, oldChild);
 
                         // برادر بعدي
@@ -97,10 +118,11 @@ namespace GossipDashboard.Helper
                 }
             }
             //article ايجاد تگ 
-            HtmlNode articleNode = HtmlNode.CreateNode("<article class='col-md-4 format-standard hentry category-quiz'></article>");
+            HtmlNode articleNode = HtmlNode.CreateNode("<article class='col-md-4 format-standard hentry " + articleClass + "'></article>");
             articleNode.AppendChild(nodes.FirstOrDefault());
             return articleNode;
         }
+
 
         /// <summary>
         /// اضافه كردن محتوا به وسط صفحه
