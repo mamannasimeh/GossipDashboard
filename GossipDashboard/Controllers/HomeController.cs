@@ -132,7 +132,7 @@ namespace GossipDashboard.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            return View("Contact"); 
+            return View("Contact",new Object()); 
         }
     }
 
