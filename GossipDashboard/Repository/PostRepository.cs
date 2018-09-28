@@ -20,29 +20,64 @@ namespace GossipDashboard.Repository
 
         public IQueryable<VM_Post> SelectPostUser()
         {
+            var postCategoryID = context.PubBases.First(p => p.NameEn == "PostCategory").PubBaseID;
+            var PostFormatID = context.PubBases.First(p => p.NameEn == "PostFormat").PubBaseID;
+            var LinkToAllPostCategoryID = context.PubBases.First(p => p.NameEn == "LinkToAllPostCategory").PubBaseID;
+
             var res = from P in context.Posts
-                       join UP in context.UserPosts on P.PostID equals UP.PostID_fk
-                       join U in context.Users on UP.UserID_fk equals U.UserID
-                       select new VM_Post
-                       {
-                           PostID = P.PostID,
-                           ContentPost = P.ContentPost,
-                           DislikePost = P.DislikePost,
-                           Image1 = P.Image1,
-                           Image2 = P.Image2,
-                           LikePost = P.LikePost,
-                           ModifyDate = P.ModifyDate,
-                           ModifyUserID = P.ModifyUserID,
-                           PublishCount = P.PublishCount,
-                           Subject = P.Subject,
-                           Url = P.Url,
-                           Views = P.Views,
-                           UserID_fk = UP.UserID_fk,
-                           FirstName = U.FirstName,
-                           LastName = U.LastName,
-                           Fullname = U.FirstName + " " + U.LastName,
-                           CommentCount = context.PostComments.Count(x => x.PostID_fk == P.PostID)
-                       };
+                      join UP in context.UserPosts on P.PostID equals UP.PostID_fk
+                      join U in context.Users on UP.UserID_fk equals U.UserID
+                      select new VM_Post
+                      {
+                          PostID = P.PostID,
+                          ContentPost = P.ContentPost,
+                          DislikePost = P.DislikePost,
+                          Image1 = P.Image1,
+                          Image2 = P.Image2,
+                          LikePost = P.LikePost,
+                          ModifyDate = P.ModifyDate,
+                          ModifyUserID = P.ModifyUserID,
+                          PublishCount = P.PublishCount,
+                          Subject = P.Subject,
+                          Url = P.Url,
+                          Views = P.Views,
+                          UserID_fk = UP.UserID_fk,
+                          FirstName = U.FirstName,
+                          LastName = U.LastName,
+                          Fullname = U.FirstName + " " + U.LastName,
+                          CommentCount = context.PostComments.Count(x => x.PostID_fk == P.PostID),
+                          PostCategory = context.PostAttributes.Join(context.PubBases, postAttr => postAttr.AttributeID_fk, pBase => pBase.PubBaseID, (postAttr, pBase) =>
+                          new VM_PubBase
+                          {
+                              PubBaseID = pBase.PubBaseID,
+                              NameFa = pBase.NameFa,
+                              ClassName = pBase.ClassName,
+                              NameEn = pBase.NameEn,
+                              PostID = postAttr.PostID_fk,
+                              ParentID = pBase.ParentID
+                          }).Where(x => x.PostID == P.PostID && x.ParentID == postCategoryID),
+                          PostFormat = context.PostAttributes.Join(context.PubBases, postAttr => postAttr.AttributeID_fk, pBase => pBase.PubBaseID, (postAttr, pBase) =>
+                         new VM_PubBase
+                         {
+                             PubBaseID = pBase.PubBaseID,
+                             NameFa = pBase.NameFa,
+                             ClassName = pBase.ClassName,
+                             NameEn = pBase.NameEn,
+                             PostID = postAttr.PostID_fk,
+                             ParentID = pBase.ParentID
+                         }).Where(x => x.PostID == P.PostID && x.ParentID == postCategoryID),
+
+                        LinkToAllPostCategory = context.PostAttributes.Join(context.PubBases, postAttr => postAttr.AttributeID_fk, pBase => pBase.PubBaseID, (postAttr, pBase) =>
+                         new VM_PubBase
+                         {
+                             PubBaseID = pBase.PubBaseID,
+                             NameFa = pBase.NameFa,
+                             ClassName = pBase.ClassName,
+                             NameEn = pBase.NameEn,
+                             PostID = postAttr.PostID_fk,
+                             ParentID = pBase.ParentID
+                         }).Where(x => x.PostID == P.PostID && x.ParentID == LinkToAllPostCategoryID),
+                      };
             return res;
         }
 

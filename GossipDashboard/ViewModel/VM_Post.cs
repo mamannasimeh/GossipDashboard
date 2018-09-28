@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using GossipDashboard.Models;
 
 namespace GossipDashboard.ViewModel
 {
@@ -25,5 +26,8 @@ namespace GossipDashboard.ViewModel
         public string LastName { get;  set; }
         public string Fullname { get;  set; }
         public int CommentCount { get;  set; }
+        public IQueryable<VM_PubBase> PostCategory { get;  set; }
+        public IQueryable<VM_PubBase> PostFormat { get;  set; }
+        public IQueryable<VM_PubBase> LinkToAllPostCategory { get;  set; }
     }
 }

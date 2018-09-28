@@ -17,7 +17,7 @@ namespace GossipDashboard.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PubBase()
         {
-            this.PostCategories = new HashSet<PostCategory>();
+            this.PostAttributes = new HashSet<PostAttribute>();
         }
     
         public int PubBaseID { get; set; }
@@ -26,11 +26,12 @@ namespace GossipDashboard.Models
         public string NameEn { get; set; }
         public string GroupBase { get; set; }
         public string Description { get; set; }
+        public string ClassName { get; set; }
         public Nullable<bool> Active { get; set; }
-        public Nullable<int> ModifyUserID_fk { get; set; }
+        public Nullable<int> ModifyUserID { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PostCategory> PostCategories { get; set; }
+        public virtual ICollection<PostAttribute> PostAttributes { get; set; }
     }
 }

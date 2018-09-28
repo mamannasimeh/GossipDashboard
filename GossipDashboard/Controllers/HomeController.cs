@@ -16,11 +16,10 @@ namespace GossipDashboard.Controllers
     {
         GossipSiteEntities context = new GossipSiteEntities();
         private HtmlNode result;
-        string path = "";
-
+        
         public ActionResult Index()
         {
-            //string path = ControllerContext.HttpContext.Server.MapPath("~/Templates/category-quiz.html");
+            string path = "";
             path = ControllerContext.HttpContext.Server.MapPath("~");
             PostManagement postManagement = new PostManagement(path);
 
@@ -37,7 +36,7 @@ namespace GossipDashboard.Controllers
             foreach (var item in postQuiz)
             {
                 //ايجاد محتوا براي وسط صفحه-- author-grid 
-                var itSelfNode = postManagement.CreateHead(item, PostType.Cute, "/Templates/category-quiz.html");
+                var itSelfNode = postManagement.CreateHeadStandard(item, "/Templates/format-standard.html");
                 if (itSelfNode != null)
                 {
                     result = postManagement.AddHeadToContent(nodesIndex, "author-grid", itSelfNode);
@@ -46,7 +45,7 @@ namespace GossipDashboard.Controllers
 
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(result.OuterHtml);
-            htmlDoc.Save(path + "/Views/Home/Index.cshtml", Encoding.UTF8);
+            //htmlDoc.Save(path + "/Views/Home/Index.cshtml", Encoding.UTF8);
 
             return View();
         }

@@ -236,7 +236,7 @@
     <Compile Include="Models\Post.cs">
       <DependentUpon>GossipSiteModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PostCategory.cs">
+    <Compile Include="Models\PostAttribute.cs">
       <DependentUpon>GossipSiteModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PostComment.cs">
@@ -256,6 +256,7 @@
     <Compile Include="Repository\PostRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\VM_Post.cs" />
+    <Compile Include="ViewModel\VM_PubBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Audio\sample.mp3" />
@@ -377,8 +378,14 @@
     <Content Include="Scripts\woocommerce.min.js" />
     <Content Include="Scripts\wp-embed.min.js" />
     <Content Include="Scripts\wp-mediaelement.min.js" />
-    <Content Include="Templates\category-cute.html" />
-    <Content Include="Templates\category-quiz.html" />
+    <Content Include="Templates\format-audio.html" />
+    <Content Include="Templates\format-gallery.html" />
+    <Content Include="Templates\format-image.html" />
+    <Content Include="Templates\format-link.html" />
+    <Content Include="Templates\format-quote.html" />
+    <Content Include="Templates\format-standard.html" />
+    <Content Include="Templates\format-status.html" />
+    <Content Include="Templates\format-video.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

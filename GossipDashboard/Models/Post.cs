@@ -17,7 +17,7 @@ namespace GossipDashboard.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Post()
         {
-            this.PostCategories = new HashSet<PostCategory>();
+            this.PostAttributes = new HashSet<PostAttribute>();
             this.PostComments = new HashSet<PostComment>();
             this.UserPosts = new HashSet<UserPost>();
         }
@@ -36,7 +36,7 @@ namespace GossipDashboard.Models
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PostCategory> PostCategories { get; set; }
+        public virtual ICollection<PostAttribute> PostAttributes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostComment> PostComments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

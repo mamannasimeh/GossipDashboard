@@ -17,13 +17,13 @@
     <Property Name="ModifyUserID" Type="int" />
     <Property Name="ModifyDate" Type="datetime" />
   </EntityType>
-  <EntityType Name="PostCategory">
+  <EntityType Name="PostAttribute">
     <Key>
-      <PropertyRef Name="PostCategoryID" />
+      <PropertyRef Name="PostAttributeID" />
     </Key>
-    <Property Name="PostCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PostAttributeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PostID_fk" Type="int" />
-    <Property Name="CategoryID_fk" Type="int" />
+    <Property Name="AttributeID_fk" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="PostComment">
     <Key>
@@ -45,8 +45,9 @@
     <Property Name="NameEn" Type="nvarchar" MaxLength="500" />
     <Property Name="GroupBase" Type="nvarchar" MaxLength="50" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="ClassName" Type="varchar" MaxLength="500" />
     <Property Name="Active" Type="bit" />
-    <Property Name="ModifyUserID_fk" Type="int" />
+    <Property Name="ModifyUserID" Type="int" />
     <Property Name="ModifyDate" Type="datetime" />
   </EntityType>
   <EntityType Name="User">
@@ -74,25 +75,25 @@
   </EntityType>
   <Association Name="FK_PostCategory_Post">
     <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
-    <End Role="PostCategory" Type="Self.PostCategory" Multiplicity="*" />
+    <End Role="PostAttribute" Type="Self.PostAttribute" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Post">
         <PropertyRef Name="PostID" />
       </Principal>
-      <Dependent Role="PostCategory">
+      <Dependent Role="PostAttribute">
         <PropertyRef Name="PostID_fk" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_PostCategory_PubBase">
-    <End Role="PubBase" Type="Self.PubBase" Multiplicity="0..1" />
-    <End Role="PostCategory" Type="Self.PostCategory" Multiplicity="*" />
+    <End Role="PubBase" Type="Self.PubBase" Multiplicity="1" />
+    <End Role="PostAttribute" Type="Self.PostAttribute" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="PubBase">
         <PropertyRef Name="PubBaseID" />
       </Principal>
-      <Dependent Role="PostCategory">
-        <PropertyRef Name="CategoryID_fk" />
+      <Dependent Role="PostAttribute">
+        <PropertyRef Name="AttributeID_fk" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -134,18 +135,18 @@
   </Association>
   <EntityContainer Name="GossipSiteModelStoreContainer">
     <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="PostCategory" EntityType="Self.PostCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PostAttribute" EntityType="Self.PostAttribute" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PostComment" EntityType="Self.PostComment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PubBase" EntityType="Self.PubBase" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserPost" EntityType="Self.UserPost" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_PostCategory_Post" Association="Self.FK_PostCategory_Post">
       <End Role="Post" EntitySet="Post" />
-      <End Role="PostCategory" EntitySet="PostCategory" />
+      <End Role="PostAttribute" EntitySet="PostAttribute" />
     </AssociationSet>
     <AssociationSet Name="FK_PostCategory_PubBase" Association="Self.FK_PostCategory_PubBase">
       <End Role="PubBase" EntitySet="PubBase" />
-      <End Role="PostCategory" EntitySet="PostCategory" />
+      <End Role="PostAttribute" EntitySet="PostAttribute" />
     </AssociationSet>
     <AssociationSet Name="FK_PostComment_Post" Association="Self.FK_PostComment_Post">
       <End Role="Post" EntitySet="Post" />
