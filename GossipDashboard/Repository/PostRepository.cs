@@ -21,7 +21,7 @@ namespace GossipDashboard.Repository
         public IQueryable<VM_Post> SelectPostUser()
         {
             var postCategoryID = context.PubBases.First(p => p.NameEn == "PostCategory").PubBaseID;
-            var PostFormatID = context.PubBases.First(p => p.NameEn == "PostFormat").PubBaseID;
+            var postFormatID = context.PubBases.First(p => p.NameEn == "PostFormat").PubBaseID;
             var LinkToAllPostCategoryID = context.PubBases.First(p => p.NameEn == "LinkToAllPostCategory").PubBaseID;
 
             var res = from P in context.Posts
@@ -65,7 +65,7 @@ namespace GossipDashboard.Repository
                              NameEn = pBase.NameEn,
                              PostID = postAttr.PostID_fk,
                              ParentID = pBase.ParentID
-                         }).Where(x => x.PostID == P.PostID && x.ParentID == postCategoryID),
+                         }).Where(x => x.PostID == P.PostID && x.ParentID == postFormatID),
 
                         LinkToAllPostCategory = context.PostAttributes.Join(context.PubBases, postAttr => postAttr.AttributeID_fk, pBase => pBase.PubBaseID, (postAttr, pBase) =>
                          new VM_PubBase
