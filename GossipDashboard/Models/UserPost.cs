@@ -12,14 +12,15 @@ namespace GossipDashboard.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PostComment
+    public partial class UserPost
     {
-        public int PostCommentID { get; set; }
+        public int UserPostID { get; set; }
+        public int UserID_fk { get; set; }
         public int PostID_fk { get; set; }
-        public string Comment { get; set; }
-        public Nullable<int> LikeComment { get; set; }
-        public Nullable<int> DislikeComment { get; set; }
+        public Nullable<int> ModifyUserID { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual Post Post { get; set; }
+        public virtual User User { get; set; }
     }
 }
