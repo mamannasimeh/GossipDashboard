@@ -188,7 +188,7 @@ namespace GossipDashboard.Helper
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
                         HtmlNode newChild = HtmlNode.CreateNode(@"<div class='post-box'>"+
-                                                                        " < div class='entry-cover'>"+
+                                                                        "<div class='entry-cover'>"+
                                                                             "<div id='"+post.PostID+"' class='carousel slide gallery_post' data-ride='carousel'>"+
                                                                                 "<div class='carousel-inner' role='listbox'>"+
                                                                                     "<div class='item'>"+
@@ -198,20 +198,20 @@ namespace GossipDashboard.Helper
                                                                                     "<div class='item'>" +
                                                                                         "<img src='http://viralnews.weblusive-themes.com/wp-content/uploads/2016/02/chihuahua-624924_1280-665x315.jpg' class='blog-post-img'" +
                                                                                              "alt='' width='665' height='315' />" +
-                                                                                   " </div>" +
+                                                                                   "</div>" +
                                                                                     "<div class='item'>" +
                                                                                         "<img src='http://viralnews.weblusive-themes.com/wp-content/uploads/2016/02/deer-952744_1280-665x315.jpg' class='blog-post-img'" +
                                                                                             " alt='' width='665' height='315' />" +
-                                                                                   " </div>" +
+                                                                                   "</div>" +
                                                                                 "</div>" +
                                                                                 "<a class='left carousel-control' href='#galpost_924' role='button' data-slide='prev'>" +
                                                                                     "<span class='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>" +
                                                                                     "<span class='sr-only'>Previous</span>" +
-                                                                               " </a>" +
+                                                                               "</a>" +
                                                                                 "<a class='right carousel-control' href='#galpost_924' role='button' data-slide='next'>" +
                                                                                     "<span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>" +
                                                                                     "<span class='sr-only'>Next</span>" +
-                                                                               " </a>" +
+                                                                               "</a>" +
                                                                             "</div>" +
                                                                            " <script type='text/javascript'> " +
                                                                                 "jQuery('document').ready(function () {" +
@@ -245,15 +245,15 @@ namespace GossipDashboard.Helper
                                                                                             "<i class='fa fa-comment'></i>" +
                                                                                             "<a href='post/post-32.html#respond'>0</a> " +
                                                                                         "</li> " +
-                                                                                        "< li class='post-like'>" +
+                                                                                        "<li class='post-like'>" +
                                                                                             "<a href='#'> " +
-                                                                                                "< i class='fa fa-eye'></i>1169" +
+                                                                                                "<i class='fa fa-eye'></i>1169" +
                                                                                             "</a>" +
                                                                                         "</li>" +
                                                                                     "</ul>" +
                                                                                 "</div>" +
                                                                             "</div>" +
-                                                                       " </div>" +
+                                                                       "</div>" +
                                                                     "</div>");
                         itemNode.ReplaceChild(newChild, oldChild);
                     }
