@@ -36,7 +36,7 @@ namespace GossipDashboard.Controllers
             foreach (var item in postQuiz)
             {
                 //ايجاد محتوا براي وسط صفحه-- author-grid 
-                var itSelfNode = postManagement.CreateHeadStandard(item, "/Templates/format-standard.html");
+                var itSelfNode = postManagement.CreateHead(item);
                 if (itSelfNode != null)
                 {
                     result = postManagement.AddHeadToContent(nodesIndex, "author-grid", itSelfNode);
@@ -45,7 +45,7 @@ namespace GossipDashboard.Controllers
 
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(result.OuterHtml);
-            //htmlDoc.Save(path + "/Views/Home/Index.cshtml", Encoding.UTF8);
+            htmlDoc.Save(path + "/Views/Home/Index.cshtml", Encoding.UTF8);
 
             return View();
         }

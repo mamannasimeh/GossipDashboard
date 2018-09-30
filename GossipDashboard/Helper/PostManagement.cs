@@ -22,27 +22,30 @@ namespace GossipDashboard.Helper
             this.path = path;
         }
 
+
+
         /// <summary>
-        /// ساخت آرتیکل های استاندارد وسط صفحه
+        /// ساخت آرتیکل های وسط صفحه
         /// </summary>
         /// <param name="post">شی پست</param>
         /// <param name="templateCategory">تمپلیتی که قصد داریم از روی آن آرتیکل را بسازیم</param>
         /// <returns></returns>
-        internal HtmlNode CreateHeadStandard(VM_Post post, string templateCategory)
+        internal HtmlNode CreateHead(VM_Post post)
         {
-            string postFormat = "", postCategory = "";
+            string postClassArticle = "", postClassCategory = "";
+            //string postClassArticle = "", postClassCategory = "";
             string categoryAboveClass = "", categoryAboveName = "";
-
             var docTemplates = new HtmlDocument();
-            docTemplates.Load(path + templateCategory, System.Text.Encoding.UTF8);
+            HtmlNodeCollection nodes = new HtmlNodeCollection(HtmlNode.CreateNode("div"));
+            string formatPostName = "standard";
 
             foreach (var item in post.PostFormat)
             {
-                postFormat += item.ClassName + " ";
+                postClassArticle += item.ClassName + " ";
             }
             foreach (var item in post.PostCategory)
             {
-                postCategory += " " + item.ClassName + " ";
+                postClassCategory += " " + item.ClassName + " ";
             }
             foreach (var item in post.LinkToAllPostCategory)
             {
@@ -50,6 +53,61 @@ namespace GossipDashboard.Helper
                 categoryAboveName += item.NameFa + " ";
             }
 
+            //هر پست یک فرمت پست دارد
+            var postFormat = post.PostFormat.ToList().FirstOrDefault();
+            if (postFormat != null)
+                formatPostName = postFormat.NameEn;
+
+            switch (formatPostName)
+            {
+                case "standard":
+                    docTemplates.Load(path + "/Templates/format-standard.html", System.Text.Encoding.UTF8);
+                    nodes = CreateHeadStandard(post, categoryAboveClass, categoryAboveName, docTemplates);
+                    break;
+                case "audio":
+                    docTemplates.Load(path + "/Templates/format-audio.html", System.Text.Encoding.UTF8);
+                    nodes = CreateHeadAudio(post, categoryAboveClass, categoryAboveName, docTemplates);
+                    break;
+                case "video":
+                    docTemplates.Load(path + "/Templates/format-video.html", System.Text.Encoding.UTF8);
+                    break;
+                case "gallery":
+                    docTemplates.Load(path + "/Templates/format-gallery.html", System.Text.Encoding.UTF8);
+                    break;
+                case "link":
+                    docTemplates.Load(path + "/Templates/format-link.html", System.Text.Encoding.UTF8);
+                    break;
+                case "quote":
+                    docTemplates.Load(path + "/Templates/format-quote.html", System.Text.Encoding.UTF8);
+                    break;
+                case "image ":
+                    docTemplates.Load(path + "/Templates/format-image.html", System.Text.Encoding.UTF8);
+                    break;
+                case "status":
+                    docTemplates.Load(path + "/Templates/format-status.html", System.Text.Encoding.UTF8);
+                    break;
+                default:
+                    break;
+            }
+
+
+            //article ايجاد تگ 
+            HtmlNode articleNode = HtmlNode.CreateNode("<article class='col-md-4 hentry " + postClassArticle + postClassCategory + "'></article>");
+            articleNode.AppendChild(nodes.FirstOrDefault());
+            return articleNode;
+        }
+
+
+        /// <summary>
+        /// ساخت آرتیکل های استاندارد وسط صفحه
+        /// </summary>
+        /// <param name="post">شی پست</param>
+        /// <param name="templateCategory">تمپلیتی که قصد داریم از روی آن آرتیکل را بسازیم</param>
+        /// <returns></returns>
+        ///   
+        //private HtmlNode CreateHeadStandard(VM_Post post, string templateCategory)
+        private HtmlNodeCollection CreateHeadStandard(VM_Post post, string categoryAboveClass, string categoryAboveName, HtmlDocument docTemplates)
+        {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
             {
@@ -112,116 +170,195 @@ namespace GossipDashboard.Helper
                     }
                 }
             }
-            //article ايجاد تگ 
-            HtmlNode articleNode = HtmlNode.CreateNode("<article class='col-md-4 hentry " + postFormat + postCategory + "'></article>");
-            articleNode.AppendChild(nodes.FirstOrDefault());
-            return articleNode;
+
+            return nodes;
         }
 
 
-        /// <summary>
-        /// ساخت آرتیکل های استاندارد وسط صفحه
-        /// </summary>
-        /// <param name="post">شی پست</param>
-        /// <param name="templateCategory">تمپلیتی که قصد داریم از روی آن آرتیکل را بسازیم</param>
-        /// <returns></returns>
-        internal HtmlNode CreateHeadAudio(VM_Post post, string templateCategory)
+        private HtmlNodeCollection CreateHeadAudio(VM_Post post, string categoryAboveClass, string categoryAboveName, HtmlDocument docTemplates)
         {
-            string postFormat = "", postCategory = "";
-            string categoryAboveClass = "", categoryAboveName = "";
-
-            var docTemplates = new HtmlDocument();
-            docTemplates.Load(path + templateCategory, System.Text.Encoding.UTF8);
-
-            foreach (var item in post.PostFormat)
-            {
-                postFormat += item.ClassName + " ";
-            }
-            foreach (var item in post.PostCategory)
-            {
-                postCategory += " " + item.ClassName + " ";
-            }
-            foreach (var item in post.LinkToAllPostCategory)
-            {
-                categoryAboveClass += item.ClassName + " ";
-                categoryAboveName += item.NameFa + " ";
-            }
-
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
             {
                 var attrs = itemNode.Attributes;
                 foreach (var itemAttr in attrs)
                 {
-                    //post-box پيدا كردن تگ ديو با كلاس 
-                    if (itemAttr.Value == "post-box")
+                    //defaultForAllPost پيدا كردن تگ ديو با كلاس 
+                    if (itemAttr.Value.Contains("defaultForAllPost"))
                     {
-                        HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]");
+                        HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
                         HtmlNode newChild = HtmlNode.CreateNode(@"<div class='post-box'>"+
-                                                                        "<div class='entry-cover'>"+
-                                                                            "<div class='entry-cover'>"+
-                                                                                "<a href='"+post.Url+"'>"+
-                                                                                    "<img width='290' height='170' src='"+post.Image1+"'"+
-                                                                                         "class='attachment-viralnews-catlist-big size-viralnews-catlist-big wp-post-image'"+
-                                                                                         "alt='"+post.Subject+"' />"+
-                                                                                "</a>"+
-                                                                            "</div>"+
-                                                                            "<div class='audio-container'>"+
-                                                                                "<!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->"+
-                                                                                "<audio class='wp-audio-shortcode' id='"+post.PostID+"' preload='none' style='width: 100%;' controls='controls'>"+
-                                                                                    "<source type='audio/mpeg' src='"+post.Url+"'?_=1' />"+
-                                                                                    "<a href='"+post.Url+"'>"+post.Url+"</a>"+
-                                                                                "</audio>"+
-                                                                            "</div>"+
-                                                                            "<div class='post-category'>"+
-                                                                                "<a href='Quiz/'"+post.PostID+"' class='"+categoryAboveClass+"'>"+categoryAboveName+" </a>"+
-                                                                            "</div>"+
-                                                                            "<a href='Quiz/'" + post.PostID + "' class='special-rm-arrow'>" +
-                                                                                "<i class='fa fa-arrow-right'></i>"+
-                                                                            "</a>"+
-
-                                                                            "<a href='post/post-21.html' class='special-rm-arrow'>"+
-                                                                                "<i class='fa fa-arrow-right'></i>"+
-                                                                            "</a>"+
-                                                                        "</div>"+
-                                                                        "<div class='entry-content'>"+
-                                                                            "<h3 class='entry-title'>"+
-                                                                                "<a href='Quiz/'" + post.PostID + "'>"+post.Subject+"</a>" +
-                                                                            "</h3>"+
-                                                                        "</div>"+
-                                                                        "<div class='entry-footer'>"+
+                                                                        " < div class='entry-cover'>"+
+                                                                            "<div id='"+post.PostID+"' class='carousel slide gallery_post' data-ride='carousel'>"+
+                                                                                "<div class='carousel-inner' role='listbox'>"+
+                                                                                    "<div class='item'>"+
+                                                                                        "<img src='http://viralnews.weblusive-themes.com/wp-content/uploads/2016/02/animal-92728_1280-665x315.jpg' class='blog-post-img'" +
+                                                                                             "alt='' width='665' height='315' />" +
+                                                                                    "</div>" +
+                                                                                    "<div class='item'>" +
+                                                                                        "<img src='http://viralnews.weblusive-themes.com/wp-content/uploads/2016/02/chihuahua-624924_1280-665x315.jpg' class='blog-post-img'" +
+                                                                                             "alt='' width='665' height='315' />" +
+                                                                                   " </div>" +
+                                                                                    "<div class='item'>" +
+                                                                                        "<img src='http://viralnews.weblusive-themes.com/wp-content/uploads/2016/02/deer-952744_1280-665x315.jpg' class='blog-post-img'" +
+                                                                                            " alt='' width='665' height='315' />" +
+                                                                                   " </div>" +
+                                                                                "</div>" +
+                                                                                "<a class='left carousel-control' href='#galpost_924' role='button' data-slide='prev'>" +
+                                                                                    "<span class='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>" +
+                                                                                    "<span class='sr-only'>Previous</span>" +
+                                                                               " </a>" +
+                                                                                "<a class='right carousel-control' href='#galpost_924' role='button' data-slide='next'>" +
+                                                                                    "<span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>" +
+                                                                                    "<span class='sr-only'>Next</span>" +
+                                                                               " </a>" +
+                                                                            "</div>" +
+                                                                           " <script type='text/javascript'> " +
+                                                                                "jQuery('document').ready(function () {" +
+                                                                                    "jQuery('.gallery_post .carousel-inner div.item').first().addClass('active'); " +
+                                                                                    "jQuery('.carousel').carousel({"+
+                                                                                       " interval: 3000" +
+                                                                                    "}); " +
+                                                                                "})" +
+                                                                            "</script>" +
+                                                                            "<div class='post-category'>" +
+                                                                                "<a href='Post/Post-5.html' class='cat-amazing'>حیرت آور</a>" +
+                                                                            "</div>" +
+                                                                            "<a href='post/post-32.html' class='special-rm-arrow'>" +
+                                                                                "<i class='fa fa-arrow-right'></i>" +
+                                                                            "</a>" +
+                                                                        "</div>" +
+                                                                       " <div class='entry-content'>" +
+                                                                           " <h3 class='entry-title'>" +
+                                                                               " <a href='post/post-32.html'>خانه های منحصر به فرد ملی جغرافیایی جهان (12 عکس)</a>" +
+                                                                            "</h3>" +
+                                                                        "</div>" +
+                                                                        "<div class='entry-footer'>" +
                                                                             "<div class=' row'>" +
                                                                                 "<div class='col-md-12'>" +
                                                                                     "<ul class='common-meta'>" +
                                                                                         "<li>" +
                                                                                             "<i class='fa fa-user'></i>" +
-                                                                                            "<a href='Admin/'" + post.PostID + "' title=ایجاد شده توسط'"+post.Fullname+"' rel='author'>"+post.Fullname+"</a>" +
-                                                                                       " </li>" +
-
+                                                                                            "<a href='post/admin.html' title='Posts by admin' rel='author'>مدير</a>" +
+                                                                                        "</li>" +
                                                                                         "<li>" +
                                                                                             "<i class='fa fa-comment'></i>" +
-                                                                                            "<a href='Comment/'" + post.PostID + "'>"+post.CommentCount+"</a> " +
+                                                                                            "<a href='post/post-32.html#respond'>0</a> " +
                                                                                         "</li> " +
-                                                                                        "<li class='post-like'>" +
+                                                                                        "< li class='post-like'>" +
                                                                                             "<a href='#'> " +
-                                                                                                "<i class='fa fa-eye'></i>"+post.Views+"" +
+                                                                                                "< i class='fa fa-eye'></i>1169" +
                                                                                             "</a>" +
                                                                                         "</li>" +
                                                                                     "</ul>" +
                                                                                 "</div>" +
-                                                                           " </div>" +
-                                                                        "</div>" +
-                                                                   "</div>");
+                                                                            "</div>" +
+                                                                       " </div>" +
+                                                                    "</div>");
                         itemNode.ReplaceChild(newChild, oldChild);
                     }
                 }
             }
-            //article ايجاد تگ 
-            HtmlNode articleNode = HtmlNode.CreateNode("<article class='col-md-4 hentry " + postFormat + postCategory + "'></article>");
-            articleNode.AppendChild(nodes.FirstOrDefault());
-            return articleNode;
+
+            return nodes;
         }
 
+        private HtmlNodeCollection CreateHeadGallery(VM_Post post, string categoryAboveClass, string categoryAboveName, HtmlDocument docTemplates)
+        {
+            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+            foreach (var itemNode in nodes)
+            {
+                var attrs = itemNode.Attributes;
+                foreach (var itemAttr in attrs)
+                {
+                    //defaultForAllPost پيدا كردن تگ ديو با كلاس 
+                    if (itemAttr.Value.Contains("defaultForAllPost"))
+                    {
+                        HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
+                        HtmlNode newChild = HtmlNode.CreateNode(@"<article class='col-md-   format-gallery  hentry category-amazing category-places '>
+                                                                    <div class='defaultForAllPost'>
+                                                                        <div class='post-box'>
+                                                                            <div class='entry-cover'>
+
+                                                                                <div id='galpost_924' class='carousel slide gallery_post' data-ride='carousel'>
+                                                                                    <div class='carousel-inner' role='listbox'>
+                                                                                        <div class='item'>
+                                                                                            <img src='http://viralnews.weblusive-themes.com/wp-content/uploads/2016/02/animal-92728_1280-665x315.jpg' class='blog-post-img'
+                                                                                                    alt='' width='665' height='315' />
+                                                                                        </div>
+                                                                                        <div class='item'>
+                                                                                            <img src='http://viralnews.weblusive-themes.com/wp-content/uploads/2016/02/chihuahua-624924_1280-665x315.jpg' class='blog-post-img'
+                                                                                                    alt='' width='665' height='315' />
+                                                                                        </div>
+                                                                                        <div class='item'>
+                                                                                            <img src='http://viralnews.weblusive-themes.com/wp-content/uploads/2016/02/deer-952744_1280-665x315.jpg' class='blog-post-img'
+                                                                                                    alt='' width='665' height='315' />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <a class='left carousel-control' href='#galpost_924' role='button' data-slide='prev'>
+                                                                                        <span class='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>
+                                                                                        <span class='sr-only'>Previous</span>
+                                                                                    </a>
+                                                                                    <a class='right carousel-control' href='#galpost_924' role='button' data-slide='next'>
+                                                                                        <span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>
+                                                                                        <span class='sr-only'>Next</span>
+                                                                                    </a>
+                                                                                </div>
+                                                                                <script type='text/javascript'>
+                                                                                    jQuery('document').ready(function () {
+                                                                                        jQuery('.gallery_post .carousel-inner div.item').first().addClass('active');
+                                                                                        jQuery('.carousel').carousel({
+                                                                                            interval: 3000
+                                                                                        });
+
+                                                                                    })
+                                                                                </script>
+                                                                                <div class='post-category'>
+                                                                                    <a href='Post/Post-5.html' class='cat-amazing'>حیرت آور</a>
+                                                                                </div>
+
+
+                                                                                <a href='post/post-32.html' class='special-rm-arrow'>
+                                                                                    <i class='fa fa-arrow-right'></i>
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class='entry-content'>
+                                                                                <h3 class='entry-title'>
+                                                                                    <a href='post/post-32.html'>خانه های منحصر به فرد ملی جغرافیایی جهان (12 عکس)</a>
+                                                                                </h3>
+                                                                            </div>
+                                                                            <div class='entry-footer'>
+                                                                                <div class=' row'>
+                                                                                    <div class='col-md-12'>
+                                                                                        <ul class='common-meta'>
+                                                                                            <li>
+                                                                                                <i class='fa fa-user'></i>
+                                                                                                <a href='post/admin.html' title='Posts by admin' rel='author'>مدير</a>
+                                                                                            </li>
+
+                                                                                            <li>
+                                                                                                <i class='fa fa-comment'></i>
+                                                                                                <a href='post/post-32.html#respond'>0</a>
+                                                                                            </li>
+                                                                                            <li class='post-like'>
+                                                                                                <a href='#'>
+                                                                                                    <i class='fa fa-eye'></i>1169
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </article>");
+                        itemNode.ReplaceChild(newChild, oldChild);
+                    }
+                }
+            }
+
+            return nodes;
+        }
 
 
         /// <summary>
