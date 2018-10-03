@@ -70,26 +70,33 @@ namespace GossipDashboard.Helper
                     break;
                 case "video":
                     docTemplates.Load(path + "/Templates/format-video.html", System.Text.Encoding.UTF8);
+                    nodes = CreateHeadVideo(post, categoryAboveClass, categoryAboveName, docTemplates);
                     break;
                 case "gallery":
                     docTemplates.Load(path + "/Templates/format-gallery.html", System.Text.Encoding.UTF8);
+                    nodes = CreateHeadGallery(post, categoryAboveClass, categoryAboveName, docTemplates);
                     break;
                 case "link":
                     docTemplates.Load(path + "/Templates/format-link.html", System.Text.Encoding.UTF8);
+                    nodes = CreateHeadLink(post, categoryAboveClass, categoryAboveName, docTemplates);
                     break;
                 case "quote":
                     docTemplates.Load(path + "/Templates/format-quote.html", System.Text.Encoding.UTF8);
+                    nodes = CreateHeadQuote(post, categoryAboveClass, categoryAboveName, docTemplates);
                     break;
                 case "image ":
                     docTemplates.Load(path + "/Templates/format-image.html", System.Text.Encoding.UTF8);
+                    nodes = CreateHeadimage(post, categoryAboveClass, categoryAboveName, docTemplates);
                     break;
                 case "status":
                     docTemplates.Load(path + "/Templates/format-status.html", System.Text.Encoding.UTF8);
+                    nodes = CreateHeadStatus(post, categoryAboveClass, categoryAboveName, docTemplates);
                     break;
                 default:
+                    docTemplates.Load(path + "/Templates/format-standard.html", System.Text.Encoding.UTF8);
+                    nodes = CreateHeadStandard(post, categoryAboveClass, categoryAboveName, docTemplates);
                     break;
             }
-
 
             //article ايجاد تگ 
             HtmlNode articleNode = HtmlNode.CreateNode("<article class='col-md-4 hentry " + postClassArticle + postClassCategory + "'></article>");
@@ -173,7 +180,6 @@ namespace GossipDashboard.Helper
 
             return nodes;
         }
-
 
         private HtmlNodeCollection CreateHeadAudio(VM_Post post, string categoryAboveClass, string categoryAboveName, HtmlDocument docTemplates)
         {
@@ -327,15 +333,15 @@ namespace GossipDashboard.Helper
                                                                                 "<ul class='common-meta'>" +
                                                                                     "<li>" +
                                                                                         "<i class='fa fa-user'></i>" +
-                                                                                        "<a href='Admin/" + post.Fullname + "' title='Posts by admin' rel='author'>" + post.Fullname +"</a>" +
+                                                                                        "<a href='Admin/" + post.Fullname + "' title='Posts by admin' rel='author'>" + post.Fullname + "</a>" +
                                                                                     "</li>" +
                                                                                     "<li>" +
                                                                                         "<i class='fa fa-comment'></i>" +
-                                                                                        "<a href='Comment/"+post.PostID+"'>"+post.CommentCount+"</a> " +
+                                                                                        "<a href='Comment/" + post.PostID + "'>" + post.CommentCount + "</a> " +
                                                                                     "</li> " +
                                                                                     "< li class='post-like'>" +
                                                                                         "<a href='#'> " +
-                                                                                            "<i class='fa fa-eye'></i>"+post.Views+"" +
+                                                                                            "<i class='fa fa-eye'></i>" + post.Views + "" +
                                                                                         "</a>" +
                                                                                     "</li>" +
                                                                                 "</ul>" +
@@ -363,8 +369,8 @@ namespace GossipDashboard.Helper
                     if (itemAttr.Value.Contains("defaultForAllPost"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
-                        HtmlNode newChild = HtmlNode.CreateNode(" <div class='post-box' style='background-repeat:no-repeat; background-size:cover; background-image:url(http://viralnews.weblusive-themes.com/wp-content/uploads/2016/03/14574561403248-1-290x170.jpg'>"+
-                                                                    "<div class='bg-overlay' style='background-color:rgba(0,0,0, 0.8)'></div>"+
+                        HtmlNode newChild = HtmlNode.CreateNode(" <div class='post-box' style='background-repeat:no-repeat; background-size:cover; background-image:url(http://viralnews.weblusive-themes.com/wp-content/uploads/2016/03/14574561403248-1-290x170.jpg'>" +
+                                                                    "<div class='bg-overlay' style='background-color:rgba(0,0,0, 0.8)'></div>" +
                                                                     "<div class='entry-cover'>" +
                                                                         "<div class='post-category'>" +
                                                                             "<a href = 'Post/Post-6.html' class='cat-bizarre'>عجیب و غریب</a>" +
@@ -417,8 +423,8 @@ namespace GossipDashboard.Helper
                     if (itemAttr.Value.Contains("defaultForAllPost"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
-                        HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box'>"+
-                                                                    "<div class='entry-content'>"+
+                        HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box'>" +
+                                                                    "<div class='entry-content'>" +
                                                                         "<div class='bg-overlay' style='background-color:rgba(238,28,37, 0.8)'></div>" +
                                                                         "<h3>" +
                                                                            " لینک ویژه برجسته امروز یک وب سایت است که فرایند تولید مواد غذایی را هنر می کند" +
@@ -448,8 +454,8 @@ namespace GossipDashboard.Helper
                     if (itemAttr.Value.Contains("defaultForAllPost"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
-                        HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box'>"+
-                                                                    "< div class='entry-content' style='background-image:url(http://viralnews.weblusive-themes.com/wp-content/uploads/2016/03/40.jpg'>"+
+                        HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box'>" +
+                                                                    "< div class='entry-content' style='background-image:url(http://viralnews.weblusive-themes.com/wp-content/uploads/2016/03/40.jpg'>" +
                                                                         "<div class='bg-overlay' style='background-color:rgba(130,184,245, 0.8)'></div>" +
                                                                         "<blockquote>" +
                                                                             "<h4>" +
@@ -460,7 +466,97 @@ namespace GossipDashboard.Helper
                                                                     "</div>" +
                                                                 "</div>");
 
-                            itemNode.ReplaceChild(newChild, oldChild);
+                        itemNode.ReplaceChild(newChild, oldChild);
+                    }
+                }
+            }
+
+            return nodes;
+        }
+
+        private HtmlNodeCollection CreateHeadStatus(VM_Post post, string categoryAboveClass, string categoryAboveName, HtmlDocument docTemplates)
+        {
+            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+            foreach (var itemNode in nodes)
+            {
+                var attrs = itemNode.Attributes;
+                foreach (var itemAttr in attrs)
+                {
+                    //defaultForAllPost پيدا كردن تگ ديو با كلاس 
+                    if (itemAttr.Value.Contains("defaultForAllPost"))
+                    {
+                        HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
+                        HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box'>" +
+                                                                    "<div class='entry-content'>" +
+                                                                        "<h3 class='status lead'>" + post.Subject + "</h3>" +
+                                                                    "</div>" +
+                                                                "</div>");
+                        itemNode.ReplaceChild(newChild, oldChild);
+                    }
+                }
+            }
+
+            return nodes;
+        }
+
+        private HtmlNodeCollection CreateHeadVideo(VM_Post post, string categoryAboveClass, string categoryAboveName, HtmlDocument docTemplates)
+        {
+            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+            foreach (var itemNode in nodes)
+            {
+                var attrs = itemNode.Attributes;
+                foreach (var itemAttr in attrs)
+                {
+                    //defaultForAllPost پيدا كردن تگ ديو با كلاس 
+                    if (itemAttr.Value.Contains("defaultForAllPost"))
+                    {
+                        HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
+                        HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box'>" +
+                                                                    "<div class='entry-cover'>" +
+                                                                        "<div class='flex-video'>" +
+                                                                            "<div style = 'width: 640px;' class='wp-video'>" +
+                                                                                "<!--[if lt IE 9]><script>document.createElement('video');</script><![endif]-->" +
+                                                                                "<video class='wp-video-shortcode' id='video-" + post.PostID + "' width='640' height='360' preload='metadata' controls='controls'>" +
+                                                                                    "<source type = 'video/mp4' src='" + post.Url + "?_=1'/>" +
+                                                                                    "<a href = '" + post.Url + "' >" + post.Url + " </a> " +
+                                                                                "</video> " +
+                                                                            "</div> " +
+                                                                        "</div> " +
+                                                                        "<div class='post-category'>" +
+                                                                            "<a href = 'Video/Video1' class='" + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
+                                                                        "</div>" +
+                                                                        "<a href = 'Video/" + post.PostID + "' class='special-rm-arrow'>" +
+                                                                            "<i class='fa fa-arrow-right'></i>" +
+                                                                        "</a>" +
+                                                                    "</div>" +
+                                                                    "<div class='entry-content'>" +
+                                                                        "<h3 class='entry-title'>" +
+                                                                            "<a href = 'Video/" + post.PostID + "' >" + post.Subject + "</a>" +
+                                                                        "</h3>" +
+                                                                   " </div>" +
+                                                                    "<div class='entry-footer'>" +
+                                                                        "<div class=' row'>" +
+                                                                            "<div class='col-md-12'>" +
+                                                                                "<ul class='common-meta'>" +
+                                                                                    "<li>" +
+                                                                                        "<i class='fa fa-user'></i>" +
+                                                                                        "<a href = 'Admin/" + post.PostID + "' title='" + post.Fullname + "' rel='author'>" + post.Fullname + "</a>" +
+                                                                                    "</li>" +
+                                                                                    "<li>" +
+                                                                                        "<i class='fa fa-comment'></i>" +
+                                                                                        "<a href = 'Comment/'" + post.CommentCount + "> 0 </a> " +
+                                                                                    "</li> " +
+                                                                                    "<li class='post-like'>" +
+                                                                                        "<a href = '#' > " +
+                                                                                            "<i class='fa fa-eye'></i>" + post.Views + "" +
+                                                                                        "</a>" +
+                                                                                    "</li>" +
+                                                                                "</ul>" +
+                                                                            "</div>" +
+                                                                        "</div>" +
+                                                                    "</div>" +
+                                                                "</div>");
+                        itemNode.ReplaceChild(newChild, oldChild);
                     }
                 }
             }
