@@ -608,7 +608,10 @@ article .format-quote{  }
 .format-quote .post-box .entry-content{padding:0; margin:0}
 .format-quote blockquote, .format-status .status  {padding:16% 10% 10% 10%;  position:relative; z-index:2; color:#fff; transition: transform .8s ease-in-out; margin-bottom:0; font-weight:700; font-family:IRANSANS, sans-serif; font-size:2rem; background:initial}
 .format-quote blockquote{border-left:none}
-.format-status .status  {color:#000}
+.format-status .status {
+    color: #000;
+    text-align: justify;
+}
 
 .format-quote blockquote:before {
     content: "\201C"; /*Unicode for Left Double Quote*/

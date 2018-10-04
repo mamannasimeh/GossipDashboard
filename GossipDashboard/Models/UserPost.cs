@@ -20,7 +20,7 @@ namespace GossipDashboard.Models
         public Nullable<int> ModifyUserID { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        public virtual Post Post { get; set; }
         public virtual User User { get; set; }
+        public virtual Post Post { get; set; }
     }
 }

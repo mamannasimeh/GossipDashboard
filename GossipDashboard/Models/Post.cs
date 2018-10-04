@@ -25,13 +25,19 @@ namespace GossipDashboard.Models
         public int PostID { get; set; }
         public string Subject { get; set; }
         public string ContentPost { get; set; }
+        public string QuotedFrom { get; set; }
         public string Url { get; set; }
+        public string UrlMP3 { get; set; }
+        public string UrlVideo { get; set; }
         public Nullable<int> Views { get; set; }
         public string Image1 { get; set; }
         public string Image2 { get; set; }
+        public string Image3 { get; set; }
+        public string Image4 { get; set; }
         public Nullable<int> LikePost { get; set; }
         public Nullable<int> DislikePost { get; set; }
         public Nullable<int> PublishCount { get; set; }
+        public string BackgroundColor { get; set; }
         public Nullable<int> ModifyUserID { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     

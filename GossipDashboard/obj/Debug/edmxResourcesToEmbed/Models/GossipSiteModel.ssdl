@@ -7,13 +7,19 @@
     <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Subject" Type="nvarchar" MaxLength="2000" Nullable="false" />
     <Property Name="ContentPost" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="QuotedFrom" Type="nvarchar" MaxLength="1000" />
     <Property Name="Url" Type="nvarchar" MaxLength="2000" />
+    <Property Name="UrlMP3" Type="nvarchar" MaxLength="2000" />
+    <Property Name="UrlVideo" Type="nvarchar" MaxLength="2000" />
     <Property Name="Views" Type="int" />
     <Property Name="Image1" Type="nvarchar" MaxLength="1000" />
     <Property Name="Image2" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image3" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image4" Type="nvarchar" MaxLength="1000" />
     <Property Name="LikePost" Type="int" />
     <Property Name="DislikePost" Type="int" />
     <Property Name="PublishCount" Type="int" />
+    <Property Name="BackgroundColor" Type="nvarchar" MaxLength="50" />
     <Property Name="ModifyUserID" Type="int" />
     <Property Name="ModifyDate" Type="datetime" />
   </EntityType>
