@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace GossipDashboard.Controllers
 {
-    public class QuizController : Controller
+    public class FilmsController : Controller
     {
         GossipSiteEntities context = new GossipSiteEntities();
         private HtmlNode result;
@@ -28,7 +28,7 @@ namespace GossipDashboard.Controllers
             PostManagement postManagement = new PostManagement(path);
 
             var docIndex = new HtmlDocument();
-            docIndex.Load(path + "/Views/Quiz/Index.cshtml", Encoding.UTF8);
+            docIndex.Load(path + "/Views/Films/Index.cshtml", Encoding.UTF8);
             var nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
 
             //حذف محتويات ند بلاك-author-grid
@@ -36,7 +36,7 @@ namespace GossipDashboard.Controllers
 
             //ایجاد  تگ آرتیکل به ازای هر پست
             var repo = new PostRepository();
-            var postQuiz = repo.SelectPostByCategory("quiz").ToList();
+            var postQuiz = repo.SelectPostByCategory("films").ToList();
             foreach (var item in postQuiz)
             {
                 //ايجاد محتوا براي وسط صفحه-- author-grid 
@@ -47,14 +47,13 @@ namespace GossipDashboard.Controllers
                 }
             }
 
-
             try
             {
                 var htmlDoc = new HtmlDocument();
                 htmlDoc.LoadHtml(result.OuterHtml);
-                htmlDoc.Save(path + "/Views/Quiz/Index.cshtml", Encoding.UTF8);
+                htmlDoc.Save(path + "/Views/Films/Index.cshtml", Encoding.UTF8);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
             }

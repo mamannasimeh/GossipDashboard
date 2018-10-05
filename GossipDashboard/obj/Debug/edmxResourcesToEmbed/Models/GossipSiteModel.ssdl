@@ -52,6 +52,7 @@
     <Property Name="GroupBase" Type="nvarchar" MaxLength="50" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
     <Property Name="ClassName" Type="varchar" MaxLength="500" />
+    <Property Name="AbobeClassName" Type="varchar" MaxLength="500" />
     <Property Name="Active" Type="bit" />
     <Property Name="ModifyUserID" Type="int" />
     <Property Name="ModifyDate" Type="datetime" />
@@ -92,7 +93,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_PostCategory_PubBase">
-    <End Role="PubBase" Type="Self.PubBase" Multiplicity="1" />
+    <End Role="PubBase" Type="Self.PubBase" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="PostAttribute" Type="Self.PostAttribute" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="PubBase">

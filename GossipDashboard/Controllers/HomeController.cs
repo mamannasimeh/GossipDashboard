@@ -16,8 +16,13 @@ namespace GossipDashboard.Controllers
     {
         GossipSiteEntities context = new GossipSiteEntities();
         private HtmlNode result;
-        
+
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult CreateIndex()
         {
             string path = "";
             path = ControllerContext.HttpContext.Server.MapPath("~");
@@ -43,11 +48,19 @@ namespace GossipDashboard.Controllers
                 }
             }
 
-            var htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(result.OuterHtml);
-            htmlDoc.Save(path + "/Views/Home/Index.cshtml", Encoding.UTF8);
+            try
+            {
+                var htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(result.OuterHtml);
+                htmlDoc.Save(path + "/Views/Home/Index.cshtml", Encoding.UTF8);
+            }
+            catch (Exception)
+            {
 
-            return View();
+            }
+
+
+            return View("Index");
         }
 
 
@@ -63,7 +76,7 @@ namespace GossipDashboard.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            return View(); 
+            return View();
         }
     }
 

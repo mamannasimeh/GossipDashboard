@@ -25,11 +25,11 @@ namespace GossipDashboard.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<PostAttribute> PostAttributes { get; set; }
         public virtual DbSet<PostComment> PostComments { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserPost> UserPosts { get; set; }
         public virtual DbSet<PubBase> PubBases { get; set; }
-        public virtual DbSet<Post> Posts { get; set; }
     }
 }

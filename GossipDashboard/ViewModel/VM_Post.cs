@@ -29,7 +29,8 @@ namespace GossipDashboard.ViewModel
         public string QuotedFrom { get; set; }
         public IQueryable<VM_PubBase> PostCategory { get;  set; }
         public IQueryable<VM_PubBase> PostFormat { get;  set; }
-        public IQueryable<VM_PubBase> LinkToAllPostCategory { get;  set; }
+        //public IQueryable<VM_PubBase> LinkToAllPostCategory { get;  set; }
+        public IQueryable<VM_PubBase> PostCol { get;  set; }
         public string UrlMP3 { get;  set; }
         public string UrlVideo { get;  set; }
         public string BackgroundColor { get;  set; }

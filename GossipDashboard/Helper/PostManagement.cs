@@ -32,8 +32,8 @@ namespace GossipDashboard.Helper
         /// <returns></returns>
         internal HtmlNode CreateHead(VM_Post post)
         {
-            string postClassArticle = "", postClassCategory = "";
-            string urlCategory = "";// ttpContext.Current.Request.Url.AbsoluteUri;
+            string postClassArticle = "", postClassCategory = "", postCol = "col-md-4";
+            string urlCategory = "";
             string categoryAboveClass = "", categoryAboveName = "";
             var docTemplates = new HtmlDocument();
             HtmlNodeCollection nodes = new HtmlNodeCollection(HtmlNode.CreateNode("div"));
@@ -41,17 +41,21 @@ namespace GossipDashboard.Helper
 
             foreach (var item in post.PostFormat)
             {
-                postClassArticle += item.ClassName + " ";
+                postClassArticle += " " + item.ClassName + " ";
             }
             foreach (var item in post.PostCategory)
             {
                 postClassCategory += " " + item.ClassName + " ";
-                urlCategory = post.PostCategory.ToList().First().NameEn + "/Index";
+                urlCategory = " " + post.PostCategory.ToList().First().NameEn + "/Index";
+
+                categoryAboveClass += " " + item.AbobeClassName + " ";
+                categoryAboveName += " " + item.NameFa + " ";
             }
-            foreach (var item in post.LinkToAllPostCategory)
+            if (post.PostCol.ToList().Count() > 0)
+                postCol = "";
+            foreach (var item in post.PostCol)
             {
-                categoryAboveClass += item.ClassName + " ";
-                categoryAboveName += item.NameFa + " ";
+                postCol = " " +  item.ClassName + " " ;
             }
 
             //هر پست یک فرمت پست دارد
@@ -100,21 +104,12 @@ namespace GossipDashboard.Helper
             }
 
 
-            //برای پست های از نوع گالری 8 ستون در نظر می گیریم
-            if (postClassArticle.Trim() == "format-gallery")
-            {
-                //article ايجاد تگ 
-                HtmlNode articleNode = HtmlNode.CreateNode("<article class='col-md-8 hentry " + postClassArticle + postClassCategory + "'></article>");
-                articleNode.AppendChild(nodes.FirstOrDefault());
-                return articleNode;
-            }
-            else
-            {
-                //article ايجاد تگ 
-                HtmlNode articleNode = HtmlNode.CreateNode("<article class='col-md-4 hentry " + postClassArticle + postClassCategory + "'></article>");
-                articleNode.AppendChild(nodes.FirstOrDefault());
-                return articleNode;
-            }
+
+            //article ايجاد تگ 
+            HtmlNode articleNode = HtmlNode.CreateNode("<article class='" + postCol + " hentry " + postClassArticle + postClassCategory + "'></article>");
+            articleNode.AppendChild(nodes.FirstOrDefault());
+            return articleNode;
+
         }
 
 
@@ -333,7 +328,7 @@ namespace GossipDashboard.Helper
                                                                                 "<ul class='common-meta'>" +
                                                                                     "<li>" +
                                                                                         "<i class='fa fa-user'></i>" +
-                                                                                        "<a href='Admin/" + post.Fullname + "' title='Posts by admin' rel='author'>" + post.Fullname + "</a>" +
+                                                                                        "<a href='Admin/" + post.Fullname + "' title='ایجاد شده توسط' rel='author'>" + post.Fullname + "</a>" +
                                                                                     "</li>" +
                                                                                     "<li>" +
                                                                                         "<i class='fa fa-comment'></i>" +
@@ -430,7 +425,7 @@ namespace GossipDashboard.Helper
                                                                            post.Subject +
                                                                         "</h3>" +
                                                                        " <a href = '" + post.Url + "' > " +
-                                                                            "<i class='fa fa-link'></i> لینک خبر"+
+                                                                            "<i class='fa fa-link'></i> لینک خبر" +
                                                                         "</a>" +
                                                                     "</div>" +
                                                                 "</div>");
@@ -456,7 +451,7 @@ namespace GossipDashboard.Helper
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
                         HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box imgwrapper'>" +
                                                                     "<div class='entry-content img-responsive' style='background-image:url(" + post.Image1 + ")'>" +
-                                                                        "<div class='bg-overlay' style='background-color:rgba("+post.BackgroundColor+")'></div>" +
+                                                                        "<div class='bg-overlay' style='background-color:rgba(" + post.BackgroundColor + ")'></div>" +
                                                                         "<blockquote>" +
                                                                             "<h4>" +
                                                                                 "<a href = '" + post.Url + "' >" + post.Subject + "</a>" +
