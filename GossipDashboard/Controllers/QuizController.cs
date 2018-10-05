@@ -16,8 +16,14 @@ namespace GossipDashboard.Controllers
         GossipSiteEntities context = new GossipSiteEntities();
         private HtmlNode result;
 
-        public ActionResult Index()
+        public ActionResult Index(int postID)
         {
+            return View();
+        }
+
+        public ActionResult Post(int postID)
+        {
+
             return View();
         }
 
