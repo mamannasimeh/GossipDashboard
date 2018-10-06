@@ -18,5 +18,6 @@ namespace GossipDashboard.ViewModel
         public Nullable<int> ModifyUserID { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
         public int? PostID { get; set; }
+        public string AbobeClassName { get;  set; }
     }
 }

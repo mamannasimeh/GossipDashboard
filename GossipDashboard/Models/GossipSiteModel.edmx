@@ -12,13 +12,19 @@
           <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="2000" Nullable="false" />
           <Property Name="ContentPost" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="QuotedFrom" Type="nvarchar" MaxLength="1000" />
           <Property Name="Url" Type="nvarchar" MaxLength="2000" />
+          <Property Name="UrlMP3" Type="nvarchar" MaxLength="2000" />
+          <Property Name="UrlVideo" Type="nvarchar" MaxLength="2000" />
           <Property Name="Views" Type="int" />
           <Property Name="Image1" Type="nvarchar" MaxLength="1000" />
           <Property Name="Image2" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Image3" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Image4" Type="nvarchar" MaxLength="1000" />
           <Property Name="LikePost" Type="int" />
           <Property Name="DislikePost" Type="int" />
           <Property Name="PublishCount" Type="int" />
+          <Property Name="BackgroundColor" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifyUserID" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
@@ -51,6 +57,7 @@
           <Property Name="GroupBase" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="ClassName" Type="varchar" MaxLength="500" />
+          <Property Name="AbobeClassName" Type="varchar" MaxLength="500" />
           <Property Name="Active" Type="bit" />
           <Property Name="ModifyUserID" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
@@ -91,7 +98,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PostCategory_PubBase">
-          <End Role="PubBase" Type="Self.PubBase" Multiplicity="1" />
+          <End Role="PubBase" Type="Self.PubBase" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PostAttribute" Type="Self.PostAttribute" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PubBase">
@@ -174,7 +183,6 @@
           <EntitySet Name="Posts" EntityType="GossipSiteModel.Post" />
           <EntitySet Name="PostAttributes" EntityType="GossipSiteModel.PostAttribute" />
           <EntitySet Name="PostComments" EntityType="GossipSiteModel.PostComment" />
-          <EntitySet Name="PubBases" EntityType="GossipSiteModel.PubBase" />
           <EntitySet Name="Users" EntityType="GossipSiteModel.User" />
           <EntitySet Name="UserPosts" EntityType="GossipSiteModel.UserPost" />
           <AssociationSet Name="FK_PostCategory_Post" Association="GossipSiteModel.FK_PostCategory_Post">
@@ -189,13 +197,14 @@
             <End Role="Post" EntitySet="Posts" />
             <End Role="UserPost" EntitySet="UserPosts" />
           </AssociationSet>
-          <AssociationSet Name="FK_PostCategory_PubBase" Association="GossipSiteModel.FK_PostCategory_PubBase">
-            <End Role="PubBase" EntitySet="PubBases" />
-            <End Role="PostAttribute" EntitySet="PostAttributes" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserPost_User" Association="GossipSiteModel.FK_UserPost_User">
             <End Role="User" EntitySet="Users" />
             <End Role="UserPost" EntitySet="UserPosts" />
+          </AssociationSet>
+          <EntitySet Name="PubBases" EntityType="GossipSiteModel.PubBase" />
+          <AssociationSet Name="FK_PostCategory_PubBase" Association="GossipSiteModel.FK_PostCategory_PubBase">
+            <End Role="PubBase" EntitySet="PubBases" />
+            <End Role="PostAttribute" EntitySet="PostAttributes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Post">
@@ -205,13 +214,19 @@
           <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Subject" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="ContentPost" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuotedFrom" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Url" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="UrlMP3" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="UrlVideo" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="Views" Type="Int32" />
           <Property Name="Image1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Image2" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Image3" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Image4" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="LikePost" Type="Int32" />
           <Property Name="DislikePost" Type="Int32" />
           <Property Name="PublishCount" Type="Int32" />
+          <Property Name="BackgroundColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifyUserID" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="PostAttributes" Relationship="GossipSiteModel.FK_PostCategory_Post" FromRole="Post" ToRole="PostAttribute" />
@@ -238,22 +253,6 @@
           <Property Name="LikeComment" Type="Int32" />
           <Property Name="DislikeComment" Type="Int32" />
           <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="PostComment" ToRole="Post" />
-        </EntityType>
-        <EntityType Name="PubBase">
-          <Key>
-            <PropertyRef Name="PubBaseID" />
-          </Key>
-          <Property Name="PubBaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ParentID" Type="Int32" />
-          <Property Name="NameFa" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="NameEn" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="GroupBase" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ClassName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Active" Type="Boolean" />
-          <Property Name="ModifyUserID" Type="Int32" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="PostAttributes" Relationship="GossipSiteModel.FK_PostCategory_PubBase" FromRole="PubBase" ToRole="PostAttribute" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -317,18 +316,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PostCategory_PubBase">
-          <End Type="GossipSiteModel.PubBase" Role="PubBase" Multiplicity="1" />
-          <End Type="GossipSiteModel.PostAttribute" Role="PostAttribute" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PubBase">
-              <PropertyRef Name="PubBaseID" />
-            </Principal>
-            <Dependent Role="PostAttribute">
-              <PropertyRef Name="AttributeID_fk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserPost_User">
           <End Type="GossipSiteModel.User" Role="User" Multiplicity="1" />
           <End Type="GossipSiteModel.UserPost" Role="UserPost" Multiplicity="*" />
@@ -338,6 +325,37 @@
             </Principal>
             <Dependent Role="UserPost">
               <PropertyRef Name="UserID_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PubBase">
+          <Key>
+            <PropertyRef Name="PubBaseID" />
+          </Key>
+          <Property Name="PubBaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="NameFa" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NameEn" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="GroupBase" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ClassName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="AbobeClassName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="ModifyUserID" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PostAttributes" Relationship="GossipSiteModel.FK_PostCategory_PubBase" FromRole="PubBase" ToRole="PostAttribute" />
+        </EntityType>
+        <Association Name="FK_PostCategory_PubBase">
+          <End Type="GossipSiteModel.PubBase" Role="PubBase" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GossipSiteModel.PostAttribute" Role="PostAttribute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PubBase">
+              <PropertyRef Name="PubBaseID" />
+            </Principal>
+            <Dependent Role="PostAttribute">
+              <PropertyRef Name="AttributeID_fk" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -352,13 +370,19 @@
               <MappingFragment StoreEntitySet="Post">
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
+                <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
                 <ScalarProperty Name="PublishCount" ColumnName="PublishCount" />
                 <ScalarProperty Name="DislikePost" ColumnName="DislikePost" />
                 <ScalarProperty Name="LikePost" ColumnName="LikePost" />
+                <ScalarProperty Name="Image4" ColumnName="Image4" />
+                <ScalarProperty Name="Image3" ColumnName="Image3" />
                 <ScalarProperty Name="Image2" ColumnName="Image2" />
                 <ScalarProperty Name="Image1" ColumnName="Image1" />
                 <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="UrlVideo" ColumnName="UrlVideo" />
+                <ScalarProperty Name="UrlMP3" ColumnName="UrlMP3" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="QuotedFrom" ColumnName="QuotedFrom" />
                 <ScalarProperty Name="ContentPost" ColumnName="ContentPost" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="PostID" ColumnName="PostID" />
@@ -385,22 +409,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PubBases">
-            <EntityTypeMapping TypeName="GossipSiteModel.PubBase">
-              <MappingFragment StoreEntitySet="PubBase">
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="GroupBase" ColumnName="GroupBase" />
-                <ScalarProperty Name="NameEn" ColumnName="NameEn" />
-                <ScalarProperty Name="NameFa" ColumnName="NameFa" />
-                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
-                <ScalarProperty Name="PubBaseID" ColumnName="PubBaseID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="GossipSiteModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -423,6 +431,23 @@
                 <ScalarProperty Name="PostID_fk" ColumnName="PostID_fk" />
                 <ScalarProperty Name="UserID_fk" ColumnName="UserID_fk" />
                 <ScalarProperty Name="UserPostID" ColumnName="UserPostID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PubBases">
+            <EntityTypeMapping TypeName="GossipSiteModel.PubBase">
+              <MappingFragment StoreEntitySet="PubBase">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="AbobeClassName" ColumnName="AbobeClassName" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="GroupBase" ColumnName="GroupBase" />
+                <ScalarProperty Name="NameEn" ColumnName="NameEn" />
+                <ScalarProperty Name="NameFa" ColumnName="NameFa" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="PubBaseID" ColumnName="PubBaseID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

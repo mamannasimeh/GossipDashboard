@@ -205,9 +205,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AmazingController.cs" />
+    <Compile Include="Controllers\BizarreController.cs" />
+    <Compile Include="Controllers\CuteController.cs" />
+    <Compile Include="Controllers\EntertainmentController.cs" />
+    <Compile Include="Controllers\FilmsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PlacesController.cs" />
     <Compile Include="Controllers\QuizController.cs" />
+    <Compile Include="Controllers\SexyController.cs" />
     <Compile Include="Controllers\SiteManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -422,10 +429,18 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Quiz\Index.cshtml" />
+    <Content Include="Views\Entertainment\Index.cshtml" />
+    <Content Include="Views\Amazing\Index.cshtml" />
+    <Content Include="Views\Bizarre\Index.cshtml" />
+    <Content Include="Views\Cute\Index.cshtml" />
+    <Content Include="Views\Films\Index.cshtml" />
+    <Content Include="Views\Places\Index.cshtml" />
+    <Content Include="Views\Sexy\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Posts\" />
+    <Folder Include="Views\Post\" />
     <Folder Include="Views\SiteManage\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,18 +1,18 @@
-﻿using HtmlAgilityPack;
+﻿using GossipDashboard.Helper;
+using GossipDashboard.Models;
+using GossipDashboard.Repository;
+using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using GossipDashboard.Models;
-using System.IO;
-using System.Text;
-using GossipDashboard.Helper;
-using GossipDashboard.Repository;
+
 
 namespace GossipDashboard.Controllers
 {
-    public class HomeController : Controller
+    public class EntertainmentController : Controller
     {
         GossipSiteEntities context = new GossipSiteEntities();
         private HtmlNode result;
@@ -22,14 +22,14 @@ namespace GossipDashboard.Controllers
             return View();
         }
 
-        public ActionResult CreateIndex()
+        public ActionResult CreateContentCategory()
         {
             string path = "";
             path = ControllerContext.HttpContext.Server.MapPath("~");
             PostManagement postManagement = new PostManagement(path);
 
             var docIndex = new HtmlDocument();
-            docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
+            docIndex.Load(path + "/Views/Entertainment/Index.cshtml", Encoding.UTF8);
             var nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
 
             //حذف محتويات ند بلاك-author-grid
@@ -37,7 +37,7 @@ namespace GossipDashboard.Controllers
 
             //ایجاد  تگ آرتیکل به ازای هر پست
             var repo = new PostRepository();
-            var postQuiz = repo.SelectPostUser().ToList();
+            var postQuiz = repo.SelectPostByCategory("entertainment").ToList();
             foreach (var item in postQuiz)
             {
                 //ايجاد محتوا براي وسط صفحه-- author-grid 
@@ -52,33 +52,14 @@ namespace GossipDashboard.Controllers
             {
                 var htmlDoc = new HtmlDocument();
                 htmlDoc.LoadHtml(result.OuterHtml);
-                htmlDoc.Save(path + "/Views/Home/Index.cshtml", Encoding.UTF8);
+                htmlDoc.Save(path + "/Views/Entertainment/Index.cshtml", Encoding.UTF8);
             }
             catch (Exception)
             {
-
             }
 
 
             return View("Index");
         }
-
-
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
-
-
 }

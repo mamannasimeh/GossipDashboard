@@ -32,8 +32,8 @@ namespace GossipDashboard.Helper
         /// <returns></returns>
         internal HtmlNode CreateHead(VM_Post post)
         {
-            string postClassArticle = "", postClassCategory = "";
-            //string postClassArticle = "", postClassCategory = "";
+            string postClassArticle = "", postClassCategory = "", postCol = "col-md-4";
+            string urlCategory = "";
             string categoryAboveClass = "", categoryAboveName = "";
             var docTemplates = new HtmlDocument();
             HtmlNodeCollection nodes = new HtmlNodeCollection(HtmlNode.CreateNode("div"));
@@ -41,16 +41,21 @@ namespace GossipDashboard.Helper
 
             foreach (var item in post.PostFormat)
             {
-                postClassArticle += item.ClassName + " ";
+                postClassArticle += " " + item.ClassName + " ";
             }
             foreach (var item in post.PostCategory)
             {
                 postClassCategory += " " + item.ClassName + " ";
+                urlCategory = " " + post.PostCategory.ToList().First().NameEn + "/Index";
+
+                categoryAboveClass += " " + item.AbobeClassName + " ";
+                categoryAboveName += " " + item.NameFa + " ";
             }
-            foreach (var item in post.LinkToAllPostCategory)
+            if (post.PostCol.ToList().Count() > 0)
+                postCol = "";
+            foreach (var item in post.PostCol)
             {
-                categoryAboveClass += item.ClassName + " ";
-                categoryAboveName += item.NameFa + " ";
+                postCol = " " +  item.ClassName + " " ;
             }
 
             //هر پست یک فرمت پست دارد
@@ -62,46 +67,49 @@ namespace GossipDashboard.Helper
             {
                 case "standard":
                     docTemplates.Load(path + "/Templates/format-standard.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadStandard(post, categoryAboveClass, categoryAboveName, docTemplates);
+                    nodes = CreateHeadStandard(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
                     break;
                 case "audio":
                     docTemplates.Load(path + "/Templates/format-audio.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadAudio(post, categoryAboveClass, categoryAboveName, docTemplates);
+                    nodes = CreateHeadAudio(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
                     break;
                 case "video":
                     docTemplates.Load(path + "/Templates/format-video.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadVideo(post, categoryAboveClass, categoryAboveName, docTemplates);
+                    nodes = CreateHeadVideo(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
                     break;
                 case "gallery":
                     docTemplates.Load(path + "/Templates/format-gallery.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadGallery(post, categoryAboveClass, categoryAboveName, docTemplates);
+                    nodes = CreateHeadGallery(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
                     break;
                 case "link":
                     docTemplates.Load(path + "/Templates/format-link.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadLink(post, categoryAboveClass, categoryAboveName, docTemplates);
+                    nodes = CreateHeadLink(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
                     break;
                 case "quote":
                     docTemplates.Load(path + "/Templates/format-quote.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadQuote(post, categoryAboveClass, categoryAboveName, docTemplates);
+                    nodes = CreateHeadQuote(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
                     break;
                 case "image ":
                     docTemplates.Load(path + "/Templates/format-image.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadimage(post, categoryAboveClass, categoryAboveName, docTemplates);
+                    nodes = CreateHeadimage(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
                     break;
                 case "status":
                     docTemplates.Load(path + "/Templates/format-status.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadStatus(post, categoryAboveClass, categoryAboveName, docTemplates);
+                    nodes = CreateHeadStatus(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
                     break;
                 default:
                     docTemplates.Load(path + "/Templates/format-standard.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadStandard(post, categoryAboveClass, categoryAboveName, docTemplates);
+                    nodes = CreateHeadStandard(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
                     break;
             }
 
+
+
             //article ايجاد تگ 
-            HtmlNode articleNode = HtmlNode.CreateNode("<article class='col-md-4 hentry " + postClassArticle + postClassCategory + "'></article>");
+            HtmlNode articleNode = HtmlNode.CreateNode("<article class='" + postCol + " hentry " + postClassArticle + postClassCategory + "'></article>");
             articleNode.AppendChild(nodes.FirstOrDefault());
             return articleNode;
+
         }
 
 
@@ -113,7 +121,7 @@ namespace GossipDashboard.Helper
         /// <returns></returns>
         ///   
         //private HtmlNode CreateHeadStandard(VM_Post post, string templateCategory)
-        private HtmlNodeCollection CreateHeadStandard(VM_Post post, string categoryAboveClass, string categoryAboveName, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadStandard(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -132,7 +140,7 @@ namespace GossipDashboard.Helper
 
                         //برادر بعدي
                         oldChild = itemNode.SelectSingleNode("//div/div/div");
-                        newChild = HtmlNode.CreateNode(@"<div class='post-category'><a href='Quiz/Index' class='" + categoryAboveClass + "'>" + categoryAboveName + "</a></div>");
+                        newChild = HtmlNode.CreateNode(@"<div class='post-category'><a href='" + urlCategory + "' class='" + categoryAboveClass + "'>" + categoryAboveName + "</a></div>");
                         itemNode.ReplaceChild(newChild, oldChild);
 
                         // برادر بعدي
@@ -181,7 +189,7 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-        private HtmlNodeCollection CreateHeadAudio(VM_Post post, string categoryAboveClass, string categoryAboveName, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadAudio(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -195,48 +203,34 @@ namespace GossipDashboard.Helper
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
                         HtmlNode newChild = HtmlNode.CreateNode(@"<div class='post-box'>" +
                                                                         "<div class='entry-cover'>" +
-                                                                            "<div id='" + post.PostID + "' class='carousel slide gallery_post' data-ride='carousel'>" +
-                                                                                "<div class='carousel-inner' role='listbox'>" +
-                                                                                    "<div class='item'>" +
-                                                                                        "<img src='http://viralnews.weblusive-themes.com/wp-content/uploads/2016/02/animal-92728_1280-665x315.jpg' class='blog-post-img'" +
-                                                                                             "alt='' width='665' height='315' />" +
-                                                                                    "</div>" +
-                                                                                    "<div class='item'>" +
-                                                                                        "<img src='http://viralnews.weblusive-themes.com/wp-content/uploads/2016/02/chihuahua-624924_1280-665x315.jpg' class='blog-post-img'" +
-                                                                                             "alt='' width='665' height='315' />" +
-                                                                                   "</div>" +
-                                                                                    "<div class='item'>" +
-                                                                                        "<img src='http://viralnews.weblusive-themes.com/wp-content/uploads/2016/02/deer-952744_1280-665x315.jpg' class='blog-post-img'" +
-                                                                                            " alt='' width='665' height='315' />" +
-                                                                                   "</div>" +
-                                                                                "</div>" +
-                                                                                "<a class='left carousel-control' href='#galpost_924' role='button' data-slide='prev'>" +
-                                                                                    "<span class='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>" +
-                                                                                    "<span class='sr-only'>Previous</span>" +
-                                                                               "</a>" +
-                                                                                "<a class='right carousel-control' href='#galpost_924' role='button' data-slide='next'>" +
-                                                                                    "<span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>" +
-                                                                                    "<span class='sr-only'>Next</span>" +
-                                                                               "</a>" +
+                                                                            "<div class='entry-cover'>" +
+                                                                                "<a href='" + post.Url + "'>" +
+                                                                                    "<img width='290' height='170' src='" + post.Image1 + "'" +
+                                                                                         "class='attachment-viralnews-catlist-big size-viralnews-catlist-big wp-post-image'" +
+                                                                                         "alt='" + post.Subject + "' />" +
+                                                                                "</a>" +
                                                                             "</div>" +
-                                                                           " <script type='text/javascript'> " +
-                                                                                "jQuery('document').ready(function () {" +
-                                                                                    "jQuery('.gallery_post .carousel-inner div.item').first().addClass('active'); " +
-                                                                                    "jQuery('.carousel').carousel({" +
-                                                                                       " interval: 3000" +
-                                                                                    "}); " +
-                                                                                "})" +
-                                                                            "</script>" +
+                                                                            "<div class='audio-container'>" +
+                                                                                "<!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->" +
+                                                                                "<audio class='wp-audio-shortcode' id='" + post.PostID + "' preload='none' style='width: 100%;' controls='controls'>" +
+                                                                                    "<source type='audio/mpeg' src='" + post.UrlMP3 + "'?_=1' />" +
+                                                                                    "<a href='" + post.UrlMP3 + "'>" + post.UrlMP3 + "</a>" +
+                                                                                "</audio>" +
+                                                                            "</div>" +
                                                                             "<div class='post-category'>" +
-                                                                                "<a href='Post/Post-5.html' class='cat-amazing'>حیرت آور</a>" +
+                                                                                "<a href='" + urlCategory + "' class='" + categoryAboveClass + "'>" + categoryAboveName + " </a>" +
                                                                             "</div>" +
-                                                                            "<a href='post/post-32.html' class='special-rm-arrow'>" +
+                                                                            "<a href='Quiz/'" + post.Url + "' class='special-rm-arrow'>" +
+                                                                                "<i class='fa fa-arrow-right'></i>" +
+                                                                            "</a>" +
+
+                                                                            "<a href='post/post-21.html' class='special-rm-arrow'>" +
                                                                                 "<i class='fa fa-arrow-right'></i>" +
                                                                             "</a>" +
                                                                         "</div>" +
-                                                                       " <div class='entry-content'>" +
-                                                                           " <h3 class='entry-title'>" +
-                                                                               " <a href='post/post-32.html'>خانه های منحصر به فرد ملی جغرافیایی جهان (12 عکس)</a>" +
+                                                                        "<div class='entry-content'>" +
+                                                                            "<h3 class='entry-title'>" +
+                                                                                "<a href='Quiz/'" + post.PostID + "'>" + post.Subject + "</a>" +
                                                                             "</h3>" +
                                                                         "</div>" +
                                                                         "<div class='entry-footer'>" +
@@ -245,22 +239,23 @@ namespace GossipDashboard.Helper
                                                                                     "<ul class='common-meta'>" +
                                                                                         "<li>" +
                                                                                             "<i class='fa fa-user'></i>" +
-                                                                                            "<a href='post/admin.html' title='Posts by admin' rel='author'>مدير</a>" +
-                                                                                        "</li>" +
+                                                                                            "<a href='Admin/'" + post.PostID + "' title=ایجاد شده توسط'" + post.Fullname + "' rel='author'>" + post.Fullname + "</a>" +
+                                                                                       " </li>" +
+
                                                                                         "<li>" +
                                                                                             "<i class='fa fa-comment'></i>" +
-                                                                                            "<a href='post/post-32.html#respond'>0</a> " +
+                                                                                            "<a href='Comment/'" + post.PostID + "'>" + post.CommentCount + "</a> " +
                                                                                         "</li> " +
                                                                                         "<li class='post-like'>" +
                                                                                             "<a href='#'> " +
-                                                                                                "<i class='fa fa-eye'></i>1169" +
+                                                                                                "<i class='fa fa-eye'></i>" + post.Views + "" +
                                                                                             "</a>" +
                                                                                         "</li>" +
                                                                                     "</ul>" +
                                                                                 "</div>" +
-                                                                            "</div>" +
-                                                                       "</div>" +
-                                                                    "</div>");
+                                                                           " </div>" +
+                                                                        "</div>" +
+                                                                   "</div>");
                         itemNode.ReplaceChild(newChild, oldChild);
                     }
                 }
@@ -269,7 +264,7 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-        private HtmlNodeCollection CreateHeadGallery(VM_Post post, string categoryAboveClass, string categoryAboveName, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadGallery(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -294,17 +289,17 @@ namespace GossipDashboard.Helper
                                                                                             "alt='" + post.Subject + "' width='665' height='315' />" +
                                                                                 "</div>" +
                                                                                 "<div class='item'>" +
-                                                                                    "<img src='post.Image3' class='blog-post-img'" +
+                                                                                    "<img src='" + post.Image3 + "' class='blog-post-img'" +
                                                                                             "alt='" + post.Subject + "' width='665' height='315' />" +
                                                                                 "</div>" +
                                                                             "</div>" +
                                                                             "<a class='left carousel-control' href='#galpost" + post.PostID + "' role='button' data-slide='prev'>" +
                                                                                 "<span class='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>" +
-                                                                                "<span class='sr-only'>Previous</span>" +
+                                                                                "<span class='sr-only'>قبلی</span>" +
                                                                             "</a>" +
                                                                             "<a class='right carousel-control' href='#galpost" + post.PostID + "' role='button' data-slide='next'>" +
                                                                                 "<span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>" +
-                                                                                "<span class='sr-only'>Next</span>" +
+                                                                                "<span class='sr-only'>بعدی</span>" +
                                                                             "</a>" +
                                                                         "</div>" +
                                                                         "<script type='text/javascript'> " +
@@ -316,7 +311,7 @@ namespace GossipDashboard.Helper
                                                                             "})" +
                                                                         "</script>" +
                                                                         "<div class='post-category'>" +
-                                                                            "<a href='" + categoryAboveName + "' class='cat-amazing'>" + categoryAboveName + "</a>" +
+                                                                            "<a href='" + urlCategory + "' class='" + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
                                                                         "</div>" +
                                                                         "<a href='" + post.Url + "' class='special-rm-arrow'>" +
                                                                             "<i class='fa fa-arrow-right'></i>" +
@@ -333,13 +328,13 @@ namespace GossipDashboard.Helper
                                                                                 "<ul class='common-meta'>" +
                                                                                     "<li>" +
                                                                                         "<i class='fa fa-user'></i>" +
-                                                                                        "<a href='Admin/" + post.Fullname + "' title='Posts by admin' rel='author'>" + post.Fullname + "</a>" +
+                                                                                        "<a href='Admin/" + post.Fullname + "' title='ایجاد شده توسط' rel='author'>" + post.Fullname + "</a>" +
                                                                                     "</li>" +
                                                                                     "<li>" +
                                                                                         "<i class='fa fa-comment'></i>" +
                                                                                         "<a href='Comment/" + post.PostID + "'>" + post.CommentCount + "</a> " +
                                                                                     "</li> " +
-                                                                                    "< li class='post-like'>" +
+                                                                                    "<li class='post-like'>" +
                                                                                         "<a href='#'> " +
                                                                                             "<i class='fa fa-eye'></i>" + post.Views + "" +
                                                                                         "</a>" +
@@ -357,7 +352,7 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-        private HtmlNodeCollection CreateHeadimage(VM_Post post, string categoryAboveClass, string categoryAboveName, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadimage(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -369,16 +364,16 @@ namespace GossipDashboard.Helper
                     if (itemAttr.Value.Contains("defaultForAllPost"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
-                        HtmlNode newChild = HtmlNode.CreateNode(" <div class='post-box' style='background-repeat:no-repeat; background-size:cover; background-image:url(http://viralnews.weblusive-themes.com/wp-content/uploads/2016/03/14574561403248-1-290x170.jpg'>" +
+                        HtmlNode newChild = HtmlNode.CreateNode(" <div class='post-box' style='background-repeat:no-repeat; background-size:cover; background-image:url(" + post.Image1 + ")'>" +
                                                                     "<div class='bg-overlay' style='background-color:rgba(0,0,0, 0.8)'></div>" +
                                                                     "<div class='entry-cover'>" +
                                                                         "<div class='post-category'>" +
-                                                                            "<a href = 'Post/Post-6.html' class='cat-bizarre'>عجیب و غریب</a>" +
+                                                                            "<a href = '" + urlCategory + "' class='" + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
                                                                         "</div>" +
                                                                     "</div>" +
                                                                     "<div class='entry-content'>" +
                                                                         "<h3 class='entry-title'>" +
-                                                                            "<a href = 'Post/Post-3.html' > همانطور که مود ولچ comedian افسردگی را به یک comet ملودی خنده دار Instagram هدایت کرد</a>" +
+                                                                            "<a href = '" + post.Url + "' >" + post.Subject + "</a>" +
                                                                         "</h3>" +
                                                                     "</div>" +
                                                                     "<div class='entry-footer'>" +
@@ -387,15 +382,15 @@ namespace GossipDashboard.Helper
                                                                                 "<ul class='common-meta'>" +
                                                                                     "<li>" +
                                                                                         "<i class='fa fa-user'></i>" +
-                                                                                        "<a href = 'post/admin.html' title='Posts by admin' rel='author'>مدير</a>" +
+                                                                                        "<a href = 'Admin/" + post.Fullname + "' title=ایجاد شده توسط'" + post.Fullname + "' rel='author'>" + post.Fullname + "</a>" +
                                                                                     "</li>" +
                                                                                     "<li>" +
                                                                                         "<i class='fa fa-comment'></i>" +
-                                                                                        "<a href = 'Post/Post-3.html#respond' > 0 </ a > " +
+                                                                                        "<a href = 'Comment/'" + post.CommentCount + " > 0 </ a > " +
                                                                                     "</li > " +
                                                                                     "<li class='post-like'>" +
                                                                                         "<a href = '#' > " +
-                                                                                            "<i class='fa fa-eye'></i>868" +
+                                                                                            "<i class='fa fa-eye'></i>" + post.Views +
                                                                                         "</a>" +
                                                                                     "</li>" +
                                                                                 "</ul>" +
@@ -411,7 +406,7 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-        private HtmlNodeCollection CreateHeadLink(VM_Post post, string categoryAboveClass, string categoryAboveName, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadLink(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -425,12 +420,12 @@ namespace GossipDashboard.Helper
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
                         HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box'>" +
                                                                     "<div class='entry-content'>" +
-                                                                        "<div class='bg-overlay' style='background-color:rgba(238,28,37, 0.8)'></div>" +
+                                                                        "<div class='bg-overlay' style='background-color:rgba(" + post.BackgroundColor + ")'></div>" +
                                                                         "<h3>" +
-                                                                           " لینک ویژه برجسته امروز یک وب سایت است که فرایند تولید مواد غذایی را هنر می کند" +
+                                                                           post.Subject +
                                                                         "</h3>" +
-                                                                       " <a href = 'http://www.google.com' > " +
-                                                                            "< i class='fa fa-link'></i>http://www.google.com" +
+                                                                       " <a href = '" + post.Url + "' > " +
+                                                                            "<i class='fa fa-link'></i> لینک خبر" +
                                                                         "</a>" +
                                                                     "</div>" +
                                                                 "</div>");
@@ -442,7 +437,7 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-        private HtmlNodeCollection CreateHeadQuote(VM_Post post, string categoryAboveClass, string categoryAboveName, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadQuote(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -454,14 +449,14 @@ namespace GossipDashboard.Helper
                     if (itemAttr.Value.Contains("defaultForAllPost"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
-                        HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box'>" +
-                                                                    "< div class='entry-content' style='background-image:url(http://viralnews.weblusive-themes.com/wp-content/uploads/2016/03/40.jpg'>" +
-                                                                        "<div class='bg-overlay' style='background-color:rgba(130,184,245, 0.8)'></div>" +
+                        HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box imgwrapper'>" +
+                                                                    "<div class='entry-content img-responsive' style='background-image:url(" + post.Image1 + ")'>" +
+                                                                        "<div class='bg-overlay' style='background-color:rgba(" + post.BackgroundColor + ")'></div>" +
                                                                         "<blockquote>" +
                                                                             "<h4>" +
-                                                                                "<a href = 'post/post-30.html' > طراحی وب پاسخگو به ما یک راه پیش رو ارائه می دهد، و در نهایت به ما اجازه می دهد که طراحی و برنامه ریزی شده برای ریزش و جریان چیزها را طراحی کنیم.</a>" +
+                                                                                "<a href = '" + post.Url + "' >" + post.Subject + "</a>" +
                                                                             "</h4>" +
-                                                                            "<cite>جاناتان لیوینگستون</cite>" +
+                                                                            "<cite>" + post.QuotedFrom + "</cite>" +
                                                                         "</blockquote>" +
                                                                     "</div>" +
                                                                 "</div>");
@@ -474,7 +469,7 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-        private HtmlNodeCollection CreateHeadStatus(VM_Post post, string categoryAboveClass, string categoryAboveName, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadStatus(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -499,7 +494,7 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-        private HtmlNodeCollection CreateHeadVideo(VM_Post post, string categoryAboveClass, string categoryAboveName, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadVideo(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -517,21 +512,21 @@ namespace GossipDashboard.Helper
                                                                             "<div style = 'width: 640px;' class='wp-video'>" +
                                                                                 "<!--[if lt IE 9]><script>document.createElement('video');</script><![endif]-->" +
                                                                                 "<video class='wp-video-shortcode' id='video-" + post.PostID + "' width='640' height='360' preload='metadata' controls='controls'>" +
-                                                                                    "<source type = 'video/mp4' src='" + post.Url + "?_=1'/>" +
-                                                                                    "<a href = '" + post.Url + "' >" + post.Url + " </a> " +
+                                                                                    "<source type = 'video/mp4' src='" + post.UrlVideo + "?_=1'/>" +
+                                                                                    "<a href = '" + post.UrlVideo + "' >" + post.UrlVideo + " </a> " +
                                                                                 "</video> " +
                                                                             "</div> " +
                                                                         "</div> " +
                                                                         "<div class='post-category'>" +
-                                                                            "<a href = 'Video/Video1' class='" + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
+                                                                             "<a href='" + urlCategory + "' class='" + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
                                                                         "</div>" +
-                                                                        "<a href = 'Video/" + post.PostID + "' class='special-rm-arrow'>" +
+                                                                        "<a href = 'Video/" + post.Url + "' class='special-rm-arrow'>" +
                                                                             "<i class='fa fa-arrow-right'></i>" +
                                                                         "</a>" +
                                                                     "</div>" +
                                                                     "<div class='entry-content'>" +
                                                                         "<h3 class='entry-title'>" +
-                                                                            "<a href = 'Video/" + post.PostID + "' >" + post.Subject + "</a>" +
+                                                                            "<a href = '" + post.Url + "' >" + post.Subject + "</a>" +
                                                                         "</h3>" +
                                                                    " </div>" +
                                                                     "<div class='entry-footer'>" +
