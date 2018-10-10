@@ -12,26 +12,20 @@ namespace GossipDashboard.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class PostQuestion
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public PostQuestion()
         {
-            this.UserPosts = new HashSet<UserPost>();
+            this.PostAnswers = new HashSet<PostAnswer>();
         }
     
-        public int UserID { get; set; }
-        public string UserName { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Salt { get; set; }
-        public string Password { get; set; }
-        public Nullable<int> ModifyUserID { get; set; }
-        public Nullable<System.DateTime> ModifyDate { get; set; }
-        public byte[] Image { get; set; }
-        public string AboutUser { get; set; }
+        public int PostQuestionID { get; set; }
+        public int PostID_fk { get; set; }
+        public string Question { get; set; }
     
+        public virtual Post Post { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserPost> UserPosts { get; set; }
+        public virtual ICollection<PostAnswer> PostAnswers { get; set; }
     }
 }

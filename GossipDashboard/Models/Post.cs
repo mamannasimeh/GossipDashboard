@@ -19,12 +19,17 @@ namespace GossipDashboard.Models
         {
             this.PostAttributes = new HashSet<PostAttribute>();
             this.PostComments = new HashSet<PostComment>();
+            this.PostQuestions = new HashSet<PostQuestion>();
             this.UserPosts = new HashSet<UserPost>();
         }
     
         public int PostID { get; set; }
         public string Subject { get; set; }
+        public string Subject1 { get; set; }
+        public string Subject2 { get; set; }
         public string ContentPost { get; set; }
+        public string ContentPost1 { get; set; }
+        public string ContentPost2 { get; set; }
         public string QuotedFrom { get; set; }
         public string Url { get; set; }
         public string UrlMP3 { get; set; }
@@ -45,6 +50,8 @@ namespace GossipDashboard.Models
         public virtual ICollection<PostAttribute> PostAttributes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostComment> PostComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PostQuestion> PostQuestions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserPost> UserPosts { get; set; }
     }

@@ -36,5 +36,11 @@ namespace GossipDashboard.ViewModel
         public string BackgroundColor { get;  set; }
         public string Image3 { get;  set; }
         public string Image4 { get;  set; }
+        public string Subject1 { get; internal set; }
+        public string Subject2 { get; internal set; }
+        public string ContentPost1 { get;  set; }
+        public string ContentPost2 { get;  set; }
+        public string AboutUser { get;  set; }
+        public byte[] ImageUser { get;  set; }
     }
 }

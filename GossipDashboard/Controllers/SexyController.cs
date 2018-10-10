@@ -13,12 +13,18 @@ namespace GossipDashboard.Controllers
 {
     public class SexyController : Controller
     {
-        GossipSiteEntities context = new GossipSiteEntities();
+        PostRepository repo = new PostRepository();
         private HtmlNode result;
 
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Post(int postID)
+        {
+            var res = repo.SelectPostUser().Where(p => p.PostID == postID).FirstOrDefault();
+            return View("~/Views/Post/Index.cshtml", res);
         }
 
         public ActionResult CreateContentCategory()

@@ -54,7 +54,7 @@ namespace GossipDashboard.Controllers
                 htmlDoc.LoadHtml(result.OuterHtml);
                 htmlDoc.Save(path + "/Views/Home/Index.cshtml", Encoding.UTF8);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
             }

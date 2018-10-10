@@ -45,6 +45,10 @@
     <link rel='stylesheet' id='mediaelement-css' href='~/Content/CSS/mediaelementplayer.min.css' type='text/css' media='all' />
     <link rel='stylesheet' id='wp-mediaelement-css' href='~/Content/CSS/wp-mediaelement.min.css' type='text/css' media='all' />
 
+    <!--for Quiz-->
+    @*<link href="~/Content/CSS/full-screen-preview.css" rel="stylesheet" />
+    <link href="~/Content/CSS/buzzfeed.css" rel="stylesheet" />*@
+
     <noscript>
         <style type="text/css">
             .wpb_animate_when_almost_visible {
@@ -103,31 +107,31 @@
                                 <ul class="list-special  style1">
 
                                     <li>
-                                        <a href="Post/Post-5.html">
+                                        <a href="@Url.Action("Index","Amazing")">
                                             <i class="fa fa-bolt"></i>حیرت آور
                                         </a>
                                     </li>
 
                                     <li>
-                                        <a href="Post/Post-6.html">
+                                        <a href="@Url.Action("Index","Bizarre")">
                                             <i class="fa fa-bug"></i>عجیب و غریب
                                         </a>
                                     </li>
 
                                     <li>
-                                        <a href="Post/Post-7.html">
+                                        <a href="@Url.Action("Index","Cute")">
                                             <i class="fa fa-paw"></i>ناز
                                         </a>
                                     </li>
 
                                     <li>
-                                        <a href="funny.html">
+                                        <a href="@Url.Action("Index","Entertainment")">
                                             <i class="fa fa-smile-o"></i>سرگرمي
                                         </a>
                                     </li>
 
                                     <li>
-                                        <a href="quiz.html">
+                                        <a href="@Url.Action("Index","Quiz")">
                                             <i class="fa fa-check-square-o"></i>سوال
                                         </a>
                                     </li>
@@ -157,43 +161,43 @@
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul id="menu-primary-navigation" class="nav navbar-nav">
                                     <li id="menu-item-274" class="menu-item menu-item-_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2 current_page_item menu-item-274 active">
-                                        <a title="خانه" href="Index.html">خانه</a>
+                                        <a title="خانه" href="@Url.Action("Index","Home")">خانه</a>
                                     </li>
                                     <li id="menu-item-10" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10">
-                                        <a title="حیوانات" href="Post/Post-10.html">حیوانات</a>
+                                        <a title="حیوانات" href="@Url.Action("Index","Home")">حیوانات</a>
                                     </li>
                                     <li id="menu-item-12" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12">
-                                        <a title="سرگرمی" href="Post/Post-11.html">سرگرمی</a>
+                                        <a title="سرگرمی" href="@Url.Action("Index","Entertainment")">سرگرمی</a>
                                     </li>
                                     <li id="menu-item-13" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-13">
-                                        <a title="فیلم " href="Post/Post-12.html">فیلم </a>
+                                        <a title="فیلم " href="@Url.Action("Index","Films")">فیلم </a>
                                     </li>
                                     <li id="menu-item-14" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-14">
-                                        <a title="تندرستی &#038; سلامتی" href="Post/Post-13.html">تندرستی &#038; سلامتی </a>
+                                        <a title="تندرستی &#038; سلامتی" href="@Url.Action("Index","Home")">تندرستی &#038; سلامتی </a>
                                     </li>
                                     <li id="menu-item-15" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-15">
-                                        <a title="موسیقی" href="Post/Post-14.html">موسیقی</a>
+                                        <a title="موسیقی" href="@Url.Action("Index","Home")">موسیقی</a>
                                     </li>
                                     <li id="menu-item-16" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-16">
-                                        <a title="مکان ها" href="Post/Post-15.html">مکان ها</a>
+                                        <a title="مکان ها" href="@Url.Action("Index","Places")">مکان ها</a>
                                     </li>
                                     <li id="menu-item-361" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-361 dropdown">
                                         <a title="هنری" href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">هنری </a>
                                         <i class="ddl-switch fa fa-angle-down"></i>
                                         <ul role="menu" class="dropdown-menu">
                                             <li id="menu-item-364" class="menu-item menu-item-_type menu-item-object-page menu-item-364">
-                                                <a title="تئاتر" href="Post/Post-16.html">تئاتر</a>
+                                                <a title="تئاتر" href="@Url.Action("Index","Home")">تئاتر</a>
                                             </li>
                                             <li id="menu-item-362" class="menu-item menu-item-_type menu-item-object-page menu-item-362">
-                                                <a title="طراحی" href="Post/Post-17.html">طراحی</a>
+                                                <a title="طراحی" href="@Url.Action("Index","Home")">طراحی</a>
                                             </li>
                                             <li id="menu-item-363" class="menu-item menu-item-_type menu-item-object-page menu-item-363">
-                                                <a title="معماری" href="Post/Post-18.html">معماری</a>
+                                                <a title="معماری" href="@Url.Action("Index","Home")">معماری</a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li id="menu-item-281" class="menu-item menu-item-_type menu-item-object-page menu-item-281">
-                                        <a title="خرید" href="Post/Post-19.html">خرید</a>
+                                        <a title="خرید" href="@Url.Action("Index","Home")">خرید</a>
                                     </li>
 
                                     <li class="top-search">

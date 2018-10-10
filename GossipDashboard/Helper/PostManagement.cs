@@ -55,7 +55,7 @@ namespace GossipDashboard.Helper
                 postCol = "";
             foreach (var item in post.PostCol)
             {
-                postCol = " " +  item.ClassName + " " ;
+                postCol = " " + item.ClassName + " ";
             }
 
             //هر پست یک فرمت پست دارد
@@ -230,7 +230,7 @@ namespace GossipDashboard.Helper
                                                                         "</div>" +
                                                                         "<div class='entry-content'>" +
                                                                             "<h3 class='entry-title'>" +
-                                                                                "<a href='Quiz/'" + post.PostID + "'>" + post.Subject + "</a>" +
+                                                                                "<a href='" + post.Url + "'>" + post.Subject + "</a>" +
                                                                             "</h3>" +
                                                                         "</div>" +
                                                                         "<div class='entry-footer'>" +
@@ -420,7 +420,7 @@ namespace GossipDashboard.Helper
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
                         HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box'>" +
                                                                     "<div class='entry-content'>" +
-                                                                        "<div class='bg-overlay' style='background-color:rgba(" + post.BackgroundColor + ")'></div>" +
+                                                                        "<div class='bg-overlay' style='background-color:" + post.BackgroundColor + "'></div>" +
                                                                         "<h3>" +
                                                                            post.Subject +
                                                                         "</h3>" +
@@ -451,7 +451,7 @@ namespace GossipDashboard.Helper
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
                         HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box imgwrapper'>" +
                                                                     "<div class='entry-content img-responsive' style='background-image:url(" + post.Image1 + ")'>" +
-                                                                        "<div class='bg-overlay' style='background-color:rgba(" + post.BackgroundColor + ")'></div>" +
+                                                                        "<div class='bg-overlay' style='background-color:" + post.BackgroundColor + "'></div>" +
                                                                         "<blockquote>" +
                                                                             "<h4>" +
                                                                                 "<a href = '" + post.Url + "' >" + post.Subject + "</a>" +
