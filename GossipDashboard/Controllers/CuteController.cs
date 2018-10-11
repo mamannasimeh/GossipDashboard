@@ -15,6 +15,17 @@ namespace GossipDashboard.Controllers
     {
         PostRepository repo = new PostRepository();
         private HtmlNode result;
+        private string path;
+
+        public CuteController()
+        {
+
+        }
+
+        public CuteController(string path)
+        {
+            this.path = path;
+        }
 
         public ActionResult Index()
         {
@@ -29,8 +40,6 @@ namespace GossipDashboard.Controllers
 
         public ActionResult CreateContentCategory()
         {
-            string path = "";
-            path = ControllerContext.HttpContext.Server.MapPath("~");
             PostManagement postManagement = new PostManagement(path);
 
             var docIndex = new HtmlDocument();

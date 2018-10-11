@@ -4,6 +4,7 @@
     ViewBag.Title = @Html.DisplayFor(modelItem => modelItem.Subject);
 }
 
+
 <div class="col-md-12 content-area">
     <article class="post-box ">
         <div class="entry-cover">
@@ -65,7 +66,7 @@
         <div class="panel">
             <div class="panel-body">
                 <div class="author-avatar">
-                    <a href="@Url.Action("WebSite","Admin")"><img alt="@Html.DisplayFor(modelItem => modelItem.Fullname)" src="@Url.Action( "ShowImage", "Post", new { id = ViewData["UserID"] })" srcset="" class="media-object avatar-90 photo" height="90" width="90"></a>
+                    <a href="@Url.Action("WebSite","Admin")"><img alt="@Html.DisplayFor(modelItem => modelItem.Fullname)" src="@Url.Action( "ShowImage", "Post", new { id = @Html.DisplayFor(modelItem => modelItem.UserID_fk) })" srcset="" class="media-object avatar-90 photo" height="90" width="90"></a>
                 </div>
                 <div class="author-info">
                     <h4 class="heading-single"><span>درباره نويسنده - <a href="@Url.Action("WebSite","Admin")" title="وب سايت نويسنده" rel="author external">@Html.DisplayFor(modelItem => modelItem.Fullname)</a></span></h4>

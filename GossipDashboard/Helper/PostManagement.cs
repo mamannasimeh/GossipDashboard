@@ -33,7 +33,7 @@ namespace GossipDashboard.Helper
         internal HtmlNode CreateHead(VM_Post post)
         {
             string postClassArticle = "", postClassCategory = "", postCol = "col-md-4";
-            string urlCategory = "";
+            string urlCategory = "", postUrl = "";
             string categoryAboveClass = "", categoryAboveName = "";
             var docTemplates = new HtmlDocument();
             HtmlNodeCollection nodes = new HtmlNodeCollection(HtmlNode.CreateNode("div"));
@@ -46,7 +46,9 @@ namespace GossipDashboard.Helper
             foreach (var item in post.PostCategory)
             {
                 postClassCategory += " " + item.ClassName + " ";
-                urlCategory = " " + post.PostCategory.ToList().First().NameEn + "/Index";
+                //urlCategory = " " + post.PostCategory.ToList().First().NameEn + "/Index";
+                urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
+                postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
 
                 categoryAboveClass += " " + item.AbobeClassName + " ";
                 categoryAboveName += " " + item.NameFa + " ";
@@ -67,39 +69,39 @@ namespace GossipDashboard.Helper
             {
                 case "standard":
                     docTemplates.Load(path + "/Templates/format-standard.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadStandard(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
+                    nodes = CreateHeadStandard(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
                 case "audio":
                     docTemplates.Load(path + "/Templates/format-audio.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadAudio(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
+                    nodes = CreateHeadAudio(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
                 case "video":
                     docTemplates.Load(path + "/Templates/format-video.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadVideo(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
+                    nodes = CreateHeadVideo(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
                 case "gallery":
                     docTemplates.Load(path + "/Templates/format-gallery.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadGallery(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
+                    nodes = CreateHeadGallery(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
                 case "link":
                     docTemplates.Load(path + "/Templates/format-link.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadLink(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
+                    nodes = CreateHeadLink(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
                 case "quote":
                     docTemplates.Load(path + "/Templates/format-quote.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadQuote(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
+                    nodes = CreateHeadQuote(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
                 case "image ":
                     docTemplates.Load(path + "/Templates/format-image.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadimage(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
+                    nodes = CreateHeadimage(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
                 case "status":
                     docTemplates.Load(path + "/Templates/format-status.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadStatus(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
+                    nodes = CreateHeadStatus(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
                 default:
                     docTemplates.Load(path + "/Templates/format-standard.html", System.Text.Encoding.UTF8);
-                    nodes = CreateHeadStandard(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates);
+                    nodes = CreateHeadStandard(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
             }
 
@@ -121,8 +123,9 @@ namespace GossipDashboard.Helper
         /// <returns></returns>
         ///   
         //private HtmlNode CreateHeadStandard(VM_Post post, string templateCategory)
-        private HtmlNodeCollection CreateHeadStandard(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadStandard(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates, string postUrl)
         {
+            
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
             {
@@ -135,7 +138,7 @@ namespace GossipDashboard.Helper
                         //ايجاد entry-cover
                         //برادر اول
                         HtmlNode oldChild = itemNode.SelectSingleNode("//a");
-                        HtmlNode newChild = HtmlNode.CreateNode("<a href='" + post.Url + "' name='" + post.PostID + "'>  <img width='290' height='170' src='" + post.Image1 + "'  alt='" + post.Subject + "' />  </a>");
+                        HtmlNode newChild = HtmlNode.CreateNode("<a href='" + postUrl + "' name='" + post.PostID + "'>  <img width='290' height='170' src='" + post.Image1 + "'  alt='" + post.Subject + "' />  </a>");
                         itemNode.ReplaceChild(newChild, oldChild);
 
                         //برادر بعدي
@@ -145,7 +148,7 @@ namespace GossipDashboard.Helper
 
                         // برادر بعدي
                         oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]/a[2]");
-                        newChild = HtmlNode.CreateNode(@"<a href='" + post.Url + "' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>");
+                        newChild = HtmlNode.CreateNode(@"<a href='" + postUrl + "' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>");
                         itemNode.ReplaceChild(newChild, oldChild);
                     }
 
@@ -154,7 +157,7 @@ namespace GossipDashboard.Helper
                     {
                         //ايجاد entry-content
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[2]/h3");
-                        HtmlNode newChild = HtmlNode.CreateNode(@"<h3 class=""entry-title""> <a href='" + post.Url + "'>" + post.Subject + "</a></h3>");
+                        HtmlNode newChild = HtmlNode.CreateNode(@"<h3 class=""entry-title""> <a href='" + postUrl + "'>" + post.Subject + "</a></h3>");
                         itemNode.ReplaceChild(newChild, oldChild);
                     }
 
@@ -189,7 +192,7 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-        private HtmlNodeCollection CreateHeadAudio(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadAudio(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates, string postUrl)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -204,7 +207,7 @@ namespace GossipDashboard.Helper
                         HtmlNode newChild = HtmlNode.CreateNode(@"<div class='post-box'>" +
                                                                         "<div class='entry-cover'>" +
                                                                             "<div class='entry-cover'>" +
-                                                                                "<a href='" + post.Url + "'>" +
+                                                                                "<a href='" + postUrl + "'>" +
                                                                                     "<img width='290' height='170' src='" + post.Image1 + "'" +
                                                                                          "class='attachment-viralnews-catlist-big size-viralnews-catlist-big wp-post-image'" +
                                                                                          "alt='" + post.Subject + "' />" +
@@ -220,17 +223,17 @@ namespace GossipDashboard.Helper
                                                                             "<div class='post-category'>" +
                                                                                 "<a href='" + urlCategory + "' class='" + categoryAboveClass + "'>" + categoryAboveName + " </a>" +
                                                                             "</div>" +
-                                                                            "<a href='Quiz/'" + post.Url + "' class='special-rm-arrow'>" +
+                                                                            "<a href='" + postUrl + "' class='special-rm-arrow'>" +
                                                                                 "<i class='fa fa-arrow-right'></i>" +
                                                                             "</a>" +
 
-                                                                            "<a href='post/post-21.html' class='special-rm-arrow'>" +
-                                                                                "<i class='fa fa-arrow-right'></i>" +
-                                                                            "</a>" +
+                                                                            //"<a href='post/post-21.html' class='special-rm-arrow'>" +
+                                                                            //    "<i class='fa fa-arrow-right'></i>" +
+                                                                            //"</a>" +
                                                                         "</div>" +
                                                                         "<div class='entry-content'>" +
                                                                             "<h3 class='entry-title'>" +
-                                                                                "<a href='" + post.Url + "'>" + post.Subject + "</a>" +
+                                                                                "<a href='" + postUrl + "'>" + post.Subject + "</a>" +
                                                                             "</h3>" +
                                                                         "</div>" +
                                                                         "<div class='entry-footer'>" +
@@ -264,7 +267,7 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-        private HtmlNodeCollection CreateHeadGallery(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadGallery(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates, string postUrl)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -313,13 +316,13 @@ namespace GossipDashboard.Helper
                                                                         "<div class='post-category'>" +
                                                                             "<a href='" + urlCategory + "' class='" + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
                                                                         "</div>" +
-                                                                        "<a href='" + post.Url + "' class='special-rm-arrow'>" +
+                                                                        "<a href='" + postUrl + "' class='special-rm-arrow'>" +
                                                                             "<i class='fa fa-arrow-right'></i>" +
                                                                         "</a>" +
                                                                     "</div>" +
                                                                     "<div class='entry-content'>" +
                                                                         "<h3 class='entry-title'>" +
-                                                                            "<a href='" + post.Url + "'>" + post.Subject + "</a>" +
+                                                                            "<a href='" + postUrl + "'>" + post.Subject + "</a>" +
                                                                         "</h3>" +
                                                                     "</div>" +
                                                                     "<div class='entry-footer'>" +
@@ -352,7 +355,7 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-        private HtmlNodeCollection CreateHeadimage(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadimage(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates, string postUrl)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -373,7 +376,7 @@ namespace GossipDashboard.Helper
                                                                     "</div>" +
                                                                     "<div class='entry-content'>" +
                                                                         "<h3 class='entry-title'>" +
-                                                                            "<a href = '" + post.Url + "' >" + post.Subject + "</a>" +
+                                                                            "<a href = '" + postUrl + "' >" + post.Subject + "</a>" +
                                                                         "</h3>" +
                                                                     "</div>" +
                                                                     "<div class='entry-footer'>" +
@@ -406,7 +409,7 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-        private HtmlNodeCollection CreateHeadLink(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadLink(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates, string postUrl)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -424,7 +427,7 @@ namespace GossipDashboard.Helper
                                                                         "<h3>" +
                                                                            post.Subject +
                                                                         "</h3>" +
-                                                                       " <a href = '" + post.Url + "' > " +
+                                                                       " <a href = '" + postUrl + "' > " +
                                                                             "<i class='fa fa-link'></i> لینک خبر" +
                                                                         "</a>" +
                                                                     "</div>" +
@@ -437,7 +440,7 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-        private HtmlNodeCollection CreateHeadQuote(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadQuote(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates, string postUrl)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -454,7 +457,7 @@ namespace GossipDashboard.Helper
                                                                         "<div class='bg-overlay' style='background-color:" + post.BackgroundColor + "'></div>" +
                                                                         "<blockquote>" +
                                                                             "<h4>" +
-                                                                                "<a href = '" + post.Url + "' >" + post.Subject + "</a>" +
+                                                                                "<a href = '" + postUrl + "' >" + post.Subject + "</a>" +
                                                                             "</h4>" +
                                                                             "<cite>" + post.QuotedFrom + "</cite>" +
                                                                         "</blockquote>" +
@@ -469,7 +472,7 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-        private HtmlNodeCollection CreateHeadStatus(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadStatus(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates, string postUrl)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -494,7 +497,7 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-        private HtmlNodeCollection CreateHeadVideo(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates)
+        private HtmlNodeCollection CreateHeadVideo(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates, string postUrl)
         {
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
@@ -520,13 +523,13 @@ namespace GossipDashboard.Helper
                                                                         "<div class='post-category'>" +
                                                                              "<a href='" + urlCategory + "' class='" + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
                                                                         "</div>" +
-                                                                        "<a href = 'Video/" + post.Url + "' class='special-rm-arrow'>" +
+                                                                        "<a href = '" + postUrl + "' class='special-rm-arrow'>" +
                                                                             "<i class='fa fa-arrow-right'></i>" +
                                                                         "</a>" +
                                                                     "</div>" +
                                                                     "<div class='entry-content'>" +
                                                                         "<h3 class='entry-title'>" +
-                                                                            "<a href = '" + post.Url + "' >" + post.Subject + "</a>" +
+                                                                            "<a href = '" + postUrl + "' >" + post.Subject + "</a>" +
                                                                         "</h3>" +
                                                                    " </div>" +
                                                                     "<div class='entry-footer'>" +

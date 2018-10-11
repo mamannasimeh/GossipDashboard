@@ -17,16 +17,46 @@ namespace GossipDashboard.Controllers
             return View(new VM_Post());
         }
 
+        public ActionResult CreateAllCategory()
+        {
+            string path = ControllerContext.HttpContext.Server.MapPath("~");
+            BizarreController bizarre = new BizarreController(path);
+            bizarre.CreateContentCategory();
+
+            AmazingController amazing = new AmazingController(path);
+            amazing.CreateContentCategory();
+
+            CuteController cute = new CuteController(path);
+            cute.CreateContentCategory();
+
+            EntertainmentController entertainment = new EntertainmentController(path);
+            entertainment.CreateContentCategory();
+
+            FilmsController films = new FilmsController(path);
+            films.CreateContentCategory();
+
+            PlacesController places = new PlacesController(path);
+            places.CreateContentCategory();
+
+            QuizController quiz = new QuizController(path);
+            quiz.CreateContentCategory();
+
+            SexyController sexy = new SexyController(path);
+            sexy.CreateContentCategory();
+
+            return View("/Home/Index");
+        }
+
+
         public ActionResult ShowImage(int id)
         {
             var imageData = repo.Select(id).Image;
             return File(imageData, "image/jpg");
         }
 
-
         [Authorize]
         [HttpPost]
-        public ActionResult SaveImage(HttpPostedFileBase UploadFile, int RequestIDFormAtt, string type)
+        public ActionResult SaveImage(HttpPostedFileBase UploadFile)
         {
             if (UploadFile != null)
             {
