@@ -213,6 +213,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PlacesController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\SexyController.cs" />
     <Compile Include="Controllers\SiteManageController.cs" />
@@ -221,6 +222,7 @@
     </Compile>
     <Compile Include="Helper\EnumGeneral.cs" />
     <Compile Include="Helper\PostManagement.cs" />
+    <Compile Include="Helper\UploadHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\GossipSiteModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -242,10 +244,16 @@
     <Compile Include="Models\Post.cs">
       <DependentUpon>GossipSiteModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PostAnswer.cs">
+      <DependentUpon>GossipSiteModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PostAttribute.cs">
       <DependentUpon>GossipSiteModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PostComment.cs">
+      <DependentUpon>GossipSiteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PostQuestion.cs">
       <DependentUpon>GossipSiteModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PubBase.cs">
@@ -259,10 +267,12 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\PostRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\VM_Post.cs" />
     <Compile Include="ViewModel\VM_PubBase.cs" />
+    <Compile Include="ViewModel\VM_User.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Audio\sample.mp3" />
@@ -271,8 +281,10 @@
     <Content Include="Content\CSS\bigplay.svg" />
     <Content Include="Content\CSS\bootstrap-rtl.css" />
     <Content Include="Content\CSS\bootstrap-theme-rtl.css" />
+    <Content Include="Content\CSS\buzzfeed.css" />
     <Content Include="Content\CSS\controls.svg" />
     <Content Include="Content\CSS\dynamic-styles.php.css" />
+    <Content Include="Content\CSS\front-style.css" />
     <Content Include="Content\CSS\full-screen-preview.css" />
     <Content Include="Content\CSS\loading.gif" />
     <Content Include="Content\CSS\mediaelementplayer.min.css" />
@@ -436,11 +448,13 @@
     <Content Include="Views\Films\Index.cshtml" />
     <Content Include="Views\Places\Index.cshtml" />
     <Content Include="Views\Sexy\Index.cshtml" />
+    <Content Include="Views\Post\Index.cshtml" />
+    <Content Include="Views\Post\View.cshtml" />
+    <Content Include="Views\Post\View1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Posts\" />
-    <Folder Include="Views\Post\" />
     <Folder Include="Views\SiteManage\" />
   </ItemGroup>
   <ItemGroup>

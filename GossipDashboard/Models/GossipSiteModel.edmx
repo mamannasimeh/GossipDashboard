@@ -11,7 +11,11 @@
           </Key>
           <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="2000" Nullable="false" />
+          <Property Name="Subject1" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Subject2" Type="nvarchar" MaxLength="2000" />
           <Property Name="ContentPost" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ContentPost1" Type="nvarchar(max)" />
+          <Property Name="ContentPost2" Type="nvarchar(max)" />
           <Property Name="QuotedFrom" Type="nvarchar" MaxLength="1000" />
           <Property Name="Url" Type="nvarchar" MaxLength="2000" />
           <Property Name="UrlMP3" Type="nvarchar" MaxLength="2000" />
@@ -27,6 +31,14 @@
           <Property Name="BackgroundColor" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifyUserID" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PostAnswer">
+          <Key>
+            <PropertyRef Name="PostAnswerID" />
+          </Key>
+          <Property Name="PostAnswerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostQuestionID_fk" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="bit" />
         </EntityType>
         <EntityType Name="PostAttribute">
           <Key>
@@ -45,6 +57,14 @@
           <Property Name="Comment" Type="nvarchar" MaxLength="4000" />
           <Property Name="LikeComment" Type="int" />
           <Property Name="DislikeComment" Type="int" />
+        </EntityType>
+        <EntityType Name="PostQuestion">
+          <Key>
+            <PropertyRef Name="PostQuestionID" />
+          </Key>
+          <Property Name="PostQuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostID_fk" Type="int" Nullable="false" />
+          <Property Name="Question" Type="nvarchar" MaxLength="2000" Nullable="false" />
         </EntityType>
         <EntityType Name="PubBase">
           <Key>
@@ -74,6 +94,8 @@
           <Property Name="Password" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="ModifyUserID" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="AboutUser" Type="nvarchar" MaxLength="3000" />
         </EntityType>
         <EntityType Name="UserPost">
           <Key>
@@ -85,6 +107,18 @@
           <Property Name="ModifyUserID" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
+        <Association Name="FK_PostAnswer_PostQuestion">
+          <End Role="PostQuestion" Type="Self.PostQuestion" Multiplicity="1" />
+          <End Role="PostAnswer" Type="Self.PostAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostQuestion">
+              <PropertyRef Name="PostQuestionID" />
+            </Principal>
+            <Dependent Role="PostAnswer">
+              <PropertyRef Name="PostQuestionID_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PostCategory_Post">
           <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
           <End Role="PostAttribute" Type="Self.PostAttribute" Multiplicity="*" />
@@ -123,6 +157,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PostQuestion_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="PostQuestion" Type="Self.PostQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="PostQuestion">
+              <PropertyRef Name="PostID_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserPost_Post">
           <End Role="Post" Type="Self.Post" Multiplicity="1" />
           <End Role="UserPost" Type="Self.UserPost" Multiplicity="*" />
@@ -149,11 +195,17 @@
         </Association>
         <EntityContainer Name="GossipSiteModelStoreContainer">
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PostAnswer" EntityType="Self.PostAnswer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAttribute" EntityType="Self.PostAttribute" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostComment" EntityType="Self.PostComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PostQuestion" EntityType="Self.PostQuestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PubBase" EntityType="Self.PubBase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPost" EntityType="Self.UserPost" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PostAnswer_PostQuestion" Association="Self.FK_PostAnswer_PostQuestion">
+            <End Role="PostQuestion" EntitySet="PostQuestion" />
+            <End Role="PostAnswer" EntitySet="PostAnswer" />
+          </AssociationSet>
           <AssociationSet Name="FK_PostCategory_Post" Association="Self.FK_PostCategory_Post">
             <End Role="Post" EntitySet="Post" />
             <End Role="PostAttribute" EntitySet="PostAttribute" />
@@ -165,6 +217,10 @@
           <AssociationSet Name="FK_PostComment_Post" Association="Self.FK_PostComment_Post">
             <End Role="Post" EntitySet="Post" />
             <End Role="PostComment" EntitySet="PostComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostQuestion_Post" Association="Self.FK_PostQuestion_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostQuestion" EntitySet="PostQuestion" />
           </AssociationSet>
           <AssociationSet Name="FK_UserPost_Post" Association="Self.FK_UserPost_Post">
             <End Role="Post" EntitySet="Post" />
@@ -180,23 +236,10 @@
     <edmx:ConceptualModels>
       <Schema Namespace="GossipSiteModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
         <EntityContainer Name="GossipSiteEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
-          <EntitySet Name="Posts" EntityType="GossipSiteModel.Post" />
           <EntitySet Name="PostAttributes" EntityType="GossipSiteModel.PostAttribute" />
           <EntitySet Name="PostComments" EntityType="GossipSiteModel.PostComment" />
           <EntitySet Name="Users" EntityType="GossipSiteModel.User" />
           <EntitySet Name="UserPosts" EntityType="GossipSiteModel.UserPost" />
-          <AssociationSet Name="FK_PostCategory_Post" Association="GossipSiteModel.FK_PostCategory_Post">
-            <End Role="Post" EntitySet="Posts" />
-            <End Role="PostAttribute" EntitySet="PostAttributes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PostComment_Post" Association="GossipSiteModel.FK_PostComment_Post">
-            <End Role="Post" EntitySet="Posts" />
-            <End Role="PostComment" EntitySet="PostComments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserPost_Post" Association="GossipSiteModel.FK_UserPost_Post">
-            <End Role="Post" EntitySet="Posts" />
-            <End Role="UserPost" EntitySet="UserPosts" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserPost_User" Association="GossipSiteModel.FK_UserPost_User">
             <End Role="User" EntitySet="Users" />
             <End Role="UserPost" EntitySet="UserPosts" />
@@ -206,33 +249,30 @@
             <End Role="PubBase" EntitySet="PubBases" />
             <End Role="PostAttribute" EntitySet="PostAttributes" />
           </AssociationSet>
+          <EntitySet Name="Posts" EntityType="GossipSiteModel.Post" />
+          <EntitySet Name="PostAnswers" EntityType="GossipSiteModel.PostAnswer" />
+          <EntitySet Name="PostQuestions" EntityType="GossipSiteModel.PostQuestion" />
+          <AssociationSet Name="FK_PostCategory_Post" Association="GossipSiteModel.FK_PostCategory_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="PostAttribute" EntitySet="PostAttributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostComment_Post" Association="GossipSiteModel.FK_PostComment_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="PostComment" EntitySet="PostComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostQuestion_Post" Association="GossipSiteModel.FK_PostQuestion_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="PostQuestion" EntitySet="PostQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPost_Post" Association="GossipSiteModel.FK_UserPost_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="UserPost" EntitySet="UserPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostAnswer_PostQuestion" Association="GossipSiteModel.FK_PostAnswer_PostQuestion">
+            <End Role="PostQuestion" EntitySet="PostQuestions" />
+            <End Role="PostAnswer" EntitySet="PostAnswers" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Post">
-          <Key>
-            <PropertyRef Name="PostID" />
-          </Key>
-          <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Subject" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="ContentPost" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="QuotedFrom" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Url" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="UrlMP3" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="UrlVideo" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="Views" Type="Int32" />
-          <Property Name="Image1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Image2" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Image3" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Image4" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="LikePost" Type="Int32" />
-          <Property Name="DislikePost" Type="Int32" />
-          <Property Name="PublishCount" Type="Int32" />
-          <Property Name="BackgroundColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifyUserID" Type="Int32" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="PostAttributes" Relationship="GossipSiteModel.FK_PostCategory_Post" FromRole="Post" ToRole="PostAttribute" />
-          <NavigationProperty Name="PostComments" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
-          <NavigationProperty Name="UserPosts" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="Post" ToRole="UserPost" />
-        </EntityType>
         <EntityType Name="PostAttribute">
           <Key>
             <PropertyRef Name="PostAttributeID" />
@@ -240,8 +280,8 @@
           <Property Name="PostAttributeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PostID_fk" Type="Int32" />
           <Property Name="AttributeID_fk" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostCategory_Post" FromRole="PostAttribute" ToRole="Post" />
           <NavigationProperty Name="PubBase" Relationship="GossipSiteModel.FK_PostCategory_PubBase" FromRole="PostAttribute" ToRole="PubBase" />
+          <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostCategory_Post" FromRole="PostAttribute" ToRole="Post" />
         </EntityType>
         <EntityType Name="PostComment">
           <Key>
@@ -267,6 +307,8 @@
           <Property Name="ModifyUserID" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="UserPosts" Relationship="GossipSiteModel.FK_UserPost_User" FromRole="User" ToRole="UserPost" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="AboutUser" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserPost">
           <Key>
@@ -277,45 +319,9 @@
           <Property Name="PostID_fk" Type="Int32" Nullable="false" />
           <Property Name="ModifyUserID" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="UserPost" ToRole="Post" />
           <NavigationProperty Name="User" Relationship="GossipSiteModel.FK_UserPost_User" FromRole="UserPost" ToRole="User" />
+          <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="UserPost" ToRole="Post" />
         </EntityType>
-        <Association Name="FK_PostCategory_Post">
-          <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="0..1" />
-          <End Type="GossipSiteModel.PostAttribute" Role="PostAttribute" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Post">
-              <PropertyRef Name="PostID" />
-            </Principal>
-            <Dependent Role="PostAttribute">
-              <PropertyRef Name="PostID_fk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PostComment_Post">
-          <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="1" />
-          <End Type="GossipSiteModel.PostComment" Role="PostComment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Post">
-              <PropertyRef Name="PostID" />
-            </Principal>
-            <Dependent Role="PostComment">
-              <PropertyRef Name="PostID_fk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserPost_Post">
-          <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="1" />
-          <End Type="GossipSiteModel.UserPost" Role="UserPost" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Post">
-              <PropertyRef Name="PostID" />
-            </Principal>
-            <Dependent Role="UserPost">
-              <PropertyRef Name="PostID_fk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserPost_User">
           <End Type="GossipSiteModel.User" Role="User" Multiplicity="1" />
           <End Type="GossipSiteModel.UserPost" Role="UserPost" Multiplicity="*" />
@@ -359,36 +365,122 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Subject1" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Subject2" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ContentPost" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContentPost1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContentPost2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuotedFrom" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="UrlMP3" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="UrlVideo" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Views" Type="Int32" />
+          <Property Name="Image1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Image2" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Image3" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Image4" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="LikePost" Type="Int32" />
+          <Property Name="DislikePost" Type="Int32" />
+          <Property Name="PublishCount" Type="Int32" />
+          <Property Name="BackgroundColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyUserID" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PostAttributes" Relationship="GossipSiteModel.FK_PostCategory_Post" FromRole="Post" ToRole="PostAttribute" />
+          <NavigationProperty Name="PostComments" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
+          <NavigationProperty Name="PostQuestions" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="Post" ToRole="PostQuestion" />
+          <NavigationProperty Name="UserPosts" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="Post" ToRole="UserPost" />
+        </EntityType>
+        <EntityType Name="PostAnswer">
+          <Key>
+            <PropertyRef Name="PostAnswerID" />
+          </Key>
+          <Property Name="PostAnswerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostQuestionID_fk" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="Boolean" />
+          <NavigationProperty Name="PostQuestion" Relationship="GossipSiteModel.FK_PostAnswer_PostQuestion" FromRole="PostAnswer" ToRole="PostQuestion" />
+        </EntityType>
+        <EntityType Name="PostQuestion">
+          <Key>
+            <PropertyRef Name="PostQuestionID" />
+          </Key>
+          <Property Name="PostQuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostID_fk" Type="Int32" Nullable="false" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="PostQuestion" ToRole="Post" />
+          <NavigationProperty Name="PostAnswers" Relationship="GossipSiteModel.FK_PostAnswer_PostQuestion" FromRole="PostQuestion" ToRole="PostAnswer" />
+        </EntityType>
+        <Association Name="FK_PostCategory_Post">
+          <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="0..1" />
+          <End Type="GossipSiteModel.PostAttribute" Role="PostAttribute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="PostAttribute">
+              <PropertyRef Name="PostID_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostComment_Post">
+          <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="GossipSiteModel.PostComment" Role="PostComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="PostComment">
+              <PropertyRef Name="PostID_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostQuestion_Post">
+          <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="GossipSiteModel.PostQuestion" Role="PostQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="PostQuestion">
+              <PropertyRef Name="PostID_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPost_Post">
+          <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="GossipSiteModel.UserPost" Role="UserPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="UserPost">
+              <PropertyRef Name="PostID_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostAnswer_PostQuestion">
+          <End Type="GossipSiteModel.PostQuestion" Role="PostQuestion" Multiplicity="1" />
+          <End Type="GossipSiteModel.PostAnswer" Role="PostAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostQuestion">
+              <PropertyRef Name="PostQuestionID" />
+            </Principal>
+            <Dependent Role="PostAnswer">
+              <PropertyRef Name="PostQuestionID_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="GossipSiteModelStoreContainer" CdmEntityContainer="GossipSiteEntities">
-          <EntitySetMapping Name="Posts">
-            <EntityTypeMapping TypeName="GossipSiteModel.Post">
-              <MappingFragment StoreEntitySet="Post">
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
-                <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
-                <ScalarProperty Name="PublishCount" ColumnName="PublishCount" />
-                <ScalarProperty Name="DislikePost" ColumnName="DislikePost" />
-                <ScalarProperty Name="LikePost" ColumnName="LikePost" />
-                <ScalarProperty Name="Image4" ColumnName="Image4" />
-                <ScalarProperty Name="Image3" ColumnName="Image3" />
-                <ScalarProperty Name="Image2" ColumnName="Image2" />
-                <ScalarProperty Name="Image1" ColumnName="Image1" />
-                <ScalarProperty Name="Views" ColumnName="Views" />
-                <ScalarProperty Name="UrlVideo" ColumnName="UrlVideo" />
-                <ScalarProperty Name="UrlMP3" ColumnName="UrlMP3" />
-                <ScalarProperty Name="Url" ColumnName="Url" />
-                <ScalarProperty Name="QuotedFrom" ColumnName="QuotedFrom" />
-                <ScalarProperty Name="ContentPost" ColumnName="ContentPost" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="PostID" ColumnName="PostID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PostAttributes">
             <EntityTypeMapping TypeName="GossipSiteModel.PostAttribute">
               <MappingFragment StoreEntitySet="PostAttribute">
@@ -412,6 +504,8 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="GossipSiteModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="AboutUser" ColumnName="AboutUser" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -448,6 +542,52 @@
                 <ScalarProperty Name="NameFa" ColumnName="NameFa" />
                 <ScalarProperty Name="ParentID" ColumnName="ParentID" />
                 <ScalarProperty Name="PubBaseID" ColumnName="PubBaseID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="GossipSiteModel.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
+                <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
+                <ScalarProperty Name="PublishCount" ColumnName="PublishCount" />
+                <ScalarProperty Name="DislikePost" ColumnName="DislikePost" />
+                <ScalarProperty Name="LikePost" ColumnName="LikePost" />
+                <ScalarProperty Name="Image4" ColumnName="Image4" />
+                <ScalarProperty Name="Image3" ColumnName="Image3" />
+                <ScalarProperty Name="Image2" ColumnName="Image2" />
+                <ScalarProperty Name="Image1" ColumnName="Image1" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="UrlVideo" ColumnName="UrlVideo" />
+                <ScalarProperty Name="UrlMP3" ColumnName="UrlMP3" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="QuotedFrom" ColumnName="QuotedFrom" />
+                <ScalarProperty Name="ContentPost2" ColumnName="ContentPost2" />
+                <ScalarProperty Name="ContentPost1" ColumnName="ContentPost1" />
+                <ScalarProperty Name="ContentPost" ColumnName="ContentPost" />
+                <ScalarProperty Name="Subject2" ColumnName="Subject2" />
+                <ScalarProperty Name="Subject1" ColumnName="Subject1" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostAnswers">
+            <EntityTypeMapping TypeName="GossipSiteModel.PostAnswer">
+              <MappingFragment StoreEntitySet="PostAnswer">
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="PostQuestionID_fk" ColumnName="PostQuestionID_fk" />
+                <ScalarProperty Name="PostAnswerID" ColumnName="PostAnswerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostQuestions">
+            <EntityTypeMapping TypeName="GossipSiteModel.PostQuestion">
+              <MappingFragment StoreEntitySet="PostQuestion">
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="PostID_fk" ColumnName="PostID_fk" />
+                <ScalarProperty Name="PostQuestionID" ColumnName="PostQuestionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using GossipDashboard.Models;
+using System.IO;
 
 namespace GossipDashboard.Repository
 {
@@ -31,6 +32,8 @@ namespace GossipDashboard.Repository
                       {
                           PostID = P.PostID,
                           ContentPost = P.ContentPost,
+                          ContentPost1 = P.ContentPost1,
+                          ContentPost2 = P.ContentPost2,
                           DislikePost = P.DislikePost,
                           Image1 = P.Image1,
                           Image2 = P.Image2,
@@ -41,6 +44,8 @@ namespace GossipDashboard.Repository
                           ModifyUserID = P.ModifyUserID,
                           PublishCount = P.PublishCount,
                           Subject = P.Subject,
+                          Subject1 = P.Subject1,
+                          Subject2 = P.Subject2,
                           Url = P.Url,
                           UrlMP3 = P.UrlMP3,
                           UrlVideo = P.UrlVideo,
@@ -49,6 +54,8 @@ namespace GossipDashboard.Repository
                           FirstName = U.FirstName,
                           LastName = U.LastName,
                           Fullname = U.FirstName + " " + U.LastName,
+                          ImageUser = U.Image,
+                          AboutUser = U.AboutUser,
                           BackgroundColor = P.BackgroundColor,
                           QuotedFrom = P.QuotedFrom,
                           CommentCount = context.PostComments.Count(x => x.PostID_fk == P.PostID),
