@@ -185,5 +185,10 @@ namespace GossipDashboard.Repository
                       };
             return res;
         }
+
+        public IQueryable<Post> SelectAll(string condition)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

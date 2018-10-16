@@ -30,7 +30,7 @@ namespace GossipDashboard.Helper
         /// <param name="post">شی پست</param>
         /// <param name="templateCategory">تمپلیتی که قصد داریم از روی آن آرتیکل را بسازیم</param>
         /// <returns></returns>
-        internal HtmlNode CreateHead(VM_Post post)
+        internal HtmlNode CreateBloglist(VM_Post post)
         {
             string postClassArticle = "", postClassCategory = "", postCol = "col-md-4";
             string urlCategory = "", postUrl = "";
@@ -125,7 +125,7 @@ namespace GossipDashboard.Helper
         //private HtmlNode CreateHeadStandard(VM_Post post, string templateCategory)
         private HtmlNodeCollection CreateHeadStandard(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates, string postUrl)
         {
-            
+
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
             {
@@ -227,9 +227,9 @@ namespace GossipDashboard.Helper
                                                                                 "<i class='fa fa-arrow-right'></i>" +
                                                                             "</a>" +
 
-                                                                            //"<a href='post/post-21.html' class='special-rm-arrow'>" +
-                                                                            //    "<i class='fa fa-arrow-right'></i>" +
-                                                                            //"</a>" +
+                                                                        //"<a href='post/post-21.html' class='special-rm-arrow'>" +
+                                                                        //    "<i class='fa fa-arrow-right'></i>" +
+                                                                        //"</a>" +
                                                                         "</div>" +
                                                                         "<div class='entry-content'>" +
                                                                             "<h3 class='entry-title'>" +
@@ -612,5 +612,49 @@ namespace GossipDashboard.Helper
 
             return false;
         }
+
+
+        //catlist-heading
+        public HtmlNode CreateCatListHeading(List<PubBase> category)
+        {
+            var docTemplates = new HtmlDocument();
+            docTemplates.Load(path + "/Templates/cat-list.html", System.Text.Encoding.UTF8);
+            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+            foreach (var itemNode in nodes)
+            {
+                var attrs = itemNode.Attributes;
+                foreach (var itemAttr in attrs)
+                {
+                    //catlist-heading پيدا كردن تگ ديو با كلاس 
+                    if (itemAttr.Value.Contains("catlist-heading"))
+                    {
+                        var ul = "ul class='nav nav-tabs";
+                        int i = 0;
+                        foreach (var item in category)
+                        {
+                            if (i == 0)
+                                ul += "<li>" + "<a href = '#' data-filter='." + item.NameEn + "' class='active'>" + item.NameFa + "</a>" + "</li>";
+                            else
+                                ul += "<li>" + "<a href = '#' data-filter='." + item.NameEn + "' class=''>" + item.NameFa + "</a>" + "</li>";
+
+                            i++;
+                        }
+                        ul += "</ul>";
+
+                        HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]");
+                        HtmlNode newChild = HtmlNode.CreateNode("<h4>" +
+                                                                    "<span class='catlist-title'>آخرين رويدادها</span>" +
+                                                                "</h4>"
+                                                                + ul
+                                                                );
+
+                        return itemNode.ReplaceChild(newChild, oldChild);
+                    }
+                }
+            }
+
+            return null;
+        }
+
     }
 }
