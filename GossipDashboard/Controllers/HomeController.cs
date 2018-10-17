@@ -14,7 +14,6 @@ namespace GossipDashboard.Controllers
 {
     public class HomeController : Controller
     {
-        GossipSiteEntities context = new GossipSiteEntities();
         private HtmlNode result;
 
         public ActionResult Index()
@@ -28,6 +27,7 @@ namespace GossipDashboard.Controllers
             path = ControllerContext.HttpContext.Server.MapPath("~");
             PostManagement postManagement = new PostManagement(path);
 
+            /////////////////////////////create bloglist/////////////////////////////
             var docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
             var nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
@@ -41,7 +41,49 @@ namespace GossipDashboard.Controllers
             foreach (var item in postQuiz)
             {
                 //ايجاد محتوا براي وسط صفحه-- author-grid 
-                var itSelfNode = postManagement.CreateHead(item);
+                var itSelfNode = postManagement.CreateBloglist(item);
+                if (itSelfNode != null)
+                {
+                    result = postManagement.AddHeadToContent(nodesIndex, "author-grid", itSelfNode);
+                }
+            }
+
+            try
+            {
+                var htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(result.OuterHtml);
+                htmlDoc.Save(path + "/Views/Home/Index.cshtml", Encoding.UTF8);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            //////////////////////Create catlist///////////////////////////////////////
+             docIndex = new HtmlDocument();
+            docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
+             nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
+
+            //حذف محتويات ند بلاك-catlist
+            postManagement.ClearContentNode(nodesIndex, "catlist");
+
+            //ایجاد هد برای کت لیست
+            //به دست آوردن طبقه بندی ها از دیتا بیس
+            Repository.PubBaseRepository repoPubBase = new Repository.PubBaseRepository();
+            var cats = repoPubBase.SelectByParentName("PostCategory").ToList();
+            var itSelfHead =  postManagement.CreateCatListHeading(cats);
+            if (itSelfHead != null)
+            {
+                result = postManagement.AddHeadToContent(nodesIndex, "author-grid", itSelfHead);
+            }
+
+            //ایجاد  تگ آرتیکل به ازای هر پست
+            repo = new PostRepository();
+            postQuiz = repo.SelectPostUser().ToList();
+            foreach (var item in postQuiz)
+            {
+                //ايجاد محتوا براي قسمت طبقه بندی-- catlist 
+                var itSelfNode = postManagement.CreateBloglist(item);
                 if (itSelfNode != null)
                 {
                     result = postManagement.AddHeadToContent(nodesIndex, "author-grid", itSelfNode);

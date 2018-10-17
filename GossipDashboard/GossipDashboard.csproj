@@ -267,6 +267,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\PubBaseRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\PostRepository.cs" />
     <Compile Include="Startup.cs" />
@@ -396,6 +397,7 @@
     <Content Include="Scripts\woocommerce.min.js" />
     <Content Include="Scripts\wp-embed.min.js" />
     <Content Include="Scripts\wp-mediaelement.min.js" />
+    <Content Include="Templates\cat-list.html" />
     <Content Include="Templates\format-audio.html" />
     <Content Include="Templates\format-gallery.html" />
     <Content Include="Templates\format-image.html" />
