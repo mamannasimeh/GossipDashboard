@@ -40,7 +40,7 @@ namespace GossipDashboard.Controllers
             var postQuiz = repo.SelectPostUser().ToList();
             foreach (var item in postQuiz)
             {
-                //ايجاد محتوا براي وسط صفحه-- author-grid 
+                //ايجاد محتوا براي وسط صفحه-- author-grid
                 var itSelfNode = postManagement.CreateBloglist(item);
                 if (itSelfNode != null)
                 {
@@ -56,37 +56,26 @@ namespace GossipDashboard.Controllers
             }
             catch (Exception ex)
             {
-
             }
 
             //////////////////////Create catlist///////////////////////////////////////
-             docIndex = new HtmlDocument();
+            docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
-             nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
+            nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
 
             //حذف محتويات ند بلاك-catlist
-            postManagement.ClearContentNode(nodesIndex, "catlist");
+            postManagement.ClearContentNode(nodesIndex, "tab-content");
 
-            //ایجاد هد برای کت لیست
-            //به دست آوردن طبقه بندی ها از دیتا بیس
-            Repository.PubBaseRepository repoPubBase = new Repository.PubBaseRepository();
-            var cats = repoPubBase.SelectByParentName("PostCategory").ToList();
-            var itSelfHead =  postManagement.CreateCatListHeading(cats);
-            if (itSelfHead != null)
-            {
-                result = postManagement.AddHeadToContent(nodesIndex, "author-grid", itSelfHead);
-            }
-
-            //ایجاد  تگ آرتیکل به ازای هر پست
+            //ایجاد  محتواي تب هاي کت ليست
             repo = new PostRepository();
             postQuiz = repo.SelectPostUser().ToList();
             foreach (var item in postQuiz)
             {
-                //ايجاد محتوا براي قسمت طبقه بندی-- catlist 
-                var itSelfNode = postManagement.CreateBloglist(item);
+                //ايجاد محتوا براي قسمت طبقه بندی-- catlist
+                var itSelfNode = postManagement.CreateCatListContent(item);
                 if (itSelfNode != null)
                 {
-                    result = postManagement.AddHeadToContent(nodesIndex, "author-grid", itSelfNode);
+                    result = postManagement.AddHeadToContent(nodesIndex, "tab-content", itSelfNode);
                 }
             }
 
@@ -98,14 +87,10 @@ namespace GossipDashboard.Controllers
             }
             catch (Exception ex)
             {
-
             }
-
 
             return View("Index");
         }
-
-
 
         public ActionResult About()
         {
@@ -121,6 +106,4 @@ namespace GossipDashboard.Controllers
             return View();
         }
     }
-
-
 }
