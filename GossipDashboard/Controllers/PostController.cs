@@ -51,6 +51,8 @@ namespace GossipDashboard.Controllers
         public ActionResult ShowImage(int id)
         {
             var imageData = repo.Select(id).Image;
+            if (imageData == null)
+                return null;
             return File(imageData, "image/jpg");
         }
 

@@ -8,6 +8,7 @@ namespace GossipDashboard.ViewModel
 {
     public class VM_Post
     {
+
         public int PostID { get; set; }
         public string Subject { get; set; }
         public string ContentPost { get; set; }
@@ -42,5 +43,6 @@ namespace GossipDashboard.ViewModel
         public string ContentPost2 { get;  set; }
         public string AboutUser { get;  set; }
         public byte[] ImageUser { get;  set; }
+        public string JalaliModifyDate { get;  set; }
     }
 }

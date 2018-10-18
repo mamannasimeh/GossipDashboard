@@ -7,18 +7,26 @@ using System.Web;
 
 public static class Utilty
 {
-    public static DateTime ToPersianDateTime(this DateTime? dt)
+    public static string ToPersianDateTime(this DateTime? dt)
     {
-        PersianCalendar pc = new PersianCalendar();
         if (dt == null)
-            return pc.ToDateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, 0, 0);
+            return "";
 
-        int year = pc.GetYear((DateTime)dt);
-        int month = pc.GetMonth((DateTime)dt);
-        int day = pc.GetDayOfMonth((DateTime)dt);
-        int hour = pc.GetHour((DateTime)dt);
-        int min = pc.GetMinute((DateTime)dt);
+        DateTime dt1 = (DateTime)dt;
+        PersianCalendar pc = new PersianCalendar();
+        int year = pc.GetYear(dt1);
+        int month = pc.GetMonth(dt1);
+        int day = pc.GetDayOfMonth(dt1);
+        int hour = pc.GetHour(dt1);
+        int minute = pc.GetMinute(dt1);
 
-        return pc.ToDateTime(year, month, day, hour, min, 0, 0);
+
+        string strDay = day.ToString(), strMonth = month.ToString(), strYear = year.ToString();
+        if (strDay.Length == 1)
+            strDay = "0" + strDay;
+        if (strMonth.Length == 1)
+            strMonth = "0" + strMonth;
+
+        return strYear + "/" + strMonth + "/" + strDay + "  " + hour + ":" + minute;
     }
 }

@@ -209,7 +209,7 @@ namespace GossipDashboard.Helper
                                                                             "<div class='entry-cover'>" +
                                                                                 "<a href='" + postUrl + "'>" +
                                                                                     "<img width='290' height='170' src='" + post.Image1 + "'" +
-                                                                                         "class='attachment-viralnews-catlist-big size-viralnews-catlist-big '" +
+                                                                                         "class='  '" +
                                                                                          "alt='" + post.Subject + "' />" +
                                                                                 "</a>" +
                                                                             "</div>" +
@@ -679,7 +679,7 @@ namespace GossipDashboard.Helper
                     if (itemAttr.Value.Contains("tab-content"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[2]/div[1]");
-                        HtmlNode newChild = HtmlNode.CreateNode("<div class='col-md-6 catlist-posts small-posts "+ catListClass + "  ' style='position: absolute; display: none;'>" +
+                        HtmlNode newChild = HtmlNode.CreateNode("<div class='col-md-6 catlist-posts small-posts " + catListClass + "  ' style='position: absolute; display: none;'>" +
                                                                     "<a href = '" + postUrl + "' > " +
                                                                         "<img width = '70' height = '70' src = '" + post.Image1 + "' class='' alt='' srcset='' sizes='(max-width: 70px) 100vw, 70px'>" +
                                                                     "</a>" +
@@ -689,7 +689,7 @@ namespace GossipDashboard.Helper
                                                                         "</h4>" +
                                                                         "<div class='catitem-meta'>" +
                                                                             "<span class='catitem-date'>" +
-                                                                                "<i class='fa fa-calendar'></i>" + post.ModifyDate + "" +
+                                                                                "<i class='fa fa-calendar'></i>" + post.JalaliModifyDate + "" +
                                                                             "</span>" +
                                                                             "<span class='catitem-author'>" +
                                                                                 "<i class='fa fa-user'></i> " + post.Fullname + "" +
@@ -705,5 +705,296 @@ namespace GossipDashboard.Helper
 
             return null;
         }
+
+
+        internal HtmlNode CreateBloglistContent(VM_Post post)
+        {
+            string urlCategory = "", postUrl = "";
+            string categoryAboveClass = "", categoryAboveName = "";
+
+
+            foreach (var item in post.PostCategory)
+            {
+                urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
+                postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
+                categoryAboveClass += " " + item.AbobeClassName + " ";
+                categoryAboveName += " " + item.NameFa + " ";
+            }
+
+            var docTemplates = new HtmlDocument();
+            docTemplates.Load(path + "/Templates/bloglist-content.html", System.Text.Encoding.UTF8);
+            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+
+            var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "row bloglist-content");
+            if (itemNode != null)
+            {
+                HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/article[1]");
+                HtmlNode newChild = HtmlNode.CreateNode("<article class='col-md-4'>" +
+                                                               "<div class='post-object' style=' background-image:url(" + post.Image1 + "); background-size:cover; background-repeat:no-repeat'>" +
+                                                                   "<div class='overlay'></div>" +
+                                                                   "<div class='post-content'>" +
+                                                                       "<a href = '" + urlCategory + "' class='post-cat " + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
+                                                                       "<h3 class='title'>" +
+                                                                           "<a href = '" + postUrl + "' > " + post.Subject + "</a>" +
+                                                                       "</h3>" +
+                                                                       "<a href = '" + urlCategory + "' class='readmore'>بيشتر</a>" +
+                                                                   "</div>" +
+                                                               "</div>" +
+                                                           "</article>");
+
+                return itemNode.ReplaceChild(newChild, oldChild);
+            }
+
+            return null;
+        }
+
+
+        internal HtmlNode CreateBloglistDefault(VM_Post post)
+        {
+            string urlCategory = "", postUrl = "";
+            string categoryAboveClass = "", categoryAboveName = "";
+
+
+            foreach (var item in post.PostCategory)
+            {
+                urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
+                postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
+                categoryAboveClass += " " + item.AbobeClassName + " ";
+                categoryAboveName += " " + item.NameFa + " ";
+            }
+
+            var docTemplates = new HtmlDocument();
+            docTemplates.Load(path + "/Templates/bloglist-default.html", System.Text.Encoding.UTF8);
+            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+
+            var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "bloglist default");
+            if (itemNode != null)
+            {
+                HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]");
+                HtmlNode newChild = HtmlNode.CreateNode("<div class='bloglist-posts'>" +
+                                                            "<article class='row'>" +
+                                                                "<div class='blogitem-media col-md-4'>" +
+                                                                    "<a href = '" + postUrl + "' > " +
+                                                                        "<img width='290' height='170' src='" + post.Image1 + "' class='' alt=''>" +
+                                                                    "</a>" +
+                                                                    "<a href = '" + urlCategory + "' class='post-cat " + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
+                                                                "</div>" +
+                                                                "<div class='col-md-8'>" +
+                                                                    "<div class='blogitem-content'>" +
+                                                                        "<h4 class='blogitem-title'>" +
+                                                                            "<a href = '" + postUrl + "' > " + post.Subject + "</a>" +
+                                                                        "</h4>" +
+                                                                        "<div class='blogitem-excerpt'>" + post.ContentPost.Substring(0, 200) + "</div>" +
+                                                                        "<div class='blogitem-meta'>" +
+                                                                            "<span class='blogitem-author'>" +
+                                                                                "<i class='fa fa-user'></i> " + post.Fullname +
+                                                                            "</span>" +
+                                                                            "<span class='blogitem-comment'>" +
+                                                                                "<i class='fa fa-comment'></i> " + post.CommentCount +
+                                                                            "</span>" +
+                                                                            "<span class='blogitem-view'>" +
+                                                                                "<i class='fa fa-eye'></i>" + post.Views +
+                                                                            "</span>" +
+                                                                            "<span class='blogitem-date'>" +
+                                                                                "<i class='fa fa-calendar'></i>ا" + post.JalaliModifyDate +
+                                                                            "</span>" +
+                                                                        "</div>" +
+                                                                    "</div>" +
+                                                                "</div>" +
+                                                            "</article>" +
+                                                            "<a href = '" + postUrl + "' class='readmore'>" +
+                                                                "<span>بیشتر بخوانيد</span>" +
+                                                            "</a>" +
+                                                        "</div>");
+
+                return itemNode.ReplaceChild(newChild, oldChild);
+            }
+
+            return null;
+        }
+
+
+
+        internal HtmlNode CreateSliderImageBottom(VM_Post post)
+        {
+            string urlCategory = "", postUrl = "";
+            string categoryAboveClass = "", categoryAboveName = "";
+
+
+            foreach (var item in post.PostCategory)
+            {
+                urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
+                postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
+                categoryAboveClass += " " + item.AbobeClassName + " ";
+                categoryAboveName += " " + item.NameFa + " ";
+            }
+
+            var docTemplates = new HtmlDocument();
+            docTemplates.Load(path + "/Templates/postslider-container-slider-image-bottom.html", System.Text.Encoding.UTF8);
+            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+
+            var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "sp-slides sp-slider-image");
+            if (itemNode != null)
+            {
+                HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]/div[1]/div[1]");
+                HtmlNode newChild = HtmlNode.CreateNode("<div class='sp-slide'>" +
+                                                            "<a href = '" + postUrl + "' > " +
+                                                                "<img width = '640' height = '426' src = '" + post.Image1 + "' class='sp-image ' alt='' srcset='' sizes='(max-width: 640px) 100vw, 640px'>" +
+                                                            "</a>" +
+                                                            "<a href = '" + urlCategory +"' class='post-cat "+categoryAboveClass+"'>"+categoryAboveName+"</a>" +
+                                                            "<div class='sp-layer sp-black sp-padding' data-position='bottomLeft' data-vertical='0' data-width='100%' data-show-transition='up'>" +
+                                                                "<h4>" +
+                                                                    "<a href = '"+postUrl+"' >"+post.Subject+"</a>" +
+                                                                "</h4>" +
+                                                                "<a href = '"+postUrl+"' class='special-rm-arrow pull-right'>" +
+                                                                    "<i class='fa fa-arrow-right'></i>" +
+                                                                "</a>" +
+                                                            "</div>" +
+                                                        "</div>");
+
+                return itemNode.ReplaceChild(newChild, oldChild);
+            }
+
+            return null;
+        }
+
+
+
+        internal HtmlNode CreateSliderImageBottom_ImageBottom(VM_Post post)
+        {
+            string urlCategory = "", postUrl = "";
+            string categoryAboveClass = "", categoryAboveName = "";
+
+
+            foreach (var item in post.PostCategory)
+            {
+                urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
+                postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
+                categoryAboveClass += " " + item.AbobeClassName + " ";
+                categoryAboveName += " " + item.NameFa + " ";
+            }
+
+            var docTemplates = new HtmlDocument();
+            docTemplates.Load(path + "/Templates/postslider-container-slider-image-bottom.html", System.Text.Encoding.UTF8);
+            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+
+            var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "sp-thumbnails sp-slider-image");
+            if (itemNode != null)
+            {
+                HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]/div[2]/img[1]");
+                HtmlNode newChild = HtmlNode.CreateNode("<img class='sp-thumbnail' src='"+post.Image1+"' width='70' height='70' alt=''>");
+
+                return itemNode.ReplaceChild(newChild, oldChild);
+            }
+
+            return null;
+        }
+
+        internal HtmlNode CreatePostMostViewed(VM_Post post, int rowID)
+        {
+            string urlCategory = "", postUrl = "";
+            string categoryAboveClass = "", categoryAboveName = "";
+
+
+            foreach (var item in post.PostCategory)
+            {
+                urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
+                postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
+                categoryAboveClass += " " + item.AbobeClassName + " ";
+                categoryAboveName += " " + item.NameFa + " ";
+            }
+
+            var docTemplates = new HtmlDocument();
+            docTemplates.Load(path + "/Templates/sidebar-widget.html", System.Text.Encoding.UTF8);
+            var nodes = docTemplates.DocumentNode.SelectNodes("//ul");
+
+            var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "recent_posts_wid right-slider1");
+            if (itemNode != null)
+            {
+                HtmlNode oldChild = itemNode.SelectSingleNode("/aside[1]/div[1]/div[1]/div[1]/ul[1]/li[1]");
+                HtmlNode newChild = HtmlNode.CreateNode("<li class='post-item'>"+
+                                                            "<div class='media'>" +
+                                                                "<a class='item-img media-left' href='"+postUrl+"'>" +
+                                                                    rowID.ToString() +
+                                                               "</a>" +
+                                                                "<div class='media-body'>" +
+                                                                    "<h4 class='media-heading item-title'>" +
+                                                                        "<a href = '"+postUrl+"' > "+post.Subject+"</a>" +
+                                                                    "</h4>" +
+                                                                    "<ul class='item-meta'>" +
+                                                                        "<li class='item-date'>" +
+                                                                            "<i class='fa fa-calendar'></i>"+ post.JalaliModifyDate +
+                                                                        "</li>" +
+                                                                        "<li class='item-count'>" +
+                                                                            "<i class='fa fa-eye'></i>"+ post.Views +
+                                                                       "</li>" +
+                                                                    "</ul>" +
+                                                                "</div>" +
+                                                           "</div>" +
+                                                       "</li>");
+
+                return itemNode.ReplaceChild(newChild, oldChild);
+            }
+
+            return null;
+        }
+
+        internal HtmlNode CreatePostPopular(VM_Post post, int rowID)
+        {
+            string urlCategory = "", postUrl = "";
+            string categoryAboveClass = "", categoryAboveName = "";
+
+
+            foreach (var item in post.PostCategory)
+            {
+                urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
+                postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
+                categoryAboveClass += " " + item.AbobeClassName + " ";
+                categoryAboveName += " " + item.NameFa + " ";
+            }
+
+            var docTemplates = new HtmlDocument();
+            docTemplates.Load(path + "/Templates/sidebar-widget.html", System.Text.Encoding.UTF8);
+            var nodes = docTemplates.DocumentNode.SelectNodes("//ul");
+
+            var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "recent_posts_wid right-slider2");
+            if (itemNode != null)
+            {
+                HtmlNode oldChild = itemNode.SelectSingleNode("/aside[1]/div[1]/div[1]/div[2]/ul[1]/li[1]");
+                HtmlNode newChild = HtmlNode.CreateNode("<li class='post-item'>" +
+                                                            "<div class='media'>" +
+                                                                "<a class='item-img media-left' href='" + postUrl + "'" +
+                                                                   "rel='bookmark'>" +
+                                                                    rowID.ToString() +
+                                                                "</a>" +
+                                                                "<div class='media-body'>" +
+                                                                    "<h4 class='media-heading item-title'>" +
+                                                                        "<a href = '" + postUrl + "' >" + post.Subject +"</a>" +
+                                                                    "</h4>" +
+                                                                    "<ul class='item-meta'>" +
+                                                                        "<li class='item-date'>" +
+                                                                            "<i class='fa fa-calendar'></i>" + post.JalaliModifyDate +
+                                                                        "</li>" +
+                                                                        "<li>" +
+                                                                            "<a class='item-comment-count' href=Comment'"+postUrl+"'>4 Comments</a>" +
+                                                                       "</li>" +
+                                                                    "</ul>" +
+                                                                "</div>" +
+                                                            "</div>" +
+                                                        "</li>");
+
+                return itemNode.ReplaceChild(newChild, oldChild);
+            }
+
+            return null;
+        }
+       
+
     }
 }

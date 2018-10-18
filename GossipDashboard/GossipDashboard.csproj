@@ -399,6 +399,7 @@
     <Content Include="Scripts\wp-embed.min.js" />
     <Content Include="Scripts\wp-mediaelement.min.js" />
     <Content Include="Templates\cat-list.html" />
+    <Content Include="Templates\bloglist-content.html" />
     <Content Include="Templates\format-audio.html" />
     <Content Include="Templates\format-gallery.html" />
     <Content Include="Templates\format-image.html" />
@@ -407,6 +408,9 @@
     <Content Include="Templates\format-standard.html" />
     <Content Include="Templates\format-status.html" />
     <Content Include="Templates\format-video.html" />
+    <Content Include="Templates\bloglist-default.html" />
+    <Content Include="Templates\sidebar-widget.html" />
+    <Content Include="Templates\postslider-container-slider-image-bottom.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -493,7 +497,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>27999</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:27999/</IISUrl>
+          <IISUrl>http://localhost:27359/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
