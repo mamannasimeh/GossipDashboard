@@ -227,7 +227,7 @@ namespace GossipDashboard.Controllers
             ////////////////////// sidebar-widget mostviewed///////////////////////////////////////
             docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
-            nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
+            nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
 
             //حذف محتويات ند بلاك-slider-image-bottom
             postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider1");
@@ -262,7 +262,7 @@ namespace GossipDashboard.Controllers
             ////////////////////// sidebar-widget popular///////////////////////////////////////
             docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
-            nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
+            nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
 
             //حذف محتويات ند بلاك-slider-image-bottom
             postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider2");
