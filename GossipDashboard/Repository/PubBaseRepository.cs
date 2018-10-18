@@ -9,7 +9,8 @@ namespace GossipDashboard.Repository
 {
     public class PubBaseRepository : IRepository<PubBase>
     {
-        GossipSiteEntities context = new GossipSiteEntities();
+        private GossipSiteEntities context = new GossipSiteEntities();
+
         public PubBase Add(PubBase entity)
         {
             throw new NotImplementedException();

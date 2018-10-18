@@ -223,6 +223,7 @@
     <Compile Include="Helper\EnumGeneral.cs" />
     <Compile Include="Helper\PostManagement.cs" />
     <Compile Include="Helper\UploadHelper.cs" />
+    <Compile Include="Helper\Utilty.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\GossipSiteModel.Context.cs">
       <AutoGen>True</AutoGen>

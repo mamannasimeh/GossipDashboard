@@ -14,15 +14,12 @@ namespace GossipDashboard.Helper
 
         public PostManagement()
         {
-
         }
 
         public PostManagement(string path)
         {
             this.path = path;
         }
-
-
 
         /// <summary>
         /// ساخت آرتیکل های وسط صفحه
@@ -46,6 +43,7 @@ namespace GossipDashboard.Helper
             foreach (var item in post.PostCategory)
             {
                 postClassCategory += " " + item.ClassName + " ";
+
                 //urlCategory = " " + post.PostCategory.ToList().First().NameEn + "/Index";
                 urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
                 postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
@@ -71,49 +69,53 @@ namespace GossipDashboard.Helper
                     docTemplates.Load(path + "/Templates/format-standard.html", System.Text.Encoding.UTF8);
                     nodes = CreateHeadStandard(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
+
                 case "audio":
                     docTemplates.Load(path + "/Templates/format-audio.html", System.Text.Encoding.UTF8);
                     nodes = CreateHeadAudio(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
+
                 case "video":
                     docTemplates.Load(path + "/Templates/format-video.html", System.Text.Encoding.UTF8);
                     nodes = CreateHeadVideo(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
+
                 case "gallery":
                     docTemplates.Load(path + "/Templates/format-gallery.html", System.Text.Encoding.UTF8);
                     nodes = CreateHeadGallery(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
+
                 case "link":
                     docTemplates.Load(path + "/Templates/format-link.html", System.Text.Encoding.UTF8);
                     nodes = CreateHeadLink(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
+
                 case "quote":
                     docTemplates.Load(path + "/Templates/format-quote.html", System.Text.Encoding.UTF8);
                     nodes = CreateHeadQuote(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
+
                 case "image ":
                     docTemplates.Load(path + "/Templates/format-image.html", System.Text.Encoding.UTF8);
                     nodes = CreateHeadimage(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
+
                 case "status":
                     docTemplates.Load(path + "/Templates/format-status.html", System.Text.Encoding.UTF8);
                     nodes = CreateHeadStatus(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
+
                 default:
                     docTemplates.Load(path + "/Templates/format-standard.html", System.Text.Encoding.UTF8);
                     nodes = CreateHeadStandard(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
             }
 
-
-
-            //article ايجاد تگ 
+            //article ايجاد تگ
             HtmlNode articleNode = HtmlNode.CreateNode("<article class='" + postCol + " hentry " + postClassArticle + postClassCategory + "'></article>");
             articleNode.AppendChild(nodes.FirstOrDefault());
             return articleNode;
-
         }
-
 
         /// <summary>
         /// ساخت آرتیکل های استاندارد وسط صفحه
@@ -121,18 +123,16 @@ namespace GossipDashboard.Helper
         /// <param name="post">شی پست</param>
         /// <param name="templateCategory">تمپلیتی که قصد داریم از روی آن آرتیکل را بسازیم</param>
         /// <returns></returns>
-        ///   
         //private HtmlNode CreateHeadStandard(VM_Post post, string templateCategory)
         private HtmlNodeCollection CreateHeadStandard(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates, string postUrl)
         {
-
             var nodes = docTemplates.DocumentNode.SelectNodes("//div");
             foreach (var itemNode in nodes)
             {
                 var attrs = itemNode.Attributes;
                 foreach (var itemAttr in attrs)
                 {
-                    //entry-cover پيدا كردن تگ ديو با كلاس 
+                    //entry-cover پيدا كردن تگ ديو با كلاس
                     if (itemAttr.Value == "entry-cover")
                     {
                         //ايجاد entry-cover
@@ -152,7 +152,7 @@ namespace GossipDashboard.Helper
                         itemNode.ReplaceChild(newChild, oldChild);
                     }
 
-                    //entry-content پيدا كردن تگ ديو با كلاس 
+                    //entry-content پيدا كردن تگ ديو با كلاس
                     if (itemAttr.Value == "entry-content")
                     {
                         //ايجاد entry-content
@@ -161,7 +161,7 @@ namespace GossipDashboard.Helper
                         itemNode.ReplaceChild(newChild, oldChild);
                     }
 
-                    //entry-footer پيدا كردن تگ ديو با كلاس 
+                    //entry-footer پيدا كردن تگ ديو با كلاس
                     if (itemAttr.Value == "entry-footer")
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[3]/div[1]");
@@ -200,7 +200,7 @@ namespace GossipDashboard.Helper
                 var attrs = itemNode.Attributes;
                 foreach (var itemAttr in attrs)
                 {
-                    //defaultForAllPost پيدا كردن تگ ديو با كلاس 
+                    //defaultForAllPost پيدا كردن تگ ديو با كلاس
                     if (itemAttr.Value.Contains("defaultForAllPost"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
@@ -209,7 +209,7 @@ namespace GossipDashboard.Helper
                                                                             "<div class='entry-cover'>" +
                                                                                 "<a href='" + postUrl + "'>" +
                                                                                     "<img width='290' height='170' src='" + post.Image1 + "'" +
-                                                                                         "class='attachment-viralnews-catlist-big size-viralnews-catlist-big wp-post-image'" +
+                                                                                         "class='attachment-viralnews-catlist-big size-viralnews-catlist-big '" +
                                                                                          "alt='" + post.Subject + "' />" +
                                                                                 "</a>" +
                                                                             "</div>" +
@@ -275,7 +275,7 @@ namespace GossipDashboard.Helper
                 var attrs = itemNode.Attributes;
                 foreach (var itemAttr in attrs)
                 {
-                    //defaultForAllPost پيدا كردن تگ ديو با كلاس 
+                    //defaultForAllPost پيدا كردن تگ ديو با كلاس
                     if (itemAttr.Value.Contains("defaultForAllPost"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
@@ -363,7 +363,7 @@ namespace GossipDashboard.Helper
                 var attrs = itemNode.Attributes;
                 foreach (var itemAttr in attrs)
                 {
-                    //defaultForAllPost پيدا كردن تگ ديو با كلاس 
+                    //defaultForAllPost پيدا كردن تگ ديو با كلاس
                     if (itemAttr.Value.Contains("defaultForAllPost"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
@@ -417,7 +417,7 @@ namespace GossipDashboard.Helper
                 var attrs = itemNode.Attributes;
                 foreach (var itemAttr in attrs)
                 {
-                    //defaultForAllPost پيدا كردن تگ ديو با كلاس 
+                    //defaultForAllPost پيدا كردن تگ ديو با كلاس
                     if (itemAttr.Value.Contains("defaultForAllPost"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
@@ -448,7 +448,7 @@ namespace GossipDashboard.Helper
                 var attrs = itemNode.Attributes;
                 foreach (var itemAttr in attrs)
                 {
-                    //defaultForAllPost پيدا كردن تگ ديو با كلاس 
+                    //defaultForAllPost پيدا كردن تگ ديو با كلاس
                     if (itemAttr.Value.Contains("defaultForAllPost"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
@@ -480,7 +480,7 @@ namespace GossipDashboard.Helper
                 var attrs = itemNode.Attributes;
                 foreach (var itemAttr in attrs)
                 {
-                    //defaultForAllPost پيدا كردن تگ ديو با كلاس 
+                    //defaultForAllPost پيدا كردن تگ ديو با كلاس
                     if (itemAttr.Value.Contains("defaultForAllPost"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
@@ -505,7 +505,7 @@ namespace GossipDashboard.Helper
                 var attrs = itemNode.Attributes;
                 foreach (var itemAttr in attrs)
                 {
-                    //defaultForAllPost پيدا كردن تگ ديو با كلاس 
+                    //defaultForAllPost پيدا كردن تگ ديو با كلاس
                     if (itemAttr.Value.Contains("defaultForAllPost"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
@@ -562,7 +562,6 @@ namespace GossipDashboard.Helper
             return nodes;
         }
 
-
         /// <summary>
         /// اضافه كردن محتوا به وسط صفحه
         /// </summary>
@@ -588,11 +587,12 @@ namespace GossipDashboard.Helper
             return null;
         }
 
-
         /// <summary>
         /// پاک کردن محتوایات ند
         /// </summary>
-        /// <param name="nodesIndex">ندی که قصد دارید تمامی محتوا یا قسمتی از محتوای آن را حذف کنید</param>
+        /// <param name="nodesIndex">
+        /// ندی که قصد دارید تمامی محتوا یا قسمتی از محتوای آن را حذف کنید
+        /// </param>
         /// <param name="attrValue">نام کلاسی که مشخص می کند محتوا از این قسمت پاک گردد</param>
         /// <returns>bool</returns>
         internal bool ClearContentNode(HtmlNodeCollection nodesIndex, string attrValue)
@@ -613,7 +613,6 @@ namespace GossipDashboard.Helper
             return false;
         }
 
-
         //catlist-heading
         public HtmlNode CreateCatListHeading(List<PubBase> category)
         {
@@ -625,7 +624,7 @@ namespace GossipDashboard.Helper
                 var attrs = itemNode.Attributes;
                 foreach (var itemAttr in attrs)
                 {
-                    //catlist-heading پيدا كردن تگ ديو با كلاس 
+                    //catlist-heading پيدا كردن تگ ديو با كلاس
                     if (itemAttr.Value.Contains("catlist-heading"))
                     {
                         var ul = "ul class='nav nav-tabs";
@@ -641,11 +640,11 @@ namespace GossipDashboard.Helper
                         }
                         ul += "</ul>";
 
-                        HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]");
-                        HtmlNode newChild = HtmlNode.CreateNode("<h4>" +
+                        HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]/div[1]");
+                        HtmlNode newChild = HtmlNode.CreateNode("<div><h4>" +
                                                                     "<span class='catlist-title'>آخرين رويدادها</span>" +
                                                                 "</h4>"
-                                                                + ul
+                                                                + ul + "</div>"
                                                                 );
 
                         return itemNode.ReplaceChild(newChild, oldChild);
@@ -656,5 +655,55 @@ namespace GossipDashboard.Helper
             return null;
         }
 
+        public HtmlNode CreateCatListContent(VM_Post post)
+        {
+            string catListClass = "";
+            string urlCategory = "", postUrl = "";
+            foreach (var item in post.PostCategory)
+            {
+                urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
+                postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
+                catListClass += " " + item.NameEn + " ";
+            }
+
+            var docTemplates = new HtmlDocument();
+            docTemplates.Load(path + "/Templates/cat-list.html", System.Text.Encoding.UTF8);
+            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+            foreach (var itemNode in nodes)
+            {
+                var attrs = itemNode.Attributes;
+                foreach (var itemAttr in attrs)
+                {
+                    //tab-content پيدا كردن تگ ديو با كلاس
+                    if (itemAttr.Value.Contains("tab-content"))
+                    {
+                        HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[2]/div[1]");
+                        HtmlNode newChild = HtmlNode.CreateNode("<div class='col-md-6 catlist-posts small-posts "+ catListClass + "  ' style='position: absolute; display: none;'>" +
+                                                                    "<a href = '" + postUrl + "' > " +
+                                                                        "<img width = '70' height = '70' src = '" + post.Image1 + "' class='' alt='' srcset='' sizes='(max-width: 70px) 100vw, 70px'>" +
+                                                                    "</a>" +
+                                                                    "<div class='catitem-sm-content'>" +
+                                                                        "<h4 class='catitem-title'>" +
+                                                                            "<a href = '" + postUrl + "'> " + post.Subject + "</a>" +
+                                                                        "</h4>" +
+                                                                        "<div class='catitem-meta'>" +
+                                                                            "<span class='catitem-date'>" +
+                                                                                "<i class='fa fa-calendar'></i>" + post.ModifyDate + "" +
+                                                                            "</span>" +
+                                                                            "<span class='catitem-author'>" +
+                                                                                "<i class='fa fa-user'></i> " + post.Fullname + "" +
+                                                                            "</span>" +
+                                                                        "</div>" +
+                                                                    "</div>" +
+                                                                "</div>");
+
+                        return itemNode.ReplaceChild(newChild, oldChild);
+                    }
+                }
+            }
+
+            return null;
+        }
     }
 }

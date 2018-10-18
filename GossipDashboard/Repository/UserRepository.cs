@@ -10,7 +10,7 @@ namespace GossipDashboard.Repository
 {
     public class UserRepository : IRepository<User>
     {
-        GossipSiteEntities context = new GossipSiteEntities();
+        private GossipSiteEntities context = new GossipSiteEntities();
 
         public User Add(User entity)
         {
@@ -18,8 +18,6 @@ namespace GossipDashboard.Repository
             context.SaveChanges();
             return entity;
         }
-
-
 
         public bool Delete(int id)
         {
@@ -32,11 +30,14 @@ namespace GossipDashboard.Repository
             return res;
         }
 
-        public User Update(User entity)
+        public IQueryable<User> SelectAll(string condition)
         {
             throw new NotImplementedException();
         }
 
-   
+        public User Update(User entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
