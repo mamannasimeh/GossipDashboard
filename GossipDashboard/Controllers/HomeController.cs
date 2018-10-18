@@ -227,10 +227,10 @@ namespace GossipDashboard.Controllers
             ////////////////////// sidebar-widget mostviewed///////////////////////////////////////
             docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
-            nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
+            nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
 
             //حذف محتويات ند بلاك-slider-image-bottom
-            postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider1");
+            postManagement.ClearContentNode(nodesIndex, "widget-mostviewed right-slider1");
 
             //ایجاد  محتواي slider-image-bottom
             int rowID = 1;
@@ -243,7 +243,7 @@ namespace GossipDashboard.Controllers
                 var itSelfNode = postManagement.CreatePostMostViewed(item, rowID);
                 if (itSelfNode != null)
                 {
-                    result = postManagement.AddHeadToContent(nodesIndex, "recent_posts_wid right-slider1", itSelfNode);
+                    result = postManagement.AddHeadToContent(nodesIndex, "widget-mostviewed right-slider1", itSelfNode);
                 }
                 rowID++;
             }
@@ -265,7 +265,7 @@ namespace GossipDashboard.Controllers
             nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
 
             //حذف محتويات ند بلاك-slider-image-bottom
-            postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider2");
+            postManagement.ClearContentNode(nodesIndex, "widget-popular right-slider2");
 
             //ایجاد  محتواي slider-image-bottom
             rowID = 1;
@@ -278,7 +278,7 @@ namespace GossipDashboard.Controllers
                 var itSelfNode = postManagement.CreatePostPopular(item, rowID);
                 if (itSelfNode != null)
                 {
-                    result = postManagement.AddHeadToContent(nodesIndex, "recent_posts_wid right-slider2", itSelfNode);
+                    result = postManagement.AddHeadToContent(nodesIndex, "widget-popular right-slider2", itSelfNode);
                 }
                 rowID++;
             }
