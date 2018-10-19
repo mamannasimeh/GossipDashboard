@@ -961,9 +961,9 @@ namespace GossipDashboard.Helper
 
             var docTemplates = new HtmlDocument();
             docTemplates.Load(path + "/Templates/sidebar-widget.html", System.Text.Encoding.UTF8);
-            var nodes = docTemplates.DocumentNode.SelectNodes("//ul");
+            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
 
-            var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "recent_posts_wid right-slider2");
+            var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "widget-popular right-slider2");
             if (itemNode != null)
             {
                 HtmlNode oldChild = itemNode.SelectSingleNode("/aside[1]/div[1]/div[1]/div[2]/ul[1]/li[1]");

@@ -227,23 +227,23 @@ namespace GossipDashboard.Controllers
             ////////////////////// sidebar-widget mostviewed///////////////////////////////////////
             docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
-            nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
+            nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
 
             //حذف محتويات ند بلاك-slider-image-bottom
-            postManagement.ClearContentNode(nodesIndex, "widget-mostviewed right-slider1");
+            postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider1");
 
-            //ایجاد  محتواي slider-image-bottom
+            //ایجاد  محتوا 
             int rowID = 1;
             repo = new PostRepository();
             postQuiz = repo.SelectPostUser().Take(6).ToList();
             foreach (var item in postQuiz)
             {
                 item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
-                //ايجاد محتوا براي -- bloglist default
+                //ايجاد محتوا براي 
                 var itSelfNode = postManagement.CreatePostMostViewed(item, rowID);
                 if (itSelfNode != null)
                 {
-                    result = postManagement.AddHeadToContent(nodesIndex, "widget-mostviewed right-slider1", itSelfNode);
+                    result = postManagement.AddHeadToContent(nodesIndex, "recent_posts_wid right-slider1", itSelfNode);
                 }
                 rowID++;
             }
@@ -259,39 +259,39 @@ namespace GossipDashboard.Controllers
             }
 
 
-            ////////////////////// sidebar-widget popular///////////////////////////////////////
-            docIndex = new HtmlDocument();
-            docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
-            nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
+            //////////////////////// sidebar-widget popular///////////////////////////////////////
+            //docIndex = new HtmlDocument();
+            //docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
+            //nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
 
-            //حذف محتويات ند بلاك-slider-image-bottom
-            postManagement.ClearContentNode(nodesIndex, "widget-popular right-slider2");
+            ////حذف محتويات ند بلاك-slider-image-bottom
+            //postManagement.ClearContentNode(nodesIndex, "widget-popular right-slider2");
 
-            //ایجاد  محتواي slider-image-bottom
-            rowID = 1;
-            repo = new PostRepository();
-            postQuiz = repo.SelectPostUser().Take(6).ToList();
-            foreach (var item in postQuiz)
-            {
-                item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
-                //ايجاد محتوا براي -- bloglist default
-                var itSelfNode = postManagement.CreatePostPopular(item, rowID);
-                if (itSelfNode != null)
-                {
-                    result = postManagement.AddHeadToContent(nodesIndex, "widget-popular right-slider2", itSelfNode);
-                }
-                rowID++;
-            }
+            ////ایجاد  محتواي slider-image-bottom
+            //rowID = 1;
+            //repo = new PostRepository();
+            //postQuiz = repo.SelectPostUser().Take(6).ToList();
+            //foreach (var item in postQuiz)
+            //{
+            //    item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+            //    //ايجاد محتوا براي -- bloglist default
+            //    var itSelfNode = postManagement.CreatePostPopular(item, rowID);
+            //    if (itSelfNode != null)
+            //    {
+            //        result = postManagement.AddHeadToContent(nodesIndex, "widget-popular right-slider2", itSelfNode);
+            //    }
+            //    rowID++;
+            //}
 
-            try
-            {
-                var htmlDoc = new HtmlDocument();
-                htmlDoc.LoadHtml(result.OuterHtml);
-                htmlDoc.Save(path + "/Views/Shared/_Layout.cshtml", Encoding.UTF8);
-            }
-            catch (Exception ex)
-            {
-            }
+            //try
+            //{
+            //    var htmlDoc = new HtmlDocument();
+            //    htmlDoc.LoadHtml(result.OuterHtml);
+            //    htmlDoc.Save(path + "/Views/Shared/_Layout.cshtml", Encoding.UTF8);
+            //}
+            //catch (Exception ex)
+            //{
+            //}
 
 
             return View("Index");
