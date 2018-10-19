@@ -948,7 +948,7 @@ namespace GossipDashboard.Helper
                                                                     "</h4>" +
                                                                     "<ul class='item-meta'>" +
                                                                         "<li class='item-date'>" +
-                                                                            "<i class='fa fa-calendar'>"+ post.JalaliModifyDate+"</i>" +
+                                                                              "<i class='fa fa-calendar'></i>" + post.JalaliModifyDate + "" +
                                                                         "</li>" +
                                                                         "<li class='item-count'>" +
                                                                             "<i class='fa fa-eye'></i>" + post.Views +
@@ -998,7 +998,7 @@ namespace GossipDashboard.Helper
                                                                     "</h4>" +
                                                                     "<ul class='item-meta'>" +
                                                                         "<li class='item-date'>" +
-                                                                            "<i class='fa fa-calendar'>" + post.JalaliModifyDate + "</i>" +
+                                                                           "<i class='fa fa-calendar'></i>" + post.JalaliModifyDate + "" +
                                                                         "</li>" +
                                                                         "<li>" +
                                                                             "<a class='item-comment-count' href='" + postUrl + "'>"+post.CommentCount+"</a>" +
@@ -1014,6 +1014,143 @@ namespace GossipDashboard.Helper
             return null;
         }
 
+
+
+        internal HtmlNode CreatePostSuperiorr(VM_Post post, int rowID)
+        {
+            string urlCategory = "", postUrl = "";
+            string categoryAboveClass = "", categoryAboveName = "";
+
+
+            foreach (var item in post.PostCategory)
+            {
+                urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
+                postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
+                categoryAboveClass += " " + item.AbobeClassName + " ";
+                categoryAboveName += " " + item.NameFa + " ";
+            }
+
+            var docTemplates = new HtmlDocument();
+            docTemplates.Load(path + "/Templates/superior-posts.html", System.Text.Encoding.UTF8);
+            var nodes = docTemplates.DocumentNode.SelectNodes("//ul");
+
+            var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "superior-posts recent_posts_wid");
+            if (itemNode != null)
+            {
+                HtmlNode oldChild = itemNode.SelectSingleNode("/aside[1]/ul[1]/li[1]");
+                HtmlNode newChild = HtmlNode.CreateNode("<li class='post-item'>"+
+                                                            "<div class='media'>" +
+                                                                "<a class='item-img media-left' href='"+postUrl+"'>" +
+                                                                    "<img width = '70' height='70' src='"+post.Image1+"' class='  ' alt='"+post.Subject+"' srcset='' sizes='(max-width: 70px) 100vw, 70px'>" +
+                                                                "</a>" +
+                                                                "<div class='media-body'>" +
+                                                                    "<h4 class='media-heading item-title'>" +
+                                                                        "<a href = '"+postUrl+"' > "+post.Subject+"</a>" +
+                                                                    "</h4>" +
+                                                                    "<ul class='item-meta'>" +
+                                                                        "<li class='item-date'>" +
+                                                                            "<i class='fa fa-calendar'></i>"+post.JalaliModifyDate+"" +
+                                                                        "</li>" +
+                                                                    "</ul>" +
+                                                                "</div>" +
+                                                            "</div>" +
+                                                        "</li>");
+
+                return itemNode.ReplaceChild(newChild, oldChild);
+            }
+
+            return null;
+        }
+
+
+
+        internal HtmlNode CreateSliderTop(VM_Post post)
+        {
+            string urlCategory = "", postUrl = "";
+            string categoryAboveClass = "", categoryAboveName = "";
+
+
+            foreach (var item in post.PostCategory)
+            {
+                urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
+                postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
+                urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
+                categoryAboveClass += " " + item.AbobeClassName + " ";
+                categoryAboveName += " " + item.NameFa + " ";
+            }
+
+            var docTemplates = new HtmlDocument();
+            docTemplates.Load(path + "/Templates/postslider-container-slider-top.html", System.Text.Encoding.UTF8);
+            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+
+            var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "sp-slides sp-slider-image-top");
+            if (itemNode != null)
+            {
+                HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]/div[1]/div[1]");
+                HtmlNode newChild = HtmlNode.CreateNode("<div class='sp-slide'>"+
+                                                            "<a href = '"+postUrl+"' > " +
+                                                                "<img width = '640' height = '315' src = '"+post.Image1+"' class='sp-image ' alt='"+post.Subject+"'>" +
+                                                            "</a>" +
+                                                            "<a href = '"+ urlCategory + "' class='post-cat "+categoryAboveClass+"'>"+categoryAboveName+"</a>" +
+                                                            "<div class='sp-layer sp-black sp-padding' data-position='bottomLeft' data-vertical='0' data-width='100%' data-show-transition='up'>" +
+                                                                "<h4>" +
+                                                                    "<a href = '"+postUrl+"' > "+post.Subject+"</a>" +
+                                                                "</h4>" +
+                                                                "<a href = '"+postUrl+"' class='special-rm-arrow pull-right'>" +
+                                                                    "<i class='fa fa-arrow-right'></i>" +
+                                                                "</a>" +
+                                                            "</div>" +
+                                                        "</div>");
+
+                return itemNode.ReplaceChild(newChild, oldChild);
+            }
+
+            return null;
+        }
+
+
+
+        internal HtmlNode CreateSliderTopThumbnails(VM_Post post)
+        {
+            string urlCategory = "", postUrl = "";
+            string categoryAboveClass = "", categoryAboveName = "";
+
+
+            foreach (var item in post.PostCategory)
+            {
+                urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
+                postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
+                urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
+                categoryAboveClass += " " + item.AbobeClassName + " ";
+                categoryAboveName += " " + item.NameFa + " ";
+            }
+
+            var docTemplates = new HtmlDocument();
+            docTemplates.Load(path + "/Templates/postslider-container-slider-top.html", System.Text.Encoding.UTF8);
+            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+
+            var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "sp-thumbnails sp-slider-image-top");
+            if (itemNode != null)
+            {
+                HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]/div[2]/div[1]");
+                HtmlNode newChild = HtmlNode.CreateNode("<div class='sp-thumbnail'>"+
+                                                            "<div class='sp-thumbnail-text'>" +
+                                                                "<div class='sp-thumbnail-title'>"+post.Subject+"</div>" +
+                                                            "</div>" +
+                                                            "<div class='sp-thumbnail-image-container'>" +
+                                                                "<img width = '70' height='70' src='"+post.Image1+"' class='sp-thumbnail-image ' alt='"+post.Subject+"' srcset='' sizes='(max-width: 70px) 100vw, 70px'>" +
+                                                            "</div>" +
+                                                        "</div>");
+
+                return itemNode.ReplaceChild(newChild, oldChild);
+            }
+
+            return null;
+        }
+        
 
     }
 }

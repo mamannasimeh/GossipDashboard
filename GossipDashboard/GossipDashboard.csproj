@@ -409,6 +409,8 @@
     <Content Include="Templates\format-status.html" />
     <Content Include="Templates\format-video.html" />
     <Content Include="Templates\bloglist-default.html" />
+    <Content Include="Templates\postslider-container-slider-top.html" />
+    <Content Include="Templates\superior-posts.html" />
     <Content Include="Templates\sidebar-widget.html" />
     <Content Include="Templates\postslider-container-slider-image-bottom.html" />
     <Content Include="Web.config">

@@ -101,7 +101,7 @@ namespace GossipDashboard.Controllers
 
             //ایجاد  محتواي تب هاي کت ليست
             repo = new PostRepository();
-            postQuiz = repo.SelectPostUser().ToList();
+            postQuiz = repo.SelectPostUser().OrderBy(x => x.CommentCount).Take(7).ToList();
             foreach (var item in postQuiz)
             {
                 item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
@@ -302,21 +302,21 @@ namespace GossipDashboard.Controllers
             docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
             nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
 
-            //حذف محتويات ند بلاك-slider-image-bottom
-            postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider2");
+            //حذف محتويات ند 
+            postManagement.ClearContentNode(nodesIndex, "superior-posts recent_posts_wid");
 
             //ایجاد  محتوا 
             rowID = 1;
             repo = new PostRepository();
-            postQuiz = repo.SelectPostUser().OrderByDescending(x => x.PostID).Take(4).ToList();
+            postQuiz = repo.SelectPostUser().OrderByDescending(x => x.PostID).Skip(14).Take(4).ToList();
             foreach (var item in postQuiz)
             {
                 item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
                 //ايجاد محتوا براي 
-                var itSelfNode = postManagement.CreatePostPopular(item, rowID);
+                var itSelfNode = postManagement.CreatePostSuperiorr(item, rowID);
                 if (itSelfNode != null)
                 {
-                    postManagement.AddHeadToContent(nodesIndex, "recent_posts_wid right-slider2", itSelfNode);
+                    postManagement.AddHeadToContent(nodesIndex, "superior-posts recent_posts_wid", itSelfNode);
                 }
                 rowID++;
             }
@@ -327,6 +327,72 @@ namespace GossipDashboard.Controllers
                 htmlDoc.LoadHtml(docIndex.DocumentNode.OuterHtml);
                 htmlDoc.Save(path + "/Views/Shared/_Layout.cshtml", Encoding.UTF8);
 
+            }
+            catch (Exception ex)
+            {
+            }
+
+
+            ////////////////////////sp-slides sp-slider-image-top///////////////////////////////////////
+            docIndex = new HtmlDocument();
+            docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
+            nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
+
+            //حذف محتويات ند 
+            postManagement.ClearContentNode(nodesIndex, "sp-slides sp-slider-image-top");
+
+            //ایجاد  محتوا 
+            repo = new PostRepository();
+            postQuiz = repo.SelectPostUser().OrderBy(x => x.PostID).Skip(7).Take(8).ToList();
+            foreach (var item in postQuiz)
+            {
+                item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+                //ايجاد محتوا براي 
+                var itSelfNode = postManagement.CreateSliderTop(item);
+                if (itSelfNode != null)
+                {
+                    postManagement.AddHeadToContent(nodesIndex, "sp-slides sp-slider-image-top", itSelfNode);
+                }
+            }
+
+            try
+            {
+                var htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(docIndex.DocumentNode.OuterHtml);
+                htmlDoc.Save(path + "/Views/Home/Index.cshtml", Encoding.UTF8);
+            }
+            catch (Exception ex)
+            {
+            }
+
+
+            ////////////////////////sp-thumbnails sp-slider-image-top///////////////////////////////////////
+            docIndex = new HtmlDocument();
+            docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
+            nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
+
+            //حذف محتويات ند 
+            postManagement.ClearContentNode(nodesIndex, "sp-thumbnails sp-slider-image-top");
+
+            //ایجاد  محتوا 
+            repo = new PostRepository();
+            postQuiz = repo.SelectPostUser().OrderBy(x => x.PostID).Skip(7).Take(8).ToList();
+            foreach (var item in postQuiz)
+            {
+                item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+                //ايجاد محتوا براي 
+                var itSelfNode = postManagement.CreateSliderTopThumbnails(item);
+                if (itSelfNode != null)
+                {
+                    postManagement.AddHeadToContent(nodesIndex, "sp-thumbnails sp-slider-image-top", itSelfNode);
+                }
+            }
+
+            try
+            {
+                var htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(docIndex.DocumentNode.OuterHtml);
+                htmlDoc.Save(path + "/Views/Home/Index.cshtml", Encoding.UTF8);
             }
             catch (Exception ex)
             {
