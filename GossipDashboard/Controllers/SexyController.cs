@@ -58,7 +58,7 @@ namespace GossipDashboard.Controllers
                 var itSelfNode = postManagement.CreateBloglist(item);
                 if (itSelfNode != null)
                 {
-                    result = postManagement.AddHeadToContent(nodesIndex, "author-grid", itSelfNode);
+                    result = postManagement.AddHeadToContentDiv(nodesIndex, "author-grid", itSelfNode);
                 }
             }
 

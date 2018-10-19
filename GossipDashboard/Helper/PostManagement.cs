@@ -569,7 +569,7 @@ namespace GossipDashboard.Helper
         /// <param name="attrValue">نام کلاسی که مشخص می کند محتوای این قسمت را می خواهیم</param>
         /// <param name="itSelfNode">ندی که می خواهید به محتوا اضافه کنید</param>
         /// <returns></returns>
-        internal HtmlNode AddHeadToContent(HtmlNodeCollection nodesIndex, string attrValue, HtmlNode itSelfNode)
+        internal HtmlNode AddHeadToContentDiv(HtmlNodeCollection nodesIndex, string attrValue, HtmlNode itSelfNode)
         {
             foreach (var itemNode in nodesIndex)
             {
@@ -585,6 +585,26 @@ namespace GossipDashboard.Helper
             }
 
             return null;
+        }
+
+
+        //
+        internal HtmlNode AddHeadToContent(HtmlNodeCollection nodesIndex, string attrValue, HtmlNode itSelfNode)
+        {
+            var itemNode = nodesIndex.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == attrValue);
+            if (itemNode != null)
+            {
+                itemNode.AppendChild(itSelfNode);
+                return itemNode;
+            }
+
+            return null;
+        }
+
+        internal HtmlNode GetContentNode(HtmlNodeCollection nodesIndex, string attrValue)
+        {
+            var itemNode = nodesIndex.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == attrValue);
+            return itemNode;
         }
 
         /// <summary>
@@ -844,12 +864,12 @@ namespace GossipDashboard.Helper
                                                             "<a href = '" + postUrl + "' > " +
                                                                 "<img width = '640' height = '426' src = '" + post.Image1 + "' class='sp-image ' alt='' srcset='' sizes='(max-width: 640px) 100vw, 640px'>" +
                                                             "</a>" +
-                                                            "<a href = '" + urlCategory +"' class='post-cat "+categoryAboveClass+"'>"+categoryAboveName+"</a>" +
+                                                            "<a href = '" + urlCategory + "' class='post-cat " + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
                                                             "<div class='sp-layer sp-black sp-padding' data-position='bottomLeft' data-vertical='0' data-width='100%' data-show-transition='up'>" +
                                                                 "<h4>" +
-                                                                    "<a href = '"+postUrl+"' >"+post.Subject+"</a>" +
+                                                                    "<a href = '" + postUrl + "' >" + post.Subject + "</a>" +
                                                                 "</h4>" +
-                                                                "<a href = '"+postUrl+"' class='special-rm-arrow pull-right'>" +
+                                                                "<a href = '" + postUrl + "' class='special-rm-arrow pull-right'>" +
                                                                     "<i class='fa fa-arrow-right'></i>" +
                                                                 "</a>" +
                                                             "</div>" +
@@ -886,7 +906,7 @@ namespace GossipDashboard.Helper
             if (itemNode != null)
             {
                 HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]/div[2]/img[1]");
-                HtmlNode newChild = HtmlNode.CreateNode("<img class='sp-thumbnail' src='"+post.Image1+"' width='70' height='70' alt=''>");
+                HtmlNode newChild = HtmlNode.CreateNode("<img class='sp-thumbnail' src='" + post.Image1 + "' width='70' height='70' alt=''>");
 
                 return itemNode.ReplaceChild(newChild, oldChild);
             }
@@ -917,21 +937,21 @@ namespace GossipDashboard.Helper
             if (itemNode != null)
             {
                 HtmlNode oldChild = itemNode.SelectSingleNode("/aside[1]/div[1]/div[1]/div[1]/ul[1]/li[1]");
-                HtmlNode newChild = HtmlNode.CreateNode("<li class='post-item'>"+
+                HtmlNode newChild = HtmlNode.CreateNode("<li class='post-item'>" +
                                                             "<div class='media'>" +
-                                                                "<a class='item-img media-left' href='"+postUrl+"'>" +
+                                                                "<a class='item-img media-left' href='" + postUrl + "'>" +
                                                                     rowID.ToString() +
                                                                "</a>" +
                                                                 "<div class='media-body'>" +
                                                                     "<h4 class='media-heading item-title'>" +
-                                                                        "<a href = '"+postUrl+"' > "+post.Subject+"</a>" +
+                                                                        "<a href = '" + postUrl + "' > " + post.Subject + "</a>" +
                                                                     "</h4>" +
                                                                     "<ul class='item-meta'>" +
                                                                         "<li class='item-date'>" +
-                                                                            "<i class='fa fa-calendar'></i>"+ post.JalaliModifyDate +
+                                                                            "<i class='fa fa-calendar'>"+ post.JalaliModifyDate+"</i>" +
                                                                         "</li>" +
                                                                         "<li class='item-count'>" +
-                                                                            "<i class='fa fa-eye'></i>"+ post.Views +
+                                                                            "<i class='fa fa-eye'></i>" + post.Views +
                                                                        "</li>" +
                                                                     "</ul>" +
                                                                 "</div>" +
@@ -961,28 +981,27 @@ namespace GossipDashboard.Helper
 
             var docTemplates = new HtmlDocument();
             docTemplates.Load(path + "/Templates/sidebar-widget.html", System.Text.Encoding.UTF8);
-            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+            var nodes = docTemplates.DocumentNode.SelectNodes("//ul");
 
-            var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "widget-popular right-slider2");
+            var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "recent_posts_wid right-slider2");
             if (itemNode != null)
             {
                 HtmlNode oldChild = itemNode.SelectSingleNode("/aside[1]/div[1]/div[1]/div[2]/ul[1]/li[1]");
                 HtmlNode newChild = HtmlNode.CreateNode("<li class='post-item'>" +
                                                             "<div class='media'>" +
-                                                                "<a class='item-img media-left' href='" + postUrl + "'" +
-                                                                   "rel='bookmark'>" +
+                                                                "<a class='item-img media-left' href='" + postUrl + "'>" +
                                                                     rowID.ToString() +
                                                                 "</a>" +
                                                                 "<div class='media-body'>" +
                                                                     "<h4 class='media-heading item-title'>" +
-                                                                        "<a href = '" + postUrl + "' >" + post.Subject +"</a>" +
+                                                                        "<a href = '" + postUrl + "' >" + post.Subject + "</a>" +
                                                                     "</h4>" +
                                                                     "<ul class='item-meta'>" +
                                                                         "<li class='item-date'>" +
-                                                                            "<i class='fa fa-calendar'></i>" + post.JalaliModifyDate +
+                                                                            "<i class='fa fa-calendar'>" + post.JalaliModifyDate + "</i>" +
                                                                         "</li>" +
                                                                         "<li>" +
-                                                                            "<a class='item-comment-count' href=Comment'"+postUrl+"'>4 Comments</a>" +
+                                                                            "<a class='item-comment-count' href='" + postUrl + "'>"+post.CommentCount+"</a>" +
                                                                        "</li>" +
                                                                     "</ul>" +
                                                                 "</div>" +
@@ -994,7 +1013,7 @@ namespace GossipDashboard.Helper
 
             return null;
         }
-       
+
 
     }
 }
