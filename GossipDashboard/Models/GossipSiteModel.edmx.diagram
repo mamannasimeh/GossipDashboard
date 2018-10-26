@@ -20,6 +20,7 @@
         <AssociationConnector Association="GossipSiteModel.FK_PostQuestion_Post" />
         <AssociationConnector Association="GossipSiteModel.FK_UserPost_Post" />
         <AssociationConnector Association="GossipSiteModel.FK_PostAnswer_PostQuestion" />
+        <EntityTypeShape EntityType="GossipSiteModel.PostTemperory" Width="1.5" PointX="5.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

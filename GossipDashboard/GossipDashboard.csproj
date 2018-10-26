@@ -257,6 +257,9 @@
     <Compile Include="Models\PostQuestion.cs">
       <DependentUpon>GossipSiteModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PostTemperory.cs">
+      <DependentUpon>GossipSiteModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PubBase.cs">
       <DependentUpon>GossipSiteModel.tt</DependentUpon>
     </Compile>

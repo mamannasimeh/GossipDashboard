@@ -39,8 +39,9 @@ namespace GossipDashboard.Controllers
             return View("~/Views/Post/Index.cshtml", res);
         }
 
-        public ActionResult CreateContentCategory()
+        public ActionResult CreateContentCategory(string path)
         {
+            //path = ControllerContext.HttpContext.Server.MapPath("~");
             PostManagement postManagement = new PostManagement(path);
 
             var docIndex = new HtmlDocument();
