@@ -37,6 +37,7 @@
       <End Role="PostQuestion" EntitySet="PostQuestions" />
       <End Role="PostAnswer" EntitySet="PostAnswers" />
     </AssociationSet>
+    <EntitySet Name="PostTemperories" EntityType="GossipSiteModel.PostTemperory" />
   </EntityContainer>
   <EntityType Name="PostAttribute">
     <Key>
@@ -240,4 +241,34 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="PostTemperory">
+    <Key>
+      <PropertyRef Name="PostID" />
+      <PropertyRef Name="Subject" />
+      <PropertyRef Name="ContentPost" />
+    </Key>
+    <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Subject1" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Subject2" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="ContentPost" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ContentPost1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ContentPost2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="QuotedFrom" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Url" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="UrlMP3" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="UrlVideo" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Views" Type="Int32" />
+    <Property Name="Image1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image2" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image3" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image4" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="LikePost" Type="Int32" />
+    <Property Name="DislikePost" Type="Int32" />
+    <Property Name="PublishCount" Type="Int32" />
+    <Property Name="BackgroundColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyUserID" Type="Int32" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="IsCreatedPost" Type="Boolean" />
+  </EntityType>
 </Schema>

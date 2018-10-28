@@ -267,6 +267,9 @@ namespace GossipDashboard.Repository
                         UserID_fk = r.Next(1, 2),
                     });
 
+                    var tempPostIsCreatedPost = context.PostTemperories.First(x => x.PostID == item.PostID);
+                    tempPostIsCreatedPost.IsCreatedPost = true;
+
                     context.SaveChanges();
                 }
             }

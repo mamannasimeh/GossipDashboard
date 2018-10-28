@@ -20,27 +20,18 @@ namespace GossipDashboard.Controllers
 
         public HomeController()
         {
-            //Timer aTimer = new Timer();
-            //aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            //aTimer.Interval = 60000;
-            //aTimer.Enabled = true;
+            Timer aTimer = new Timer();
+            aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            aTimer.Interval = 300000;
+            aTimer.Enabled = true;
 
-            
+
         }
 
-        //private void OnTimedEvent(object sender, ElapsedEventArgs e)
-        //{
-
-        //    //ایجاد پست ها
-        //    repo.CreatePost();
-
-        //    //ایجاد صفحه ایندکس
-        //    CreateIndex();
-
-        //    //ایجاد صفحه کتگوری ها
-        //    PostController postCtr = new PostController();
-        //    postCtr.CreateAllCategory();
-        //}
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            CreateIndex();
+        }
 
 
         public ActionResult Index()
