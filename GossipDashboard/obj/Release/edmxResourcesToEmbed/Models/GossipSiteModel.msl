@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GossipSiteModelStoreContainer" CdmEntityContainer="GossipSiteEntities">
+    <EntitySetMapping Name="PostAttributes">
+      <EntityTypeMapping TypeName="GossipSiteModel.PostAttribute">
+        <MappingFragment StoreEntitySet="PostAttribute">
+          <ScalarProperty Name="AttributeID_fk" ColumnName="AttributeID_fk" />
+          <ScalarProperty Name="PostID_fk" ColumnName="PostID_fk" />
+          <ScalarProperty Name="PostAttributeID" ColumnName="PostAttributeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PostComments">
+      <EntityTypeMapping TypeName="GossipSiteModel.PostComment">
+        <MappingFragment StoreEntitySet="PostComment">
+          <ScalarProperty Name="DislikeComment" ColumnName="DislikeComment" />
+          <ScalarProperty Name="LikeComment" ColumnName="LikeComment" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="PostID_fk" ColumnName="PostID_fk" />
+          <ScalarProperty Name="PostCommentID" ColumnName="PostCommentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="GossipSiteModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="AboutUser" ColumnName="AboutUser" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserPosts">
+      <EntityTypeMapping TypeName="GossipSiteModel.UserPost">
+        <MappingFragment StoreEntitySet="UserPost">
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
+          <ScalarProperty Name="PostID_fk" ColumnName="PostID_fk" />
+          <ScalarProperty Name="UserID_fk" ColumnName="UserID_fk" />
+          <ScalarProperty Name="UserPostID" ColumnName="UserPostID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PubBases">
+      <EntityTypeMapping TypeName="GossipSiteModel.PubBase">
+        <MappingFragment StoreEntitySet="PubBase">
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="AbobeClassName" ColumnName="AbobeClassName" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="GroupBase" ColumnName="GroupBase" />
+          <ScalarProperty Name="NameEn" ColumnName="NameEn" />
+          <ScalarProperty Name="NameFa" ColumnName="NameFa" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="PubBaseID" ColumnName="PubBaseID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Posts">
+      <EntityTypeMapping TypeName="GossipSiteModel.Post">
+        <MappingFragment StoreEntitySet="Post">
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
+          <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
+          <ScalarProperty Name="PublishCount" ColumnName="PublishCount" />
+          <ScalarProperty Name="DislikePost" ColumnName="DislikePost" />
+          <ScalarProperty Name="LikePost" ColumnName="LikePost" />
+          <ScalarProperty Name="Image4" ColumnName="Image4" />
+          <ScalarProperty Name="Image3" ColumnName="Image3" />
+          <ScalarProperty Name="Image2" ColumnName="Image2" />
+          <ScalarProperty Name="Image1" ColumnName="Image1" />
+          <ScalarProperty Name="Views" ColumnName="Views" />
+          <ScalarProperty Name="UrlVideo" ColumnName="UrlVideo" />
+          <ScalarProperty Name="UrlMP3" ColumnName="UrlMP3" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="QuotedFrom" ColumnName="QuotedFrom" />
+          <ScalarProperty Name="ContentPost2" ColumnName="ContentPost2" />
+          <ScalarProperty Name="ContentPost1" ColumnName="ContentPost1" />
+          <ScalarProperty Name="ContentPost" ColumnName="ContentPost" />
+          <ScalarProperty Name="Subject2" ColumnName="Subject2" />
+          <ScalarProperty Name="Subject1" ColumnName="Subject1" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="PostID" ColumnName="PostID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PostAnswers">
+      <EntityTypeMapping TypeName="GossipSiteModel.PostAnswer">
+        <MappingFragment StoreEntitySet="PostAnswer">
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="PostQuestionID_fk" ColumnName="PostQuestionID_fk" />
+          <ScalarProperty Name="PostAnswerID" ColumnName="PostAnswerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PostQuestions">
+      <EntityTypeMapping TypeName="GossipSiteModel.PostQuestion">
+        <MappingFragment StoreEntitySet="PostQuestion">
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="PostID_fk" ColumnName="PostID_fk" />
+          <ScalarProperty Name="PostQuestionID" ColumnName="PostQuestionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

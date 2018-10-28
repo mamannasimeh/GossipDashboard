@@ -9,12 +9,39 @@ using System.IO;
 using System.Text;
 using GossipDashboard.Helper;
 using GossipDashboard.Repository;
+using System.Timers;
 
 namespace GossipDashboard.Controllers
 {
     public class HomeController : Controller
     {
+        
         private HtmlNode result;
+
+        public HomeController()
+        {
+            //Timer aTimer = new Timer();
+            //aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            //aTimer.Interval = 60000;
+            //aTimer.Enabled = true;
+
+            
+        }
+
+        //private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        //{
+
+        //    //ایجاد پست ها
+        //    repo.CreatePost();
+
+        //    //ایجاد صفحه ایندکس
+        //    CreateIndex();
+
+        //    //ایجاد صفحه کتگوری ها
+        //    PostController postCtr = new PostController();
+        //    postCtr.CreateAllCategory();
+        //}
+
 
         public ActionResult Index()
         {
@@ -27,6 +54,24 @@ namespace GossipDashboard.Controllers
             path = ControllerContext.HttpContext.Server.MapPath("~");
             PostManagement postManagement = new PostManagement(path);
 
+            PostRepository repo = new PostRepository();
+            //ایجاد پست ها
+            repo.CreatePost();
+
+            //ایجاد صفحه اصلی
+            CreateIndexPage(path, postManagement);
+
+            //ایجاد صفحه کتگوری ها
+            PostController postCtr = new PostController();
+            postCtr.CreateAllCategory(path);
+
+            return View("Index");
+        }
+
+
+        //ایجاد صفحه اصلی
+        private void CreateIndexPage(string path, PostManagement postManagement)
+        {
             /////////////////////////////create bloglist/////////////////////////////
             var docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
@@ -397,9 +442,6 @@ namespace GossipDashboard.Controllers
             catch (Exception ex)
             {
             }
-
-
-            return View("Index");
         }
 
         public ActionResult About()
@@ -414,6 +456,15 @@ namespace GossipDashboard.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+
+        //ایجاد پست ها از جدول پست تمپروری به جدول پست
+        public JsonResult CreatePost()
+        {
+
+
+            return null;
         }
     }
 }

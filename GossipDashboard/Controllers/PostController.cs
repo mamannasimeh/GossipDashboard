@@ -17,32 +17,32 @@ namespace GossipDashboard.Controllers
             return View(new VM_Post());
         }
 
-        public ActionResult CreateAllCategory()
+        public ActionResult CreateAllCategory(string path)
         {
-            string path = ControllerContext.HttpContext.Server.MapPath("~");
+            //string path = ControllerContext.HttpContext.Server.MapPath("~");
             BizarreController bizarre = new BizarreController(path);
-            bizarre.CreateContentCategory();
+            bizarre.CreateContentCategory(path);
 
             AmazingController amazing = new AmazingController(path);
-            amazing.CreateContentCategory();
+            amazing.CreateContentCategory(path);
 
             CuteController cute = new CuteController(path);
-            cute.CreateContentCategory();
+            cute.CreateContentCategory(path);
 
             EntertainmentController entertainment = new EntertainmentController(path);
-            entertainment.CreateContentCategory();
+            entertainment.CreateContentCategory(path);
 
             FilmsController films = new FilmsController(path);
-            films.CreateContentCategory();
+            films.CreateContentCategory(path);
 
             PlacesController places = new PlacesController(path);
-            places.CreateContentCategory();
+            places.CreateContentCategory(path);
 
             QuizController quiz = new QuizController(path);
-            quiz.CreateContentCategory();
+            quiz.CreateContentCategory(path);
 
             SexyController sexy = new SexyController(path);
-            sexy.CreateContentCategory();
+            sexy.CreateContentCategory(path);
 
             return View("/Home/Index");
         }

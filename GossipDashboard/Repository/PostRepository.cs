@@ -81,17 +81,17 @@ namespace GossipDashboard.Repository
                              PostID = postAttr.PostID_fk,
                              ParentID = pBase.ParentID
                          }).Where(x => x.PostID == P.PostID && x.ParentID == postFormatID),
-                         PostCol = context.PostAttributes.Join(context.PubBases, postAttr => postAttr.AttributeID_fk, pBase => pBase.PubBaseID, (postAttr, pBase) =>
-                         new VM_PubBase
-                         {
-                             PubBaseID = pBase.PubBaseID,
-                             NameFa = pBase.NameFa,
-                             ClassName = pBase.ClassName,
-                             AbobeClassName = pBase.AbobeClassName,
-                             NameEn = pBase.NameEn,
-                             PostID = postAttr.PostID_fk,
-                             ParentID = pBase.ParentID
-                         }).Where(x => x.PostID == P.PostID && x.ParentID == PostColID),
+                          PostCol = context.PostAttributes.Join(context.PubBases, postAttr => postAttr.AttributeID_fk, pBase => pBase.PubBaseID, (postAttr, pBase) =>
+                          new VM_PubBase
+                          {
+                              PubBaseID = pBase.PubBaseID,
+                              NameFa = pBase.NameFa,
+                              ClassName = pBase.ClassName,
+                              AbobeClassName = pBase.AbobeClassName,
+                              NameEn = pBase.NameEn,
+                              PostID = postAttr.PostID_fk,
+                              ParentID = pBase.ParentID
+                          }).Where(x => x.PostID == P.PostID && x.ParentID == PostColID),
                       };
             return res;
         }
@@ -189,6 +189,91 @@ namespace GossipDashboard.Repository
         public IQueryable<Post> SelectAll(string condition)
         {
             throw new NotImplementedException();
+        }
+
+        //ایجاد پست ها از جدول پست تمپروری به جدول پست
+        public bool CreatePost()
+        {
+            string Index1, Index2, Index3;
+            int count = 0;
+            var tempPost = context.PostTemperories.Where(p => p.IsCreatedPost != true).ToList();
+            foreach (var item in tempPost)
+            {
+                //قبلا این پست ایجاد نشده باشد
+                var isExist = context.Posts.FirstOrDefault(p => p.Subject == item.Subject);
+
+               // count = item.ContentPost.Split('.').Count();
+                if (isExist == null && item.Subject.Trim().Length > 3)
+                {
+                    //Index1 = item.ContentPost.Split('.').Skip((int)(count / 4)).LastOrDefault();
+                    //Index2 = item.ContentPost.Split('.').Skip((int)(count / 3) * 2 + 1).LastOrDefault();
+                    //Index3 = item.ContentPost.Split('.').Skip(count - 1).LastOrDefault();
+
+                    //ایجاد پست
+                    var entityPost = context.Posts.Add(new Post()
+                    {
+                        BackgroundColor = item.BackgroundColor,
+                        ContentPost = item.ContentPost,
+                        //ContentPost1 = item.ContentPost.Substring(item.ContentPost.IndexOf(Index1) + 1, item.ContentPost.IndexOf(Index2)),
+                        //ContentPost2 = item.ContentPost2.Substring(item.ContentPost.IndexOf(Index2) + 1, item.ContentPost.IndexOf(Index3)),
+                        DislikePost = item.DislikePost,
+                        Image1 = item.Image1,
+                        Image2 = item.Image2,
+                        Image3 = item.Image3,
+                        Image4 = item.Image4,
+                        LikePost = item.LikePost,
+                        ModifyDate = DateTime.Now,
+                        ModifyUserID = 1,
+                        PublishCount = 1,
+                        QuotedFrom = item.QuotedFrom,
+                        Url = item.Url,
+                        UrlMP3 = item.UrlMP3,
+                        UrlVideo = item.UrlVideo,
+                        Subject = item.Subject,
+                        Subject1 = item.Subject1,
+                        Subject2 = item.Subject2,
+                        Views = 0,
+                    });
+                    context.SaveChanges();
+
+                    //ایجاد اتربیوت ها فرمت پست ها
+                    var attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "standard").PubBaseID;
+                    if (entityPost.UrlMP3 != null)
+                        attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "audio").PubBaseID;
+                    else if (entityPost.UrlVideo != null)
+                        attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "video").PubBaseID;
+
+                    context.PostAttributes.Add(new PostAttribute()
+                    {
+                        PostID_fk = entityPost.PostID,
+                        AttributeID_fk = attrID
+                    });
+
+                    //ایجاد اتربیوت ها طبقه بندي پست ها
+                    attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "entertainment").PubBaseID;
+                    context.PostAttributes.Add(new PostAttribute()
+                    {
+                        PostID_fk = entityPost.PostID,
+                        AttributeID_fk = attrID
+                    });
+
+                    //ایجا یوزر پست ها
+                    Random r = new Random();
+                    context.UserPosts.Add(new UserPost()
+                    {
+                        ModifyDate = DateTime.Now,
+                        ModifyUserID = 1,
+                        PostID_fk = entityPost.PostID,
+                        UserID_fk = r.Next(1, 2),
+                    });
+
+                    context.SaveChanges();
+                }
+            }
+
+
+
+            return true;
         }
     }
 }
