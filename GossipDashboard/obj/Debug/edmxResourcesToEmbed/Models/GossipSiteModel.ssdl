@@ -61,13 +61,9 @@
     <Property Name="PostID_fk" Type="int" Nullable="false" />
     <Property Name="Question" Type="nvarchar" MaxLength="2000" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="PostTemperory">
     <Key>
       <PropertyRef Name="PostID" />
-      <PropertyRef Name="Subject" />
-      <PropertyRef Name="ContentPost" />
     </Key>
     <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Subject" Type="nvarchar" MaxLength="2000" Nullable="false" />
@@ -226,36 +222,10 @@ warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a prim
     <EntitySet Name="PostAttribute" EntityType="Self.PostAttribute" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PostComment" EntityType="Self.PostComment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PostQuestion" EntityType="Self.PostQuestion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PostTemperory" EntityType="Self.PostTemperory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PubBase" EntityType="Self.PubBase" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserPost" EntityType="Self.UserPost" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="PostTemperory" EntityType="Self.PostTemperory" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [PostTemperory].[PostID] AS [PostID], 
-    [PostTemperory].[Subject] AS [Subject], 
-    [PostTemperory].[Subject1] AS [Subject1], 
-    [PostTemperory].[Subject2] AS [Subject2], 
-    [PostTemperory].[ContentPost] AS [ContentPost], 
-    [PostTemperory].[ContentPost1] AS [ContentPost1], 
-    [PostTemperory].[ContentPost2] AS [ContentPost2], 
-    [PostTemperory].[QuotedFrom] AS [QuotedFrom], 
-    [PostTemperory].[Url] AS [Url], 
-    [PostTemperory].[UrlMP3] AS [UrlMP3], 
-    [PostTemperory].[UrlVideo] AS [UrlVideo], 
-    [PostTemperory].[Views] AS [Views], 
-    [PostTemperory].[Image1] AS [Image1], 
-    [PostTemperory].[Image2] AS [Image2], 
-    [PostTemperory].[Image3] AS [Image3], 
-    [PostTemperory].[Image4] AS [Image4], 
-    [PostTemperory].[LikePost] AS [LikePost], 
-    [PostTemperory].[DislikePost] AS [DislikePost], 
-    [PostTemperory].[PublishCount] AS [PublishCount], 
-    [PostTemperory].[BackgroundColor] AS [BackgroundColor], 
-    [PostTemperory].[ModifyUserID] AS [ModifyUserID], 
-    [PostTemperory].[ModifyDate] AS [ModifyDate], 
-    [PostTemperory].[IsCreatedPost] AS [IsCreatedPost]
-    FROM [dbo].[PostTemperory] AS [PostTemperory]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_PostAnswer_PostQuestion" Association="Self.FK_PostAnswer_PostQuestion">
       <End Role="PostQuestion" EntitySet="PostQuestion" />
       <End Role="PostAnswer" EntitySet="PostAnswer" />

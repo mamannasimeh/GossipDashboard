@@ -10,7 +10,7 @@ namespace GossipDashboard.Repository
 {
     public class PostRepository : IRepository<Post>
     {
-        GossipSiteEntities context = new GossipSiteEntities();
+        private GossipSiteEntities context = new GossipSiteEntities();
 
         public Post Add(Post entity)
         {
@@ -115,6 +115,7 @@ namespace GossipDashboard.Repository
         {
             var postCategoryID = context.PubBases.First(p => p.NameEn == "PostCategory").PubBaseID;
             var postFormatID = context.PubBases.First(p => p.NameEn == "PostFormat").PubBaseID;
+
             //var LinkToAllPostCategoryID = context.PubBases.First(p => p.NameEn == "LinkToAllPostCategory").PubBaseID;
             var PostColID = context.PubBases.First(p => p.NameEn == "PostCol").PubBaseID;
 
@@ -194,7 +195,7 @@ namespace GossipDashboard.Repository
         //ایجاد پست ها از جدول پست تمپروری به جدول پست
         public bool CreatePost()
         {
-            string Index1, Index2, Index3;
+            string Index1 = "", Index2 = "", Index3 = "";
             int count = 0;
             var tempPost = context.PostTemperories.Where(p => p.IsCreatedPost != true).ToList();
             foreach (var item in tempPost)
@@ -202,20 +203,42 @@ namespace GossipDashboard.Repository
                 //قبلا این پست ایجاد نشده باشد
                 var isExist = context.Posts.FirstOrDefault(p => p.Subject == item.Subject);
 
-               // count = item.ContentPost.Split('.').Count();
-                if (isExist == null && item.Subject.Trim().Length > 3)
+                count = item.ContentPost.Split('.').Count();
+                if (isExist == null && item.Subject.Trim().Length > 3 && item.ContentPost.Trim().Length > 3)
                 {
-                    //Index1 = item.ContentPost.Split('.').Skip((int)(count / 4)).LastOrDefault();
-                    //Index2 = item.ContentPost.Split('.').Skip((int)(count / 3) * 2 + 1).LastOrDefault();
-                    //Index3 = item.ContentPost.Split('.').Skip(count - 1).LastOrDefault();
+                    //Index1 = item.ContentPost.Split('.').Skip((int)(count / 4)).FirstOrDefault();
+                    //Index2 = item.ContentPost.Split('.').Skip((int)(count / 4) * 2 + 1).FirstOrDefault();
+                    //Index3 = item.ContentPost.Split('.').Skip(count - 1).FirstOrDefault();
+                    //if (Index3.Trim() == "")
+                    //    Index3 = item.ContentPost.Split('.').Skip(count - 2).FirstOrDefault();
+
+                    var statements = item.ContentPost.Split('.');
+                    var everyPostContent = statements.Count() / 3;
+                    var i = 1;
+                    foreach (var item1 in statements)
+                    {
+                        if (i <= everyPostContent)
+                            Index1 += item1 + " ";
+                        else if (i <= (everyPostContent * 2))
+                            Index2 += item1 + " ";
+                        else
+                            Index3 += item1 + " ";
+
+                        i++;
+                    }
 
                     //ایجاد پست
                     var entityPost = context.Posts.Add(new Post()
                     {
                         BackgroundColor = item.BackgroundColor,
-                        ContentPost = item.ContentPost,
+
+                        //ContentPost = item.ContentPost,//.Substring(0, item.ContentPost.IndexOf(Index1)),
+
                         //ContentPost1 = item.ContentPost.Substring(item.ContentPost.IndexOf(Index1) + 1, item.ContentPost.IndexOf(Index2)),
                         //ContentPost2 = item.ContentPost2.Substring(item.ContentPost.IndexOf(Index2) + 1, item.ContentPost.IndexOf(Index3)),
+                        ContentPost = Index1,
+                        ContentPost1 = Index2,
+                        ContentPost2 = Index3,
                         DislikePost = item.DislikePost,
                         Image1 = item.Image1,
                         Image2 = item.Image2,
@@ -267,14 +290,19 @@ namespace GossipDashboard.Repository
                         UserID_fk = r.Next(1, 2),
                     });
 
-                    var tempPostIsCreatedPost = context.PostTemperories.First(x => x.PostID == item.PostID);
-                    tempPostIsCreatedPost.IsCreatedPost = true;
+                    //مشخص کردن اينکه اين پست قبلا ايجاد شده است
+                    item.IsCreatedPost = true;
+                    context.PostTemperories.Attach(item);
+                    context.Entry(item).State = System.Data.Entity.EntityState.Modified;
 
                     context.SaveChanges();
                 }
+                else
+                {
+                    //context.PostTemperories.Remove(item);
+                    //context.SaveChanges();
+                }
             }
-
-
 
             return true;
         }

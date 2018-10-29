@@ -15,24 +15,20 @@ namespace GossipDashboard.Controllers
 {
     public class HomeController : Controller
     {
-        
         private HtmlNode result;
 
         public HomeController()
         {
-            Timer aTimer = new Timer();
-            aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            aTimer.Interval = 300000;
-            aTimer.Enabled = true;
-
-
+            //Timer aTimer = new Timer();
+            //aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            //aTimer.Interval = 60000;
+            //aTimer.Enabled = true;
         }
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
             CreateIndex();
         }
-
 
         public ActionResult Index()
         {
@@ -46,6 +42,7 @@ namespace GossipDashboard.Controllers
             PostManagement postManagement = new PostManagement(path);
 
             PostRepository repo = new PostRepository();
+
             //ایجاد پست ها
             repo.CreatePost();
 
@@ -58,7 +55,6 @@ namespace GossipDashboard.Controllers
 
             return View("Index");
         }
-
 
         //ایجاد صفحه اصلی
         private void CreateIndexPage(string path, PostManagement postManagement)
@@ -77,6 +73,7 @@ namespace GossipDashboard.Controllers
             foreach (var item in postQuiz)
             {
                 item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+
                 //ايجاد محتوا براي وسط صفحه-- author-grid
                 var itSelfNode = postManagement.CreateBloglist(item);
                 if (itSelfNode != null)
@@ -109,6 +106,7 @@ namespace GossipDashboard.Controllers
             foreach (var item in postQuiz)
             {
                 item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+
                 //ايجاد محتوا براي قسمت طبقه بندی-- catlist
                 var itSelfNode = postManagement.CreateCatListContent(item);
                 if (itSelfNode != null)
@@ -141,6 +139,7 @@ namespace GossipDashboard.Controllers
             foreach (var item in postQuiz)
             {
                 item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+
                 //ايجاد محتوا براي قسمت طبقه بندی-- catlist
                 var itSelfNode = postManagement.CreateBloglistContent(item);
                 if (itSelfNode != null)
@@ -159,7 +158,6 @@ namespace GossipDashboard.Controllers
             {
             }
 
-
             //////////////////////Create bloglist-default///////////////////////////////////////
             docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
@@ -174,6 +172,7 @@ namespace GossipDashboard.Controllers
             foreach (var item in postQuiz)
             {
                 item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+
                 //ايجاد محتوا براي -- bloglist default
                 var itSelfNode = postManagement.CreateBloglistDefault(item);
                 if (itSelfNode != null)
@@ -192,7 +191,6 @@ namespace GossipDashboard.Controllers
             {
             }
 
-
             //////////////////////Create postslider-container slider-image-bottom///////////////////////////////////////
             docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
@@ -207,6 +205,7 @@ namespace GossipDashboard.Controllers
             foreach (var item in postQuiz)
             {
                 item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+
                 //ايجاد محتوا براي -- bloglist default
                 var itSelfNode = postManagement.CreateSliderImageBottom(item);
                 if (itSelfNode != null)
@@ -225,8 +224,6 @@ namespace GossipDashboard.Controllers
             {
             }
 
-
-
             //////////////////////Create postslider-container slider-image-bottom sp-thumbnails sp-slider-image///////////////////////////////////////
             docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
@@ -241,6 +238,7 @@ namespace GossipDashboard.Controllers
             foreach (var item in postQuiz)
             {
                 item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+
                 //ايجاد محتوا براي -- bloglist default
                 var itSelfNode = postManagement.CreateSliderImageBottom_ImageBottom(item);
                 if (itSelfNode != null)
@@ -259,7 +257,6 @@ namespace GossipDashboard.Controllers
             {
             }
 
-
             ////////////////////// sidebar-widget mostviewed///////////////////////////////////////
             docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
@@ -268,14 +265,15 @@ namespace GossipDashboard.Controllers
             //حذف محتويات ند بلاك-slider-image-bottom
             postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider1");
 
-            //ایجاد  محتوا 
+            //ایجاد  محتوا
             int rowID = 1;
             repo = new PostRepository();
             postQuiz = repo.SelectPostUser().Take(6).ToList();
             foreach (var item in postQuiz)
             {
                 item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
-                //ايجاد محتوا براي 
+
+                //ايجاد محتوا براي
                 var itSelfNode = postManagement.CreatePostMostViewed(item, rowID);
                 if (itSelfNode != null)
                 {
@@ -289,12 +287,10 @@ namespace GossipDashboard.Controllers
                 var htmlDoc = new HtmlDocument();
                 htmlDoc.LoadHtml(docIndex.DocumentNode.OuterHtml);
                 htmlDoc.Save(path + "/Views/Shared/_Layout.cshtml", Encoding.UTF8);
-
             }
             catch (Exception ex)
             {
             }
-
 
             //////////////////////// sidebar-widget popular///////////////////////////////////////
             docIndex = new HtmlDocument();
@@ -304,14 +300,15 @@ namespace GossipDashboard.Controllers
             //حذف محتويات ند بلاك-slider-image-bottom
             postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider2");
 
-            //ایجاد  محتوا 
+            //ایجاد  محتوا
             rowID = 1;
             repo = new PostRepository();
             postQuiz = repo.SelectPostUser().OrderByDescending(x => x.PostID).Take(4).ToList();
             foreach (var item in postQuiz)
             {
                 item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
-                //ايجاد محتوا براي 
+
+                //ايجاد محتوا براي
                 var itSelfNode = postManagement.CreatePostPopular(item, rowID);
                 if (itSelfNode != null)
                 {
@@ -325,30 +322,28 @@ namespace GossipDashboard.Controllers
                 var htmlDoc = new HtmlDocument();
                 htmlDoc.LoadHtml(docIndex.DocumentNode.OuterHtml);
                 htmlDoc.Save(path + "/Views/Shared/_Layout.cshtml", Encoding.UTF8);
-
             }
             catch (Exception ex)
             {
             }
-
-
 
             //////////////////////// آخرين پست ها///////////////////////////////////////
             docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
             nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
 
-            //حذف محتويات ند 
+            //حذف محتويات ند
             postManagement.ClearContentNode(nodesIndex, "superior-posts recent_posts_wid");
 
-            //ایجاد  محتوا 
+            //ایجاد  محتوا
             rowID = 1;
             repo = new PostRepository();
             postQuiz = repo.SelectPostUser().OrderByDescending(x => x.PostID).Skip(14).Take(4).ToList();
             foreach (var item in postQuiz)
             {
                 item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
-                //ايجاد محتوا براي 
+
+                //ايجاد محتوا براي
                 var itSelfNode = postManagement.CreatePostSuperiorr(item, rowID);
                 if (itSelfNode != null)
                 {
@@ -362,28 +357,27 @@ namespace GossipDashboard.Controllers
                 var htmlDoc = new HtmlDocument();
                 htmlDoc.LoadHtml(docIndex.DocumentNode.OuterHtml);
                 htmlDoc.Save(path + "/Views/Shared/_Layout.cshtml", Encoding.UTF8);
-
             }
             catch (Exception ex)
             {
             }
-
 
             ////////////////////////sp-slides sp-slider-image-top///////////////////////////////////////
             docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
             nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
 
-            //حذف محتويات ند 
+            //حذف محتويات ند
             postManagement.ClearContentNode(nodesIndex, "sp-slides sp-slider-image-top");
 
-            //ایجاد  محتوا 
+            //ایجاد  محتوا
             repo = new PostRepository();
             postQuiz = repo.SelectPostUser().OrderBy(x => x.PostID).Skip(7).Take(8).ToList();
             foreach (var item in postQuiz)
             {
                 item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
-                //ايجاد محتوا براي 
+
+                //ايجاد محتوا براي
                 var itSelfNode = postManagement.CreateSliderTop(item);
                 if (itSelfNode != null)
                 {
@@ -401,22 +395,22 @@ namespace GossipDashboard.Controllers
             {
             }
 
-
             ////////////////////////sp-thumbnails sp-slider-image-top///////////////////////////////////////
             docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
             nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
 
-            //حذف محتويات ند 
+            //حذف محتويات ند
             postManagement.ClearContentNode(nodesIndex, "sp-thumbnails sp-slider-image-top");
 
-            //ایجاد  محتوا 
+            //ایجاد  محتوا
             repo = new PostRepository();
             postQuiz = repo.SelectPostUser().OrderBy(x => x.PostID).Skip(7).Take(8).ToList();
             foreach (var item in postQuiz)
             {
                 item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
-                //ايجاد محتوا براي 
+
+                //ايجاد محتوا براي
                 var itSelfNode = postManagement.CreateSliderTopThumbnails(item);
                 if (itSelfNode != null)
                 {
@@ -449,12 +443,9 @@ namespace GossipDashboard.Controllers
             return View();
         }
 
-
         //ایجاد پست ها از جدول پست تمپروری به جدول پست
         public JsonResult CreatePost()
         {
-
-
             return null;
         }
     }
