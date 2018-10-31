@@ -32,6 +32,12 @@ namespace GossipDashboard.Controllers
             return View();
         }
 
+        public ActionResult VideoPost(int postID)
+        {
+            var res = repo.SelectPostUser().Where(p => p.PostID == postID).FirstOrDefault();
+            return View("~/Views/Post/VideoIndex.cshtml", res);
+        }
+
         public ActionResult Post(int postID)
         {
             var res = repo.SelectPostUser().Where(p => p.PostID == postID).FirstOrDefault();

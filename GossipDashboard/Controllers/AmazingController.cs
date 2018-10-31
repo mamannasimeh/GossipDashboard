@@ -38,6 +38,12 @@ namespace GossipDashboard.Controllers
             return View("~/Views/Post/Index.cshtml", res);
         }
 
+        public ActionResult VideoPost(int postID)
+        {
+            var res = repo.SelectPostUser().Where(p => p.PostID == postID).FirstOrDefault();
+            return View("~/Views/Post/VideoIndex.cshtml", res);
+        }
+
         public ActionResult CreateContentCategory(string path)
         {
             //path = ControllerContext.HttpContext.Server.MapPath("~");

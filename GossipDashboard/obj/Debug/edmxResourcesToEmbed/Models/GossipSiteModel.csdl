@@ -244,8 +244,6 @@
   <EntityType Name="PostTemperory">
     <Key>
       <PropertyRef Name="PostID" />
-      <PropertyRef Name="Subject" />
-      <PropertyRef Name="ContentPost" />
     </Key>
     <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Subject" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />

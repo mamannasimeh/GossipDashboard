@@ -221,6 +221,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\DynamicQueryable.cs" />
     <Compile Include="Helper\EnumGeneral.cs" />
     <Compile Include="Helper\PostManagement.cs" />
     <Compile Include="Helper\UploadHelper.cs" />
@@ -474,6 +475,7 @@
     <Content Include="Views\Dashboard\Pages.cshtml" />
     <Content Include="Views\Dashboard\Posts.cshtml" />
     <Content Include="Views\Dashboard\Users.cshtml" />
+    <Content Include="Views\Post\VideoIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
