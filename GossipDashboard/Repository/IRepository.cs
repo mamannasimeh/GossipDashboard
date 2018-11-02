@@ -9,9 +9,9 @@ namespace GossipDashboard.Repository
 {
     interface IRepository<T>
     {
-        T Add(T entity);
+        T Add(T vm);
 
-        T Update(T entity);
+        T Update(T vm);
 
         bool Delete(int id);
 
