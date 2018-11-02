@@ -2,6 +2,7 @@
 using GossipDashboard.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -73,7 +74,7 @@ namespace GossipDashboard.Repository
                 Image3 = vm.Image3,
                 Image4 = vm.Image4,
                 LikePost = vm.LikePost,
-                ModifyDate = vm.ModifyDate,
+                ModifyDate = DateTime.Now,
                 ModifyUserID = vm.ModifyUserID,
                 PublishCount = vm.PublishCount,
                 Subject = vm.Subject,
@@ -158,14 +159,147 @@ namespace GossipDashboard.Repository
             return resultVM;
         }
 
-        public VM_PostManage Update(VM_PostManage entity)
+        public VM_PostManage Update(VM_PostManage vm)
         {
-            throw new NotImplementedException();
+            var entity = new Post()
+            {
+                PostID = vm.PostID,
+                ContentPost = vm.ContentPost,
+                ContentPost1 = vm.ContentPost1,
+                ContentPost2 = vm.ContentPost2,
+                DislikePost = vm.DislikePost,
+                Image1 = vm.Image1,
+                Image2 = vm.Image2,
+                Image3 = vm.Image3,
+                Image4 = vm.Image4,
+                LikePost = vm.LikePost,
+                ModifyDate = vm.ModifyDate,
+                ModifyUserID = vm.ModifyUserID,
+                PublishCount = vm.PublishCount,
+                Subject = vm.Subject,
+                Subject1 = vm.Subject1,
+                Subject2 = vm.Subject2,
+                Url = vm.Url,
+                UrlMP3 = vm.UrlMP3,
+                UrlVideo = vm.UrlVideo,
+                Views = vm.Views,
+                BackgroundColor = vm.BackgroundColor,
+                QuotedFrom = vm.QuotedFrom,
+            };
+
+            context.Posts.Attach(entity);
+            context.Entry(entity).State = EntityState.Modified;
+
+
+           //حذف مشخصات پست
+            var attrs = context.PostAttributes.Where(p => p.PostID_fk == vm.PostID).ToList();
+            foreach (var item in attrs)
+            {
+                context.PostAttributes.Remove(item);
+            }
+
+            //طبقه بندی پست
+            var enntiyCat = new PostAttribute()
+            {
+                AttributeID_fk = vm.PostCategoryID,
+                PostID_fk = entity.PostID,
+            };
+            context.PostAttributes.Add(enntiyCat);
+
+            //فرمت پست
+            var enntiyFormat = new PostAttribute()
+            {
+                AttributeID_fk = vm.PostFormatID,
+                PostID_fk = entity.PostID,
+            };
+            context.PostAttributes.Add(enntiyFormat);
+
+            //ستون پست
+            var enntiyCol = new PostAttribute()
+            {
+                AttributeID_fk = vm.PostColID,
+                PostID_fk = entity.PostID,
+            };
+            context.PostAttributes.Add(enntiyCol);
+
+            //ایجا یوزر پست ها
+            Random r = new Random();
+            context.UserPosts.Add(new UserPost()
+            {
+                ModifyDate = DateTime.Now,
+                ModifyUserID = 1,
+                PostID_fk = entity.PostID,
+                UserID_fk = r.Next(1, 3),
+            });
+
+            context.SaveChanges();
+
+
+            var resultVM = new VM_PostManage()
+            {
+                PostID = entity.PostID,
+                ContentPost = entity.ContentPost,
+                ContentPost1 = entity.ContentPost1,
+                ContentPost2 = entity.ContentPost2,
+                DislikePost = entity.DislikePost,
+                Image1 = entity.Image1,
+                Image2 = entity.Image2,
+                Image3 = entity.Image3,
+                Image4 = entity.Image4,
+                LikePost = entity.LikePost,
+                ModifyDate = entity.ModifyDate,
+                ModifyUserID = entity.ModifyUserID,
+                PublishCount = entity.PublishCount,
+                Subject = entity.Subject,
+                Subject1 = entity.Subject1,
+                Subject2 = entity.Subject2,
+                Url = entity.Url,
+                UrlMP3 = entity.UrlMP3,
+                UrlVideo = entity.UrlVideo,
+                Views = entity.Views,
+                BackgroundColor = entity.BackgroundColor,
+                QuotedFrom = entity.QuotedFrom,
+                PostCategoryID = vm.PostCategoryID,
+                PostFormatID = vm.PostFormatID,
+                PostColID = vm.PostColID,
+            };
+
+            return resultVM;
         }
 
-        public bool Delete(int id)
+        public VM_PostManage Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = context.Posts.FirstOrDefault(p => p.PostID == id);
+            context.Posts.Remove(entity);
+            context.SaveChanges();
+
+            var resultVM = new VM_PostManage()
+            {
+                PostID = entity.PostID,
+                ContentPost = entity.ContentPost,
+                ContentPost1 = entity.ContentPost1,
+                ContentPost2 = entity.ContentPost2,
+                DislikePost = entity.DislikePost,
+                Image1 = entity.Image1,
+                Image2 = entity.Image2,
+                Image3 = entity.Image3,
+                Image4 = entity.Image4,
+                LikePost = entity.LikePost,
+                ModifyDate = entity.ModifyDate,
+                ModifyUserID = entity.ModifyUserID,
+                PublishCount = entity.PublishCount,
+                Subject = entity.Subject,
+                Subject1 = entity.Subject1,
+                Subject2 = entity.Subject2,
+                Url = entity.Url,
+                UrlMP3 = entity.UrlMP3,
+                UrlVideo = entity.UrlVideo,
+                Views = entity.Views,
+                BackgroundColor = entity.BackgroundColor,
+                QuotedFrom = entity.QuotedFrom,
+            };
+
+            return resultVM;
         }
 
         public VM_PostManage Select(int id)
@@ -178,6 +312,5 @@ namespace GossipDashboard.Repository
             throw new NotImplementedException();
         }
 
-         
     }
 }

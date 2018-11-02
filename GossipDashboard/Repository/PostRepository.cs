@@ -96,7 +96,7 @@ namespace GossipDashboard.Repository
             return res;
         }
 
-        public bool Delete(int id)
+        public Post Delete(int id)
         {
             throw new NotImplementedException();
         }

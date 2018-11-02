@@ -27,17 +27,14 @@ namespace GossipDashboard.ViewModel
         [DisplayName("Dislike")]
         public Nullable<int> DislikePost { get; set; }
         [DisplayName("")]
-        public Nullable<int> ModifyUserID_fk { get; set; }
-        [DisplayName("")]
         public Nullable<System.DateTime> ModifyDate { get; set; }
         [DisplayName("")]
         public string Url { get; set; }
         [DisplayName("")]
         public Nullable<int> PublishCount { get; set; }
-        [DisplayName("تاریخ")]
-        public Nullable<int> ModifyUserID { get; set; }
         [DisplayName("شناسایی کاربر")]
-        public int UserID_fk { get;  set; }
+        public Nullable<int> ModifyUserID { get; set; }
+
         [DisplayName("نام")]
         public string FirstName { get;  set; }
         [DisplayName("نام خانوادگی")]
@@ -62,10 +59,10 @@ namespace GossipDashboard.ViewModel
         public string Image4 { get;  set; }
 
         [DisplayName("عنوان 1 ")]
-        public string Subject1 { get; internal set; }
+        public string Subject1 { get;  set; }
 
         [DisplayName("عنوان 2")]
-        public string Subject2 { get; internal set; }
+        public string Subject2 { get;  set; }
 
         [DisplayName("محتوا 1")]
         public string ContentPost1 { get;  set; }
@@ -96,6 +93,6 @@ namespace GossipDashboard.ViewModel
         public int PostFormatID { get; set; }
         [DisplayName("تعداد ستون")]
         public int PostColID { get; set; }
-
+        public int UserID_fk { get;  set; }
     }
 }

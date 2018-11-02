@@ -13,7 +13,7 @@ namespace GossipDashboard.Repository
 
         T Update(T vm);
 
-        bool Delete(int id);
+        T Delete(int id);
 
         T Select(int id);
         IQueryable<T> SelectAll(string condition);

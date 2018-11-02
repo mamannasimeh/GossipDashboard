@@ -16,7 +16,7 @@ namespace GossipDashboard.Repository
             throw new NotImplementedException();
         }
 
-        public bool Delete(int id)
+        public PubBase Delete(int id)
         {
             throw new NotImplementedException();
         }

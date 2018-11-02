@@ -57,20 +57,23 @@ namespace GossipDashboard.Controllers
             return Json(res.ToDataSourceResult(request));
         }
 
-        public JsonResult CreatePost(VM_PostManage vm)
+        public JsonResult CreatePost([DataSourceRequest] DataSourceRequest request, VM_PostManage vm)
         {
+            vm.ModifyUserID = 1;
             var res = repo.Add(vm);
             return Json(res, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult UpdatePost(int id)
+        public ActionResult UpdatePost([DataSourceRequest] DataSourceRequest request, VM_PostManage vm)
         {
-            return null;
+            var res = repo.Update(vm);
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult DestroyPost(int id)
+        public ActionResult DestroyPost([DataSourceRequest] DataSourceRequest request, VM_PostManage vm)
         {
-            return null; ;
+            var res = repo.Delete(vm.PostID);
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
     }
 }

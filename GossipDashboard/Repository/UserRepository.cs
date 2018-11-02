@@ -19,7 +19,7 @@ namespace GossipDashboard.Repository
             return entity;
         }
 
-        public bool Delete(int id)
+        public User Delete(int id)
         {
             throw new NotImplementedException();
         }
