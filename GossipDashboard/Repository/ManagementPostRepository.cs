@@ -93,7 +93,7 @@ namespace GossipDashboard.Repository
                 UrlMP3 = vm.UrlMP3,
                 UrlVideo = vm.UrlVideo,
                 Views = vm.Views,
-                BackgroundColor = vm.BackgroundColor,
+                BackgroundColor = vm.BackgroundColor == "" ? "#a94442" : vm.BackgroundColor,
                 QuotedFrom = vm.QuotedFrom,
             };
             context.Posts.Add(entity);
