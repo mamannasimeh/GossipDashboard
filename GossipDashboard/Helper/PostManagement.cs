@@ -71,13 +71,17 @@ namespace GossipDashboard.Helper
                     break;
 
                 case "audio":
+                    var pv = post.PostCategory.ToList().FirstOrDefault();
+                    if (pv != null)
+                        postUrl = "@Url.Action(\"AudioPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
                     docTemplates.Load(path + "/Templates/format-audio.html", System.Text.Encoding.UTF8);
                     nodes = CreateHeadAudio(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
 
                 case "video":
-                    var pv = post.PostCategory.ToList().FirstOrDefault();
-                    if (pv != null)
+                    var pv1 = post.PostCategory.ToList().FirstOrDefault();
+                    if (pv1 != null)
                         postUrl = "@Url.Action(\"VideoPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
 
                     docTemplates.Load(path + "/Templates/format-video.html", System.Text.Encoding.UTF8);
@@ -688,6 +692,12 @@ namespace GossipDashboard.Helper
                 urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
                 postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
 
+                var postFormat = post.PostFormat.ToList().FirstOrDefault();
+                if (postFormat != null && postFormat.NameEn == "video")
+                    postUrl = "@Url.Action(\"VideoPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+                else if (postFormat != null && postFormat.NameEn == "audio")
+                    postUrl = "@Url.Action(\"AudioPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
                 catListClass += " " + item.NameEn + " ";
             }
 
@@ -742,6 +752,12 @@ namespace GossipDashboard.Helper
                 urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
                 postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
 
+                var postFormat = post.PostFormat.ToList().FirstOrDefault();
+                if (postFormat != null && postFormat.NameEn == "video")
+                    postUrl = "@Url.Action(\"VideoPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+                else if (postFormat != null && postFormat.NameEn == "audio")
+                    postUrl = "@Url.Action(\"AudioPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
                 categoryAboveClass += " " + item.AbobeClassName + " ";
                 categoryAboveName += " " + item.NameFa + " ";
             }
@@ -784,6 +800,13 @@ namespace GossipDashboard.Helper
             {
                 urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
                 postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
+                var postFormat = post.PostFormat.ToList().FirstOrDefault();
+                if (postFormat != null && postFormat.NameEn == "video")
+                    postUrl = "@Url.Action(\"VideoPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+                else if (postFormat != null && postFormat.NameEn == "audio")
+                    postUrl = "@Url.Action(\"AudioPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
 
                 categoryAboveClass += " " + item.AbobeClassName + " ";
                 categoryAboveName += " " + item.NameFa + " ";
@@ -929,6 +952,12 @@ namespace GossipDashboard.Helper
                 urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
                 postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
 
+                var postFormat = post.PostFormat.ToList().FirstOrDefault();
+                if (postFormat != null && postFormat.NameEn == "video")
+                    postUrl = "@Url.Action(\"VideoPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+                else if (postFormat != null && postFormat.NameEn == "audio")
+                    postUrl = "@Url.Action(\"AudioPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
                 categoryAboveClass += " " + item.AbobeClassName + " ";
                 categoryAboveName += " " + item.NameFa + " ";
             }
@@ -978,6 +1007,13 @@ namespace GossipDashboard.Helper
             {
                 urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
                 postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
+                var postFormat = post.PostFormat.ToList().FirstOrDefault();
+                if (postFormat != null && postFormat.NameEn == "video")
+                    postUrl = "@Url.Action(\"VideoPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+                else if (postFormat != null && postFormat.NameEn == "audio")
+                    postUrl = "@Url.Action(\"AudioPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
 
                 categoryAboveClass += " " + item.AbobeClassName + " ";
                 categoryAboveName += " " + item.NameFa + " ";
@@ -1030,6 +1066,14 @@ namespace GossipDashboard.Helper
             {
                 urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
                 postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
+                var postFormat = post.PostFormat.ToList().FirstOrDefault();
+                if (postFormat != null && postFormat.NameEn == "video")
+                    postUrl = "@Url.Action(\"VideoPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+                else if (postFormat != null && postFormat.NameEn == "audio")
+                    postUrl = "@Url.Action(\"AudioPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+
+
 
                 categoryAboveClass += " " + item.AbobeClassName + " ";
                 categoryAboveName += " " + item.NameFa + " ";

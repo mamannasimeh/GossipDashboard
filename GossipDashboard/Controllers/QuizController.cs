@@ -44,6 +44,12 @@ namespace GossipDashboard.Controllers
             return View("~/Views/Post/VideoIndex.cshtml", res);
         }
 
+        public ActionResult AudioPost(int postID)
+        {
+            var res = repo.SelectPostUser().Where(p => p.PostID == postID).FirstOrDefault();
+            return View("~/Views/Post/AudioIndex.cshtml", res);
+        }
+
         public ActionResult CreateContentCategory(string path)
         {
             //path = ControllerContext.HttpContext.Server.MapPath("~");

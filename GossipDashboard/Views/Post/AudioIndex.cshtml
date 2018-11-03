@@ -5,25 +5,26 @@
 
 
 <div class="col-md-12 content-area">
-    <article class='format-video hentry'>
-        <div class='post-box'>
-            <div class='entry-cover'>
-                <div class='flex-video'>
-                    <div style='width: 640px;' class='wp-video'>
-                        <!--[if lt IE 9]><script>document.createElement('video');</script><![endif]-->
-                        <video class='wp-video-shortcode' id='video-446-1' width='640' height='360' preload='metadata' controls='controls'>
-                            <source type='video/mp4' src="@Html.DisplayFor(modelItem => modelItem.UrlVideo)" />
-                            <a href="@Html.DisplayFor(modelItem => modelItem.UrlVideo)">"@Html.DisplayFor(modelItem => modelItem.UrlVideo)"</a>
-                        </video>
-                    </div>
+    <article class="format-audio hentry category-cute">
+        <div class="post-box">
+            <div class="entry-cover">
+                <div class="entry-cover">
+                    <a href="@Html.DisplayFor(modelItem => modelItem.Url)" class="single-post-image">
+                        <img src="@Html.DisplayFor(modelItem => modelItem.Image1)" />
+                    </a>
+                </div>
+                <div class="audio-container">
+                    <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+                    <audio class="wp-audio-shortcode" id="audio-429-1" preload="none" style="width: 100%;" controls="controls">
+                        <source type="audio/mpeg" src="@Html.DisplayFor(modelItem => modelItem.UrlMP3)" />
+                        <a href="@Html.DisplayFor(modelItem => modelItem.UrlMP3)">"@Html.DisplayFor(modelItem => modelItem.UrlMP3)"</a>
+                    </audio>
                 </div>
             </div>
-            <div class='entry-content'>
-                <h3 class='entry-title'>
-                    <a href='#'>"@Html.DisplayFor(modelItem => modelItem.Subject)"</a>
+            <div class="entry-content">
+                <h3 class="entry-title">
+                    <a href="#">"@Html.DisplayFor(modelItem => modelItem.Subject)"</a>
                 </h3>
-
-                <p>@Html.DisplayFor(modelItem => modelItem.Subject1)</p>
 
                 <img src="@Html.DisplayFor(modelItem => modelItem.Image2)" style="margin-bottom: 10px;" />
                 <p>
@@ -41,7 +42,7 @@
 
                 <div class="tag-block">
                     @{
-                        if (Model != null && Model.PostCategory!= null)
+                        if (Model != null && Model.PostCategory != null)
                         {
                             foreach (var item in Model.PostCategory.ToList())
                             {
