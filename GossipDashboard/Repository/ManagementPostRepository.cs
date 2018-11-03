@@ -27,6 +27,9 @@ namespace GossipDashboard.Repository
                           ContentPost = P.ContentPost,
                           ContentPost1 = P.ContentPost1,
                           ContentPost2 = P.ContentPost2,
+                          ContentPostSmall = P.ContentPost.Substring(0,200),
+                          ContentPost1Small = P.ContentPost1.Substring(0, 200),
+                          ContentPost2Small = P.ContentPost2.Substring(0, 200),
                           DislikePost = P.DislikePost,
                           Image1 = P.Image1,
                           Image2 = P.Image2,
@@ -39,6 +42,9 @@ namespace GossipDashboard.Repository
                           Subject = P.Subject,
                           Subject1 = P.Subject1,
                           Subject2 = P.Subject2,
+                          SubjectSmall = P.Subject.Substring(0, 200),
+                          Subject1Small = P.Subject1.Substring(0, 200),
+                          Subject2Small = P.Subject2.Substring(0, 200),
                           Url = P.Url,
                           UrlMP3 = P.UrlMP3,
                           UrlVideo = P.UrlVideo,
@@ -52,9 +58,12 @@ namespace GossipDashboard.Repository
                           BackgroundColor = P.BackgroundColor,
                           QuotedFrom = P.QuotedFrom,
                           CommentCount = context.PostComments.Count(x => x.PostID_fk == P.PostID),
-                          PostCategoryName = context.PubBases.FirstOrDefault(p => p.PubBaseID == postCategoryID) == null ? "" : context.PubBases.FirstOrDefault(p => p.PubBaseID == postCategoryID).NameFa,
-                          PostFormatName = context.PubBases.FirstOrDefault(p => p.PubBaseID == postFormatID) == null ? "" : context.PubBases.FirstOrDefault(p => p.PubBaseID == postFormatID).NameFa,
-                          PostColName = context.PubBases.FirstOrDefault(p => p.PubBaseID == PostColID) == null ? "" : context.PubBases.FirstOrDefault(p => p.PubBaseID == PostColID).NameFa
+                          PostCategoryID = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == postCategoryID select _PB.PubBaseID).FirstOrDefault(),
+                          PostFormatID = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == postFormatID select _PB.PubBaseID).FirstOrDefault(),
+                          PostColID = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == PostColID select _PB.PubBaseID).FirstOrDefault(),
+                          PostCategoryName =(from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == postCategoryID select _PB.NameFa).FirstOrDefault(),
+                          PostFormatName = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == postFormatID select _PB.NameFa).FirstOrDefault(),
+                          PostColName = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == PostColID select _PB.NameFa).FirstOrDefault(),
 
                       };
             return res;

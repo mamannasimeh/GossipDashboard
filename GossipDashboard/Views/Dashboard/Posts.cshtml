@@ -37,6 +37,7 @@
                columns.Bound(c => c.Fullname).Width(150);
                columns.Bound(c => c.CommentCount).Width(150);
                columns.Bound(c => c.QuotedFrom).Width(150);
+               columns.Bound(c => c.BackgroundColor).Width(150);
                columns.Command(command => { command.Edit().Text("ویرایش"); command.Destroy().Text("حذف"); }).Width(180);
            })
              .Pageable(pageable => pageable
@@ -57,7 +58,7 @@
                 toolbar.Excel().Text("اکسل");
             })
             .Groupable(g => g.Enabled(true).ShowFooter(false)).ColumnMenu()
-           .HtmlAttributes(new { style = "height: 320px" })
+           .HtmlAttributes(new { style = "height: 550px" })
            .Events(events => events.Change("postGrid_onChange"))
            .DataSource(dataSource => dataSource.Ajax().Batch(false)
                .ServerOperation(true).PageSize(10)

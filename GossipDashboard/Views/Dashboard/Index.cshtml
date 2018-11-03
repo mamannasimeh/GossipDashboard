@@ -54,7 +54,8 @@
         .Columns(columns =>
         {
             columns.Bound(c => c.PostID).Width(90);
-            columns.Bound(c => c.Subject).Width(150);
+            columns.Bound(c => c.SubjectSmall).Width(300);
+            columns.Bound(c => c.ContentPostSmall).Width(300);
             columns.Bound(c => c.Fullname).Width(150);
             columns.Bound(c => c.PostCategoryName).Width(150);
             columns.Bound(c => c.PostFormatName).Width(150);

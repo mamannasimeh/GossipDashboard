@@ -1090,7 +1090,7 @@ namespace GossipDashboard.Helper
                 HtmlNode newChild = HtmlNode.CreateNode("<li class='post-item'>" +
                                                             "<div class='media'>" +
                                                                 "<a class='item-img media-left' href='" + postUrl + "'>" +
-                                                                    "<img width = '70' height='70' src='" + post.Image1 + "' class='  ' alt='" + post.Subject + "' srcset='' sizes='(max-width: 70px) 100vw, 70px'>" +
+                                                                    "<img width = '70' height='70' src='" + post.Image1 + "' class='  ' alt='' srcset='' sizes='(max-width: 70px) 100vw, 70px'>" +
                                                                 "</a>" +
                                                                 "<div class='media-body'>" +
                                                                     "<h4 class='media-heading item-title'>" +

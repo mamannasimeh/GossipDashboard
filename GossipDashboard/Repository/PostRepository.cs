@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using GossipDashboard.Models;
 using System.IO;
+using System.Data.Entity;
 
 namespace GossipDashboard.Repository
 {
@@ -94,6 +95,15 @@ namespace GossipDashboard.Repository
                           }).Where(x => x.PostID == P.PostID && x.ParentID == PostColID),
                       };
             return res;
+        }
+
+        internal void UpdatePostViews(int postID)
+        {
+            var entity = context.Posts.First(p => p.PostID == postID);
+            entity.Views = (entity.Views ?? 0) + 1;
+            context.Posts.Attach(entity);
+            context.Entry(entity).State = EntityState.Modified;
+            context.SaveChanges();
         }
 
         public Post Delete(int id)
@@ -242,7 +252,7 @@ namespace GossipDashboard.Repository
                     }
 
                     //ایجاد فیلد ایمیج
-                    if(item.Image1 == item.Image2)
+                    if (item.Image1 == item.Image2)
                     {
                         item.Image2 = "";
                     }
@@ -330,6 +340,6 @@ namespace GossipDashboard.Repository
             return true;
         }
 
-   
+
     }
 }

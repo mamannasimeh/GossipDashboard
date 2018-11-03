@@ -257,111 +257,7 @@ namespace GossipDashboard.Controllers
             {
             }
 
-            ////////////////////// sidebar-widget mostviewed///////////////////////////////////////
-            docIndex = new HtmlDocument();
-            docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
-            nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
-
-            //حذف محتويات ند بلاك-slider-image-bottom
-            postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider1");
-
-            //ایجاد  محتوا
-            int rowID = 1;
-            repo = new PostRepository();
-            postQuiz = repo.SelectPostUser().Take(6).ToList();
-            foreach (var item in postQuiz)
-            {
-                item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
-
-                //ايجاد محتوا براي
-                var itSelfNode = postManagement.CreatePostMostViewed(item, rowID);
-                if (itSelfNode != null)
-                {
-                    postManagement.AddHeadToContent(nodesIndex, "recent_posts_wid right-slider1", itSelfNode);
-                }
-                rowID++;
-            }
-
-            try
-            {
-                var htmlDoc = new HtmlDocument();
-                htmlDoc.LoadHtml(docIndex.DocumentNode.OuterHtml);
-                htmlDoc.Save(path + "/Views/Shared/_Layout.cshtml", Encoding.UTF8);
-            }
-            catch (Exception ex)
-            {
-            }
-
-            //////////////////////// sidebar-widget popular///////////////////////////////////////
-            docIndex = new HtmlDocument();
-            docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
-            nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
-
-            //حذف محتويات ند بلاك-slider-image-bottom
-            postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider2");
-
-            //ایجاد  محتوا
-            rowID = 1;
-            repo = new PostRepository();
-            postQuiz = repo.SelectPostUser().OrderByDescending(x => x.PostID).Take(4).ToList();
-            foreach (var item in postQuiz)
-            {
-                item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
-
-                //ايجاد محتوا براي
-                var itSelfNode = postManagement.CreatePostPopular(item, rowID);
-                if (itSelfNode != null)
-                {
-                    postManagement.AddHeadToContent(nodesIndex, "recent_posts_wid right-slider2", itSelfNode);
-                }
-                rowID++;
-            }
-
-            try
-            {
-                var htmlDoc = new HtmlDocument();
-                htmlDoc.LoadHtml(docIndex.DocumentNode.OuterHtml);
-                htmlDoc.Save(path + "/Views/Shared/_Layout.cshtml", Encoding.UTF8);
-            }
-            catch (Exception ex)
-            {
-            }
-
-            //////////////////////// آخرين پست ها///////////////////////////////////////
-            docIndex = new HtmlDocument();
-            docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
-            nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
-
-            //حذف محتويات ند
-            postManagement.ClearContentNode(nodesIndex, "superior-posts recent_posts_wid");
-
-            //ایجاد  محتوا
-            rowID = 1;
-            repo = new PostRepository();
-            postQuiz = repo.SelectPostUser().OrderByDescending(x => x.PostID).Skip(14).Take(4).ToList();
-            foreach (var item in postQuiz)
-            {
-                item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
-
-                //ايجاد محتوا براي
-                var itSelfNode = postManagement.CreatePostSuperiorr(item, rowID);
-                if (itSelfNode != null)
-                {
-                    postManagement.AddHeadToContent(nodesIndex, "superior-posts recent_posts_wid", itSelfNode);
-                }
-                rowID++;
-            }
-
-            try
-            {
-                var htmlDoc = new HtmlDocument();
-                htmlDoc.LoadHtml(docIndex.DocumentNode.OuterHtml);
-                htmlDoc.Save(path + "/Views/Shared/_Layout.cshtml", Encoding.UTF8);
-            }
-            catch (Exception ex)
-            {
-            }
-
+           
             ////////////////////////sp-slides sp-slider-image-top///////////////////////////////////////
             docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
@@ -427,6 +323,114 @@ namespace GossipDashboard.Controllers
             catch (Exception ex)
             {
             }
+
+
+
+            ////////////////////////////////////////////////////////////////////////////////////////
+            //////////////////////// sidebar-widget mostviewed///////////////////////////////////////
+            //docIndex = new HtmlDocument();
+            //docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
+            //nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
+
+            ////حذف محتويات ند بلاك-slider-image-bottom
+            //postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider1");
+
+            ////ایجاد  محتوا
+            int rowID = 1;
+            //repo = new PostRepository();
+            //postQuiz = repo.SelectPostUser().OrderByDescending(p => p.Views).Take(5).ToList();
+            //foreach (var item in postQuiz)
+            //{
+            //    item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+
+            //    //ايجاد محتوا براي
+            //    var itSelfNode = postManagement.CreatePostMostViewed(item, rowID);
+            //    if (itSelfNode != null)
+            //    {
+            //        postManagement.AddHeadToContent(nodesIndex, "recent_posts_wid right-slider1", itSelfNode);
+            //    }
+            //    rowID++;
+            //}
+
+            //try
+            //{
+            //    var htmlDoc = new HtmlDocument();
+            //    htmlDoc.LoadHtml(docIndex.DocumentNode.OuterHtml);
+            //    htmlDoc.Save(path + "/Views/Shared/_Layout.cshtml", Encoding.UTF8);
+            //}
+            //catch (Exception ex)
+            //{
+            //}
+
+            //////////////////////// sidebar-widget popular///////////////////////////////////////
+            docIndex = new HtmlDocument();
+            docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
+            nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
+
+            //حذف محتويات ند بلاك-slider-image-bottom
+            postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider2");
+
+            //ایجاد  محتوا
+            rowID = 1;
+            repo = new PostRepository();
+            postQuiz = repo.SelectPostUser().OrderByDescending(x => x.LikePost).Take(5).ToList();
+            foreach (var item in postQuiz)
+            {
+                item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+
+                //ايجاد محتوا براي
+                var itSelfNode = postManagement.CreatePostPopular(item, rowID);
+                if (itSelfNode != null)
+                {
+                    postManagement.AddHeadToContent(nodesIndex, "recent_posts_wid right-slider2", itSelfNode);
+                }
+                rowID++;
+            }
+
+            try
+            {
+                var htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(docIndex.DocumentNode.OuterHtml);
+                htmlDoc.Save(path + "/Views/Shared/_Layout.cshtml", Encoding.UTF8);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            ////////////////////////// آخرين پست ها///////////////////////////////////////
+            //docIndex = new HtmlDocument();
+            //docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
+            //nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
+
+            ////حذف محتويات ند
+            //postManagement.ClearContentNode(nodesIndex, "superior-posts recent_posts_wid");
+
+            ////ایجاد  محتوا
+            //rowID = 1;
+            //repo = new PostRepository();
+            //postQuiz = repo.SelectPostUser().OrderByDescending(x => x.PostID).Take(6).ToList();
+            //foreach (var item in postQuiz)
+            //{
+            //    item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+
+            //    //ايجاد محتوا براي
+            //    var itSelfNode = postManagement.CreatePostSuperiorr(item, rowID);
+            //    if (itSelfNode != null)
+            //    {
+            //        postManagement.AddHeadToContent(nodesIndex, "superior-posts recent_posts_wid", itSelfNode);
+            //    }
+            //    rowID++;
+            //}
+
+            //try
+            //{
+            //    var htmlDoc = new HtmlDocument();
+            //    htmlDoc.LoadHtml(docIndex.DocumentNode.OuterHtml);
+            //    htmlDoc.Save(path + "/Views/Shared/_Layout.cshtml", Encoding.UTF8);
+            //}
+            //catch (Exception ex)
+            //{
+            //}
         }
 
         public ActionResult About()

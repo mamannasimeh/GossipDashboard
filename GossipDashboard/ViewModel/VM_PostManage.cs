@@ -94,5 +94,11 @@ namespace GossipDashboard.ViewModel
         [DisplayName("تعداد ستون")]
         public int PostColID { get; set; }
         public int UserID_fk { get;  set; }
+        public string ContentPostSmall { get;  set; }
+        public string ContentPost1Small { get;  set; }
+        public string ContentPost2Small { get;  set; }
+        public string SubjectSmall { get;  set; }
+        public string Subject1Small { get;  set; }
+        public string Subject2Small { get;  set; }
     }
 }
