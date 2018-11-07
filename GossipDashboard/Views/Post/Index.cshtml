@@ -4,6 +4,7 @@
     ViewBag.Title = @Html.DisplayFor(modelItem => modelItem.Subject);
 }
 
+<input type="hidden" id="postIDHidden" value="@Html.DisplayFor(modelItem => modelItem.PostID)" />
 <div class="col-md-12 content-area">
     <article class="post-box ">
         <div class="entry-cover">
@@ -56,7 +57,7 @@
                     {
                         foreach (var item in Model.PostCategory.ToList())
                         {
-                            <span class="tags-caption">item.NameFa </span>
+                            <span class="tags-caption">@item.NameFa</span>
                         }
                     }
                 }
@@ -114,58 +115,7 @@
     </div>
 
     <!-- Show comments -->
-    <div id="visitor-comment">
-        <ul class="comment-section">
-            <li class="write-new">
-                <form action="#" method="post">
-                    <textarea placeholder="نظر خودتون رو درباره این مطلب بنوسید" name="comment"></textarea>
-                    <div>
-                        <button type="submit">ارسال</button>
-                    </div>
-                </form>
-            </li>
-            <li class="comment user-comment">
-                <div class="info">
-                    <a href="#">Anie Silverston</a>
-                    <span>4 hours ago</span>
-                </div>
-                <a class="avatar" href="#">
-                    <img src="~/Content/Image/avatar_author.jpg" width="35" alt="Profile Avatar" title="Anie Silverston" />
-                </a>
-                <p>Suspendisse gravida sem?</p>
-            </li>
-            <li class="comment author-comment">
-                <div class="info">
-                    <a href="#">Jack Smith</a>
-                    <span>3 hours ago</span>
-                </div>
-                <a class="avatar" href="#">
-                    <img src="~/Content/Image/avatar_user_1.jpg" width="35" alt="Profile Avatar" title="Jack Smith" />
-                </a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse gravida sem sit amet molestie portitor.</p>
-            </li>
-            <li class="comment user-comment">
-                <div class="info">
-                    <a href="#">Bradley Jones</a>
-                    <span>1 hour ago</span>
-                </div>
-                <a class="avatar" href="#">
-                    <img src="~/Content/Image/avatar_user_2.jpg" width="35" alt="Profile Avatar" title="Bradley Jones" />
-                </a>
-                <p>Suspendisse gravida sem sit amet molestie portitor?</p>
-            </li>
-            <li class="comment author-comment">
-                <div class="info">
-                    <a href="#">Jack Smith</a>
-                    <span>1 hour ago</span>
-                </div>
-                <a class="avatar" href="#">
-                    <img src="~/Content/Image/avatar_author.jpg" width="35" alt="Profile Avatar" title="Jack Smith" />
-                </a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisee gravida sem sit amet molestie porttitor.</p>
-            </li>
-        </ul>
-    </div>
+    @Html.Partial("~/Views/Post/_Comment.cshtml")
 
     <!-- Show related posts -->
     <div id="related-tab">
@@ -200,3 +150,6 @@
         </div>
     </div>
 </div>
+
+
+

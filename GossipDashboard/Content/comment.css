@@ -8,7 +8,7 @@ html {
     font: normal 13px sans-serif;
 }*/
 #visitor-comment {
-    direction:rtl;
+    direction: rtl;
 }
 
     #visitor-comment .comment-section {
@@ -53,7 +53,7 @@ html {
         #visitor-comment .comment .info a { /* User name */
             display: block;
             text-decoration: none;
-            color: #656c71;
+            color: #f90e1e;
             font-weight: bold;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -63,7 +63,7 @@ html {
 
         #visitor-comment .comment .info span { /* Time */
             font-size: 11px;
-            color: #9ca7af;
+            color: #f90e1e;
         }
 
 
@@ -106,11 +106,11 @@ html {
         }
 
         #visitor-comment .comment.user-comment p {
-            background-color: #f3f3f3;
+            background-color: #fff;
         }
 
         #visitor-comment .comment.author-comment p {
-            background-color: #e2f8ff;
+            background-color: #fff;
             order: 1;
         }
 
@@ -181,7 +181,6 @@ html {
             box-sizing: border-box;
             height: auto;
         }
-
 
 
 

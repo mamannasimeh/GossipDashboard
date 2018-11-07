@@ -217,6 +217,7 @@
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\SexyController.cs" />
     <Compile Include="Controllers\SiteManageController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\SubscriberController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -278,10 +279,12 @@
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\ManagementPostRepository.cs" />
     <Compile Include="Repository\PubBaseRepository.cs" />
+    <Compile Include="Repository\CommentRepository.cs" />
     <Compile Include="Repository\SubscriberRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\PostRepository.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\VM_Comment.cs" />
     <Compile Include="ViewModel\VM_PostManage.cs" />
     <Compile Include="ViewModel\VM_Post.cs" />
     <Compile Include="ViewModel\VM_PubBase.cs" />
@@ -3031,6 +3034,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\EditorTemplates\DropDown.cshtml" />
     <Content Include="Views\Post\AudioIndex.cshtml" />
+    <Content Include="Views\Post\_Comment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
