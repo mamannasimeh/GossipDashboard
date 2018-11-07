@@ -34,5 +34,6 @@ namespace GossipDashboard.Models
         public virtual DbSet<PostAnswer> PostAnswers { get; set; }
         public virtual DbSet<PostQuestion> PostQuestions { get; set; }
         public virtual DbSet<PostTemperory> PostTemperories { get; set; }
+        public virtual DbSet<Subscriber> Subscribers { get; set; }
     }
 }

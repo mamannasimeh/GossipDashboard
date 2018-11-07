@@ -21,6 +21,7 @@
         <AssociationConnector Association="GossipSiteModel.FK_UserPost_Post" />
         <AssociationConnector Association="GossipSiteModel.FK_PostAnswer_PostQuestion" />
         <EntityTypeShape EntityType="GossipSiteModel.PostTemperory" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="GossipSiteModel.Subscriber" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

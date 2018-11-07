@@ -44,7 +44,7 @@
     <script type='text/javascript' src='~/Scripts/bootstrap.min.js' defer='defer'></script>
     <link rel='stylesheet' id='mediaelement-css' href='~/Content/CSS/mediaelementplayer.min.css' type='text/css' media='all'>
     <link rel='stylesheet' id='wp-mediaelement-css' href='~/Content/CSS/wp-mediaelement.min.css' type='text/css' media='all'>
-
+    <link href="~/Content/comment.css" rel="stylesheet" />
     <!--for Quiz-->
     @*<link href="~/Content/CSS/full-screen-preview.css" rel="stylesheet">
         <link href="~/Content/CSS/buzzfeed.css" rel="stylesheet">*@
@@ -241,7 +241,7 @@
                             </ul>
                             <div id="tab-content" class="tab-content">
                                 <div id="widget-mostviewed" class="tab-pane fade">
-                                   <ul class="recent_posts_wid right-slider1"><li class='post-item'><div class='media'><a class='item-img media-left' href='@Url.Action("Post","places", new {postID = 11})'>1</a><div class='media-body'><h4 class='media-heading item-title'><a href='@Url.Action("Post","places", new {postID = 11})'> محمود دولت‌آبادی برای تولد شجریان چه نوشت؟</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li class='item-count'><i class='fa fa-eye'></i>78521</li></ul></div></div></li><li class='post-item'><div class='media'><a class='item-img media-left' href='@Url.Action("Post","quiz", new {postID = 8})'>2</a><div class='media-body'><h4 class='media-heading item-title'><a href='@Url.Action("Post","quiz", new {postID = 8})'> خاطره غم‌انگیز محسن چاوشی از پدرش/ عکس</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li class='item-count'><i class='fa fa-eye'></i>9852</li></ul></div></div></li><li class='post-item'><div class='media'><a class='item-img media-left' href='@Url.Action("Post","entertainment", new {postID = 12})'>3</a><div class='media-body'><h4 class='media-heading item-title'><a href='@Url.Action("Post","entertainment", new {postID = 12})'> علیرضا افتخاری از دلیل خانه‌نشین شدنش پرده برداشت</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li class='item-count'><i class='fa fa-eye'></i>9852</li></ul></div></div></li><li class='post-item'><div class='media'><a class='item-img media-left' href=''>4</a><div class='media-body'><h4 class='media-heading item-title'><a href=''> باید راهی جست در تاریکی شبهای عصیان زده سرزمینم همیشه به دنبال نوری بودم نوری برای رهایی سرزمینم از چنگال اجنبیان ، چه بلای دهشتناکی است که ببینی همه جان و مال و ناموست در اختیار اجنبی قرار گرفته و دستانت بسته است نمی توانی کاری کنی اما همه وجودت برای رهایی در تکاپوست تو می توانی این تنها نیروی است که از اعماق و جودت فریاد می زند تو می توانی جراحت ها را التیام بخشی و اینگونه بود که پا بر رکاب اسب نهادم به امید سرفرازی ملتی بزرگ . نادر شاه افشار</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li class='item-count'><i class='fa fa-eye'></i>6521</li></ul></div></div></li><li class='post-item'><div class='media'><a class='item-img media-left' href='@Url.Action("AudioPost","amazing", new {postID = 10})'>5</a><div class='media-body'><h4 class='media-heading item-title'><a href='@Url.Action("AudioPost","amazing", new {postID = 10})'> فیلم | قطعه‌ای که سالار عقیلی برای تولد محمدرضا شجریان خواند</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li class='item-count'><i class='fa fa-eye'></i>2590</li></ul></div></div></li></ul>
+                                    <ul class="recent_posts_wid right-slider1"><li class='post-item'><div class='media'><a class='item-img media-left' href='@Url.Action("Post","places", new {postID = 11})'>1</a><div class='media-body'><h4 class='media-heading item-title'><a href='@Url.Action("Post","places", new {postID = 11})'> محمود دولت‌آبادی برای تولد شجریان چه نوشت؟</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li class='item-count'><i class='fa fa-eye'></i>78521</li></ul></div></div></li><li class='post-item'><div class='media'><a class='item-img media-left' href='@Url.Action("Post","quiz", new {postID = 8})'>2</a><div class='media-body'><h4 class='media-heading item-title'><a href='@Url.Action("Post","quiz", new {postID = 8})'> خاطره غم‌انگیز محسن چاوشی از پدرش/ عکس</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li class='item-count'><i class='fa fa-eye'></i>9852</li></ul></div></div></li><li class='post-item'><div class='media'><a class='item-img media-left' href='@Url.Action("Post","entertainment", new {postID = 12})'>3</a><div class='media-body'><h4 class='media-heading item-title'><a href='@Url.Action("Post","entertainment", new {postID = 12})'> علیرضا افتخاری از دلیل خانه‌نشین شدنش پرده برداشت</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li class='item-count'><i class='fa fa-eye'></i>9852</li></ul></div></div></li><li class='post-item'><div class='media'><a class='item-img media-left' href=''>4</a><div class='media-body'><h4 class='media-heading item-title'><a href=''> باید راهی جست در تاریکی شبهای عصیان زده سرزمینم همیشه به دنبال نوری بودم نوری برای رهایی سرزمینم از چنگال اجنبیان ، چه بلای دهشتناکی است که ببینی همه جان و مال و ناموست در اختیار اجنبی قرار گرفته و دستانت بسته است نمی توانی کاری کنی اما همه وجودت برای رهایی در تکاپوست تو می توانی این تنها نیروی است که از اعماق و جودت فریاد می زند تو می توانی جراحت ها را التیام بخشی و اینگونه بود که پا بر رکاب اسب نهادم به امید سرفرازی ملتی بزرگ . نادر شاه افشار</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li class='item-count'><i class='fa fa-eye'></i>6521</li></ul></div></div></li><li class='post-item'><div class='media'><a class='item-img media-left' href='@Url.Action("AudioPost","amazing", new {postID = 10})'>5</a><div class='media-body'><h4 class='media-heading item-title'><a href='@Url.Action("AudioPost","amazing", new {postID = 10})'> فیلم | قطعه‌ای که سالار عقیلی برای تولد محمدرضا شجریان خواند</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li class='item-count'><i class='fa fa-eye'></i>2590</li></ul></div></div></li></ul>
                                 </div>
                                 <div id="widget-popular" class="tab-pane fade">
                                     <ul class="recent_posts_wid right-slider2"><li class='post-item'><div class='media'><a class='item-img media-left' href='@Url.Action("Post","places", new {postID = 11})'>1</a><div class='media-body'><h4 class='media-heading item-title'><a href='@Url.Action("Post","places", new {postID = 11})'>محمود دولت‌آبادی برای تولد شجریان چه نوشت؟</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li><a class='item-comment-count' href='@Url.Action("Post","places", new {postID = 11})'>0</a></li></ul></div></div></li><li class='post-item'><div class='media'><a class='item-img media-left' href='@Url.Action("Post","entertainment", new {postID = 12})'>2</a><div class='media-body'><h4 class='media-heading item-title'><a href='@Url.Action("Post","entertainment", new {postID = 12})'>علیرضا افتخاری از دلیل خانه‌نشین شدنش پرده برداشت</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li><a class='item-comment-count' href='@Url.Action("Post","entertainment", new {postID = 12})'>0</a></li></ul></div></div></li><li class='post-item'><div class='media'><a class='item-img media-left' href='@Url.Action("Post","quiz", new {postID = 8})'>3</a><div class='media-body'><h4 class='media-heading item-title'><a href='@Url.Action("Post","quiz", new {postID = 8})'>خاطره غم‌انگیز محسن چاوشی از پدرش/ عکس</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li><a class='item-comment-count' href='@Url.Action("Post","quiz", new {postID = 8})'>1</a></li></ul></div></div></li><li class='post-item'><div class='media'><a class='item-img media-left' href=''>4</a><div class='media-body'><h4 class='media-heading item-title'><a href=''>باید راهی جست در تاریکی شبهای عصیان زده سرزمینم همیشه به دنبال نوری بودم نوری برای رهایی سرزمینم از چنگال اجنبیان ، چه بلای دهشتناکی است که ببینی همه جان و مال و ناموست در اختیار اجنبی قرار گرفته و دستانت بسته است نمی توانی کاری کنی اما همه وجودت برای رهایی در تکاپوست تو می توانی این تنها نیروی است که از اعماق و جودت فریاد می زند تو می توانی جراحت ها را التیام بخشی و اینگونه بود که پا بر رکاب اسب نهادم به امید سرفرازی ملتی بزرگ . نادر شاه افشار</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li><a class='item-comment-count' href=''>0</a></li></ul></div></div></li><li class='post-item'><div class='media'><a class='item-img media-left' href='@Url.Action("Post","entertainment", new {postID = 9})'>5</a><div class='media-body'><h4 class='media-heading item-title'><a href='@Url.Action("Post","entertainment", new {postID = 9})'>فیلم | قطعه‌ای که سالار عقیلی برای تولد محمدرضا شجریان خواند</a></h4><ul class='item-meta'><li class='item-date'><i class='fa fa-calendar'></i>1378/10/11  0:0</li><li><a class='item-comment-count' href='@Url.Action("Post","entertainment", new {postID = 9})'>4</a></li></ul></div></div></li></ul>
@@ -257,8 +257,9 @@
                     </aside>
                     <aside id="newsletterwidget-2" class="widget sidebar-widget widget_newsletterwidget">
                         <div class="widget-heading">
-                            <h3>خبرنامه ما را دریافت کنید</h3>
-                        </div>!ما یک بار در هفته به شما عالی ترین مطالب را ارسال می کنیم
+                            <h3 style="font-size:large">خبرنامه ما را دریافت کنید</h3>
+                        </div>
+                        <p style="font-size:initial"> ما یک بار در هفته به شما عالی ترین مطالب را ارسال می کنیم</p>
                         <div class="tnp tnp-widget">
                             <form method="post" action="" onsubmit="return newsletter_check(this)">
 
@@ -266,10 +267,10 @@
                                 <input type='hidden' name='nl[]' value='0'>
                                 <div class="tnp-field tnp-field-email">
                                     <label>ایمیل</label>
-                                    <input class="tnp-email" type="email" name="ne" required="">
+                                    <input class="tnp-email" type="email" id="emailSubscriber1" required="">
                                 </div>
                                 <div class="tnp-field tnp-field-button">
-                                    <input id="btnSubscribe" class="tnp-submit" type="submit" value="Subscribe">
+                                    <input id="btnSubscribe" class="tnp-submit" type="submit" value="اشتراک">
                                 </div>
                             </form>
                         </div>
@@ -302,9 +303,6 @@
                                 <img src="http://viralnews.weblusive-themes.com/wp-content/uploads/2016/03/home.jpg" alt="alt" width="300" height="250">
                             </a>
                         </div>
-
-
-
                     </aside>
                 </aside>
             </div>
@@ -319,11 +317,11 @@
                             <input type="hidden" name="nr" value="widget">
                             <input type='hidden' name='nl[]' value='0'>
                             <div class="tnp-field tnp-field-email">
-                                <label>Email</label>
-                                <input class="tnp-email" type="email" name="ne" required="">
+                                <label>ایمیل</label>
+                                <input class="tnp-email" type="email" id="emailSubscriber" required>
                             </div>
                             <div class="tnp-field tnp-field-button">
-                                <input class="tnp-submit" type="submit" value="Subscribe">
+                                <input class="tnp-submit" type="submit" value="اشتراک">
                             </div>
                         </form>
                     </div>
@@ -387,18 +385,58 @@
                         </div>
                         <div class="col-md-8 col-sm-12">
                             <ul id="menu-footer-navigation" class="footer-nav">
-                                <li id="menu-item-273" class="menu-item menu-item-_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2 current_page_item menu-item-273">
-                                    <a href="Index.html">خانه</a>
+                                <li id="menu-item-274" class="menu-item menu-item-_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2 current_page_item menu-item-274 active">
+                                    <a title="خانه" href='@Url.Action("index","home")'>خانه</a>
                                 </li>
-                                <li id="menu-item-24" class="menu-item menu-item-_type menu-item-object-page menu-item-24">
-                                    <a href="post/post-40.html">وبلاگ</a>
+                                <li id="menu-item-10" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10">
+                                    <a title="حیوانات" href='@Url.Action("index","home")'>حیوانات</a>
                                 </li>
-                                <li id="menu-item-25" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-25">
-                                    <a href="Post/Post-7.html">ناز </a>
+                                <li id="menu-item-12" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12">
+                                    <a title="سرگرمی" href='@Url.Action("index","entertainment")'>سرگرمی</a>
                                 </li>
-                                <li id="menu-item-26" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-26">
-                                    <a href="Post/Post-15.html">مکان ها</a>
+                                <li id="menu-item-13" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-13">
+                                    <a title="فیلم " href='@Url.Action("index","films")'>فیلم </a>
                                 </li>
+                                <li id="menu-item-14" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-14">
+                                    <a title="تندرستی &#038; سلامتی" href='@Url.Action("index","home")'>تندرستی &#038; سلامتی </a>
+                                </li>
+                                <li id="menu-item-15" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-15">
+                                    <a title="موسیقی" href='@Url.Action(" index","home")'>موسیقی</a>
+                                </li>
+                                <li id="menu-item-16" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-16">
+                                    <a title="مکان ها" href='@Url.Action(" index","places")'>مکان ها</a>
+                                </li>
+                                <li id="menu-item-361" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-361 dropdown">
+                                    <a title="هنری" href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">هنری </a>
+                                    <i class="ddl-switch fa fa-angle-down"></i>
+                                    <ul role="menu" class="dropdown-menu">
+                                        <li id="menu-item-364" class="menu-item menu-item-_type menu-item-object-page menu-item-364">
+                                            <a title="تئاتر" href='@Url.Action(" index","home")'>تئاتر</a>
+                                        </li>
+                                        <li id="menu-item-362" class="menu-item menu-item-_type menu-item-object-page menu-item-362">
+                                            <a title="طراحی" href='@Url.Action(" index","home")'>طراحی</a>
+                                        </li>
+                                        <li id="menu-item-363" class="menu-item menu-item-_type menu-item-object-page menu-item-363">
+                                            <a title="معماری" href='@Url.Action(" index","home")'>معماری</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li id="menu-item-281" class="menu-item menu-item-_type menu-item-object-page menu-item-281">
+                                    <a title="خرید" href='@Url.Action(" index","home")'>خرید</a>
+                                </li>
+
+                                @*<li id="menu-item-273" class="menu-item menu-item-_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2 current_page_item menu-item-273">
+                                        <a href="Index.html">خانه</a>
+                                    </li>
+                                    <li id="menu-item-24" class="menu-item menu-item-_type menu-item-object-page menu-item-24">
+                                        <a href="post/post-40.html">وبلاگ</a>
+                                    </li>
+                                    <li id="menu-item-25" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-25">
+                                        <a href="Post/Post-7.html">ناز </a>
+                                    </li>
+                                    <li id="menu-item-26" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-26">
+                                        <a href="Post/Post-15.html">مکان ها</a>
+                                    </li>*@
                             </ul>
                         </div>
                     </div>
@@ -528,11 +566,40 @@
         /* <![CDATA[ */
         var mejsL10n = { "language": "en-US", "strings": { "Close": "Close", "Fullscreen": "Fullscreen", "Turn off Fullscreen": "Turn off Fullscreen", "Go Fullscreen": "Go Fullscreen", "Download File": "Download File", "Download Video": "Download Video", "Play": "Play", "Pause": "Pause", "Captions\/Subtitles": "Captions\/Subtitles", "None": "None", "Time Slider": "Time Slider", "Skip back %1 seconds": "Skip back %1 seconds", "Video Player": "Video Player", "Audio Player": "Audio Player", "Volume Slider": "Volume Slider", "Mute Toggle": "Mute Toggle", "Unmute": "Unmute", "Mute": "Mute", "Use Up\/Down Arrow keys to increase or decrease volume.": "Use Up\/Down Arrow keys to increase or decrease volume.", "Use Left\/Right Arrow keys to advance one second, Up\/Down arrows to advance ten seconds.": "Use Left\/Right Arrow keys to advance one second, Up\/Down arrows to advance ten seconds." } };
         var _wpmejsSettings = { "pluginPath": "\/wp-includes\/js\/mediaelement\/" };
-/* ]]> */
+        /* ]]> */
     </script>
     <script type='text/javascript' src='~/Scripts/mediaelement-and-player.min.js' defer='defer'></script>
     <script type='text/javascript' src='~/Scripts/wp-mediaelement.min.js' defer='defer'></script>
     <script type='text/javascript' src='~/Scripts/bootstrap-rtl.js'></script>
+
+    <script>
+   
+        jQuery('.tnp-submit').on('click', function (e) {
+            e.preventDefault();
+            var subscriber = {
+                FullName: '',
+                Email: jQuery('#emailSubscriber').val() == "" ? jQuery('#emailSubscriber1').val() : jQuery('#emailSubscriber').val(),
+                WebSite: '',
+                Message: ''
+            };
+
+            jQuery.ajax({
+                url: '@Url.Action("AddSubscriber","Subscriber")',
+                type: 'Post',
+                data: JSON.stringify(subscriber),
+                //dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                success(res) {
+
+                },
+                error(e) {
+
+                }
+            });
+        });
+
+
+    </script>
     @RenderSection("scripts", required: false)
 
 </body>

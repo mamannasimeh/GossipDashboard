@@ -49,9 +49,13 @@
     </Key>
     <Property Name="PostCommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PostID_fk" Type="int" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+    <Property Name="UserID" Type="int" />
     <Property Name="Comment" Type="nvarchar" MaxLength="4000" />
     <Property Name="LikeComment" Type="int" />
     <Property Name="DislikeComment" Type="int" />
+    <Property Name="IPAddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="Datetime" Type="datetime" />
   </EntityType>
   <EntityType Name="PostQuestion">
     <Key>
@@ -106,6 +110,18 @@ warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a prim
     <Property Name="Active" Type="bit" />
     <Property Name="ModifyUserID" Type="int" />
     <Property Name="ModifyDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Subscriber">
+    <Key>
+      <PropertyRef Name="SubscriberID" />
+    </Key>
+    <Property Name="SubscriberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="IPAddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="WebSite" Type="nvarchar" MaxLength="200" />
+    <Property Name="Message" Type="nvarchar(max)" />
+    <Property Name="ModifyDateTime" Type="datetime" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -235,6 +251,7 @@ warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a prim
     <EntitySet Name="PostComment" EntityType="Self.PostComment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PostQuestion" EntityType="Self.PostQuestion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PubBase" EntityType="Self.PubBase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Subscriber" EntityType="Self.Subscriber" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserPost" EntityType="Self.UserPost" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PostTemperory" EntityType="Self.PostTemperory" store:Type="Tables" store:Schema="dbo">

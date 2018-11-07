@@ -38,6 +38,7 @@
       <End Role="PostAnswer" EntitySet="PostAnswers" />
     </AssociationSet>
     <EntitySet Name="PostTemperories" EntityType="GossipSiteModel.PostTemperory" />
+    <EntitySet Name="Subscribers" EntityType="GossipSiteModel.Subscriber" />
   </EntityContainer>
   <EntityType Name="PostAttribute">
     <Key>
@@ -59,6 +60,10 @@
     <Property Name="LikeComment" Type="Int32" />
     <Property Name="DislikeComment" Type="Int32" />
     <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="PostComment" ToRole="Post" />
+    <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Datetime" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -268,5 +273,17 @@
     <Property Name="ModifyUserID" Type="Int32" />
     <Property Name="ModifyDate" Type="DateTime" Precision="3" />
     <Property Name="IsCreatedPost" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Subscriber">
+    <Key>
+      <PropertyRef Name="SubscriberID" />
+    </Key>
+    <Property Name="SubscriberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WebSite" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>

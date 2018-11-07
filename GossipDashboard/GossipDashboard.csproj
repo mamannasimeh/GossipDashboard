@@ -217,6 +217,7 @@
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\SexyController.cs" />
     <Compile Include="Controllers\SiteManageController.cs" />
+    <Compile Include="Controllers\SubscriberController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -264,6 +265,9 @@
     <Compile Include="Models\PubBase.cs">
       <DependentUpon>GossipSiteModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Subscriber.cs">
+      <DependentUpon>GossipSiteModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>GossipSiteModel.tt</DependentUpon>
     </Compile>
@@ -274,12 +278,14 @@
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\ManagementPostRepository.cs" />
     <Compile Include="Repository\PubBaseRepository.cs" />
+    <Compile Include="Repository\SubscriberRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\PostRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\VM_PostManage.cs" />
     <Compile Include="ViewModel\VM_Post.cs" />
     <Compile Include="ViewModel\VM_PubBase.cs" />
+    <Compile Include="ViewModel\VM_Subscriber.cs" />
     <Compile Include="ViewModel\VM_User.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -289,6 +295,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\comment.css" />
     <Content Include="Content\CSS\bigplay.svg" />
     <Content Include="Content\CSS\bootstrap-rtl.css" />
     <Content Include="Content\CSS\bootstrap-theme-rtl.css" />
@@ -323,6 +330,9 @@
     <Content Include="Content\Image\apple-touch-icon-144x144-precomposed.png" />
     <Content Include="Content\Image\apple-touch-icon-72x72-precomposed.png" />
     <Content Include="Content\Image\apple-touch-icon-precomposed.png" />
+    <Content Include="Content\Image\avatar_author.jpg" />
+    <Content Include="Content\Image\avatar_user_1.jpg" />
+    <Content Include="Content\Image\avatar_user_2.jpg" />
     <Content Include="Content\Image\blue-69762_640-150x150.jpg" />
     <Content Include="Content\Image\blue-69762_640-640x315.jpg" />
     <Content Include="Content\Image\blue-69762_640-70x70.jpg" />
@@ -3025,6 +3035,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\SiteManage\" />
+    <Folder Include="Views\Subscriber\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -54,9 +54,13 @@
           </Key>
           <Property Name="PostCommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PostID_fk" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserID" Type="int" />
           <Property Name="Comment" Type="nvarchar" MaxLength="4000" />
           <Property Name="LikeComment" Type="int" />
           <Property Name="DislikeComment" Type="int" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="Datetime" Type="datetime" />
         </EntityType>
         <EntityType Name="PostQuestion">
           <Key>
@@ -113,6 +117,18 @@ warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a prim
           <Property Name="Active" Type="bit" />
           <Property Name="ModifyUserID" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Subscriber">
+          <Key>
+            <PropertyRef Name="SubscriberID" />
+          </Key>
+          <Property Name="SubscriberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="WebSite" Type="nvarchar" MaxLength="200" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="ModifyDateTime" Type="datetime" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -242,6 +258,7 @@ warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a prim
           <EntitySet Name="PostComment" EntityType="Self.PostComment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostQuestion" EntityType="Self.PostQuestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PubBase" EntityType="Self.PubBase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subscriber" EntityType="Self.Subscriber" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPost" EntityType="Self.UserPost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostTemperory" EntityType="Self.PostTemperory" store:Type="Tables" store:Schema="dbo">
@@ -342,6 +359,7 @@ warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a prim
             <End Role="PostAnswer" EntitySet="PostAnswers" />
           </AssociationSet>
           <EntitySet Name="PostTemperories" EntityType="GossipSiteModel.PostTemperory" />
+          <EntitySet Name="Subscribers" EntityType="GossipSiteModel.Subscriber" />
         </EntityContainer>
         <EntityType Name="PostAttribute">
           <Key>
@@ -363,6 +381,10 @@ warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a prim
           <Property Name="LikeComment" Type="Int32" />
           <Property Name="DislikeComment" Type="Int32" />
           <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="PostComment" ToRole="Post" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Datetime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -573,6 +595,18 @@ warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a prim
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <Property Name="IsCreatedPost" Type="Boolean" />
         </EntityType>
+        <EntityType Name="Subscriber">
+          <Key>
+            <PropertyRef Name="SubscriberID" />
+          </Key>
+          <Property Name="SubscriberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WebSite" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -591,6 +625,10 @@ warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a prim
           <EntitySetMapping Name="PostComments">
             <EntityTypeMapping TypeName="GossipSiteModel.PostComment">
               <MappingFragment StoreEntitySet="PostComment">
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="DislikeComment" ColumnName="DislikeComment" />
                 <ScalarProperty Name="LikeComment" ColumnName="LikeComment" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
@@ -715,6 +753,19 @@ warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a prim
                 <ScalarProperty Name="Subject1" ColumnName="Subject1" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="PostID" ColumnName="PostID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subscribers">
+            <EntityTypeMapping TypeName="GossipSiteModel.Subscriber">
+              <MappingFragment StoreEntitySet="Subscriber">
+                <ScalarProperty Name="ModifyDateTime" ColumnName="ModifyDateTime" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="WebSite" ColumnName="WebSite" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="SubscriberID" ColumnName="SubscriberID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

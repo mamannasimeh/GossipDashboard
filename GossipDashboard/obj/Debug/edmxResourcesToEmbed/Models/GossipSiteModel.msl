@@ -13,6 +13,10 @@
     <EntitySetMapping Name="PostComments">
       <EntityTypeMapping TypeName="GossipSiteModel.PostComment">
         <MappingFragment StoreEntitySet="PostComment">
+          <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
           <ScalarProperty Name="DislikeComment" ColumnName="DislikeComment" />
           <ScalarProperty Name="LikeComment" ColumnName="LikeComment" />
           <ScalarProperty Name="Comment" ColumnName="Comment" />
@@ -137,6 +141,19 @@
           <ScalarProperty Name="Subject1" ColumnName="Subject1" />
           <ScalarProperty Name="Subject" ColumnName="Subject" />
           <ScalarProperty Name="PostID" ColumnName="PostID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subscribers">
+      <EntityTypeMapping TypeName="GossipSiteModel.Subscriber">
+        <MappingFragment StoreEntitySet="Subscriber">
+          <ScalarProperty Name="ModifyDateTime" ColumnName="ModifyDateTime" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="WebSite" ColumnName="WebSite" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="SubscriberID" ColumnName="SubscriberID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
