@@ -1,57 +1,25 @@
 ﻿<div id="visitor-comment">
     <ul class="comment-section">
         <li class="write-new">
-            <form action="#" method="post">
+            <form action="#" id="fromComment">
                 <input type="text" id="userName-comment" class="form-control" required placeholder="نام" style="margin-bottom:6px;" />
                 <textarea placeholder="نظر خودتون رو درباره این مطلب بنوسید" required name="comment" id="txtComment"></textarea>
                 <div>
                     <button type="button" id="btnAddComment">ارسال</button>
+
+                    <br />
+                    <div class="alert alert-success" id="alertSuccess" style="display:none">
+                        <strong>موفق! </strong> نظر شما با موفقیت ثبت گردید
+                    </div>
+                    <div class="alert alert-danger" id="alertFailed" style="display:none">
+                        <strong>خطا !</strong> پوزش می خواهیم، مشکلی در ثبت نظر شما به وجود آمد. لطفا دوباره دکمه ارسال را کلیک کنید
+                    </div>
                 </div>
             </form>
         </li>
-
-
-        @*<li class="comment user-comment">
-            <div class="info">
-                <a href="#">Anie Silverston</a>
-                <span>4 hours ago</span>
-            </div>
-            <a class="avatar" href="#">
-                <img src="~/Content/Image/avatar_author.jpg" width="35" alt="Profile Avatar" title="Anie Silverston" />
-            </a>
-            <p>Suspendisse gravida sem?</p>
-        </li>
-        <li class="comment author-comment">
-            <div class="info">
-                <a href="#">Jack Smith</a>
-                <span>3 hours ago</span>
-            </div>
-            <a class="avatar" href="#">
-                <img src="~/Content/Image/avatar_user_1.jpg" width="35" alt="Profile Avatar" title="Jack Smith" />
-            </a>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse gravida sem sit amet molestie portitor.</p>
-        </li>
-        <li class="comment user-comment">
-            <div class="info">
-                <a href="#">Bradley Jones</a>
-                <span>1 hour ago</span>
-            </div>
-            <a class="avatar" href="#">
-                <img src="~/Content/Image/avatar_user_2.jpg" width="35" alt="Profile Avatar" title="Bradley Jones" />
-            </a>
-            <p>Suspendisse gravida sem sit amet molestie portitor?</p>
-        </li>
-        <li class="comment author-comment">
-            <div class="info">
-                <a href="#">Jack Smith</a>
-                <span>1 hour ago</span>
-            </div>
-            <a class="avatar" href="#">
-                <img src="~/Content/Image/avatar_author.jpg" width="35" alt="Profile Avatar" title="Jack Smith" />
-            </a>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisee gravida sem sit amet molestie porttitor.</p>
-        </li>*@
     </ul>
+
+
 
     <button type="button" id="moreComment" style="width: 100%;
     padding: 10px;
@@ -100,7 +68,11 @@
     });
 
     jQuery('#btnAddComment').on('click', function (e) {
-
+        if (jQuery("#txtComment").val() == "" || jQuery("#userName-comment").val()=="") {
+            jQuery("#alertSuccess").css("display", "none");
+            jQuery("#alertFailed").css("display", "block");
+            return;
+        }
 
         var commentUser = {
             PostID_fk: postID,
@@ -116,10 +88,24 @@
             data: JSON.stringify( commentUser),
                     contentType: "application/json; charset=utf-8",
             success(res) {
+                jQuery("#alertSuccess").css("display", "block");
+                jQuery("#alertFailed").css("display", "none");
 
+                comment = "<li class='comment user-comment'>" +
+                       "<div class='info'>" +
+                           "<a>" + commentUser.FullName + "</a>" +
+                           "<span> همین الان </span>" +
+                       "</div>" +
+                       "<a class='avatar' href='#'>" +
+                           "<img src='/Content/Image/avatar_author.jpg' width='35' alt='' title='" + commentUser.FullName + "' />" +
+                       "</a>" +
+                       "<p>" + commentUser.Comment + "</p>" +
+                   "</li>";
+                jQuery('#visitor-comment .comment-section').append(comment);
             },
             error(e) {
-
+                jQuery("#alertSuccess").css("display", "none");
+                jQuery("#alertFailed").css("display", "block");
             }
         });
     });
