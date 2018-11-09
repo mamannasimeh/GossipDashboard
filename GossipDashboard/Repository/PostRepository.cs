@@ -251,18 +251,19 @@ namespace GossipDashboard.Repository
                         }
                     }
 
+
                     //ایجاد فیلد ایمیج
                     if (item.Image1 == item.Image2)
                     {
-                        item.Image2 = "";
+                        item.Image2 = null;
                     }
                     if (item.Image1 == item.Image3)
                     {
-                        item.Image3 = "";
+                        item.Image3 = null;
                     }
                     if (item.Image2 == item.Image3)
                     {
-                        item.Image3 = "";
+                        item.Image3 = null;
                     }
 
                     //ایجاد پست
@@ -306,7 +307,8 @@ namespace GossipDashboard.Repository
                     });
 
                     //ایجاد اتربیوت ها طبقه بندي پست ها
-                    attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "entertainment").PubBaseID;
+                    //attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "entertainment").PubBaseID;
+                    attrID = new Random().Next(12, 20);
                     context.PostAttributes.Add(new PostAttribute()
                     {
                         PostID_fk = entityPost.PostID,

@@ -30,10 +30,10 @@ namespace GossipDashboard.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserPost> UserPosts { get; set; }
         public virtual DbSet<PubBase> PubBases { get; set; }
-        public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<PostAnswer> PostAnswers { get; set; }
         public virtual DbSet<PostQuestion> PostQuestions { get; set; }
-        public virtual DbSet<PostTemperory> PostTemperories { get; set; }
         public virtual DbSet<Subscriber> Subscribers { get; set; }
+        public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<PostTemperory> PostTemperories { get; set; }
     }
 }

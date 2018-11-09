@@ -31,6 +31,17 @@
                 @Html.DisplayFor(modelItem => modelItem.ContentPost2)
             </p>
             <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+            @*<img src="@Html.DisplayFor(modelItem => modelItem.Image5)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image5)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image6)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image7)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />*@
 
             <div class="heateorSssClear"></div>
             <div class="heateorSssClear"></div>
@@ -53,13 +64,13 @@
             </div>
             <div class="tag-block">
                 @{
-                    if (Model != null && Model.PostCategory != null)
-                    {
-                        foreach (var item in Model.PostCategory.ToList())
-                        {
-                            <span class="tags-caption">@item.NameFa</span>
-                        }
-                    }
+            if (Model != null && Model.PostCategory != null)
+            {
+                foreach (var item in Model.PostCategory.ToList())
+                {
+                    <span class="tags-caption">@item.NameFa</span>
+        }
+    }
                 }
 
             </div>

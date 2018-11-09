@@ -45,6 +45,22 @@ namespace GossipDashboard.Models
         public string BackgroundColor { get; set; }
         public Nullable<int> ModifyUserID { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
+        public string Image5 { get; set; }
+        public string Image6 { get; set; }
+        public string Image7 { get; set; }
+        public string Image8 { get; set; }
+        public string Image9 { get; set; }
+        public string Image10 { get; set; }
+        public string Image11 { get; set; }
+        public string Image12 { get; set; }
+        public string Image13 { get; set; }
+        public string Image14 { get; set; }
+        public string Image15 { get; set; }
+        public string Image16 { get; set; }
+        public string Image17 { get; set; }
+        public string Image18 { get; set; }
+        public string Image19 { get; set; }
+        public string Image20 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostAttribute> PostAttributes { get; set; }

@@ -24,9 +24,9 @@ namespace GossipDashboard.Repository
                       select new VM_PostManage
                       {
                           PostID = P.PostID,
-                          ContentPost = P.ContentPost,
-                          ContentPost1 = P.ContentPost1,
-                          ContentPost2 = P.ContentPost2,
+                          ContentPost = P.ContentPost.Substring(0, 200),
+                          ContentPost1 = P.ContentPost1.Substring(0, 200),
+                          ContentPost2 = P.ContentPost2.Substring(0, 200),
                           ContentPostSmall = P.ContentPost.Substring(0,200),
                           ContentPost1Small = P.ContentPost1.Substring(0, 200),
                           ContentPost2Small = P.ContentPost2.Substring(0, 200),
