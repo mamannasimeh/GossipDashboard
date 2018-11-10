@@ -24,8 +24,8 @@ namespace GossipDashboard.Models
         public int PostID_fk { get; set; }
         public string Question { get; set; }
     
-        public virtual Post Post { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostAnswer> PostAnswers { get; set; }
+        public virtual Post Post { get; set; }
     }
 }

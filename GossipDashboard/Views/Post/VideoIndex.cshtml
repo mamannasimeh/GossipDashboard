@@ -3,7 +3,7 @@
     ViewBag.Title = @Html.DisplayFor(modelItem => modelItem.Subject);
 }
 
-
+<input type="hidden" id="postIDHidden" value="@Html.DisplayFor(modelItem => modelItem.PostID)" />
 <div class="col-md-12 content-area">
     <article class='format-video hentry'>
         <div class='post-box'>
@@ -41,7 +41,7 @@
 
                 <div class="tag-block">
                     @{
-                        if (Model != null && Model.PostCategory!= null)
+                        if (Model != null && Model.PostCategory != null)
                         {
                             foreach (var item in Model.PostCategory.ToList())
                             {
@@ -122,6 +122,7 @@
         </div>
     </div>
     <!-- Show comments -->
+    @Html.Partial("~/Views/Post/_Comment.cshtml")
     <!-- Show related posts -->
     <div id="related-tab">
         <h3 class="related-posts-title">مطالب مشابه</h3><div class="related-posts row">

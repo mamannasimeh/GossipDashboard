@@ -1,4 +1,8 @@
-﻿src="(.*.png)
+﻿\b(?!\bword\b)\w+\b   --> all statment except "word"
+\b(?!\b(word|to|http)\b)\w+\b  -->  all statment except word, to, http
+\b(?!\b(اندازه متن|Aa Aa)\b)\w+\b 
+
+src="(.*.png)
 src="(.* png)
 
 src="(.*jpg)

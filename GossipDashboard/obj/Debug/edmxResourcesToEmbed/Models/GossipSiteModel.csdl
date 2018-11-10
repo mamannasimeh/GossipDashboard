@@ -14,9 +14,14 @@
       <End Role="PubBase" EntitySet="PubBases" />
       <End Role="PostAttribute" EntitySet="PostAttributes" />
     </AssociationSet>
-    <EntitySet Name="Posts" EntityType="GossipSiteModel.Post" />
     <EntitySet Name="PostAnswers" EntityType="GossipSiteModel.PostAnswer" />
     <EntitySet Name="PostQuestions" EntityType="GossipSiteModel.PostQuestion" />
+    <AssociationSet Name="FK_PostAnswer_PostQuestion" Association="GossipSiteModel.FK_PostAnswer_PostQuestion">
+      <End Role="PostQuestion" EntitySet="PostQuestions" />
+      <End Role="PostAnswer" EntitySet="PostAnswers" />
+    </AssociationSet>
+    <EntitySet Name="Subscribers" EntityType="GossipSiteModel.Subscriber" />
+    <EntitySet Name="Posts" EntityType="GossipSiteModel.Post" />
     <AssociationSet Name="FK_PostCategory_Post" Association="GossipSiteModel.FK_PostCategory_Post">
       <End Role="Post" EntitySet="Posts" />
       <End Role="PostAttribute" EntitySet="PostAttributes" />
@@ -32,10 +37,6 @@
     <AssociationSet Name="FK_UserPost_Post" Association="GossipSiteModel.FK_UserPost_Post">
       <End Role="Post" EntitySet="Posts" />
       <End Role="UserPost" EntitySet="UserPosts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PostAnswer_PostQuestion" Association="GossipSiteModel.FK_PostAnswer_PostQuestion">
-      <End Role="PostQuestion" EntitySet="PostQuestions" />
-      <End Role="PostAnswer" EntitySet="PostAnswers" />
     </AssociationSet>
     <EntitySet Name="PostTemperories" EntityType="GossipSiteModel.PostTemperory" />
   </EntityContainer>
@@ -58,6 +59,10 @@
     <Property Name="Comment" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
     <Property Name="LikeComment" Type="Int32" />
     <Property Name="DislikeComment" Type="Int32" />
+    <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Datetime" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="PostComment" ToRole="Post" />
   </EntityType>
   <EntityType Name="User">
@@ -131,6 +136,49 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="PostAnswer">
+    <Key>
+      <PropertyRef Name="PostAnswerID" />
+    </Key>
+    <Property Name="PostAnswerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostQuestionID_fk" Type="Int32" Nullable="false" />
+    <Property Name="Answer" Type="Boolean" />
+    <NavigationProperty Name="PostQuestion" Relationship="GossipSiteModel.FK_PostAnswer_PostQuestion" FromRole="PostAnswer" ToRole="PostQuestion" />
+  </EntityType>
+  <EntityType Name="PostQuestion">
+    <Key>
+      <PropertyRef Name="PostQuestionID" />
+    </Key>
+    <Property Name="PostQuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostID_fk" Type="Int32" Nullable="false" />
+    <Property Name="Question" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PostAnswers" Relationship="GossipSiteModel.FK_PostAnswer_PostQuestion" FromRole="PostQuestion" ToRole="PostAnswer" />
+    <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="PostQuestion" ToRole="Post" />
+  </EntityType>
+  <Association Name="FK_PostAnswer_PostQuestion">
+    <End Type="GossipSiteModel.PostQuestion" Role="PostQuestion" Multiplicity="1" />
+    <End Type="GossipSiteModel.PostAnswer" Role="PostAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PostQuestion">
+        <PropertyRef Name="PostQuestionID" />
+      </Principal>
+      <Dependent Role="PostAnswer">
+        <PropertyRef Name="PostQuestionID_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Subscriber">
+    <Key>
+      <PropertyRef Name="SubscriberID" />
+    </Key>
+    <Property Name="SubscriberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WebSite" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
+  </EntityType>
   <EntityType Name="Post">
     <Key>
       <PropertyRef Name="PostID" />
@@ -157,32 +205,31 @@
     <Property Name="BackgroundColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ModifyUserID" Type="Int32" />
     <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="Image5" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image6" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image7" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image8" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image9" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image10" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image11" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image12" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image13" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image14" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image15" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image16" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image17" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image18" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image19" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image20" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="PostAttributes" Relationship="GossipSiteModel.FK_PostCategory_Post" FromRole="Post" ToRole="PostAttribute" />
     <NavigationProperty Name="PostComments" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
     <NavigationProperty Name="PostQuestions" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="Post" ToRole="PostQuestion" />
     <NavigationProperty Name="UserPosts" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="Post" ToRole="UserPost" />
   </EntityType>
-  <EntityType Name="PostAnswer">
-    <Key>
-      <PropertyRef Name="PostAnswerID" />
-    </Key>
-    <Property Name="PostAnswerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PostQuestionID_fk" Type="Int32" Nullable="false" />
-    <Property Name="Answer" Type="Boolean" />
-    <NavigationProperty Name="PostQuestion" Relationship="GossipSiteModel.FK_PostAnswer_PostQuestion" FromRole="PostAnswer" ToRole="PostQuestion" />
-  </EntityType>
-  <EntityType Name="PostQuestion">
-    <Key>
-      <PropertyRef Name="PostQuestionID" />
-    </Key>
-    <Property Name="PostQuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PostID_fk" Type="Int32" Nullable="false" />
-    <Property Name="Question" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="PostQuestion" ToRole="Post" />
-    <NavigationProperty Name="PostAnswers" Relationship="GossipSiteModel.FK_PostAnswer_PostQuestion" FromRole="PostQuestion" ToRole="PostAnswer" />
-  </EntityType>
   <Association Name="FK_PostCategory_Post">
-    <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="0..1" />
+    <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Type="GossipSiteModel.PostAttribute" Role="PostAttribute" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Post">
@@ -194,7 +241,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_PostComment_Post">
-    <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="1" />
+    <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Type="GossipSiteModel.PostComment" Role="PostComment" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Post">
@@ -206,7 +255,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_PostQuestion_Post">
-    <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="1" />
+    <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Type="GossipSiteModel.PostQuestion" Role="PostQuestion" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Post">
@@ -218,7 +269,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_UserPost_Post">
-    <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="1" />
+    <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Type="GossipSiteModel.UserPost" Role="UserPost" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Post">
@@ -226,18 +279,6 @@
       </Principal>
       <Dependent Role="UserPost">
         <PropertyRef Name="PostID_fk" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PostAnswer_PostQuestion">
-    <End Type="GossipSiteModel.PostQuestion" Role="PostQuestion" Multiplicity="1" />
-    <End Type="GossipSiteModel.PostAnswer" Role="PostAnswer" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PostQuestion">
-        <PropertyRef Name="PostQuestionID" />
-      </Principal>
-      <Dependent Role="PostAnswer">
-        <PropertyRef Name="PostQuestionID_fk" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -268,5 +309,24 @@
     <Property Name="ModifyUserID" Type="Int32" />
     <Property Name="ModifyDate" Type="DateTime" Precision="3" />
     <Property Name="IsCreatedPost" Type="Boolean" />
+    <Property Name="Cat1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Cat2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Cat3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Image5" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image6" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image7" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image8" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image9" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image10" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image11" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image12" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image13" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image14" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image15" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image16" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image17" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image18" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image19" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image20" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

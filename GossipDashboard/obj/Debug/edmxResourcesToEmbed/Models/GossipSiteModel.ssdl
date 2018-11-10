@@ -26,6 +26,22 @@
     <Property Name="BackgroundColor" Type="nvarchar" MaxLength="50" />
     <Property Name="ModifyUserID" Type="int" />
     <Property Name="ModifyDate" Type="datetime" />
+    <Property Name="Image5" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image6" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image7" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image8" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image9" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image10" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image11" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image12" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image13" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image14" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image15" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image16" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image17" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image18" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image19" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image20" Type="nvarchar" MaxLength="1000" />
   </EntityType>
   <EntityType Name="PostAnswer">
     <Key>
@@ -49,9 +65,13 @@
     </Key>
     <Property Name="PostCommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PostID_fk" Type="int" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+    <Property Name="UserID" Type="int" />
     <Property Name="Comment" Type="nvarchar" MaxLength="4000" />
     <Property Name="LikeComment" Type="int" />
     <Property Name="DislikeComment" Type="int" />
+    <Property Name="IPAddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="Datetime" Type="datetime" />
   </EntityType>
   <EntityType Name="PostQuestion">
     <Key>
@@ -61,8 +81,6 @@
     <Property Name="PostID_fk" Type="int" Nullable="false" />
     <Property Name="Question" Type="nvarchar" MaxLength="2000" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="PostTemperory">
     <Key>
       <PropertyRef Name="PostID" />
@@ -90,6 +108,25 @@ warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a prim
     <Property Name="ModifyUserID" Type="int" />
     <Property Name="ModifyDate" Type="datetime" />
     <Property Name="IsCreatedPost" Type="bit" />
+    <Property Name="Cat1" Type="nvarchar" MaxLength="100" />
+    <Property Name="Cat2" Type="nvarchar" MaxLength="100" />
+    <Property Name="Cat3" Type="nvarchar" MaxLength="100" />
+    <Property Name="Image5" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image6" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image7" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image8" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image9" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image10" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image11" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image12" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image13" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image14" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image15" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image16" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image17" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image18" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image19" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Image20" Type="nvarchar" MaxLength="1000" />
   </EntityType>
   <EntityType Name="PubBase">
     <Key>
@@ -106,6 +143,18 @@ warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a prim
     <Property Name="Active" Type="bit" />
     <Property Name="ModifyUserID" Type="int" />
     <Property Name="ModifyDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Subscriber">
+    <Key>
+      <PropertyRef Name="SubscriberID" />
+    </Key>
+    <Property Name="SubscriberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="IPAddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="WebSite" Type="nvarchar" MaxLength="200" />
+    <Property Name="Message" Type="nvarchar(max)" />
+    <Property Name="ModifyDateTime" Type="datetime" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -234,36 +283,11 @@ warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a prim
     <EntitySet Name="PostAttribute" EntityType="Self.PostAttribute" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PostComment" EntityType="Self.PostComment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PostQuestion" EntityType="Self.PostQuestion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PostTemperory" EntityType="Self.PostTemperory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PubBase" EntityType="Self.PubBase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Subscriber" EntityType="Self.Subscriber" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserPost" EntityType="Self.UserPost" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="PostTemperory" EntityType="Self.PostTemperory" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [PostTemperory].[PostID] AS [PostID], 
-    [PostTemperory].[Subject] AS [Subject], 
-    [PostTemperory].[Subject1] AS [Subject1], 
-    [PostTemperory].[Subject2] AS [Subject2], 
-    [PostTemperory].[ContentPost] AS [ContentPost], 
-    [PostTemperory].[ContentPost1] AS [ContentPost1], 
-    [PostTemperory].[ContentPost2] AS [ContentPost2], 
-    [PostTemperory].[QuotedFrom] AS [QuotedFrom], 
-    [PostTemperory].[Url] AS [Url], 
-    [PostTemperory].[UrlMP3] AS [UrlMP3], 
-    [PostTemperory].[UrlVideo] AS [UrlVideo], 
-    [PostTemperory].[Views] AS [Views], 
-    [PostTemperory].[Image1] AS [Image1], 
-    [PostTemperory].[Image2] AS [Image2], 
-    [PostTemperory].[Image3] AS [Image3], 
-    [PostTemperory].[Image4] AS [Image4], 
-    [PostTemperory].[LikePost] AS [LikePost], 
-    [PostTemperory].[DislikePost] AS [DislikePost], 
-    [PostTemperory].[PublishCount] AS [PublishCount], 
-    [PostTemperory].[BackgroundColor] AS [BackgroundColor], 
-    [PostTemperory].[ModifyUserID] AS [ModifyUserID], 
-    [PostTemperory].[ModifyDate] AS [ModifyDate], 
-    [PostTemperory].[IsCreatedPost] AS [IsCreatedPost]
-    FROM [dbo].[PostTemperory] AS [PostTemperory]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_PostAnswer_PostQuestion" Association="Self.FK_PostAnswer_PostQuestion">
       <End Role="PostQuestion" EntitySet="PostQuestion" />
       <End Role="PostAnswer" EntitySet="PostAnswer" />
