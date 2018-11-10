@@ -66,9 +66,13 @@
           <Property Name="PostID_fk" Type="int" Nullable="false" />
           <Property Name="Question" Type="nvarchar" MaxLength="2000" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'GossipSite.dbo.PostTemperory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PostTemperory">
           <Key>
             <PropertyRef Name="PostID" />
+            
+            
           </Key>
           <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="2000" Nullable="false" />
@@ -136,7 +140,9 @@
           <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <Association Name="FK_PostAnswer_PostQuestion">
-          <End Role="PostQuestion" Type="Self.PostQuestion" Multiplicity="1" />
+          <End Role="PostQuestion" Type="Self.PostQuestion" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PostAnswer" Type="Self.PostAnswer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PostQuestion">
@@ -148,7 +154,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PostCategory_Post">
-          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PostAttribute" Type="Self.PostAttribute" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Post">
@@ -174,7 +182,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PostComment_Post">
-          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PostComment" Type="Self.PostComment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Post">
@@ -186,7 +196,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PostQuestion_Post">
-          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PostQuestion" Type="Self.PostQuestion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Post">
@@ -198,7 +210,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserPost_Post">
-          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UserPost" Type="Self.UserPost" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Post">
@@ -227,10 +241,36 @@
           <EntitySet Name="PostAttribute" EntityType="Self.PostAttribute" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostComment" EntityType="Self.PostComment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostQuestion" EntityType="Self.PostQuestion" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PostTemperory" EntityType="Self.PostTemperory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PubBase" EntityType="Self.PubBase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPost" EntityType="Self.UserPost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PostTemperory" EntityType="Self.PostTemperory" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PostTemperory].[PostID] AS [PostID], 
+    [PostTemperory].[Subject] AS [Subject], 
+    [PostTemperory].[Subject1] AS [Subject1], 
+    [PostTemperory].[Subject2] AS [Subject2], 
+    [PostTemperory].[ContentPost] AS [ContentPost], 
+    [PostTemperory].[ContentPost1] AS [ContentPost1], 
+    [PostTemperory].[ContentPost2] AS [ContentPost2], 
+    [PostTemperory].[QuotedFrom] AS [QuotedFrom], 
+    [PostTemperory].[Url] AS [Url], 
+    [PostTemperory].[UrlMP3] AS [UrlMP3], 
+    [PostTemperory].[UrlVideo] AS [UrlVideo], 
+    [PostTemperory].[Views] AS [Views], 
+    [PostTemperory].[Image1] AS [Image1], 
+    [PostTemperory].[Image2] AS [Image2], 
+    [PostTemperory].[Image3] AS [Image3], 
+    [PostTemperory].[Image4] AS [Image4], 
+    [PostTemperory].[LikePost] AS [LikePost], 
+    [PostTemperory].[DislikePost] AS [DislikePost], 
+    [PostTemperory].[PublishCount] AS [PublishCount], 
+    [PostTemperory].[BackgroundColor] AS [BackgroundColor], 
+    [PostTemperory].[ModifyUserID] AS [ModifyUserID], 
+    [PostTemperory].[ModifyDate] AS [ModifyDate], 
+    [PostTemperory].[IsCreatedPost] AS [IsCreatedPost]
+    FROM [dbo].[PostTemperory] AS [PostTemperory]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_PostAnswer_PostQuestion" Association="Self.FK_PostAnswer_PostQuestion">
             <End Role="PostQuestion" EntitySet="PostQuestion" />
             <End Role="PostAnswer" EntitySet="PostAnswer" />

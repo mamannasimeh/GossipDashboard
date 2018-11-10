@@ -4,7 +4,6 @@
     ViewBag.Title = @Html.DisplayFor(modelItem => modelItem.Subject);
 }
 
-
 <div class="col-md-12 content-area">
     <article class="post-box ">
         <div class="entry-cover">
@@ -39,11 +38,11 @@
                     <ul class="common-meta">
                         <li>
                             <i class="fa fa-user"></i>
-                            <a href="@Url.Action("Index","Admin")" title="ايجاد شده توسط @Html.DisplayFor(modelItem => modelItem.Fullname)" rel="author">@Html.DisplayFor(modelItem => modelItem.Fullname)</a>
+                            <a href="@Url.Action("Index", "Admin")" title="ايجاد شده توسط @Html.DisplayFor(modelItem => modelItem.Fullname)" rel="author">@Html.DisplayFor(modelItem => modelItem.Fullname)</a>
                         </li>
                         <li>
                             <i class="fa fa-comment"></i>
-                            <a href="@Url.Action("Index","Comment")">@Html.DisplayFor(modelItem => modelItem.CommentCount)</a>
+                            <a href="@Url.Action("Index", "Comment")">@Html.DisplayFor(modelItem => modelItem.CommentCount)</a>
                         </li>
                         <li class="post-like">
                             <a href="#"><i class="fa fa-eye"></i>@Html.DisplayFor(modelItem => modelItem.Views)</a>
@@ -52,9 +51,14 @@
                 </div>
             </div>
             <div class="tag-block">
-                @foreach (var item in Model.PostCategory.ToList())
-                {
-                    <span class="tags-caption">@item.NameFa </span>
+                @{
+                    if (Model != null)
+                    {
+                        foreach (var item in Model.PostCategory.ToList())
+                        {
+                            <span class="tags-caption">item.NameFa </span>
+                        }
+                    }
                 }
 
             </div>

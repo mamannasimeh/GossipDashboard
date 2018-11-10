@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using GossipDashboard.Models;
 using System.IO;
+using System.Data.Entity;
 
 namespace GossipDashboard.Repository
 {
@@ -96,7 +97,16 @@ namespace GossipDashboard.Repository
             return res;
         }
 
-        public bool Delete(int id)
+        internal void UpdatePostViews(int postID)
+        {
+            var entity = context.Posts.First(p => p.PostID == postID);
+            entity.Views = (entity.Views ?? 0) + 1;
+            context.Posts.Attach(entity);
+            context.Entry(entity).State = EntityState.Modified;
+            context.SaveChanges();
+        }
+
+        public Post Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -200,42 +210,65 @@ namespace GossipDashboard.Repository
             var tempPost = context.PostTemperories.Where(p => p.IsCreatedPost != true).ToList();
             foreach (var item in tempPost)
             {
+                Index1 = Index2 = Index3 = "";
                 //قبلا این پست ایجاد نشده باشد
                 var isExist = context.Posts.FirstOrDefault(p => p.Subject == item.Subject);
 
+                //ایجاد فیلد پست کانتنت
                 count = item.ContentPost.Split('.').Count();
                 if (isExist == null && item.Subject.Trim().Length > 3 && item.ContentPost.Trim().Length > 3)
                 {
-                    //Index1 = item.ContentPost.Split('.').Skip((int)(count / 4)).FirstOrDefault();
-                    //Index2 = item.ContentPost.Split('.').Skip((int)(count / 4) * 2 + 1).FirstOrDefault();
-                    //Index3 = item.ContentPost.Split('.').Skip(count - 1).FirstOrDefault();
-                    //if (Index3.Trim() == "")
-                    //    Index3 = item.ContentPost.Split('.').Skip(count - 2).FirstOrDefault();
-
                     var statements = item.ContentPost.Split('.');
-                    var everyPostContent = statements.Count() / 3;
-                    var i = 1;
-                    foreach (var item1 in statements)
+                    if (statements.Count() < 15)
                     {
-                        if (i <= everyPostContent)
-                            Index1 += item1 + " ";
-                        else if (i <= (everyPostContent * 2))
-                            Index2 += item1 + " ";
-                        else
-                            Index3 += item1 + " ";
+                        var everyPostContent = statements.Count() / 2;
+                        var i = 1;
+                        foreach (var item1 in statements)
+                        {
+                            if (i <= everyPostContent)
+                                Index1 += item1 + ". ";
+                            else
+                                Index2 += item1 + ". ";
 
-                        i++;
+                            i++;
+                        }
+                    }
+                    else
+                    {
+
+                        var everyPostContent = statements.Count() / 3;
+                        var i = 1;
+                        foreach (var item1 in statements)
+                        {
+                            if (i <= everyPostContent)
+                                Index1 += item1 + ". ";
+                            else if (i <= (everyPostContent * 2))
+                                Index2 += item1 + ". ";
+                            else
+                                Index3 += item1 + ". ";
+
+                            i++;
+                        }
+                    }
+
+                    //ایجاد فیلد ایمیج
+                    if (item.Image1 == item.Image2)
+                    {
+                        item.Image2 = "";
+                    }
+                    if (item.Image1 == item.Image3)
+                    {
+                        item.Image3 = "";
+                    }
+                    if (item.Image2 == item.Image3)
+                    {
+                        item.Image3 = "";
                     }
 
                     //ایجاد پست
                     var entityPost = context.Posts.Add(new Post()
                     {
                         BackgroundColor = item.BackgroundColor,
-
-                        //ContentPost = item.ContentPost,//.Substring(0, item.ContentPost.IndexOf(Index1)),
-
-                        //ContentPost1 = item.ContentPost.Substring(item.ContentPost.IndexOf(Index1) + 1, item.ContentPost.IndexOf(Index2)),
-                        //ContentPost2 = item.ContentPost2.Substring(item.ContentPost.IndexOf(Index2) + 1, item.ContentPost.IndexOf(Index3)),
                         ContentPost = Index1,
                         ContentPost1 = Index2,
                         ContentPost2 = Index3,
@@ -287,7 +320,7 @@ namespace GossipDashboard.Repository
                         ModifyDate = DateTime.Now,
                         ModifyUserID = 1,
                         PostID_fk = entityPost.PostID,
-                        UserID_fk = r.Next(1, 2),
+                        UserID_fk = r.Next(1, 3),
                     });
 
                     //مشخص کردن اينکه اين پست قبلا ايجاد شده است
@@ -306,5 +339,7 @@ namespace GossipDashboard.Repository
 
             return true;
         }
+
+
     }
 }

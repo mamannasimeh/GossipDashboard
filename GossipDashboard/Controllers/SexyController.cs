@@ -34,8 +34,26 @@ namespace GossipDashboard.Controllers
 
         public ActionResult Post(int postID)
         {
+            repo.UpdatePostViews(postID);
+
             var res = repo.SelectPostUser().Where(p => p.PostID == postID).FirstOrDefault();
             return View("~/Views/Post/Index.cshtml", res);
+        }
+
+        public ActionResult VideoPost(int postID)
+        {
+            repo.UpdatePostViews(postID);
+
+            var res = repo.SelectPostUser().Where(p => p.PostID == postID).FirstOrDefault();
+            return View("~/Views/Post/VideoIndex.cshtml", res);
+        }
+
+        public ActionResult AudioPost(int postID)
+        {
+            repo.UpdatePostViews(postID);
+
+            var res = repo.SelectPostUser().Where(p => p.PostID == postID).FirstOrDefault();
+            return View("~/Views/Post/AudioIndex.cshtml", res);
         }
 
         public ActionResult CreateContentCategory(string path)

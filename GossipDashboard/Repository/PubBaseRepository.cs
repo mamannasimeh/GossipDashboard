@@ -16,7 +16,7 @@ namespace GossipDashboard.Repository
             throw new NotImplementedException();
         }
 
-        public bool Delete(int id)
+        public PubBase Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -28,13 +28,8 @@ namespace GossipDashboard.Repository
 
         public IQueryable<PubBase> SelectAll(string condition)
         {
-            if (condition != "")
-            {
-                var res = context.PubBases.Where(p => p.NameEn == condition);
-                return res;
-            }
-
-            return context.PubBases;
+            var res = context.PubBases.Where(p => p.NameEn == condition);
+            return res;
         }
 
         public IQueryable<PubBase> SelectByParentName(string parentName)
@@ -44,7 +39,7 @@ namespace GossipDashboard.Repository
                 var parent = context.PubBases.FirstOrDefault(p => p.NameEn == parentName);
                 if (parent != null)
                 {
-                    var res = context.PubBases.Where(p => p.ParentID == parent.ParentID);
+                    var res = context.PubBases.Where(p => p.ParentID == parent.PubBaseID);
                     return res;
                 }
             }
