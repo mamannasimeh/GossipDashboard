@@ -1,0 +1,158 @@
+﻿@model GossipDashboard.ViewModel.VM_Post
+@{
+    ViewBag.Title = @Html.DisplayFor(modelItem => modelItem.Subject);
+}
+
+<input type="hidden" id="postIDHidden" value="@Html.DisplayFor(modelItem => modelItem.PostID)" />
+<div class="col-md-12 content-area">
+    <article class='format-video hentry'>
+        <div class='post-box'>
+            <div class='entry-cover'>
+                <div class='flex-video'>
+                    <div style='width: 640px;' class='wp-video'>
+                        <!--[if lt IE 9]><script>document.createElement('video');</script><![endif]-->
+                        <video class='wp-video-shortcode' id='video-446-1' width='640' height='360' preload='metadata' controls='controls'>
+                            <source type='video/mp4' src="@Html.DisplayFor(modelItem => modelItem.UrlVideo)" />
+                            <a href="@Html.DisplayFor(modelItem => modelItem.UrlVideo)">"@Html.DisplayFor(modelItem => modelItem.UrlVideo)"</a>
+                        </video>
+                    </div>
+                </div>
+            </div>
+            <div class='entry-content'>
+                <h3 class='entry-title'>
+                    <a href='#'>"@Html.DisplayFor(modelItem => modelItem.Subject)"</a>
+                </h3>
+
+                <p>@Html.DisplayFor(modelItem => modelItem.Subject1)</p>
+
+                <img src="@Html.DisplayFor(modelItem => modelItem.Image2)" style="margin-bottom: 10px;" />
+                <p>
+                    @Html.DisplayFor(modelItem => modelItem.ContentPost)
+                </p>
+                <h3>@Html.DisplayFor(modelItem => modelItem.Subject2)</h3>
+                <p>
+                    @Html.DisplayFor(modelItem => modelItem.ContentPost1)
+                </p>
+                <img src="@Html.DisplayFor(modelItem => modelItem.Image3)" style="margin-bottom: 10px;" />
+                <p>
+                    @Html.DisplayFor(modelItem => modelItem.ContentPost2)
+                </p>
+                <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+
+                <div class="tag-block">
+                    @{
+                        if (Model != null && Model.PostCategory != null)
+                        {
+                            foreach (var item in Model.PostCategory.ToList())
+                            {
+                                <span class="tags-caption">@item.NameFa </span>
+                            }
+                        }
+                    }
+
+                </div>
+            </div>
+            <div class='entry-footer'>
+                <div class=' row'>
+                    <div class='col-md-12'>
+                        <ul class="common-meta">
+                            <li>
+                                <i class="fa fa-user"></i>
+                                <a href="@Url.Action("Index","Admin")" title="ايجاد شده توسط @Html.DisplayFor(modelItem => modelItem.Fullname)" rel="author">@Html.DisplayFor(modelItem => modelItem.Fullname)</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-comment"></i>
+                                <a href="@Url.Action("Index","Comment")">@Html.DisplayFor(modelItem => modelItem.CommentCount)</a>
+                            </li>
+                            <li class="post-like">
+                                <a href="#"><i class="fa fa-eye"></i>@Html.DisplayFor(modelItem => modelItem.Views)</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- Include author box -->
+    <div class="author-box">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="author-avatar">
+                    <a href="@Url.Action("WebSite","Admin")"><img alt="@Html.DisplayFor(modelItem => modelItem.Fullname)" src="@Url.Action( "ShowImage", "Post", new { id = @Html.DisplayFor(modelItem => modelItem.UserID_fk) })" srcset="" class="media-object avatar-90 photo" height="90" width="90"></a>
+                </div>
+                <div class="author-info">
+                    <h4 class="heading-single"><span>درباره نويسنده - <a href="@Url.Action("WebSite","Admin")" title="وب سايت نويسنده" rel="author external">@Html.DisplayFor(modelItem => modelItem.Fullname)</a></span></h4>
+                    <p>يک متن درباره نويسنده</p>
+                </div>
+                <div class="clearfix"></div>
+                <div class="author-social">
+                    <ul class="social-icons social-small icon-circle list-inline">
+                        <li>
+                            <a class="tooltip-on white" title="Facebook" href="#">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="tooltip-on white" title="Twitter" href="#">
+                                <div class="icon-wrapper icon-full-radius bg-color-info">
+                                    <i class="fa fa-twitter"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="tooltip-on white" title="Google Plus" href="#">
+                                <div class="icon-wrapper icon-full-radius bg-color-danger">
+                                    <i class="fa fa-google-plus"></i>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="tooltip-on white" title="Linkedin" href="#">
+                                <div class="icon-wrapper icon-full-radius bg-color-default linkedin">
+                                    <i class="fa fa-linkedin"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Show comments -->
+    @Html.Partial("~/Views/Post/_Comment.cshtml")
+    <!-- Show related posts -->
+    <div id="related-tab">
+        <h3 class="related-posts-title">مطالب مشابه</h3><div class="related-posts row">
+            <article class='col-md-4 hentry  format-standard  category-quiz '>
+                <div class="post-box">
+                    <div class="entry-cover">
+                        <a href='/Quiz/Post?PostID=7' name='7'>  <img width='290' height='170' src='https://images.khabaronline.ir/images/2018/9/position38/18-9-24-9184457358287.jpg' alt='جزییات بازداشت خواننده سرشناس در اوایل انقلاب'>  </a>
+                        <div class='post-category'><a href=' quiz/Index' class=' cat-quiz '> سوال </a></div>
+                        <a href='/Quiz/Post?PostID=7' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                    </div>
+                    <div class="entry-content">
+                        <h3 class="entry-title"> <a href='/Quiz/Post?PostID=7'>جزییات بازداشت خواننده سرشناس در اوایل انقلاب</a></h3>
+                    </div>
+                    <div class="entry-footer">
+                        <div class=' row'>
+                            <div class='col-md-12'>
+                                <ul class='common-meta' style='width:auto'>
+                                    <li>
+                                        <i class='fa fa-user'></i>
+                                        <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                    </li>
+                                    <li><i class='fa fa-comment'> 2</i><a href='Comment/7'> </a></li>
+                                    <li class='post-like'><a href='#'><p class='fa fa-eye'> 215</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>

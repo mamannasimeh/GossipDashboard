@@ -211,6 +211,7 @@ namespace GossipDashboard.Repository
             foreach (var item in tempPost)
             {
                 Index1 = Index2 = Index3 = "";
+
                 //قبلا این پست ایجاد نشده باشد
                 var isExist = context.Posts.FirstOrDefault(p => p.Subject == item.Subject);
 
@@ -235,7 +236,6 @@ namespace GossipDashboard.Repository
                     }
                     else
                     {
-
                         var everyPostContent = statements.Count() / 3;
                         var i = 1;
                         foreach (var item1 in statements)
@@ -250,7 +250,6 @@ namespace GossipDashboard.Repository
                             i++;
                         }
                     }
-
 
                     //ایجاد فیلد ایمیج
                     if (item.Image1 == item.Image2)
@@ -341,7 +340,5 @@ namespace GossipDashboard.Repository
 
             return true;
         }
-
-
     }
 }

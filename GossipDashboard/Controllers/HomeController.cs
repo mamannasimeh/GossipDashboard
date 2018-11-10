@@ -19,10 +19,10 @@ namespace GossipDashboard.Controllers
 
         public HomeController()
         {
-            //Timer aTimer = new Timer();
-            //aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            //aTimer.Interval = 60000;
-            //aTimer.Enabled = true;
+            Timer aTimer = new Timer();
+            aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            aTimer.Interval = 60000;
+            aTimer.Enabled = true;
         }
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
@@ -257,7 +257,6 @@ namespace GossipDashboard.Controllers
             {
             }
 
-           
             ////////////////////////sp-slides sp-slider-image-top///////////////////////////////////////
             docIndex = new HtmlDocument();
             docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
@@ -324,16 +323,14 @@ namespace GossipDashboard.Controllers
             {
             }
 
-
-
             ////////////////////////////////////////////////////////////////////////////////////////
             //////////////////////// sidebar-widget mostviewed///////////////////////////////////////
-            //docIndex = new HtmlDocument();
-            //docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
-            //nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
+            docIndex = new HtmlDocument();
+            docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
+            nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
 
-            ////حذف محتويات ند بلاك-slider-image-bottom
-            //postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider1");
+            //حذف محتويات ند بلاك-slider-image-bottom
+            postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider1");
 
             ////ایجاد  محتوا
             int rowID = 1;

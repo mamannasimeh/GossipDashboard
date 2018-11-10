@@ -4,7 +4,7 @@
     ViewBag.Title = @Html.DisplayFor(modelItem => modelItem.Subject);
 }
 
-
+<input type="hidden" id="postIDHidden" value="@Html.DisplayFor(modelItem => modelItem.PostID)" />
 <div class="col-md-12 content-area">
     <article class="post-box ">
         <div class="entry-cover">
@@ -31,6 +31,17 @@
                 @Html.DisplayFor(modelItem => modelItem.ContentPost2)
             </p>
             <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+            @*<img src="@Html.DisplayFor(modelItem => modelItem.Image5)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image5)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image6)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image7)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
+            <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />*@
 
             <div class="heateorSssClear"></div>
             <div class="heateorSssClear"></div>
@@ -39,11 +50,11 @@
                     <ul class="common-meta">
                         <li>
                             <i class="fa fa-user"></i>
-                            <a href="@Url.Action("Index","Admin")" title="ايجاد شده توسط @Html.DisplayFor(modelItem => modelItem.Fullname)" rel="author">@Html.DisplayFor(modelItem => modelItem.Fullname)</a>
+                            <a href="@Url.Action("Index", "Admin")" title="ايجاد شده توسط @Html.DisplayFor(modelItem => modelItem.Fullname)" rel="author">@Html.DisplayFor(modelItem => modelItem.Fullname)</a>
                         </li>
                         <li>
                             <i class="fa fa-comment"></i>
-                            <a href="@Url.Action("Index","Comment")">@Html.DisplayFor(modelItem => modelItem.CommentCount)</a>
+                            <a href="@Url.Action("Index", "Comment")">@Html.DisplayFor(modelItem => modelItem.CommentCount)</a>
                         </li>
                         <li class="post-like">
                             <a href="#"><i class="fa fa-eye"></i>@Html.DisplayFor(modelItem => modelItem.Views)</a>
@@ -52,9 +63,14 @@
                 </div>
             </div>
             <div class="tag-block">
-                @foreach (var item in Model.PostCategory.ToList())
+                @{
+            if (Model != null && Model.PostCategory != null)
+            {
+                foreach (var item in Model.PostCategory.ToList())
                 {
-                    <span class="tags-caption">@item.NameFa </span>
+                    <span class="tags-caption">@item.NameFa</span>
+        }
+    }
                 }
 
             </div>
@@ -108,7 +124,10 @@
             </div>
         </div>
     </div>
+
     <!-- Show comments -->
+    @Html.Partial("~/Views/Post/_Comment.cshtml")
+
     <!-- Show related posts -->
     <div id="related-tab">
         <h3 class="related-posts-title">مطالب مشابه</h3><div class="related-posts row">
@@ -142,3 +161,6 @@
         </div>
     </div>
 </div>
+
+
+
