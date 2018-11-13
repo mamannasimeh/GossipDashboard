@@ -80,8 +80,8 @@ body{
 #header{
   background:#333333;
   color:#ffffff;
-  padding-bottom: 10px;
-  margin-bottom: 15px;
+  padding-bottom: 2px;
+  margin-bottom: 2px;
 }
 
 #header .create{
@@ -117,8 +117,8 @@ body{
   background:#333333;
   color:#ffffff;
   text-align:center;
-  padding:30px;
-  margin-top:30px;
+  padding:5px;
+  margin-top:0px;
 }
 
 

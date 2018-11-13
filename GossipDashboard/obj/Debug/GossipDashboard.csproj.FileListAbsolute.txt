@@ -171,7 +171,6 @@ E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\sv-SE\Kendo.Mvc.resources
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\tr-TR\Kendo.Mvc.resources.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\uk-UA\Kendo.Mvc.resources.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\zh-CN\Kendo.Mvc.resources.dll
-E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.csprojResolveAssemblyReference.cache
 E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.csproj.CoreCompileInputs.cache
 E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.pdb

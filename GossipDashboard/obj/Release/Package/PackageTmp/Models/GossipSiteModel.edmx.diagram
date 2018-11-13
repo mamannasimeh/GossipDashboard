@@ -12,14 +12,15 @@
         <AssociationConnector Association="GossipSiteModel.FK_UserPost_User" />
         <EntityTypeShape EntityType="GossipSiteModel.PubBase" Width="1.5" PointX="5.375" PointY="1" />
         <AssociationConnector Association="GossipSiteModel.FK_PostCategory_PubBase" />
-        <EntityTypeShape EntityType="GossipSiteModel.Post" Width="1.5" PointX="0.75" PointY="5.5" />
         <EntityTypeShape EntityType="GossipSiteModel.PostAnswer" Width="1.5" PointX="5.25" PointY="15.625" />
         <EntityTypeShape EntityType="GossipSiteModel.PostQuestion" Width="1.5" PointX="3" PointY="15.5" />
+        <AssociationConnector Association="GossipSiteModel.FK_PostAnswer_PostQuestion" />
+        <EntityTypeShape EntityType="GossipSiteModel.Subscriber" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="GossipSiteModel.Post" Width="1.5" PointX="0.75" PointY="5.75" />
         <AssociationConnector Association="GossipSiteModel.FK_PostCategory_Post" />
         <AssociationConnector Association="GossipSiteModel.FK_PostComment_Post" />
         <AssociationConnector Association="GossipSiteModel.FK_PostQuestion_Post" />
         <AssociationConnector Association="GossipSiteModel.FK_UserPost_Post" />
-        <AssociationConnector Association="GossipSiteModel.FK_PostAnswer_PostQuestion" />
         <EntityTypeShape EntityType="GossipSiteModel.PostTemperory" Width="1.5" PointX="5.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>

@@ -328,12 +328,12 @@ namespace GossipDashboard.Controllers
 
             ////////////////////////////////////////////////////////////////////////////////////////
             //////////////////////// sidebar-widget mostviewed///////////////////////////////////////
-            //docIndex = new HtmlDocument();
-            //docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
-            //nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
+            docIndex = new HtmlDocument();
+            docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
+            nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
 
             ////حذف محتويات ند بلاك-slider-image-bottom
-            //postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider1");
+            postManagement.ClearContentNode(nodesIndex, "recent_posts_wid right-slider1");
 
             ////ایجاد  محتوا
             int rowID = 1;
