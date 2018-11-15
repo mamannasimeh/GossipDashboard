@@ -146,7 +146,7 @@ namespace GossipDashboard.Helper
                         //ايجاد entry-cover
                         //برادر اول
                         HtmlNode oldChild = itemNode.SelectSingleNode("//a");
-                        HtmlNode newChild = HtmlNode.CreateNode("<a href='" + postUrl + "' name='" + post.PostID + "'>  <img width='290' height='170' src='" + post.Image1 + "'  alt='" + post.Subject + "' />  </a>");
+                        HtmlNode newChild = HtmlNode.CreateNode("<a href='" + postUrl + "' name='" + post.PostID + "'>  <img width='290' height='170' src='" + post.Image1_1 + "'  alt='" + post.Subject1 + "' />  </a>");
                         itemNode.ReplaceChild(newChild, oldChild);
 
                         //برادر بعدي
@@ -165,7 +165,7 @@ namespace GossipDashboard.Helper
                     {
                         //ايجاد entry-content
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[2]/h3");
-                        HtmlNode newChild = HtmlNode.CreateNode(@"<h3 class=""entry-title""> <a href='" + postUrl + "'>" + post.Subject + "</a></h3>");
+                        HtmlNode newChild = HtmlNode.CreateNode(@"<h3 class=""entry-title""> <a href='" + postUrl + "'>" + post.Subject1 + "</a></h3>");
                         itemNode.ReplaceChild(newChild, oldChild);
                     }
 
@@ -216,9 +216,9 @@ namespace GossipDashboard.Helper
                                                                         "<div class='entry-cover'>" +
                                                                             "<div class='entry-cover'>" +
                                                                                 "<a href='" + postUrl + "'>" +
-                                                                                    "<img width='290' height='170' src='" + post.Image1 + "'" +
+                                                                                    "<img width='290' height='170' src='" + post.Image1_1 + "'" +
                                                                                          "class='  '" +
-                                                                                         "alt='" + post.Subject + "' />" +
+                                                                                         "alt='" + post.Subject1 + "' />" +
                                                                                 "</a>" +
                                                                             "</div>" +
                                                                             "<div class='audio-container'>" +
@@ -241,7 +241,7 @@ namespace GossipDashboard.Helper
                                                                         "</div>" +
                                                                         "<div class='entry-content'>" +
                                                                             "<h3 class='entry-title'>" +
-                                                                                "<a href='" + postUrl + "'>" + post.Subject + "</a>" +
+                                                                                "<a href='" + postUrl + "'>" + post.Subject1 + "</a>" +
                                                                             "</h3>" +
                                                                         "</div>" +
                                                                         "<div class='entry-footer'>" +
@@ -292,16 +292,16 @@ namespace GossipDashboard.Helper
                                                                         "<div id='galpost" + post.PostID + "' class='carousel slide gallery_post' data-ride='carousel'>" +
                                                                             "<div class='carousel-inner' role='listbox'>" +
                                                                                 "<div class='item'>" +
-                                                                                    "<img src='" + post.Image1 + "' class='blog-post-img'" +
-                                                                                            "alt='" + post.Subject + "' width='665' height='315' />" +
+                                                                                    "<img src='" + post.Image1_1 + "' class='blog-post-img'" +
+                                                                                            "alt='" + post.Subject1 + "' width='665' height='315' />" +
                                                                                 "</div>" +
                                                                                 "<div class='item'>" +
-                                                                                    "<img src='" + post.Image2 + "' class='blog-post-img'" +
-                                                                                            "alt='" + post.Subject + "' width='665' height='315' />" +
+                                                                                    "<img src='" + post.Image1_2 + "' class='blog-post-img'" +
+                                                                                            "alt='" + post.Subject1 + "' width='665' height='315' />" +
                                                                                 "</div>" +
                                                                                 "<div class='item'>" +
-                                                                                    "<img src='" + post.Image3 + "' class='blog-post-img'" +
-                                                                                            "alt='" + post.Subject + "' width='665' height='315' />" +
+                                                                                    "<img src='" + post.Image1_3 + "' class='blog-post-img'" +
+                                                                                            "alt='" + post.Subject1 + "' width='665' height='315' />" +
                                                                                 "</div>" +
                                                                             "</div>" +
                                                                             "<a class='left carousel-control' href='#galpost" + post.PostID + "' role='button' data-slide='prev'>" +
@@ -330,7 +330,7 @@ namespace GossipDashboard.Helper
                                                                     "</div>" +
                                                                     "<div class='entry-content'>" +
                                                                         "<h3 class='entry-title'>" +
-                                                                            "<a href='" + postUrl + "'>" + post.Subject + "</a>" +
+                                                                            "<a href='" + postUrl + "'>" + post.Subject1 + "</a>" +
                                                                         "</h3>" +
                                                                     "</div>" +
                                                                     "<div class='entry-footer'>" +
@@ -375,7 +375,7 @@ namespace GossipDashboard.Helper
                     if (itemAttr.Value.Contains("defaultForAllPost"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
-                        HtmlNode newChild = HtmlNode.CreateNode(" <div class='post-box' style='background-repeat:no-repeat; background-size:cover; background-image:url(" + post.Image1 + ")'>" +
+                        HtmlNode newChild = HtmlNode.CreateNode(" <div class='post-box' style='background-repeat:no-repeat; background-size:cover; background-image:url(" + post.Image1_1 + ")'>" +
                                                                     "<div class='bg-overlay' style='background-color:rgba(0,0,0, 0.8)'></div>" +
                                                                     "<div class='entry-cover'>" +
                                                                         "<div class='post-category'>" +
@@ -384,7 +384,7 @@ namespace GossipDashboard.Helper
                                                                     "</div>" +
                                                                     "<div class='entry-content'>" +
                                                                         "<h3 class='entry-title'>" +
-                                                                            "<a href = '" + postUrl + "' >" + post.Subject + "</a>" +
+                                                                            "<a href = '" + postUrl + "' >" + post.Subject1 + "</a>" +
                                                                         "</h3>" +
                                                                     "</div>" +
                                                                     "<div class='entry-footer'>" +
@@ -433,7 +433,7 @@ namespace GossipDashboard.Helper
                                                                     "<div class='entry-content'>" +
                                                                         "<div class='bg-overlay' style='background-color:" + post.BackgroundColor + "'></div>" +
                                                                         "<h3>" +
-                                                                           post.Subject +
+                                                                           post.Subject1 +
                                                                         "</h3>" +
                                                                        " <a href = '" + postUrl + "' > " +
                                                                             "<i class='fa fa-link'></i> لینک خبر" +
@@ -461,11 +461,11 @@ namespace GossipDashboard.Helper
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
                         HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box imgwrapper'>" +
-                                                                    "<div class='entry-content img-responsive' style='background-image:url(" + post.Image1 + ")'>" +
+                                                                    "<div class='entry-content img-responsive' style='background-image:url(" + post.Image1_1 + ")'>" +
                                                                         "<div class='bg-overlay' style='background-color:" + post.BackgroundColor + "'></div>" +
                                                                         "<blockquote>" +
                                                                             "<h4>" +
-                                                                                "<a href = '" + postUrl + "' >" + post.Subject + "</a>" +
+                                                                                "<a href = '" + postUrl + "' >" + post.Subject1 + "</a>" +
                                                                             "</h4>" +
                                                                             "<cite>" + post.QuotedFrom + "</cite>" +
                                                                         "</blockquote>" +
@@ -494,7 +494,7 @@ namespace GossipDashboard.Helper
                         HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
                         HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box'>" +
                                                                     "<div class='entry-content'>" +
-                                                                        "<h3 class='status lead'>" + post.Subject + "</h3>" +
+                                                                        "<h3 class='status lead'>" + post.Subject1 + "</h3>" +
                                                                     "</div>" +
                                                                 "</div>");
                         itemNode.ReplaceChild(newChild, oldChild);
@@ -537,7 +537,7 @@ namespace GossipDashboard.Helper
                                                                     "</div>" +
                                                                     "<div class='entry-content'>" +
                                                                         "<h3 class='entry-title'>" +
-                                                                            "<a href = '" + postUrl + "' >" + post.Subject + "</a>" +
+                                                                            "<a href = '" + postUrl + "' >" + post.Subject1 + "</a>" +
                                                                         "</h3>" +
                                                                    " </div>" +
                                                                     "<div class='entry-footer'>" +
@@ -715,11 +715,11 @@ namespace GossipDashboard.Helper
                         HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[2]/div[1]");
                         HtmlNode newChild = HtmlNode.CreateNode("<div class='col-md-6 catlist-posts small-posts " + catListClass + "  ' style='position: absolute; display: none;'>" +
                                                                     "<a href = '" + postUrl + "' > " +
-                                                                        "<img width = '70' height = '70' src = '" + post.Image1 + "' class='' alt='' srcset='' sizes='(max-width: 70px) 100vw, 70px'>" +
+                                                                        "<img width = '70' height = '70' src = '" + post.Image1_1 + "' class='' alt='' srcset='' sizes='(max-width: 70px) 100vw, 70px'>" +
                                                                     "</a>" +
                                                                     "<div class='catitem-sm-content'>" +
                                                                         "<h4 class='catitem-title'>" +
-                                                                            "<a href = '" + postUrl + "'> " + post.Subject + "</a>" +
+                                                                            "<a href = '" + postUrl + "'> " + post.Subject1 + "</a>" +
                                                                         "</h4>" +
                                                                         "<div class='catitem-meta'>" +
                                                                             "<span class='catitem-date'>" +
@@ -771,12 +771,12 @@ namespace GossipDashboard.Helper
             {
                 HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/article[1]");
                 HtmlNode newChild = HtmlNode.CreateNode("<article class='col-md-4'>" +
-                                                               "<div class='post-object' style=' background-image:url(" + post.Image1 + "); background-size:cover; background-repeat:no-repeat'>" +
+                                                               "<div class='post-object' style=' background-image:url(" + post.Image1_1 + "); background-size:cover; background-repeat:no-repeat'>" +
                                                                    "<div class='overlay'></div>" +
                                                                    "<div class='post-content'>" +
                                                                        "<a href = '" + urlCategory + "' class='post-cat " + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
                                                                        "<h3 class='title'>" +
-                                                                           "<a href = '" + postUrl + "' > " + post.Subject + "</a>" +
+                                                                           "<a href = '" + postUrl + "' > " + post.Subject1 + "</a>" +
                                                                        "</h3>" +
                                                                        "<a href = '" + urlCategory + "' class='readmore'>بيشتر</a>" +
                                                                    "</div>" +
@@ -824,16 +824,16 @@ namespace GossipDashboard.Helper
                                                             "<article class='row'>" +
                                                                 "<div class='blogitem-media col-md-4'>" +
                                                                     "<a href = '" + postUrl + "' > " +
-                                                                        "<img width='290' height='170' src='" + post.Image1 + "' class='' alt=''>" +
+                                                                        "<img width='290' height='170' src='" + post.Image1_1 + "' class='' alt=''>" +
                                                                     "</a>" +
                                                                     "<a href = '" + urlCategory + "' class='post-cat " + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
                                                                 "</div>" +
                                                                 "<div class='col-md-8'>" +
                                                                     "<div class='blogitem-content'>" +
                                                                         "<h4 class='blogitem-title'>" +
-                                                                            "<a href = '" + postUrl + "' > " + post.Subject + "</a>" +
+                                                                            "<a href = '" + postUrl + "' > " + post.Subject11 + "</a>" +
                                                                         "</h4>" +
-                                                                        "<div class='blogitem-excerpt'>" + post.ContentPost.Substring(0, 200) + "</div>" +
+                                                                        "<div class='blogitem-excerpt'>" + post.ContentPost1_1.Substring(0, 200) + "</div>" +
                                                                         "<div class='blogitem-meta'>" +
                                                                             "<span class='blogitem-author'>" +
                                                                                 "<i class='fa fa-user'></i> " + post.Fullname +
@@ -889,12 +889,12 @@ namespace GossipDashboard.Helper
                 HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]/div[1]/div[1]");
                 HtmlNode newChild = HtmlNode.CreateNode("<div class='sp-slide'>" +
                                                             "<a href = '" + postUrl + "' > " +
-                                                                "<img width = '640' height = '426' src = '" + post.Image1 + "' class='sp-image ' alt='' srcset='' sizes='(max-width: 640px) 100vw, 640px'>" +
+                                                                "<img width = '640' height = '426' src = '" + post.Image1_1 + "' class='sp-image ' alt='' srcset='' sizes='(max-width: 640px) 100vw, 640px'>" +
                                                             "</a>" +
                                                             "<a href = '" + urlCategory + "' class='post-cat " + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
                                                             "<div class='sp-layer sp-black sp-padding' data-position='bottomLeft' data-vertical='0' data-width='100%' data-show-transition='up'>" +
                                                                 "<h4>" +
-                                                                    "<a href = '" + postUrl + "' >" + post.Subject + "</a>" +
+                                                                    "<a href = '" + postUrl + "' >" + post.Subject1 + "</a>" +
                                                                 "</h4>" +
                                                                 "<a href = '" + postUrl + "' class='special-rm-arrow pull-right'>" +
                                                                     "<i class='fa fa-arrow-right'></i>" +
@@ -933,7 +933,7 @@ namespace GossipDashboard.Helper
             if (itemNode != null)
             {
                 HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]/div[2]/img[1]");
-                HtmlNode newChild = HtmlNode.CreateNode("<img class='sp-thumbnail' src='" + post.Image1 + "' width='70' height='70' alt=''>");
+                HtmlNode newChild = HtmlNode.CreateNode("<img class='sp-thumbnail' src='" + post.Image1_1 + "' width='70' height='70' alt=''>");
 
                 return itemNode.ReplaceChild(newChild, oldChild);
             }
@@ -977,7 +977,7 @@ namespace GossipDashboard.Helper
                                                                "</a>" +
                                                                 "<div class='media-body'>" +
                                                                     "<h4 class='media-heading item-title'>" +
-                                                                        "<a href = '" + postUrl + "' > " + post.Subject + "</a>" +
+                                                                        "<a href = '" + postUrl + "' > " + post.Subject1 + "</a>" +
                                                                     "</h4>" +
                                                                     "<ul class='item-meta'>" +
                                                                         "<li class='item-date'>" +
@@ -1034,7 +1034,7 @@ namespace GossipDashboard.Helper
                                                                 "</a>" +
                                                                 "<div class='media-body'>" +
                                                                     "<h4 class='media-heading item-title'>" +
-                                                                        "<a href = '" + postUrl + "' >" + post.Subject + "</a>" +
+                                                                        "<a href = '" + postUrl + "' >" + post.Subject1 + "</a>" +
                                                                     "</h4>" +
                                                                     "<ul class='item-meta'>" +
                                                                         "<li class='item-date'>" +
@@ -1090,11 +1090,11 @@ namespace GossipDashboard.Helper
                 HtmlNode newChild = HtmlNode.CreateNode("<li class='post-item'>" +
                                                             "<div class='media'>" +
                                                                 "<a class='item-img media-left' href='" + postUrl + "'>" +
-                                                                    "<img width = '70' height='70' src='" + post.Image1 + "' class='  ' alt='' srcset='' sizes='(max-width: 70px) 100vw, 70px'>" +
+                                                                    "<img width = '70' height='70' src='" + post.Image1_1 + "' class='  ' alt='' srcset='' sizes='(max-width: 70px) 100vw, 70px'>" +
                                                                 "</a>" +
                                                                 "<div class='media-body'>" +
                                                                     "<h4 class='media-heading item-title'>" +
-                                                                        "<a href = '" + postUrl + "' > " + post.Subject + "</a>" +
+                                                                        "<a href = '" + postUrl + "' > " + post.Subject1 + "</a>" +
                                                                     "</h4>" +
                                                                     "<ul class='item-meta'>" +
                                                                         "<li class='item-date'>" +
@@ -1139,12 +1139,12 @@ namespace GossipDashboard.Helper
                 HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]/div[1]/div[1]");
                 HtmlNode newChild = HtmlNode.CreateNode("<div class='sp-slide'>" +
                                                             "<a href = '" + postUrl + "' > " +
-                                                                "<img width = '640' height = '315' src = '" + post.Image1 + "' class='sp-image ' alt='" + post.Subject + "'>" +
+                                                                "<img width = '640' height = '315' src = '" + post.Image1_1 + "' class='sp-image ' alt='" + post.Subject1 + "'>" +
                                                             "</a>" +
                                                             "<a href = '" + urlCategory + "' class='post-cat " + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
                                                             "<div class='sp-layer sp-black sp-padding' data-position='bottomLeft' data-vertical='0' data-width='100%' data-show-transition='up'>" +
                                                                 "<h4>" +
-                                                                    "<a href = '" + postUrl + "' > " + post.Subject + "</a>" +
+                                                                    "<a href = '" + postUrl + "' > " + post.Subject1 + "</a>" +
                                                                 "</h4>" +
                                                                 "<a href = '" + postUrl + "' class='special-rm-arrow pull-right'>" +
                                                                     "<i class='fa fa-arrow-right'></i>" +
@@ -1186,10 +1186,10 @@ namespace GossipDashboard.Helper
                 HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]/div[2]/div[1]");
                 HtmlNode newChild = HtmlNode.CreateNode("<div class='sp-thumbnail'>" +
                                                             "<div class='sp-thumbnail-text'>" +
-                                                                "<div class='sp-thumbnail-title'>" + post.Subject + "</div>" +
+                                                                "<div class='sp-thumbnail-title'>" + post.Subject1 + "</div>" +
                                                             "</div>" +
                                                             "<div class='sp-thumbnail-image-container'>" +
-                                                                "<img width = '70' height='70' src='" + post.Image1 + "' class='sp-thumbnail-image ' alt='" + post.Subject + "' srcset='' sizes='(max-width: 70px) 100vw, 70px'>" +
+                                                                "<img width = '70' height='70' src='" + post.Image1_1 + "' class='sp-thumbnail-image ' alt='" + post.Subject1 + "' srcset='' sizes='(max-width: 70px) 100vw, 70px'>" +
                                                             "</div>" +
                                                         "</div>");
 
