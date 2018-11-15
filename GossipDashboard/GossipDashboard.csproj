@@ -229,7 +229,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\DomainMapper.cs" />
     <Compile Include="Helper\DynamicQueryable.cs" />
     <Compile Include="Helper\EnumGeneral.cs" />
     <Compile Include="Helper\PostManagement.cs" />

@@ -833,7 +833,7 @@ namespace GossipDashboard.Helper
                                                                         "<h4 class='blogitem-title'>" +
                                                                             "<a href = '" + postUrl + "' > " + post.Subject11 + "</a>" +
                                                                         "</h4>" +
-                                                                        "<div class='blogitem-excerpt'>" + post.ContentPost1_1.Substring(0, 200) + "</div>" +
+                                                                        "<div class='blogitem-excerpt'>" + post.ContentPost1_1.Substring(0, (post.ContentPost1_1.Length>200 ? 200 : post.ContentPost1_1.Length)) + "</div>" +
                                                                         "<div class='blogitem-meta'>" +
                                                                             "<span class='blogitem-author'>" +
                                                                                 "<i class='fa fa-user'></i> " + post.Fullname +
