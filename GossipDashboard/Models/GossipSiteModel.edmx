@@ -552,6 +552,7 @@
           <Property Name="DateTimePost" Type="nvarchar" MaxLength="200" />
           <Property Name="ContentPost1_6" Type="nvarchar(max)" />
           <Property Name="ContentPost1_7" Type="nvarchar(max)" />
+          <Property Name="HTML" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PubBase">
           <Key>
@@ -1343,6 +1344,7 @@
           <Property Name="DateTimePost" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ContentPost1_6" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ContentPost1_7" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PubBase">
           <Key>
@@ -1804,6 +1806,7 @@
           <EntitySetMapping Name="PostTemperories">
             <EntityTypeMapping TypeName="GossipSiteModel.PostTemperory">
               <MappingFragment StoreEntitySet="PostTemperory">
+                <ScalarProperty Name="HTML" ColumnName="HTML" />
                 <ScalarProperty Name="ContentPost1_7" ColumnName="ContentPost1_7" />
                 <ScalarProperty Name="ContentPost1_6" ColumnName="ContentPost1_6" />
                 <ScalarProperty Name="DateTimePost" ColumnName="DateTimePost" />

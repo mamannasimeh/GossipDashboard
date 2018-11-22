@@ -302,6 +302,7 @@
     <EntitySetMapping Name="PostTemperories">
       <EntityTypeMapping TypeName="GossipSiteModel.PostTemperory">
         <MappingFragment StoreEntitySet="PostTemperory">
+          <ScalarProperty Name="HTML" ColumnName="HTML" />
           <ScalarProperty Name="ContentPost1_7" ColumnName="ContentPost1_7" />
           <ScalarProperty Name="ContentPost1_6" ColumnName="ContentPost1_6" />
           <ScalarProperty Name="DateTimePost" ColumnName="DateTimePost" />

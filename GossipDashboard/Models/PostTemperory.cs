@@ -264,5 +264,6 @@ namespace GossipDashboard.Models
         public string DateTimePost { get; set; }
         public string ContentPost1_6 { get; set; }
         public string ContentPost1_7 { get; set; }
+        public string HTML { get; set; }
     }
 }

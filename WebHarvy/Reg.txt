@@ -6,6 +6,8 @@
 src="([^"]*) --> correct for all image
 src="(.*jpg|.*png)"  --> correct for jpg & png
 src="(.*png|.*jpg)"  --> correct for jpg & png
+src="(.*mp4)"
+
 
 ------------------------------
 Product Details

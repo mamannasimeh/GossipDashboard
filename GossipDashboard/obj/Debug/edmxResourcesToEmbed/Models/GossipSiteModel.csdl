@@ -597,6 +597,7 @@
     <Property Name="DateTimePost" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="ContentPost1_6" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ContentPost1_7" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="PubBase">
     <Key>
