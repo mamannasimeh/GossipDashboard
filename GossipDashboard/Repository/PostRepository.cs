@@ -748,23 +748,8 @@ namespace GossipDashboard.Repository
                 //قبلا این پست ایجاد نشده باشد
                 var isExist = context.Posts.FirstOrDefault(p => p.Subject1 == item.Subject1);
 
-                var values = typeof(PostTemperory)
-                            .GetProperties()
-                            .Select(p => new { p.Name, Value = p.GetValue(item, null) })
-                            .ToArray();
-
-                foreach (var item_1 in values)
-                {
-                    foreach (var item_2 in values)
-                    {
-                        if (item_1.Name != item_2.Name && item_1.Value != null && item_2.Value != null && (item_1.Value.ToString()) == (item_2.Value.ToString()))
-                        {
-                            item.GetType().GetProperty(item_2.Name).SetValue(item, null);
-                            //context.SaveChanges();
-                        }
-                    }
-                }
-
+                //حذف مقادیر تکراری در یک سطر
+                DeleteDuplicateValue(item);
 
                 if (isExist == null && item.Subject1.Trim().Length > 3 && (item.ContentPost1_1.Trim().Length > 3 || item.ContentPost1_2.Trim().Length > 3 || item.ContentPost1_3.Trim().Length > 3 || item.ContentPost1_4.Trim().Length > 3 || item.ContentPost1_2.Trim().Length > 5 || item.ContentPost1_6.Trim().Length > 3 || item.ContentPost1_7.Trim().Length > 3))
                 {
@@ -1072,6 +1057,29 @@ namespace GossipDashboard.Repository
             }
 
             return true;
+        }
+
+
+        //حذف مقادیر تکراری
+        //تمامی ستون های یک سطر را چک می کند و تمامی مقادیر تکراری را حذف می کند
+        private static void DeleteDuplicateValue(PostTemperory item)
+        {
+            var values = typeof(PostTemperory)
+                        .GetProperties()
+                        .Select(p => new { p.Name, Value = p.GetValue(item, null) })
+                        .ToArray();
+
+            foreach (var item_1 in values)
+            {
+                foreach (var item_2 in values)
+                {
+                    if (item_1.Name != item_2.Name && item_1.Value != null && item_2.Value != null && (item_1.Value.ToString()) == (item_2.Value.ToString()))
+                    {
+                        item.GetType().GetProperty(item_2.Name).SetValue(item, null);
+                        //context.SaveChanges();
+                    }
+                }
+            }
         }
     }
 }
