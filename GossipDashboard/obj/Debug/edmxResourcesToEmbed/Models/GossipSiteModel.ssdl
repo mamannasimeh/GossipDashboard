@@ -250,10 +250,13 @@
     <Property Name="Tag8" Type="nvarchar" MaxLength="1000" />
     <Property Name="Tag9" Type="nvarchar" MaxLength="1000" />
     <Property Name="Tag10" Type="nvarchar" MaxLength="1000" />
-    <Property Name="FootCategory" Type="nvarchar" MaxLength="1000" />
-    <Property Name="DateTimePost" Type="nvarchar" MaxLength="200" />
+    <Property Name="SourceSiteUrl" Type="nvarchar" MaxLength="1000" />
+    <Property Name="SourceSiteName" Type="nvarchar" MaxLength="1000" />
+    <Property Name="SourceFootCategory" Type="nvarchar" MaxLength="1000" />
+    <Property Name="SourceDateTimePost" Type="nvarchar" MaxLength="200" />
     <Property Name="ContentPost1_6" Type="nvarchar(max)" />
     <Property Name="ContentPost1_7" Type="nvarchar(max)" />
+    <Property Name="SourceSiteNameFa" Type="nvarchar" MaxLength="1000" />
   </EntityType>
   <EntityType Name="PostAnswer">
     <Key>
@@ -543,11 +546,15 @@
     <Property Name="Tag8" Type="nvarchar" MaxLength="1000" />
     <Property Name="Tag9" Type="nvarchar" MaxLength="1000" />
     <Property Name="Tag10" Type="nvarchar" MaxLength="1000" />
-    <Property Name="FootCategory." Type="nvarchar" MaxLength="1000" />
-    <Property Name="DateTimePost" Type="nvarchar" MaxLength="200" />
     <Property Name="ContentPost1_6" Type="nvarchar(max)" />
     <Property Name="ContentPost1_7" Type="nvarchar(max)" />
     <Property Name="HTML" Type="nvarchar(max)" />
+    <Property Name="SourceSiteUrl" Type="nvarchar" MaxLength="1000" />
+    <Property Name="SourceFootCategory" Type="nvarchar" MaxLength="1000" />
+    <Property Name="SourceDateTimePost" Type="nvarchar" MaxLength="200" />
+    <Property Name="SourceSiteView" Type="nvarchar" MaxLength="200" />
+    <Property Name="SourceSiteAuthor" Type="nvarchar" MaxLength="200" />
+    <Property Name="SourceSiteName" Type="nvarchar" MaxLength="1000" />
   </EntityType>
   <EntityType Name="PubBase">
     <Key>

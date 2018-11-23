@@ -260,10 +260,14 @@ namespace GossipDashboard.Models
         public string Tag8 { get; set; }
         public string Tag9 { get; set; }
         public string Tag10 { get; set; }
-        public string FootCategory_ { get; set; }
-        public string DateTimePost { get; set; }
         public string ContentPost1_6 { get; set; }
         public string ContentPost1_7 { get; set; }
         public string HTML { get; set; }
+        public string SourceSiteUrl { get; set; }
+        public string SourceFootCategory { get; set; }
+        public string SourceDateTimePost { get; set; }
+        public string SourceSiteView { get; set; }
+        public string SourceSiteAuthor { get; set; }
+        public string SourceSiteName { get; set; }
     }
 }

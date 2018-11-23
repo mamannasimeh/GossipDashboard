@@ -23,7 +23,7 @@
             }
             @{if (Model.SubSubject1_1 != null && Model.SubSubject1_1.Trim() != "")
                 {
-                    <p id="SubSubject1_1" style = "background-color: darkslategray; color: white; padding-right: 20px; padding-left: 20px; padding-top: 10px;padding-bottom: 10px;" >@Html.DisplayFor(modelItem => modelItem.SubSubject1_1)</p>
+                    <p id="SubSubject1_1" style="background-color: darkslategray; color: white; padding-right: 20px; padding-left: 20px; padding-top: 10px;padding-bottom: 10px;">@Html.DisplayFor(modelItem => modelItem.SubSubject1_1)</p>
                 }
             }
             @{if (Model.SubSubject1_2 != null && Model.SubSubject1_2 != "")
@@ -1447,6 +1447,16 @@
                     </ul>
                 </div>
             </div>
+           
+            
+                @{if (Model.SourceSiteNameFa != null && Model.SourceSiteNameFa != "")
+                    {<div>سایت مرجع</div>
+                        <p id="SourceSiteNameFa">
+                            @Html.ActionLink(Model.SourceSiteNameFa, Model.SourceSiteUrl);
+                        </p>
+                    }
+                }
+        
             <div class="tag-block">
                 @{
                     if (Model != null && Model.PostCategory != null)

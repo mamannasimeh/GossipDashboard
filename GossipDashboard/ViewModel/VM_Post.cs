@@ -270,5 +270,10 @@ namespace GossipDashboard.ViewModel
         public int UserID_fk { get; internal set; }
         public string FirstName { get;  set; }
         public string LastName { get;  set; }
+        public string SourceSiteUrl { get; set; }
+        public string SourceFootCategory { get; set; }
+        public string SourceDateTimePost { get; set; }
+        public string SourceSiteName { get; set; }
+        public string SourceSiteNameFa { get; set; }
     }
 }

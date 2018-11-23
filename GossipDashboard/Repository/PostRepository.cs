@@ -280,8 +280,8 @@ namespace GossipDashboard.Repository
                           Tag8 = P.Tag8,
                           Tag9 = P.Tag9,
                           Tag10 = P.Tag10,
-                          FootCategory = P.FootCategory,
-                          DateTimePost = P.DateTimePost,
+                          FootCategory = P.SourceFootCategory,
+                          DateTimePost = P.SourceDateTimePost,
                           ContentPost1_6 = P.ContentPost1_6,
                           ContentPost1_7 = P.ContentPost1_7,
                           UserID_fk = UP.UserID_fk,
@@ -624,8 +624,10 @@ namespace GossipDashboard.Repository
                           Tag8 = P.Tag8,
                           Tag9 = P.Tag9,
                           Tag10 = P.Tag10,
-                          FootCategory = P.FootCategory,
-                          DateTimePost = P.DateTimePost,
+                          SourceSiteNameFa = P.SourceSiteNameFa,
+                          SourceSiteUrl = P.SourceSiteUrl,
+                          FootCategory = P.SourceFootCategory,
+                          DateTimePost = P.SourceDateTimePost,
                           ContentPost1_6 = P.ContentPost1_6,
                           ContentPost1_7 = P.ContentPost1_7,
                           Fullname = U.FirstName + " " + U.LastName,
@@ -754,6 +756,7 @@ namespace GossipDashboard.Repository
         public void CreatePost()
         {
             var doc = new HtmlDocument();
+            List<string> matchList = new List<string>();
 
             var tempPost = context.PostTemperories.Where(p => p.IsCreatedPost != true).ToList();
             foreach (var item in tempPost)
@@ -772,6 +775,32 @@ namespace GossipDashboard.Repository
                     entityPost.SubSubject1_1 = item.SubSubject1_1;
                     entityPost.SubSubject1_2 = item.SubSubject1_2;
 
+                    //به دست آوردن سایت مرجع جهت نمایش در سایت 
+                    //var regMatch = Regex.Matches(item.HTML, @"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})");
+                    if (item.SourceSiteUrl != null)
+                    {
+                        entityPost.SourceSiteUrl = item.SourceSiteUrl;
+                        var regMatch = Regex.Matches(item.SourceSiteUrl, @"(?:[-a-zA-Z0-9@:%_\+~.#=]{2,256}\.)?([-a-zA-Z0-9@:%_\+~#=]*)\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)");
+                        if (regMatch != null && regMatch[0].Groups != null  && regMatch[0].Groups[1] != null ) {
+                            entityPost.SourceSiteName = regMatch[0].Groups[1].Value;
+
+                            switch (entityPost.SourceSiteName)
+                            {
+                                case "Bartarinha":
+                                    entityPost.SourceSiteNameFa = "برترین ها";
+                                    break;
+                                case "fa.euronews":
+                                    entityPost.SourceSiteNameFa = "یورونیوز فارسی";
+                                    break;
+                                case "irannaz":
+                                    entityPost.SourceSiteNameFa = "ایران ناز";
+                                    break;
+                                default:
+                                    entityPost.SourceSiteNameFa = entityPost.SourceSiteName;
+                                    break;
+                            }
+                        }
+                    }
 
                     //در صورتی که تعداد کارکترهای کل پست کمتر از 200 باشد آن پست حذف گردد
                     entityPost.Subject1 = entityPost.Subject1 == null? "" : entityPost.Subject1.Trim();
@@ -782,8 +811,8 @@ namespace GossipDashboard.Repository
                     entityPost.ContentPost1_5 = entityPost.ContentPost1_5 == null? "" : entityPost.ContentPost1_5.Trim();
                     entityPost.ContentPost1_6 = entityPost.ContentPost1_6 == null? "" : entityPost.ContentPost1_6.Trim();
                     entityPost.ContentPost1_7 = entityPost.ContentPost1_7 == null? "" : entityPost.ContentPost1_7.Trim();
-                    if ((entityPost.Subject1.Length + entityPost.Subject2.Length + entityPost.Subject3.Length +
-                        entityPost.Subject4.Length + entityPost.Subject5.Length + entityPost.Subject6.Length + entityPost.Subject7.Length) < 200)
+                    if ((entityPost.Subject1.Length + entityPost.ContentPost1_2.Length + entityPost.ContentPost1_3.Length +
+                        entityPost.ContentPost1_4.Length + entityPost.ContentPost1_5.Length + entityPost.ContentPost1_6.Length + entityPost.ContentPost1_7.Length) < 200)
                     {
                         DeletePost(entityPost.PostID);
 
