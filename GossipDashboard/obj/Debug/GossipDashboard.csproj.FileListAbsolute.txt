@@ -102,6 +102,7 @@ E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\GossipDashboard.dll.confi
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\GossipDashboard.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\GossipDashboard.pdb
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\Antlr3.Runtime.dll
+E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\AutoMapper.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\EntityFramework.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\EntityFramework.SqlServer.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\Kendo.Mvc.dll
@@ -129,6 +130,7 @@ E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\Microsoft.Web.Infrastruct
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\Newtonsoft.Json.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\Owin.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\System.Net.Http.Formatting.dll
+E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\System.ValueTuple.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\System.Web.Helpers.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\System.Web.Http.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\System.Web.Http.WebHost.dll
@@ -139,8 +141,11 @@ E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\System.Web.WebPages.Deplo
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\System.Web.WebPages.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\System.Web.WebPages.Razor.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\WebGrease.dll
+E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\AutoMapper.pdb
+E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\AutoMapper.xml
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\Kendo.Mvc.xml
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\System.ValueTuple.xml
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\System.Web.Helpers.xml
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\System.Web.Mvc.xml
 E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\System.Web.Razor.xml
@@ -196,8 +201,3 @@ E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.csp
 E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.csproj.CoreCompileInputs.cache
 E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.pdb
-E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\AutoMapper.dll
-E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\System.ValueTuple.dll
-E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\AutoMapper.pdb
-E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\AutoMapper.xml
-E:\mahmood\Project\GossipDashboard\GossipDashboard\bin\System.ValueTuple.xml

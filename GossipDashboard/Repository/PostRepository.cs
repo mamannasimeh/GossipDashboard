@@ -284,6 +284,11 @@ namespace GossipDashboard.Repository
                           DateTimePost = P.SourceDateTimePost,
                           ContentPost1_6 = P.ContentPost1_6,
                           ContentPost1_7 = P.ContentPost1_7,
+                          SourceDateTimePost = P.SourceDateTimePost,
+                          SourceFootCategory = P.SourceFootCategory,
+                          SourceSiteName = P.SourceSiteName,
+                          SourceSiteNameFa = P.SourceSiteNameFa,
+                          SourceSiteUrl = P.SourceSiteUrl,
                           UserID_fk = UP.UserID_fk,
                           FirstName = U.FirstName,
                           LastName = U.LastName,
@@ -330,11 +335,14 @@ namespace GossipDashboard.Repository
 
         internal void UpdatePostViews(int postID)
         {
-            var entity = context.Posts.First(p => p.PostID == postID);
-            entity.Views = (entity.Views ?? 0) + 1;
-            context.Posts.Attach(entity);
-            context.Entry(entity).State = EntityState.Modified;
-            context.SaveChanges();
+            var entity = context.Posts.FirstOrDefault(p => p.PostID == postID);
+            if (entity != null)
+            {
+                entity.Views = (entity.Views ?? 0) + 1;
+                context.Posts.Attach(entity);
+                context.Entry(entity).State = EntityState.Modified;
+                context.SaveChanges();
+            }
         }
 
         public Post Delete(int id)
@@ -624,12 +632,15 @@ namespace GossipDashboard.Repository
                           Tag8 = P.Tag8,
                           Tag9 = P.Tag9,
                           Tag10 = P.Tag10,
-                          SourceSiteNameFa = P.SourceSiteNameFa,
-                          SourceSiteUrl = P.SourceSiteUrl,
-                          FootCategory = P.SourceFootCategory,
-                          DateTimePost = P.SourceDateTimePost,
                           ContentPost1_6 = P.ContentPost1_6,
                           ContentPost1_7 = P.ContentPost1_7,
+                          FootCategory = P.SourceFootCategory,
+                          DateTimePost = P.SourceDateTimePost,
+                          SourceDateTimePost = P.SourceDateTimePost,
+                          SourceFootCategory = P.SourceFootCategory,
+                          SourceSiteName = P.SourceSiteName,
+                          SourceSiteNameFa = P.SourceSiteNameFa,
+                          SourceSiteUrl = P.SourceSiteUrl,
                           Fullname = U.FirstName + " " + U.LastName,
                           UserID_fk = UP.UserID_fk,
                           FirstName = U.FirstName,
@@ -774,6 +785,7 @@ namespace GossipDashboard.Repository
                     entityPost.Subject1 = item.Subject1;
                     entityPost.SubSubject1_1 = item.SubSubject1_1;
                     entityPost.SubSubject1_2 = item.SubSubject1_2;
+                    entityPost.ModifyDate = DateTime.Now;
 
                     //به دست آوردن سایت مرجع جهت نمایش در سایت 
                     //var regMatch = Regex.Matches(item.HTML, @"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})");
@@ -781,18 +793,19 @@ namespace GossipDashboard.Repository
                     {
                         entityPost.SourceSiteUrl = item.SourceSiteUrl;
                         var regMatch = Regex.Matches(item.SourceSiteUrl, @"(?:[-a-zA-Z0-9@:%_\+~.#=]{2,256}\.)?([-a-zA-Z0-9@:%_\+~#=]*)\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)");
-                        if (regMatch != null && regMatch[0].Groups != null  && regMatch[0].Groups[1] != null ) {
+                        if (regMatch != null && regMatch[0].Groups != null && regMatch[0].Groups[1] != null)
+                        {
                             entityPost.SourceSiteName = regMatch[0].Groups[1].Value;
 
-                            switch (entityPost.SourceSiteName)
+                            switch (entityPost.SourceSiteName.ToUpper())
                             {
-                                case "Bartarinha":
+                                case "BARTARINHA":
                                     entityPost.SourceSiteNameFa = "برترین ها";
                                     break;
-                                case "fa.euronews":
+                                case "FA.EURONEWS":
                                     entityPost.SourceSiteNameFa = "یورونیوز فارسی";
                                     break;
-                                case "irannaz":
+                                case "IRANNAZ":
                                     entityPost.SourceSiteNameFa = "ایران ناز";
                                     break;
                                 default:
@@ -803,14 +816,14 @@ namespace GossipDashboard.Repository
                     }
 
                     //در صورتی که تعداد کارکترهای کل پست کمتر از 200 باشد آن پست حذف گردد
-                    entityPost.Subject1 = entityPost.Subject1 == null? "" : entityPost.Subject1.Trim();
-                    entityPost.ContentPost1_1 = entityPost.ContentPost1_1 == null? "" : entityPost.ContentPost1_1.Trim();
-                    entityPost.ContentPost1_2 = entityPost.ContentPost1_2 == null? "" : entityPost.ContentPost1_2.Trim();
-                    entityPost.ContentPost1_3 = entityPost.ContentPost1_3 == null? "" : entityPost.ContentPost1_3.Trim();
-                    entityPost.ContentPost1_4 = entityPost.ContentPost1_4 == null? "" : entityPost.ContentPost1_4.Trim();
-                    entityPost.ContentPost1_5 = entityPost.ContentPost1_5 == null? "" : entityPost.ContentPost1_5.Trim();
-                    entityPost.ContentPost1_6 = entityPost.ContentPost1_6 == null? "" : entityPost.ContentPost1_6.Trim();
-                    entityPost.ContentPost1_7 = entityPost.ContentPost1_7 == null? "" : entityPost.ContentPost1_7.Trim();
+                    entityPost.Subject1 = entityPost.Subject1 == null ? "" : entityPost.Subject1.Trim();
+                    entityPost.ContentPost1_1 = entityPost.ContentPost1_1 == null ? "" : entityPost.ContentPost1_1.Trim();
+                    entityPost.ContentPost1_2 = entityPost.ContentPost1_2 == null ? "" : entityPost.ContentPost1_2.Trim();
+                    entityPost.ContentPost1_3 = entityPost.ContentPost1_3 == null ? "" : entityPost.ContentPost1_3.Trim();
+                    entityPost.ContentPost1_4 = entityPost.ContentPost1_4 == null ? "" : entityPost.ContentPost1_4.Trim();
+                    entityPost.ContentPost1_5 = entityPost.ContentPost1_5 == null ? "" : entityPost.ContentPost1_5.Trim();
+                    entityPost.ContentPost1_6 = entityPost.ContentPost1_6 == null ? "" : entityPost.ContentPost1_6.Trim();
+                    entityPost.ContentPost1_7 = entityPost.ContentPost1_7 == null ? "" : entityPost.ContentPost1_7.Trim();
                     if ((entityPost.Subject1.Length + entityPost.ContentPost1_2.Length + entityPost.ContentPost1_3.Length +
                         entityPost.ContentPost1_4.Length + entityPost.ContentPost1_5.Length + entityPost.ContentPost1_6.Length + entityPost.ContentPost1_7.Length) < 200)
                     {
@@ -818,7 +831,7 @@ namespace GossipDashboard.Repository
 
                         continue;
                     }
-               
+
 
                     //ایجاد اتربیوت ها فرمت پست ها
                     var attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "standard").PubBaseID;

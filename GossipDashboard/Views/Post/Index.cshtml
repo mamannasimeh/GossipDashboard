@@ -5,7 +5,7 @@
 }
 
 <input type="hidden" id="postIDHidden" value="@Html.DisplayFor(modelItem => modelItem.PostID)" />
-<div class="col-md-12 content-area">
+<div class="col-md-12 content-area" style="direction:rtl;">
     <article class="post-box ">
         <div class="entry-cover">
             <a href="@Html.DisplayFor(modelItem => modelItem.Url)" class="single-post-image">
@@ -13,9 +13,16 @@
             </a>
         </div>
         <div class="entry-content">
+            @{if (Model.JalaliModifyDate != null && Model.JalaliModifyDate != "")
+                {
+                    <p id="JalaliModifyDate" style="display:inline-block">
+                        تاریخ انتشار:  @Html.DisplayFor(modelItem => modelItem.JalaliModifyDate)
+                    </p>
+                }
+            }
             @{if (Model.Subject1 != null && Model.Subject1 != "")
                 {
-                    <h2 class="post-single-title" id="Subject2">
+                    <h2 class="post-single-title" id="Subject2" style="margin-bottom: 25px; margin-top: 15px;">
 
                         @Html.DisplayFor(modelItem => modelItem.Subject1)
                     </h2>
@@ -1439,24 +1446,25 @@
                         </li>
                         <li>
                             <i class="fa fa-comment"></i>
-                            <a href="@Url.Action("Index", "Comment")">@Html.DisplayFor(modelItem => modelItem.CommentCount)</a>
+                            <a href="@Url.Action("Index", "Comment")"> @Html.DisplayFor(modelItem => modelItem.CommentCount)</a>
                         </li>
                         <li class="post-like">
-                            <a href="#"><i class="fa fa-eye"></i>@Html.DisplayFor(modelItem => modelItem.Views)</a>
+                            <a href="#"><i class="fa fa-eye"></i> @Html.DisplayFor(modelItem => modelItem.Views)</a>
                         </li>
                     </ul>
                 </div>
             </div>
-           
-            
-                @{if (Model.SourceSiteNameFa != null && Model.SourceSiteNameFa != "")
-                    {<div>سایت مرجع</div>
-                        <p id="SourceSiteNameFa">
-                            @Html.ActionLink(Model.SourceSiteNameFa, Model.SourceSiteUrl);
-                        </p>
-                    }
+
+
+            @{if (Model.SourceSiteNameFa != null && Model.SourceSiteNameFa != "")
+                {
+                    <p id="SourceSiteNameFa">
+                        <div style="display:inline-block">سایت مرجع:&nbsp;</div><a href="@Model.SourceSiteUrl" target="_blank">@Model.SourceSiteNameFa</a>
+                        @*@Html.ActionLink(Model.SourceSiteNameFa, Model.SourceSiteUrl)*@
+                    </p>
                 }
-        
+            }
+
             <div class="tag-block">
                 @{
                     if (Model != null && Model.PostCategory != null)
