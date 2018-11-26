@@ -201,3 +201,8 @@ E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.csp
 E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.csproj.CoreCompileInputs.cache
 E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.dll
 E:\mahmood\Project\GossipDashboard\GossipDashboard\obj\Debug\GossipDashboard.pdb
+E:\mahmood\me\GossipWebApp\GossipDashboard\GossipDashboard\bin\AutoMapper.dll
+E:\mahmood\me\GossipWebApp\GossipDashboard\GossipDashboard\bin\System.ValueTuple.dll
+E:\mahmood\me\GossipWebApp\GossipDashboard\GossipDashboard\bin\AutoMapper.pdb
+E:\mahmood\me\GossipWebApp\GossipDashboard\GossipDashboard\bin\AutoMapper.xml
+E:\mahmood\me\GossipWebApp\GossipDashboard\GossipDashboard\bin\System.ValueTuple.xml
