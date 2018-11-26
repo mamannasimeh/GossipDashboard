@@ -34,23 +34,67 @@
                                columns.ForeignKey(c => c.PostCategoryID, (System.Collections.IEnumerable)ViewData["PostCategory"], "PubBaseID", "NameFa").EditorTemplateName("DropDown").Width(150);
                                columns.ForeignKey(c => c.PostFormatID, (System.Collections.IEnumerable)ViewData["PostFormat"], "PubBaseID", "NameFa").EditorTemplateName("DropDown").Width(150);
                                columns.ForeignKey(c => c.PostColID, (System.Collections.IEnumerable)ViewData["PostCol"], "PubBaseID", "NameFa").EditorTemplateName("DropDown").Width(150);
-                               columns.Bound(c => c.Subject).Width(300);
+
                                columns.Bound(c => c.Subject1).Width(300);
+                               columns.Bound(c => c.SubSubject1_1).Width(300);
+                               columns.Bound(c => c.SubSubject1_2).Width(300);
+                               columns.Bound(c => c.ContentPost1_1).Width(300);
+                               columns.Bound(c => c.ContentPost1_2).Width(300);
+                               columns.Bound(c => c.ContentPost1_3).Width(300);
+                               columns.Bound(c => c.ContentPost1_4).Width(300);
+                               columns.Bound(c => c.ContentPost1_5).Width(300);
+                               columns.Bound(c => c.ContentPost1_6).Width(300);
+                               columns.Bound(c => c.ContentPost1_7).Width(300);
+                               columns.Bound(c => c.Image1_1).Width(300);
+                               columns.Bound(c => c.Image1_2).Width(300);
+                               columns.Bound(c => c.Image1_3).Width(300);
+
                                columns.Bound(c => c.Subject2).Width(300);
-                               columns.Bound(c => c.ContentPost).Width(1500);
-                               columns.Bound(c => c.ContentPost1).Width(1500);
-                               columns.Bound(c => c.ContentPost2).Width(1500);
-                               columns.Bound(c => c.Image1).Width(300);
-                               columns.Bound(c => c.Image2).Width(300);
-                               columns.Bound(c => c.Image3).Width(300);
-                               columns.Bound(c => c.Image4).Width(300);
+                               columns.Bound(c => c.SubSubject2_1).Width(300);
+                               columns.Bound(c => c.SubSubject2_2).Width(300);
+                               columns.Bound(c => c.ContentPost2_1).Width(300);
+                               columns.Bound(c => c.ContentPost2_2).Width(300);
+                               columns.Bound(c => c.ContentPost2_3).Width(300);
+                               columns.Bound(c => c.ContentPost2_4).Width(300);
+                               columns.Bound(c => c.ContentPost2_5).Width(300);
+                               columns.Bound(c => c.Image2_1).Width(300);
+                               columns.Bound(c => c.Image2_2).Width(300);
+                               columns.Bound(c => c.Image2_3).Width(300);
+
+                               columns.Bound(c => c.Subject3).Width(300);
+                               columns.Bound(c => c.SubSubject3_1).Width(300);
+                               columns.Bound(c => c.SubSubject3_2).Width(300);
+                               columns.Bound(c => c.ContentPost3_1).Width(300);
+                               columns.Bound(c => c.ContentPost3_2).Width(300);
+                               columns.Bound(c => c.ContentPost3_3).Width(300);
+                               columns.Bound(c => c.ContentPost3_4).Width(300);
+                               columns.Bound(c => c.ContentPost3_5).Width(300);
+                               columns.Bound(c => c.Image3_1).Width(300);
+                               columns.Bound(c => c.Image3_2).Width(300);
+                               columns.Bound(c => c.Image3_3).Width(300);
+
+                               columns.Bound(c => c.Subject4).Width(300);
+                               columns.Bound(c => c.SubSubject4_1).Width(300);
+                               columns.Bound(c => c.SubSubject4_2).Width(300);
+                               columns.Bound(c => c.ContentPost4_1).Width(300);
+                               columns.Bound(c => c.ContentPost4_2).Width(300);
+                               columns.Bound(c => c.ContentPost4_3).Width(300);
+                               columns.Bound(c => c.ContentPost4_4).Width(300);
+                               columns.Bound(c => c.ContentPost4_5).Width(300);
+                               columns.Bound(c => c.Image4_1).Width(300);
+                               columns.Bound(c => c.Image4_2).Width(300);
+                               columns.Bound(c => c.Image4_3).Width(300);
+
+                               columns.Bound(c => c.QuotedFrom).Width(150);
+                               columns.Bound(c => c.BackgroundColor).Width(150);
+
                                columns.Bound(c => c.Url).Width(150);
                                columns.Bound(c => c.UrlMP3).Width(150);
                                columns.Bound(c => c.UrlVideo).Width(150);
+
                                columns.Bound(c => c.Fullname).Width(150);
                                columns.Bound(c => c.CommentCount).Width(150);
-                               columns.Bound(c => c.QuotedFrom).Width(150);
-                               columns.Bound(c => c.BackgroundColor).Width(150);
+
                                columns.Command(command => { command.Edit().Text("ویرایش"); command.Destroy().Text("حذف"); }).Width(180);
                            })
                              .Pageable(pageable => pageable

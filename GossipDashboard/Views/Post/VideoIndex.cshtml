@@ -19,6 +19,13 @@
                 </div>
             </div>
             <div class='entry-content'>
+                @{if (Model.JalaliModifyDate != null && Model.JalaliModifyDate != "")
+                    {
+                        <p id="JalaliModifyDate" style="display:inline-block">
+                            تاریخ انتشار:  @Html.DisplayFor(modelItem => modelItem.JalaliModifyDate)
+                        </p>
+                    }
+                }
                 <h3 class='entry-title'>
                     <a href='#'>"@Html.DisplayFor(modelItem => modelItem.Subject)"</a>
                 </h3>

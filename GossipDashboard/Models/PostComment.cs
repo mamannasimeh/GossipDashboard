@@ -16,11 +16,11 @@ namespace GossipDashboard.Models
     {
         public int PostCommentID { get; set; }
         public int PostID_fk { get; set; }
+        public string FullName { get; set; }
+        public Nullable<int> UserID { get; set; }
         public string Comment { get; set; }
         public Nullable<int> LikeComment { get; set; }
         public Nullable<int> DislikeComment { get; set; }
-        public string FullName { get; set; }
-        public Nullable<int> UserID { get; set; }
         public string IPAddress { get; set; }
         public Nullable<System.DateTime> Datetime { get; set; }
     

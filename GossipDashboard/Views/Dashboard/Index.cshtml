@@ -54,13 +54,13 @@
         .Columns(columns =>
         {
             columns.Bound(c => c.PostID).Width(90);
-            columns.Bound(c => c.SubjectSmall).Width(300);
-            columns.Bound(c => c.ContentPostSmall).Width(300);
+            columns.Bound(c => c.Subject1).Width(300);
             columns.Bound(c => c.Fullname).Width(150);
             columns.Bound(c => c.PostCategoryName).Width(150);
             columns.Bound(c => c.PostFormatName).Width(150);
             columns.Bound(c => c.PostColName).Width(150);
-            columns.Bound(c => c.CommentCount).Width(150);
+            columns.Bound(c => c.DislikePost).Width(150);
+            columns.Bound(c => c.Views).Width(150);
             columns.Bound(c => c.LikePost).Width(150);
             columns.Bound(c => c.DislikePost).Width(150);
         })
@@ -75,7 +75,7 @@
          .AllowCopy(true)
          .Resizable(resizable => resizable.Columns(true))
         .Sortable(sortable => sortable.SortMode(GridSortMode.SingleColumn))
-         .Scrollable(scrollable => scrollable.Virtual(true).Height(350))
+         .Scrollable(scrollable => scrollable.Virtual(true).Height(500))
          .Excel(e => e.FileName(string.Format("Posts {0} {1}.xlsx", DateTime.Now.ToShortDateString(), DateTime.Now.ToShortTimeString())).Filterable(true).AllPages(true))
          //.ToolBar(toolbar =>
          //{

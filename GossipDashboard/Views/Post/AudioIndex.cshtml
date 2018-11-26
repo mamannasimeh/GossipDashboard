@@ -1,16 +1,16 @@
 ﻿@model GossipDashboard.ViewModel.VM_Post
 @{
-    ViewBag.Title = @Html.DisplayFor(modelItem => modelItem.Subject);
+    ViewBag.Title = @Html.DisplayFor(modelItem => modelItem.Subject1);
 }
 
 <input type="hidden" id="postIDHidden" value="@Html.DisplayFor(modelItem => modelItem.PostID)" />
-<div class="col-md-12 content-area">
+<div class="col-md-12 content-area" style="direction:rtl;">
     <article class="format-audio hentry category-cute">
         <div class="post-box">
             <div class="entry-cover">
                 <div class="entry-cover">
                     <a href="@Html.DisplayFor(modelItem => modelItem.Url)" class="single-post-image">
-                        <img src="@Html.DisplayFor(modelItem => modelItem.Image1)" />
+                        <img src="@Html.DisplayFor(modelItem => modelItem.Image1_1)" />
                     </a>
                 </div>
                 <div class="audio-container">
@@ -22,6 +22,13 @@
                 </div>
             </div>
             <div class="entry-content">
+                @{if (Model.JalaliModifyDate != null && Model.JalaliModifyDate != "")
+                    {
+                        <p id="JalaliModifyDate" style="display:inline-block">
+                            تاریخ انتشار:  @Html.DisplayFor(modelItem => modelItem.JalaliModifyDate)
+                        </p>
+                    }
+                }
                 <h3 class="entry-title">
                     <a href="#">"@Html.DisplayFor(modelItem => modelItem.Subject)"</a>
                 </h3>

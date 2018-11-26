@@ -50,10 +50,10 @@ namespace GossipDashboard.Controllers
 
         public ActionResult ShowImage(int id)
         {
-            var imageData = repo.Select(id).Image;
-            if (imageData == null)
+            var post = repo.Select(id);
+            if (post == null || post.Image == null)
                 return null;
-            return File(imageData, "image/jpg");
+            return File(post.Image, "image/jpg");
         }
 
         [Authorize]

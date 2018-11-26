@@ -2,15 +2,12 @@
 \b(?!\b(word|to|http)\b)\w+\b  -->  all statment except word, to, http
 \b(?!\b(اندازه متن|Aa Aa)\b)\w+\b 
 
-src="(.*.png)
-src="(.* png)
+------------------------------------------------------------
+src="([^"]*) --> correct for all image
+src="(.*jpg|.*png)"  --> correct for jpg & png
+src="(.*png|.*jpg)"  --> correct for jpg & png
+src="(.*mp4)"
 
-src="(.*jpg)
-src="(.*.jpg)srcset
-
-src="(.*.jpg")
-
-src="([^"]*)
 
 ------------------------------
 Product Details

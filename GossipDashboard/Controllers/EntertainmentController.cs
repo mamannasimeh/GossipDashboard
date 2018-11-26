@@ -38,6 +38,8 @@ namespace GossipDashboard.Controllers
             repo.UpdatePostViews(postID);
 
             var res = repo.SelectPostUser().Where(p => p.PostID == postID).FirstOrDefault();
+            if (res != null)
+                res.JalaliModifyDate = res.ModifyDate.ToPersianDateTime();
             return View("~/Views/Post/Index.cshtml", res);
         }
 
@@ -46,6 +48,8 @@ namespace GossipDashboard.Controllers
             repo.UpdatePostViews(postID);
 
             var res = repo.SelectPostUser().Where(p => p.PostID == postID).FirstOrDefault();
+            if (res != null)
+                res.JalaliModifyDate = res.ModifyDate.ToPersianDateTime();
             return View("~/Views/Post/VideoIndex.cshtml", res);
         }
 
@@ -54,6 +58,8 @@ namespace GossipDashboard.Controllers
             repo.UpdatePostViews(postID);
 
             var res = repo.SelectPostUser().Where(p => p.PostID == postID).FirstOrDefault();
+            if (res != null)
+                res.JalaliModifyDate = res.ModifyDate.ToPersianDateTime();
             return View("~/Views/Post/AudioIndex.cshtml", res);
         }
 

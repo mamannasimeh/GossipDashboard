@@ -60,6 +60,7 @@ namespace GossipDashboard.Controllers
         public JsonResult CreatePost([DataSourceRequest] DataSourceRequest request, VM_PostManage vm)
         {
             vm.ModifyUserID = 1;
+            vm.ModifyDate = DateTime.Now;
             var res = repo.Add(vm);
             return Json(res, JsonRequestBehavior.AllowGet);
         }
@@ -67,6 +68,7 @@ namespace GossipDashboard.Controllers
         public ActionResult UpdatePost([DataSourceRequest] DataSourceRequest request, VM_PostManage vm)
         {
             var res = repo.Update(vm);
+            vm.ModifyDate = DateTime.Now;
             return Json(res, JsonRequestBehavior.AllowGet);
         }
 
