@@ -289,6 +289,7 @@ namespace GossipDashboard.Repository
                           SourceSiteName = P.SourceSiteName,
                           SourceSiteNameFa = P.SourceSiteNameFa,
                           SourceSiteUrl = P.SourceSiteUrl,
+                          ContentPostHTML = P.ContentPostHTML,
                           UserID_fk = UP.UserID_fk,
                           FirstName = U.FirstName,
                           LastName = U.LastName,
@@ -779,9 +780,10 @@ namespace GossipDashboard.Repository
 
                     item.HTML = item.HTML.Replace("&nbsp;", "");
 
-                    //اینسرت از پست تمپروری به پست با کمک رفلکشن
+                    //اینسرت از پست تمپروری به پست 
                     doc.LoadHtml(item.HTML);
                     var entityPost = CreatepostValues(doc);
+                    entityPost.ContentPostHTML = item.ContentPostHTML;
                     entityPost.Subject1 = item.Subject1;
                     entityPost.SubSubject1_1 = item.SubSubject1_1;
                     entityPost.SubSubject1_2 = item.SubSubject1_2;
@@ -815,22 +817,22 @@ namespace GossipDashboard.Repository
                         }
                     }
 
-                    //در صورتی که تعداد کارکترهای کل پست کمتر از 200 باشد آن پست حذف گردد
-                    entityPost.Subject1 = entityPost.Subject1 == null ? "" : entityPost.Subject1.Trim();
-                    entityPost.ContentPost1_1 = entityPost.ContentPost1_1 == null ? "" : entityPost.ContentPost1_1.Trim();
-                    entityPost.ContentPost1_2 = entityPost.ContentPost1_2 == null ? "" : entityPost.ContentPost1_2.Trim();
-                    entityPost.ContentPost1_3 = entityPost.ContentPost1_3 == null ? "" : entityPost.ContentPost1_3.Trim();
-                    entityPost.ContentPost1_4 = entityPost.ContentPost1_4 == null ? "" : entityPost.ContentPost1_4.Trim();
-                    entityPost.ContentPost1_5 = entityPost.ContentPost1_5 == null ? "" : entityPost.ContentPost1_5.Trim();
-                    entityPost.ContentPost1_6 = entityPost.ContentPost1_6 == null ? "" : entityPost.ContentPost1_6.Trim();
-                    entityPost.ContentPost1_7 = entityPost.ContentPost1_7 == null ? "" : entityPost.ContentPost1_7.Trim();
-                    if ((entityPost.Subject1.Length + entityPost.ContentPost1_2.Length + entityPost.ContentPost1_3.Length +
-                        entityPost.ContentPost1_4.Length + entityPost.ContentPost1_5.Length + entityPost.ContentPost1_6.Length + entityPost.ContentPost1_7.Length) < 200)
-                    {
-                        DeletePost(entityPost.PostID);
+                    ////در صورتی که تعداد کارکترهای کل پست کمتر از 200 باشد آن پست حذف گردد
+                    //entityPost.Subject1 = entityPost.Subject1 == null ? "" : entityPost.Subject1.Trim();
+                    //entityPost.ContentPost1_1 = entityPost.ContentPost1_1 == null ? "" : entityPost.ContentPost1_1.Trim();
+                    //entityPost.ContentPost1_2 = entityPost.ContentPost1_2 == null ? "" : entityPost.ContentPost1_2.Trim();
+                    //entityPost.ContentPost1_3 = entityPost.ContentPost1_3 == null ? "" : entityPost.ContentPost1_3.Trim();
+                    //entityPost.ContentPost1_4 = entityPost.ContentPost1_4 == null ? "" : entityPost.ContentPost1_4.Trim();
+                    //entityPost.ContentPost1_5 = entityPost.ContentPost1_5 == null ? "" : entityPost.ContentPost1_5.Trim();
+                    //entityPost.ContentPost1_6 = entityPost.ContentPost1_6 == null ? "" : entityPost.ContentPost1_6.Trim();
+                    //entityPost.ContentPost1_7 = entityPost.ContentPost1_7 == null ? "" : entityPost.ContentPost1_7.Trim();
+                    //if ((entityPost.Subject1.Length + entityPost.ContentPost1_2.Length + entityPost.ContentPost1_3.Length +
+                    //    entityPost.ContentPost1_4.Length + entityPost.ContentPost1_5.Length + entityPost.ContentPost1_6.Length + entityPost.ContentPost1_7.Length) < 200)
+                    //{
+                    //    DeletePost(entityPost.PostID);
 
-                        continue;
-                    }
+                    //    continue;
+                    //}
 
 
                     //ایجاد اتربیوت ها فرمت پست ها
@@ -877,10 +879,129 @@ namespace GossipDashboard.Repository
                     //context.PostTemperories.Remove(item);
                     //context.SaveChanges();
                 }
-
-
             }
         }
+
+
+
+        ////ایجاد پست ها از جدول پست تمپروری به جدول پست
+        //public void CreatePost()
+        //{
+        //    var doc = new HtmlDocument();
+        //    List<string> matchList = new List<string>();
+
+        //    var tempPost = context.PostTemperories.Where(p => p.IsCreatedPost != true).ToList();
+        //    foreach (var item in tempPost)
+        //    {
+        //        //قبلا این پست ایجاد نشده باشد
+        //        var isExist = context.Posts.FirstOrDefault(p => p.Subject1 == item.Subject1);
+        //        if (isExist == null && item.Subject1 != null && item.Subject1.Trim().Length > 3 && item.HTML != null)
+        //        {
+
+        //            item.HTML = item.HTML.Replace("&nbsp;", "");
+
+        //            //اینسرت از پست تمپروری به پست با کمک رفلکشن
+        //            doc.LoadHtml(item.HTML);
+        //            var entityPost = CreatepostValues(doc);
+        //            entityPost.Subject1 = item.Subject1;
+        //            entityPost.SubSubject1_1 = item.SubSubject1_1;
+        //            entityPost.SubSubject1_2 = item.SubSubject1_2;
+        //            entityPost.ModifyDate = DateTime.Now;
+
+        //            //به دست آوردن سایت مرجع جهت نمایش در سایت 
+        //            //var regMatch = Regex.Matches(item.HTML, @"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})");
+        //            if (item.SourceSiteUrl != null)
+        //            {
+        //                entityPost.SourceSiteUrl = item.SourceSiteUrl;
+        //                var regMatch = Regex.Matches(item.SourceSiteUrl, @"(?:[-a-zA-Z0-9@:%_\+~.#=]{2,256}\.)?([-a-zA-Z0-9@:%_\+~#=]*)\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)");
+        //                if (regMatch != null && regMatch[0].Groups != null && regMatch[0].Groups[1] != null)
+        //                {
+        //                    entityPost.SourceSiteName = regMatch[0].Groups[1].Value;
+
+        //                    switch (entityPost.SourceSiteName.ToUpper())
+        //                    {
+        //                        case "BARTARINHA":
+        //                            entityPost.SourceSiteNameFa = "برترین ها";
+        //                            break;
+        //                        case "FA.EURONEWS":
+        //                            entityPost.SourceSiteNameFa = "یورونیوز فارسی";
+        //                            break;
+        //                        case "IRANNAZ":
+        //                            entityPost.SourceSiteNameFa = "ایران ناز";
+        //                            break;
+        //                        default:
+        //                            entityPost.SourceSiteNameFa = entityPost.SourceSiteName;
+        //                            break;
+        //                    }
+        //                }
+        //            }
+
+        //            //در صورتی که تعداد کارکترهای کل پست کمتر از 200 باشد آن پست حذف گردد
+        //            entityPost.Subject1 = entityPost.Subject1 == null ? "" : entityPost.Subject1.Trim();
+        //            entityPost.ContentPost1_1 = entityPost.ContentPost1_1 == null ? "" : entityPost.ContentPost1_1.Trim();
+        //            entityPost.ContentPost1_2 = entityPost.ContentPost1_2 == null ? "" : entityPost.ContentPost1_2.Trim();
+        //            entityPost.ContentPost1_3 = entityPost.ContentPost1_3 == null ? "" : entityPost.ContentPost1_3.Trim();
+        //            entityPost.ContentPost1_4 = entityPost.ContentPost1_4 == null ? "" : entityPost.ContentPost1_4.Trim();
+        //            entityPost.ContentPost1_5 = entityPost.ContentPost1_5 == null ? "" : entityPost.ContentPost1_5.Trim();
+        //            entityPost.ContentPost1_6 = entityPost.ContentPost1_6 == null ? "" : entityPost.ContentPost1_6.Trim();
+        //            entityPost.ContentPost1_7 = entityPost.ContentPost1_7 == null ? "" : entityPost.ContentPost1_7.Trim();
+        //            if ((entityPost.Subject1.Length + entityPost.ContentPost1_2.Length + entityPost.ContentPost1_3.Length +
+        //                entityPost.ContentPost1_4.Length + entityPost.ContentPost1_5.Length + entityPost.ContentPost1_6.Length + entityPost.ContentPost1_7.Length) < 200)
+        //            {
+        //                DeletePost(entityPost.PostID);
+
+        //                continue;
+        //            }
+
+
+        //            //ایجاد اتربیوت ها فرمت پست ها
+        //            var attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "standard").PubBaseID;
+        //            if (entityPost.UrlMP3 != null)
+        //                attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "audio").PubBaseID;
+        //            else if (entityPost.UrlVideo != null)
+        //                attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "video").PubBaseID;
+
+        //            context.PostAttributes.Add(new PostAttribute()
+        //            {
+        //                PostID_fk = entityPost.PostID,
+        //                AttributeID_fk = attrID
+        //            });
+
+        //            //ایجاد اتربیوت ها طبقه بندي پست ها
+        //            //attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "entertainment").PubBaseID;
+        //            attrID = new Random().Next(12, 20);
+        //            context.PostAttributes.Add(new PostAttribute()
+        //            {
+        //                PostID_fk = entityPost.PostID,
+        //                AttributeID_fk = attrID
+        //            });
+
+        //            //ایجا یوزر پست ها
+        //            Random r = new Random();
+        //            context.UserPosts.Add(new UserPost()
+        //            {
+        //                ModifyDate = DateTime.Now,
+        //                ModifyUserID = 1,
+        //                PostID_fk = entityPost.PostID,
+        //                UserID_fk = r.Next(1, 3),
+        //            });
+
+        //            //مشخص کردن اينکه اين پست قبلا ايجاد شده است
+        //            item.IsCreatedPost = true;
+        //            context.PostTemperories.Attach(item);
+        //            context.Entry(item).State = System.Data.Entity.EntityState.Modified;
+
+        //            context.SaveChanges();
+        //        }
+        //        else
+        //        {
+        //            //context.PostTemperories.Remove(item);
+        //            //context.SaveChanges();
+        //        }
+
+
+        //    }
+        //}
 
         /// <summary>
         /// ایجاد انتیتی پست و تنظیم مقادیر آن با کمک رفلکشن

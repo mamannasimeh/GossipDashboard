@@ -442,6 +442,7 @@
     <NavigationProperty Name="PostComments" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
     <NavigationProperty Name="PostQuestions" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="Post" ToRole="PostQuestion" />
     <NavigationProperty Name="UserPosts" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="Post" ToRole="UserPost" />
+    <Property Name="ContentPostHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="PostTemperory">
     <Key>
@@ -702,6 +703,7 @@
     <Property Name="SourceSiteView" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="SourceSiteAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="SourceSiteName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="ContentPostHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_PostAttribute_Post">
     <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="0..1">
