@@ -275,5 +275,6 @@ namespace GossipDashboard.ViewModel
         public string SourceDateTimePost { get; set; }
         public string SourceSiteName { get; set; }
         public string SourceSiteNameFa { get; set; }
+        public string ContentHTML { get; set; }
     }
 }

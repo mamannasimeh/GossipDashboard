@@ -257,6 +257,7 @@
     <Property Name="ContentPost1_6" Type="nvarchar(max)" />
     <Property Name="ContentPost1_7" Type="nvarchar(max)" />
     <Property Name="SourceSiteNameFa" Type="nvarchar" MaxLength="1000" />
+    <Property Name="ContentHTML" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="PostAnswer">
     <Key>
@@ -555,6 +556,7 @@
     <Property Name="SourceSiteView" Type="nvarchar" MaxLength="200" />
     <Property Name="SourceSiteAuthor" Type="nvarchar" MaxLength="200" />
     <Property Name="SourceSiteName" Type="nvarchar" MaxLength="1000" />
+    <Property Name="ContentHTML" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="PubBase">
     <Key>

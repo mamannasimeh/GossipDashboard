@@ -262,6 +262,7 @@
           <Property Name="ContentPost1_6" Type="nvarchar(max)" />
           <Property Name="ContentPost1_7" Type="nvarchar(max)" />
           <Property Name="SourceSiteNameFa" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ContentHTML" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PostAnswer">
           <Key>
@@ -560,6 +561,7 @@
           <Property Name="SourceSiteView" Type="nvarchar" MaxLength="200" />
           <Property Name="SourceSiteAuthor" Type="nvarchar" MaxLength="200" />
           <Property Name="SourceSiteName" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ContentHTML" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PubBase">
           <Key>
@@ -1196,6 +1198,7 @@
           <NavigationProperty Name="PostComments" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
           <NavigationProperty Name="PostQuestions" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="Post" ToRole="PostQuestion" />
           <NavigationProperty Name="UserPosts" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="Post" ToRole="UserPost" />
+          <Property Name="ContentHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PostTemperory">
           <Key>
@@ -1456,6 +1459,7 @@
           <Property Name="SourceSiteView" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="SourceSiteAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="SourceSiteName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ContentHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_PostAttribute_Post">
           <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="0..1">
@@ -1621,6 +1625,7 @@
           <EntitySetMapping Name="Posts">
             <EntityTypeMapping TypeName="GossipSiteModel.Post">
               <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="ContentHTML" ColumnName="ContentHTML" />
                 <ScalarProperty Name="SourceSiteNameFa" ColumnName="SourceSiteNameFa" />
                 <ScalarProperty Name="ContentPost1_7" ColumnName="ContentPost1_7" />
                 <ScalarProperty Name="ContentPost1_6" ColumnName="ContentPost1_6" />
@@ -1880,6 +1885,7 @@
           <EntitySetMapping Name="PostTemperories">
             <EntityTypeMapping TypeName="GossipSiteModel.PostTemperory">
               <MappingFragment StoreEntitySet="PostTemperory">
+                <ScalarProperty Name="ContentHTML" ColumnName="ContentHTML" />
                 <ScalarProperty Name="SourceSiteName" ColumnName="SourceSiteName" />
                 <ScalarProperty Name="SourceSiteAuthor" ColumnName="SourceSiteAuthor" />
                 <ScalarProperty Name="SourceSiteView" ColumnName="SourceSiteView" />
