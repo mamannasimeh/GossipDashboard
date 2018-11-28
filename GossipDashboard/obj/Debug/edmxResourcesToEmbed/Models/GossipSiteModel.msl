@@ -103,7 +103,7 @@
     <EntitySetMapping Name="Posts">
       <EntityTypeMapping TypeName="GossipSiteModel.Post">
         <MappingFragment StoreEntitySet="Post">
-          <ScalarProperty Name="ContentPostHTML" ColumnName="ContentPostHTML" />
+          <ScalarProperty Name="ContentHTML" ColumnName="ContentHTML" />
           <ScalarProperty Name="SourceSiteNameFa" ColumnName="SourceSiteNameFa" />
           <ScalarProperty Name="ContentPost1_7" ColumnName="ContentPost1_7" />
           <ScalarProperty Name="ContentPost1_6" ColumnName="ContentPost1_6" />
@@ -363,7 +363,7 @@
     <EntitySetMapping Name="PostTemperories">
       <EntityTypeMapping TypeName="GossipSiteModel.PostTemperory">
         <MappingFragment StoreEntitySet="PostTemperory">
-          <ScalarProperty Name="ContentPostHTML" ColumnName="ContentPostHTML" />
+          <ScalarProperty Name="ContentHTML" ColumnName="ContentHTML" />
           <ScalarProperty Name="SourceSiteName" ColumnName="SourceSiteName" />
           <ScalarProperty Name="SourceSiteAuthor" ColumnName="SourceSiteAuthor" />
           <ScalarProperty Name="SourceSiteView" ColumnName="SourceSiteView" />
