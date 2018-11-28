@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using GossipDashboard.Models;
-using System.IO;
 using System.Data.Entity;
 using AutoMapper;
 using System.Text.RegularExpressions;
