@@ -3042,6 +3042,7 @@
     <Content Include="Views\Shared\EditorTemplates\DropDown.cshtml" />
     <Content Include="Views\Post\AudioIndex.cshtml" />
     <Content Include="Views\Post\_Comment.cshtml" />
+    <Content Include="Views\Post\Index - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

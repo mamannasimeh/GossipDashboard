@@ -19,7 +19,7 @@
                     if (Model.JalaliModifyDate != null && Model.JalaliModifyDate != "")
                     {
                         <p id="JalaliModifyDate" style="display:inline-block">
-                            تاریخ انتشار:  @Html.DisplayFor(modelItem => modelItem.JalaliModifyDate)
+                            تاریخ :  @Html.DisplayFor(modelItem => modelItem.JalaliModifyDate)
                         </p>
                     }
 
@@ -54,42 +54,41 @@
                             @Html.Raw(Model.ContentHTML)
                         </div>
                     }
-                }
 
 
-                <div class="heateorSssClear"></div>
-                <div class="heateorSssClear"></div>
-                <div class="entry-meta row">
-                    <div class="col-md-12">
-                        <ul class="common-meta">
-                            <li>
-                                <i class="fa fa-user"></i>
-                                <a href="@Url.Action("Index", "Admin")" title="ايجاد شده توسط @Html.DisplayFor(modelItem => modelItem.Fullname)" rel="author">@Html.DisplayFor(modelItem => modelItem.Fullname)</a>
-                            </li>
-                            <li>
-                                <i class="fa fa-comment"></i>
-                                <a href="@Url.Action("Index", "Comment")"> @Html.DisplayFor(modelItem => modelItem.CommentCount)</a>
-                            </li>
-                            <li class="post-like">
-                                <a href="#"><i class="fa fa-eye"></i> @Html.DisplayFor(modelItem => modelItem.Views)</a>
-                            </li>
-                        </ul>
+
+                    <div class="heateorSssClear"></div>
+                    <div class="heateorSssClear"></div>
+                    <div class="entry-meta row">
+                        <div class="col-md-12">
+                            <ul class="common-meta">
+                                <li>
+                                    <i class="fa fa-user"></i>
+                                    <a href="@Url.Action("Index", "Admin")" title="ايجاد شده توسط @Html.DisplayFor(modelItem => modelItem.Fullname)" rel="author">@Html.DisplayFor(modelItem => modelItem.Fullname)</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-comment"></i>
+                                    <a href="@Url.Action("Index", "Comment")"> @Html.DisplayFor(modelItem => modelItem.CommentCount)</a>
+                                </li>
+                                <li class="post-like">
+                                    <a href="#"><i class="fa fa-eye"></i> @Html.DisplayFor(modelItem => modelItem.Views)</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
 
-                if (Model.SourceSiteNameFa != null && Model.SourceSiteNameFa != "")
-                {
-                    <p id="SourceSiteNameFa">
-                        <div style="display:inline-block">سایت مرجع:&nbsp;</div><a href="@Model.SourceSiteUrl" target="_blank">@Model.SourceSiteNameFa</a>
-                        @*@Html.ActionLink(Model.SourceSiteNameFa, Model.SourceSiteUrl)*@
-                    </p>
+                    if (Model.SourceSiteNameFa != null && Model.SourceSiteNameFa != "")
+                    {
+                        <p id="SourceSiteNameFa">
+                            <div style="display:inline-block">سایت مرجع:&nbsp;</div><a href="@Model.SourceSiteUrl" target="_blank">@Model.SourceSiteNameFa</a>
+                            @*@Html.ActionLink(Model.SourceSiteNameFa, Model.SourceSiteUrl)*@
+                        </p>
+                    }
                 }
-
-
-
                 <div class="tag-block">
 
-                    @{if (Model != null && Model.PostCategory != null)
+                    @{
+                        if (Model != null && Model.PostCategory != null)
                         {
                             foreach (var item in Model.PostCategory.ToList())
                             {
