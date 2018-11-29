@@ -10,6 +10,7 @@ namespace GossipDashboard.Helper
 {
     public class PostManagement
     {
+        //private LogRepository repoLog = new Repository.LogRepository();
         private string path;
 
         public PostManagement()
@@ -122,6 +123,16 @@ namespace GossipDashboard.Helper
             //article ايجاد تگ
             HtmlNode articleNode = HtmlNode.CreateNode("<article class='" + postCol + " hentry " + postClassArticle + postClassCategory + "'></article>");
             articleNode.AppendChild(nodes.FirstOrDefault());
+
+            //repoLog.Add(new VM_Log()
+            //{
+            //    IP = "",
+            //    ModifyDateTime = DateTime.Now,
+            //    PostName = "CreateBloglist",
+            //    PostID = -100,
+            //    LogTypeID_fk = 59,
+            //});
+
             return articleNode;
         }
 

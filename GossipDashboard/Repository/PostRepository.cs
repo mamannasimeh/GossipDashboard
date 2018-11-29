@@ -805,6 +805,8 @@ namespace GossipDashboard.Repository
                                     break;
                                 case "FA.EURONEWS":
                                     entityPost.SourceSiteNameFa = "یورونیوز فارسی";
+                                    if (item.Image1_1 != null && item.Image1_1 != "")
+                                        entityPost.Image1_1 = item.Image1_1;
                                     break;
                                 case "IRANNAZ":
                                     entityPost.SourceSiteNameFa = "ایران ناز";
@@ -978,7 +980,7 @@ namespace GossipDashboard.Repository
 
                     //چک کردن موجود بودن یو آر ال تصویر 
                     var regMatch = Regex.Matches(item.OuterHtml, "http://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?.(?:jpg|bmp|gif|png)");
-                    if (regMatch != null && regMatch.Count>0)
+                    if (regMatch != null && regMatch.Count > 0)
                         urlImg = regMatch[0].Value;
                     else
                         continue;

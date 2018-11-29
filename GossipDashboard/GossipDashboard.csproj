@@ -216,6 +216,7 @@
     <Compile Include="Controllers\CuteController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EntertainmentController.cs" />
+    <Compile Include="Controllers\ErrorHandlerController.cs" />
     <Compile Include="Controllers\FilmsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -251,6 +252,12 @@
       <DependentUpon>GossipSiteModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Log.cs">
+      <DependentUpon>GossipSiteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LogError.cs">
+      <DependentUpon>GossipSiteModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Post.cs">
       <DependentUpon>GossipSiteModel.tt</DependentUpon>
@@ -284,6 +291,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\LogErrorRepository.cs" />
+    <Compile Include="Repository\LogRepository.cs" />
     <Compile Include="Repository\ManagementPostRepository.cs" />
     <Compile Include="Repository\PubBaseRepository.cs" />
     <Compile Include="Repository\CommentRepository.cs" />
@@ -292,6 +301,8 @@
     <Compile Include="Repository\PostRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\VM_Comment.cs" />
+    <Compile Include="ViewModel\VM_Log.cs" />
+    <Compile Include="ViewModel\VM_LogError.cs" />
     <Compile Include="ViewModel\VM_PostManage.cs" />
     <Compile Include="ViewModel\VM_Post.cs" />
     <Compile Include="ViewModel\VM_PubBase.cs" />
@@ -329,31 +340,22 @@
     <Content Include="Content\CSS\wp-mediaelement.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\Image\14574561382398-180x180.jpg" />
-    <Content Include="Content\Image\14574561382398-290x170.jpg" />
-    <Content Include="Content\Image\14574561382398-300x186.jpg" />
-    <Content Include="Content\Image\14574561382398-70x70.jpg" />
-    <Content Include="Content\Image\14574561382398.jpg" />
-    <Content Include="Content\Image\8-665x315.jpg" />
-    <Content Include="Content\Image\8-70x70.jpg" />
-    <Content Include="Content\Image\apple-touch-icon-114x114-precomposed.png" />
-    <Content Include="Content\Image\apple-touch-icon-144x144-precomposed.png" />
-    <Content Include="Content\Image\apple-touch-icon-72x72-precomposed.png" />
-    <Content Include="Content\Image\apple-touch-icon-precomposed.png" />
     <Content Include="Content\Image\avatar_author.jpg" />
     <Content Include="Content\Image\avatar_user_1.jpg" />
     <Content Include="Content\Image\avatar_user_2.jpg" />
-    <Content Include="Content\Image\blue-69762_640-150x150.jpg" />
-    <Content Include="Content\Image\blue-69762_640-640x315.jpg" />
-    <Content Include="Content\Image\blue-69762_640-70x70.jpg" />
+    <Content Include="Content\Image\book-green.png" />
     <Content Include="Content\Image\close.png" />
+    <Content Include="Content\Image\Gossip-DarckCity-1.jpg" />
+    <Content Include="Content\Image\Gossip-DarckCity-2.jpg" />
+    <Content Include="Content\Image\GossipLogo-25.png" />
+    <Content Include="Content\Image\GossipLogo-50.png" />
+    <Content Include="Content\Image\GossipLogo.png" />
+    <Content Include="Content\Image\GossipLogo_BG_Black_BigSize.png" />
+    <Content Include="Content\Image\GossipLogo_MedumSize.png" />
     <Content Include="Content\Image\logo.png" />
-    <Content Include="Content\Image\microphone-626618_640-300x300.jpg" />
-    <Content Include="Content\Image\microphone-626618_640-640x315.jpg" />
-    <Content Include="Content\Image\microphone-626618_640-70x70.jpg" />
-    <Content Include="Content\Image\song-of-ice-and-fire-1177616_1280-290x170.jpg" />
-    <Content Include="Content\Image\song-of-ice-and-fire-1177616_1280-665x315.jpg" />
-    <Content Include="Content\Image\song-of-ice-and-fire-1177616_1280-70x70.jpg" />
+    <Content Include="Content\Image\mahak1.jpg" />
+    <Content Include="Content\Image\mahak2.jpg" />
+    <Content Include="Content\Image\NotFound.gif" />
     <Content Include="Content\Image\v-logo.png" />
     <Content Include="Content\Image\viralnews_logo.png" />
     <Content Include="Content\kendo\2018.2.516\Black\editor.png" />
@@ -3043,6 +3045,7 @@
     <Content Include="Views\Post\AudioIndex.cshtml" />
     <Content Include="Views\Post\_Comment.cshtml" />
     <Content Include="Views\Post\Index - Copy.cshtml" />
+    <Content Include="Views\ErrorHandler\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

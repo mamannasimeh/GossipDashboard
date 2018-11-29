@@ -622,5 +622,30 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Logs">
+      <EntityTypeMapping TypeName="GossipSiteModel.Log">
+        <MappingFragment StoreEntitySet="Log">
+          <ScalarProperty Name="ModifyDateTime" ColumnName="ModifyDateTime" />
+          <ScalarProperty Name="PostID" ColumnName="PostID" />
+          <ScalarProperty Name="PostName" ColumnName="PostName" />
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="LogTypeID_fk" ColumnName="LogTypeID_fk" />
+          <ScalarProperty Name="LogID" ColumnName="LogID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LogErrors">
+      <EntityTypeMapping TypeName="GossipSiteModel.LogError">
+        <MappingFragment StoreEntitySet="LogError">
+          <ScalarProperty Name="ModifyDateTime" ColumnName="ModifyDateTime" />
+          <ScalarProperty Name="PostID" ColumnName="PostID" />
+          <ScalarProperty Name="PostName" ColumnName="PostName" />
+          <ScalarProperty Name="ErrorID" ColumnName="ErrorID" />
+          <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="LogErorrID" ColumnName="LogErorrID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

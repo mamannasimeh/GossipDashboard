@@ -1,5 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="GossipSiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="LogID" />
+    </Key>
+    <Property Name="LogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LogTypeID_fk" Type="int" Nullable="false" />
+    <Property Name="IP" Type="nvarchar" MaxLength="20" />
+    <Property Name="PostName" Type="nvarchar" MaxLength="2000" />
+    <Property Name="PostID" Type="int" />
+    <Property Name="ModifyDateTime" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GossipSite.dbo.LogError' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="LogError">
+    <Key>
+      <PropertyRef Name="LogErorrID" />
+    </Key>
+    <Property Name="LogErorrID" Type="int" Nullable="false" />
+    <Property Name="IP" Type="nvarchar" MaxLength="20" />
+    <Property Name="ErrorDescription" Type="nvarchar" MaxLength="2000" />
+    <Property Name="ErrorID" Type="int" />
+    <Property Name="PostName" Type="nvarchar" MaxLength="2000" />
+    <Property Name="PostID" Type="int" />
+    <Property Name="ModifyDateTime" Type="datetime" />
+  </EntityType>
   <EntityType Name="Post">
     <Key>
       <PropertyRef Name="PostID" />
@@ -708,6 +733,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="GossipSiteModelStoreContainer">
+    <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PostAnswer" EntityType="Self.PostAnswer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PostAttribute" EntityType="Self.PostAttribute" Schema="dbo" store:Type="Tables" />
@@ -718,6 +744,17 @@
     <EntitySet Name="Subscriber" EntityType="Self.Subscriber" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserPost" EntityType="Self.UserPost" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LogError" EntityType="Self.LogError" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [LogError].[LogErorrID] AS [LogErorrID], 
+    [LogError].[IP] AS [IP], 
+    [LogError].[ErrorDescription] AS [ErrorDescription], 
+    [LogError].[ErrorID] AS [ErrorID], 
+    [LogError].[PostName] AS [PostName], 
+    [LogError].[PostID] AS [PostID], 
+    [LogError].[ModifyDateTime] AS [ModifyDateTime]
+    FROM [dbo].[LogError] AS [LogError]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_PostAnswer_PostQuestion" Association="Self.FK_PostAnswer_PostQuestion">
       <End Role="PostQuestion" EntitySet="PostQuestion" />
       <End Role="PostAnswer" EntitySet="PostAnswer" />

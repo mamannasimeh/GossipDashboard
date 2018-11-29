@@ -1,6 +1,7 @@
 ﻿using GossipDashboard.Helper;
 using GossipDashboard.Models;
 using GossipDashboard.Repository;
+using GossipDashboard.ViewModel;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace GossipDashboard.Controllers
 {
     public class PlacesController : Controller
     {
+        private LogErrorRepository repoErrorLog = new Repository.LogErrorRepository();
         PostRepository repo = new PostRepository();
         private HtmlNode result;
         private string path;
@@ -37,8 +39,20 @@ namespace GossipDashboard.Controllers
             repo.UpdatePostViews(postID);
 
             var res = repo.SelectPostUser().Where(p => p.PostID == postID).FirstOrDefault();
-            if (res != null)
-                res.JalaliModifyDate = res.ModifyDate.ToPersianDateTime();
+            if (res == null)
+            {
+                repoErrorLog.Add(new VM_LogError()
+                {
+                    ErrorDescription = "Post Not Exists. Post NO: " + postID.ToString(),
+                    IP = Request.UserHostAddress,
+                    ModifyDateTime = DateTime.Now,
+                    PostName = "Post Not Exists. Post NO: " + postID.ToString(),
+                    PostID = postID
+                });
+                return View("~/Views/ErrorHandler/NotFound.cshtml", res);
+            }
+
+            res.JalaliModifyDate = res.ModifyDate.ToPersianDateTime();
             return View("~/Views/Post/Index.cshtml", res);
         }
 

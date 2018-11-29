@@ -35,5 +35,7 @@ namespace GossipDashboard.Models
         public virtual DbSet<Subscriber> Subscribers { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserPost> UserPosts { get; set; }
+        public virtual DbSet<Log> Logs { get; set; }
+        public virtual DbSet<LogError> LogErrors { get; set; }
     }
 }

@@ -11,12 +11,15 @@ using GossipDashboard.Helper;
 using GossipDashboard.Repository;
 using System.Timers;
 using System.Text.RegularExpressions;
+using GossipDashboard.ViewModel;
 
 namespace GossipDashboard.Controllers
 {
     public class HomeController : Controller
     {
         private HtmlNode result;
+        private LogRepository repoLog = new Repository.LogRepository();
+        private LogErrorRepository repoErrorLog = new Repository.LogErrorRepository();
 
         public HomeController()
         {
@@ -76,6 +79,9 @@ namespace GossipDashboard.Controllers
                 var postQuiz = repo.SelectPostUser().OrderByDescending(p => p.PostID).ToList();
                 foreach (var item in postQuiz)
                 {
+                    ////////if (item.Subject1.Contains("لاریجانی"))
+                    ////////    return;
+
                     //برای قسمت اصلی داشتن  تصویر مهم است
                     if (item.Image1_1 != null && i < 30)
                     {
@@ -104,11 +110,22 @@ namespace GossipDashboard.Controllers
             }
             catch (Exception ex)
             {
+                repoErrorLog.Add(new VM_LogError()
+                {
+                    ErrorDescription = ex.ToString(),
+                    IP = Request.UserHostAddress,
+                    ModifyDateTime = DateTime.Now,
+                    PostName = "Create Main Page",
+                    PostID = -100
+                });
             }
 
             //////////////////////Create catlist///////////////////////////////////////
+            //دیگر رويدادها
             try
             {
+                var startDaysAgo = DateTime.Now.AddDays(-10);
+                var endDaysAgo = DateTime.Now.AddDays(-5);
                 docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
                 var nodesIndex = docIndex.DocumentNode.SelectNodes("//div");
 
@@ -116,7 +133,7 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "tab-content");
 
                 //ایجاد  محتواي تب هاي کت ليست
-                var postQuiz = repo.SelectPostUser().ToList();
+                var postQuiz = repo.SelectPostUser().Where(p => p.ModifyDate >= endDaysAgo && p.ModifyDate <= endDaysAgo).Take(30).ToList();
                 foreach (var item in postQuiz)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
@@ -136,6 +153,14 @@ namespace GossipDashboard.Controllers
             }
             catch (Exception ex)
             {
+                repoErrorLog.Add(new VM_LogError()
+                {
+                    ErrorDescription = ex.ToString(),
+                    IP = Request.UserHostAddress,
+                    ModifyDateTime = DateTime.Now,
+                    PostName = "Create Main Page",
+                    PostID = -100
+                });
             }
 
             //////////////////////Create bloglist-content///////////////////////////////////////
@@ -168,6 +193,14 @@ namespace GossipDashboard.Controllers
             }
             catch (Exception ex)
             {
+                repoErrorLog.Add(new VM_LogError()
+                {
+                    ErrorDescription = ex.ToString(),
+                    IP = Request.UserHostAddress,
+                    ModifyDateTime = DateTime.Now,
+                    PostName = "Create Main Page",
+                    PostID = -100
+                });
             }
 
             //////////////////////Create bloglist-default///////////////////////////////////////
@@ -200,6 +233,14 @@ namespace GossipDashboard.Controllers
             }
             catch (Exception ex)
             {
+                repoErrorLog.Add(new VM_LogError()
+                {
+                    ErrorDescription = ex.ToString(),
+                    IP = Request.UserHostAddress,
+                    ModifyDateTime = DateTime.Now,
+                    PostName = "Create Main Page",
+                    PostID = -100
+                });
             }
 
             //اسلایدر بالایی
@@ -214,9 +255,13 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "sp-slides sp-slider-image");
 
                 //ایجاد  محتواي slider-image-bottom
-                var postQuiz = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgo && p.Image1_1 != null && p.Image1_1 != "").OrderByDescending(p => p.Views).Take(8).ToList();
+                var postQuiz = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgo && p.Image1_1 != null).OrderByDescending(p => p.Views).Take(8).ToList();
                 foreach (var item in postQuiz)
                 {
+                    //اسلایدر بالا حتما عکس داشته باشد
+                    if (item.Image1_1.Trim() == "")
+                        continue;
+
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
                     //ايجاد محتوا براي -- bloglist default
@@ -234,6 +279,14 @@ namespace GossipDashboard.Controllers
             }
             catch (Exception ex)
             {
+                repoErrorLog.Add(new VM_LogError()
+                {
+                    ErrorDescription = ex.ToString(),
+                    IP = Request.UserHostAddress,
+                    ModifyDateTime = DateTime.Now,
+                    PostName = "Create Main Page",
+                    PostID = -100
+                });
             }
 
             //اسلایدر پایینی
@@ -267,6 +320,14 @@ namespace GossipDashboard.Controllers
             }
             catch (Exception ex)
             {
+                repoErrorLog.Add(new VM_LogError()
+                {
+                    ErrorDescription = ex.ToString(),
+                    IP = Request.UserHostAddress,
+                    ModifyDateTime = DateTime.Now,
+                    PostName = "Create Main Page",
+                    PostID = -100
+                });
             }
 
 
@@ -300,6 +361,14 @@ namespace GossipDashboard.Controllers
             }
             catch (Exception ex)
             {
+                repoErrorLog.Add(new VM_LogError()
+                {
+                    ErrorDescription = ex.ToString(),
+                    IP = Request.UserHostAddress,
+                    ModifyDateTime = DateTime.Now,
+                    PostName = "Create Main Page",
+                    PostID = -100
+                });
             }
 
             ////////////////////////sp-thumbnails sp-slider-image-top///////////////////////////////////////
@@ -332,14 +401,24 @@ namespace GossipDashboard.Controllers
             }
             catch (Exception ex)
             {
+                repoErrorLog.Add(new VM_LogError()
+                {
+                    ErrorDescription = ex.ToString(),
+                    IP = Request.UserHostAddress,
+                    ModifyDateTime = DateTime.Now,
+                    PostName = "Create Main Page",
+                    PostID = -100
+                });
             }
 
 
 
             ////////////////////////////////////////////////////////////////////////////////////////
             //////////////////////// sidebar-widget mostviewed///////////////////////////////////////
+            //بیشترین بازدید
             try
             {
+                var someDaysAgo = DateTime.Now.AddDays(-5);
                 docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
                 var nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
 
@@ -348,7 +427,7 @@ namespace GossipDashboard.Controllers
 
                 ////ایجاد  محتوا
                 int rowID = 1;
-                var postQuiz = repo.SelectPostUser().OrderByDescending(p => p.Views).Take(5).ToList();
+                var postQuiz = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgo).OrderByDescending(p => p.Views).Take(5).ToList();
                 foreach (var item in postQuiz)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
@@ -369,11 +448,21 @@ namespace GossipDashboard.Controllers
             }
             catch (Exception ex)
             {
+                repoErrorLog.Add(new VM_LogError()
+                {
+                    ErrorDescription = ex.ToString(),
+                    IP = Request.UserHostAddress,
+                    ModifyDateTime = DateTime.Now,
+                    PostName = "Create Main Page",
+                    PostID = -100
+                });
             }
 
             //////////////////////// sidebar-widget popular///////////////////////////////////////
+            //محبوب
             try
             {
+                var someDaysAgo = DateTime.Now.AddDays(-8);
                 docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
                 var nodesIndex = docIndex.DocumentNode.SelectNodes("//ul");
 
@@ -382,7 +471,7 @@ namespace GossipDashboard.Controllers
 
                 //ایجاد  محتوا
                 int rowID = 1;
-                var postQuiz = repo.SelectPostUser().OrderByDescending(x => x.LikePost).Take(5).ToList();
+                var postQuiz = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgo).OrderByDescending(x => x.LikePost).Take(5).ToList();
                 foreach (var item in postQuiz)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
@@ -403,6 +492,14 @@ namespace GossipDashboard.Controllers
             }
             catch (Exception ex)
             {
+                repoErrorLog.Add(new VM_LogError()
+                {
+                    ErrorDescription = ex.ToString(),
+                    IP = Request.UserHostAddress,
+                    ModifyDateTime = DateTime.Now,
+                    PostName = "Create Main Page",
+                    PostID = -100
+                });
             }
 
             ////////////////////////// آخرين پست ها///////////////////////////////////////
@@ -437,7 +534,26 @@ namespace GossipDashboard.Controllers
             }
             catch (Exception ex)
             {
+                repoErrorLog.Add(new VM_LogError()
+                {
+                    ErrorDescription = ex.ToString(),
+                    IP = Request.UserHostAddress,
+                    ModifyDateTime = DateTime.Now,
+                    PostName = "Create Main Page",
+                    PostID = -100
+                });
             }
+
+
+            //ایجاد لاگ به ازای هر بار انجام فرایندهای مربوط به ایجاد صفحه اصلی
+            repoLog.Add(new VM_Log()
+            {
+                IP = Request.UserHostAddress,
+                ModifyDateTime = DateTime.Now,
+                PostName = "Create Main Page",
+                PostID = -100,
+                LogTypeID_fk = 59,
+            });
         }
 
         public ActionResult About()
@@ -452,12 +568,6 @@ namespace GossipDashboard.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
-
-        //ایجاد پست ها از جدول جدول پست به جدول پست
-        public JsonResult CreatePost()
-        {
-            return null;
         }
     }
 }

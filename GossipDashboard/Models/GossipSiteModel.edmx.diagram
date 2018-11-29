@@ -22,6 +22,8 @@
         <AssociationConnector Association="GossipSiteModel.FK_PostAnswer_PostQuestion" />
         <AssociationConnector Association="GossipSiteModel.FK_PostCategory_PubBase" />
         <AssociationConnector Association="GossipSiteModel.FK_UserPost_User" />
+        <EntityTypeShape EntityType="GossipSiteModel.Log" Width="1.5" PointX="3.375" PointY="5.75" />
+        <EntityTypeShape EntityType="GossipSiteModel.LogError" Width="1.5" PointX="3.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
