@@ -349,10 +349,37 @@ namespace GossipDashboard.Repository
             throw new NotImplementedException();
         }
 
-        public bool DeletePost(int id)
+        public bool? DeletePost(int id)
         {
             var entity = context.Posts.FirstOrDefault(p => p.PostID == id);
+            if (entity == null)
+                return null;
+
             context.Posts.Remove(entity);
+            context.SaveChanges();
+
+            return true;
+        }
+
+        public bool? DeletePostTemperory(int id)
+        {
+            var entity = context.PostTemperories.FirstOrDefault(p => p.PostID == id);
+            if (entity == null)
+                return null;
+
+            context.PostTemperories.Remove(entity);
+            context.SaveChanges();
+
+            return true;
+        }
+
+        public bool? DeletePostTemperoryBySiteURL(string siteURL)
+        {
+            var entity = context.PostTemperories.FirstOrDefault(p => p.SourceSiteUrl == siteURL);
+            if (entity == null)
+                return null;
+
+            context.PostTemperories.Remove(entity);
             context.SaveChanges();
 
             return true;
@@ -768,16 +795,37 @@ namespace GossipDashboard.Repository
         {
             var doc = new HtmlDocument();
             List<string> matchList = new List<string>();
+            bool? isPostDeleted = false;
 
             var tempPost = context.PostTemperories.Where(p => p.IsCreatedPost != true).OrderByDescending(p => p.PostID).ToList();
             foreach (var item in tempPost)
             {
+                isPostDeleted = false;
+
+                //انتیتی از روی  مقادیر فیلد اچ تی ام ال ساخته می شود
+                //اگر این فیلد مقدار نداشت به روش زیر عمل می کنیم
+                if (item.HTML == null || item.HTML.Trim() == "")
+                    item.HTML = item.ContentHTML;
+
                 //قبلا این پست ایجاد نشده باشد
                 var isExist = context.Posts.FirstOrDefault(p => p.Subject1 == item.Subject1);
-                if (isExist == null && item.Subject1 != null && item.Subject1.Trim().Length > 3 && item.HTML != null)
+                if (isExist == null && item.Subject1 != null && item.Subject1.Trim().Length > 3
+                    && item.HTML != null && item.HTML.Trim() != ""
+                    && item.ContentHTML != null && item.ContentHTML.Trim() != "")
                 {
-
+                    //حذف کارکتر که نیاز نیست
                     item.HTML = item.HTML.Replace("&nbsp;", "");
+
+
+                    ////اصلاح لینک یو آر ال عکس ها
+                    //if (item.SourceSiteUrl.Contains("rangehonar"))
+                    //{
+                    //    //اصلاح لینک یو آر ال عکس ها
+                    //    //String.Format()
+                    //    var url = "src" + "=" + "https" + ":" + "//" + "www" + "." + "rangehonar" + "." + "com";
+                    //    item.ContentHTML = item.ContentHTML.Replace("src=",  url);
+                    //    item.HTML = item.ContentHTML;
+                    //}
 
                     //اینسرت از پست تمپروری به پست با کمک رفلکشن
                     doc.LoadHtml(item.HTML);
@@ -792,6 +840,9 @@ namespace GossipDashboard.Repository
                     //var regMatch = Regex.Matches(item.HTML, @"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})");
                     if (item.SourceSiteUrl != null)
                     {
+                        ////////if (item.Subject1 == "رهبر مخالفان دولت گرجستان نتیجه انتخابات ریاست جمهوری را رد کرد")
+                        ////////    return;
+
                         entityPost.SourceSiteUrl = item.SourceSiteUrl;
                         var regMatch = Regex.Matches(item.SourceSiteUrl, @"(?:[-a-zA-Z0-9@:%_\+~.#=]{2,256}\.)?([-a-zA-Z0-9@:%_\+~#=]*)\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)");
                         if (regMatch != null && regMatch.Count != 0 && regMatch[0].Groups != null && regMatch[0].Groups[1] != null)
@@ -803,20 +854,63 @@ namespace GossipDashboard.Repository
                                 case "BARTARINHA":
                                     entityPost.SourceSiteNameFa = "برترین ها";
                                     break;
-                                case "FA.EURONEWS":
+                                case "EURONEWS":
                                     entityPost.SourceSiteNameFa = "یورونیوز فارسی";
+                                    entityPost.ContentHTML = item.ContentHTML.Replace("اندازه متن Aa Aa", "");
+
+                                    //عکس اول یورونیوز فارسی با وب هاروی ست شدده است
                                     if (item.Image1_1 != null && item.Image1_1 != "")
                                         entityPost.Image1_1 = item.Image1_1;
                                     break;
                                 case "IRANNAZ":
                                     entityPost.SourceSiteNameFa = "ایران ناز";
+
+                                    //پست های تبلیغاتی یا نامرتبط حذف گردد
+                                    isPostDeleted = IsDeletePostOnProcess("IRANNAZ", entityPost);
                                     break;
+
+                                case "RANGEHONAR":
+                                    //var tempContentHTML = "";
+
+                                    ////اصلاح لینک یو آر ال عکس ها
+                                    //var url = "src=https://www.rangehonar.com";
+                                    //entityPost.ContentHTML = entityPost.ContentHTML.Replace("src=", "src=" + url);
+                                    //item.HTML = entityPost.ContentHTML;
+
+                                    //tempContentHTML = entityPost.ContentHTML;
+
+                                    ////با اصلاح اچ تی ام ال نیاز است انتیتی پست دوباره به روزرسانی شود
+                                    //// برای اینکه پست عکس دار شود و امکان نمایش در صفحه اصلی را داشته باشد
+                                    //doc.LoadHtml(item.HTML);
+                                    //entityPost = CreatepostValues(doc);
+                                    //entityPost.Subject1 = item.Subject1;
+                                    //entityPost.SubSubject1_1 = item.SubSubject1_1;
+                                    //entityPost.SubSubject1_2 = item.SubSubject1_2;
+                                    //entityPost.ModifyDate = DateTime.Now;
+                                    //entityPost.ContentHTML = tempContentHTML;
+
+                                    entityPost.SourceSiteNameFa = "سامانه آموزش نقاشی رنگ هنر";
+
+                                    //اصلاح مقدار کانتنت پست 1 با شرایط زیر
+                                    if (entityPost.ContentPost1_1.Contains("نویسنده") && entityPost.ContentPost1_1.Contains("بخش")
+                                        && entityPost.ContentPost1_1.Contains("تاریخ") && entityPost.ContentPost1_1.Contains("نظرات"))
+                                    {
+                                        var temp = entityPost.ContentPost1_1;
+                                        entityPost.ContentPost1_1 = entityPost.ContentPost1_2;
+                                        entityPost.ContentPost20_1 = temp;
+                                    }
+                                    break;
+
                                 default:
                                     entityPost.SourceSiteNameFa = entityPost.SourceSiteName;
                                     break;
                             }
                         }
                     }
+
+                    //در صورتی که پست حذف شد اتریبیوت های آن ایجاد نشود
+                    if (isPostDeleted == true)
+                        continue;
 
                     ////در صورتی که تعداد کارکترهای کل پست کمتر از 200 باشد آن پست حذف گردد
                     //entityPost.Subject1 = entityPost.Subject1 == null ? "" : entityPost.Subject1.Trim();
@@ -1030,6 +1124,26 @@ namespace GossipDashboard.Repository
                     }
                 }
             }
+        }
+
+        //حذف پست هایی با توجهه به سایت مرجع
+        private bool? IsDeletePostOnProcess(string sourceSite, Post entityPost)
+        {
+            //سایت ایران ناز
+            if (sourceSite.ToUpper() == "IRANNAZ".ToUpper())
+            {
+                // یو آر ال هایی که عبارت نیوز کتس دارند حذف گردد. 
+                //برای اطمینان که پستی به اشتباه حذف نشود نباید علامت درصد هم داشته باشد
+                if (entityPost.SourceSiteUrl.Contains("news_cats") && !entityPost.SourceSiteUrl.Contains("%"))
+                {
+                    var isPostDel = DeletePost(entityPost.PostID);
+                    var isPostTempDel = DeletePostTemperoryBySiteURL(entityPost.SourceSiteUrl);
+
+                    return isPostDel;
+                }
+            }
+
+            return false;
         }
 
     }

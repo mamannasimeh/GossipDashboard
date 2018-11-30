@@ -778,9 +778,9 @@
     <Key>
       <PropertyRef Name="LogErorrID" />
     </Key>
-    <Property Name="LogErorrID" Type="Int32" Nullable="false" />
+    <Property Name="LogErorrID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="ErrorDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ErrorID" Type="Int32" />
     <Property Name="PostName" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <Property Name="PostID" Type="Int32" />

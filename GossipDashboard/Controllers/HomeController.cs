@@ -66,6 +66,7 @@ namespace GossipDashboard.Controllers
             var repo = new PostRepository();
             var docIndex = new HtmlDocument();
             /////////////////////////////create bloglist/////////////////////////////
+            //وسط صفحه 
             try
             {
                 docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
@@ -118,6 +119,7 @@ namespace GossipDashboard.Controllers
                     PostName = "Create Main Page",
                     PostID = -100
                 });
+
             }
 
             //////////////////////Create catlist///////////////////////////////////////
@@ -133,7 +135,7 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "tab-content");
 
                 //ایجاد  محتواي تب هاي کت ليست
-                var postQuiz = repo.SelectPostUser().Where(p => p.ModifyDate >= endDaysAgo && p.ModifyDate <= endDaysAgo).Take(30).ToList();
+                var postQuiz = repo.SelectPostUser().Where(p => p.ModifyDate >= startDaysAgo && p.ModifyDate <= endDaysAgo).OrderByDescending(p => p.PostID).Take(50).ToList();
                 foreach (var item in postQuiz)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
@@ -164,6 +166,8 @@ namespace GossipDashboard.Controllers
             }
 
             //////////////////////Create bloglist-content///////////////////////////////////////
+            //مطالب جالب
+            //قسمت کتگوری لیست که ترانسپرنت است
             try
             {
                 docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
@@ -173,7 +177,7 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "row bloglist-content");
 
                 //ایجاد  محتواي تب هاي کت ليست
-                var postQuiz = repo.SelectPostUser().OrderBy(x => x.CommentCount).Take(7).ToList();
+                var postQuiz = repo.SelectPostUser().OrderBy(x => x.CommentCount).Take(10).ToList();
                 foreach (var item in postQuiz)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
@@ -204,6 +208,7 @@ namespace GossipDashboard.Controllers
             }
 
             //////////////////////Create bloglist-default///////////////////////////////////////
+            // قسمتی که عکس در سمت راست و توضیجات در سمت راست دارد-- زیر مطالب جالب
             try
             {
                 docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
@@ -243,8 +248,11 @@ namespace GossipDashboard.Controllers
                 });
             }
 
-            //اسلایدر بالایی
+            //اسلایدر پایینی
             //////////////////////Create postslider-container slider-image-bottom///////////////////////////////////////
+            var startDateSliderButtom = DateTime.Now.AddDays(-4);
+            var endDateSliderButtom = DateTime.Now.AddDays(-2);
+            var postSliderButton = repo.SelectPostUser().Where(p => p.ModifyDate >= startDateSliderButtom && p.ModifyDate <= endDateSliderButtom && p.Image1_1 != null).OrderByDescending(p => p.LikePost).Take(6).ToList();
             try
             {
                 var someDaysAgo = DateTime.Now.AddDays(-5);
@@ -255,8 +263,7 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "sp-slides sp-slider-image");
 
                 //ایجاد  محتواي slider-image-bottom
-                var postQuiz = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgo && p.Image1_1 != null).OrderByDescending(p => p.Views).Take(8).ToList();
-                foreach (var item in postQuiz)
+                foreach (var item in postSliderButton)
                 {
                     //اسلایدر بالا حتما عکس داشته باشد
                     if (item.Image1_1.Trim() == "")
@@ -289,7 +296,7 @@ namespace GossipDashboard.Controllers
                 });
             }
 
-            //اسلایدر پایینی
+            //عکس های زیر اسلایدر پایینی 
             //////////////////////Create postslider-container slider-image-bottom sp-thumbnails sp-slider-image///////////////////////////////////////
             try
             {
@@ -300,9 +307,12 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "sp-thumbnails sp-slider-image");
 
                 //ایجاد  محتواي slider-image-bottom
-                var postQuiz = repo.SelectPostUser().Take(6).ToList();
-                foreach (var item in postQuiz)
+                foreach (var item in postSliderButton)
                 {
+                    //اسلایدر بالا حتما عکس داشته باشد
+                    if (item.Image1_1.Trim() == "")
+                        continue;
+
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
                     //ايجاد محتوا براي -- bloglist default
@@ -331,7 +341,10 @@ namespace GossipDashboard.Controllers
             }
 
 
+            //اسلایدر بالایی
             ////////////////////////sp-slides sp-slider-image-top///////////////////////////////////////
+            var someDaysAgoSliderTop = DateTime.Now.AddDays(-5);
+            var postSliderTop = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgoSliderTop && p.Image1_1 != null).OrderByDescending(p => p.Views).Take(6).ToList();
             try
             {
                 docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
@@ -341,9 +354,12 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "sp-slides sp-slider-image-top");
 
                 //ایجاد  محتوا
-                var postQuiz = repo.SelectPostUser().OrderBy(x => x.PostID).Skip(7).Take(8).ToList();
-                foreach (var item in postQuiz)
+                foreach (var item in postSliderTop)
                 {
+                    //اسلایدر بالا حتما عکس داشته باشد
+                    if (item.Image1_1.Trim() == "")
+                        continue;
+
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
                     //ايجاد محتوا براي
@@ -371,6 +387,7 @@ namespace GossipDashboard.Controllers
                 });
             }
 
+            //عکس های سمت چپ اسلایدر بالایی
             ////////////////////////sp-thumbnails sp-slider-image-top///////////////////////////////////////
             try
             {
@@ -381,9 +398,12 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "sp-thumbnails sp-slider-image-top");
 
                 //ایجاد  محتوا
-                var postQuiz = repo.SelectPostUser().OrderBy(x => x.PostID).Skip(7).Take(8).ToList();
-                foreach (var item in postQuiz)
+                foreach (var item in postSliderTop)
                 {
+                    //اسلایدر بالا حتما عکس داشته باشد
+                    if (item.Image1_1.Trim() == "")
+                        continue;
+
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
                     //ايجاد محتوا براي

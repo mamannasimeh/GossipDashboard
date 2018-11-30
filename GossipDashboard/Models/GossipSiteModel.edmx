@@ -16,15 +16,13 @@
           <Property Name="PostID" Type="int" />
           <Property Name="ModifyDateTime" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'GossipSite.dbo.LogError' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="LogError">
           <Key>
             <PropertyRef Name="LogErorrID" />
           </Key>
-          <Property Name="LogErorrID" Type="int" Nullable="false" />
+          <Property Name="LogErorrID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IP" Type="nvarchar" MaxLength="20" />
-          <Property Name="ErrorDescription" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ErrorDescription" Type="nvarchar(max)" />
           <Property Name="ErrorID" Type="int" />
           <Property Name="PostName" Type="nvarchar" MaxLength="2000" />
           <Property Name="PostID" Type="int" />
@@ -739,6 +737,7 @@ warning 6002: The table/view 'GossipSite.dbo.LogError' does not have a primary k
         </Association>
         <EntityContainer Name="GossipSiteModelStoreContainer">
           <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogError" EntityType="Self.LogError" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAnswer" EntityType="Self.PostAnswer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAttribute" EntityType="Self.PostAttribute" Schema="dbo" store:Type="Tables" />
@@ -749,17 +748,6 @@ warning 6002: The table/view 'GossipSite.dbo.LogError' does not have a primary k
           <EntitySet Name="Subscriber" EntityType="Self.Subscriber" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPost" EntityType="Self.UserPost" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="LogError" EntityType="Self.LogError" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [LogError].[LogErorrID] AS [LogErorrID], 
-    [LogError].[IP] AS [IP], 
-    [LogError].[ErrorDescription] AS [ErrorDescription], 
-    [LogError].[ErrorID] AS [ErrorID], 
-    [LogError].[PostName] AS [PostName], 
-    [LogError].[PostID] AS [PostID], 
-    [LogError].[ModifyDateTime] AS [ModifyDateTime]
-    FROM [dbo].[LogError] AS [LogError]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_PostAnswer_PostQuestion" Association="Self.FK_PostAnswer_PostQuestion">
             <End Role="PostQuestion" EntitySet="PostQuestion" />
             <End Role="PostAnswer" EntitySet="PostAnswer" />
@@ -1571,9 +1559,9 @@ warning 6002: The table/view 'GossipSite.dbo.LogError' does not have a primary k
           <Key>
             <PropertyRef Name="LogErorrID" />
           </Key>
-          <Property Name="LogErorrID" Type="Int32" Nullable="false" />
+          <Property Name="LogErorrID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ErrorDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ErrorID" Type="Int32" />
           <Property Name="PostName" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="PostID" Type="Int32" />
