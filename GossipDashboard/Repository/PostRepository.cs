@@ -796,6 +796,7 @@ namespace GossipDashboard.Repository
             var doc = new HtmlDocument();
             List<string> matchList = new List<string>();
             bool? isPostDeleted = false;
+            string tempContentHTML = "", tempHTML = "";
 
             var tempPost = context.PostTemperories.Where(p => p.IsCreatedPost != true).OrderByDescending(p => p.PostID).ToList();
             foreach (var item in tempPost)
@@ -813,28 +814,32 @@ namespace GossipDashboard.Repository
                     && item.HTML != null && item.HTML.Trim() != ""
                     && item.ContentHTML != null && item.ContentHTML.Trim() != "")
                 {
-                    //حذف کارکتر که نیاز نیست
+                    //حذف کارکترهايي که نیاز نیست
                     item.HTML = item.HTML.Replace("&nbsp;", "");
 
 
-                    ////اصلاح لینک یو آر ال عکس ها
-                    //if (item.SourceSiteUrl.Contains("rangehonar"))
-                    //{
-                    //    //اصلاح لینک یو آر ال عکس ها
-                    //    //String.Format()
-                    //    var url = "src" + "=" + "https" + ":" + "//" + "www" + "." + "rangehonar" + "." + "com";
-                    //    item.ContentHTML = item.ContentHTML.Replace("src=",  url);
-                    //    item.HTML = item.ContentHTML;
-                    //}
+                    tempContentHTML = item.ContentHTML;
+                    tempHTML = item.HTML;
+
+
+                    //اصلاح لینک یو آر ال عکس ها
+                    if (item.SourceSiteUrl.Contains("rangehonar"))
+                    {
+                        //اصلاح لینک یو آر ال عکس ها
+                        //String.Format()
+                        var url = "src=\"https://www.rangehonar.com";
+                        tempContentHTML = item.ContentHTML.Replace("src=\"", url);
+                        tempHTML = tempContentHTML;
+                    }
 
                     //اینسرت از پست تمپروری به پست با کمک رفلکشن
-                    doc.LoadHtml(item.HTML);
+                    doc.LoadHtml(tempHTML);
                     var entityPost = CreatepostValues(doc);
                     entityPost.Subject1 = item.Subject1;
                     entityPost.SubSubject1_1 = item.SubSubject1_1;
                     entityPost.SubSubject1_2 = item.SubSubject1_2;
                     entityPost.ModifyDate = DateTime.Now;
-                    entityPost.ContentHTML = item.ContentHTML;
+                    entityPost.ContentHTML = tempContentHTML;
 
                     //به دست آوردن سایت مرجع جهت نمایش در سایت 
                     //var regMatch = Regex.Matches(item.HTML, @"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})");
@@ -870,26 +875,7 @@ namespace GossipDashboard.Repository
                                     break;
 
                                 case "RANGEHONAR":
-                                    //var tempContentHTML = "";
-
-                                    ////اصلاح لینک یو آر ال عکس ها
-                                    //var url = "src=https://www.rangehonar.com";
-                                    //entityPost.ContentHTML = entityPost.ContentHTML.Replace("src=", "src=" + url);
-                                    //item.HTML = entityPost.ContentHTML;
-
-                                    //tempContentHTML = entityPost.ContentHTML;
-
-                                    ////با اصلاح اچ تی ام ال نیاز است انتیتی پست دوباره به روزرسانی شود
-                                    //// برای اینکه پست عکس دار شود و امکان نمایش در صفحه اصلی را داشته باشد
-                                    //doc.LoadHtml(item.HTML);
-                                    //entityPost = CreatepostValues(doc);
-                                    //entityPost.Subject1 = item.Subject1;
-                                    //entityPost.SubSubject1_1 = item.SubSubject1_1;
-                                    //entityPost.SubSubject1_2 = item.SubSubject1_2;
-                                    //entityPost.ModifyDate = DateTime.Now;
-                                    //entityPost.ContentHTML = tempContentHTML;
-
-                                    entityPost.SourceSiteNameFa = "سامانه آموزش نقاشی رنگ هنر";
+                                     entityPost.SourceSiteNameFa = "سامانه آموزش نقاشی رنگ هنر";
 
                                     //اصلاح مقدار کانتنت پست 1 با شرایط زیر
                                     if (entityPost.ContentPost1_1.Contains("نویسنده") && entityPost.ContentPost1_1.Contains("بخش")
@@ -1073,7 +1059,7 @@ namespace GossipDashboard.Repository
                         continue;
 
                     //چک کردن موجود بودن یو آر ال تصویر 
-                    var regMatch = Regex.Matches(item.OuterHtml, "http://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?.(?:jpg|bmp|gif|png)");
+                    var regMatch = Regex.Matches(item.OuterHtml, "(http|https)://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?.(?:jpg|bmp|gif|png)");
                     if (regMatch != null && regMatch.Count > 0)
                         urlImg = regMatch[0].Value;
                     else
