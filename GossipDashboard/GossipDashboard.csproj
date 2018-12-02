@@ -1938,6 +1938,7 @@
     <Content Include="Scripts\wp-mediaelement.min.js" />
     <Content Include="Templates\cat-list.html" />
     <Content Include="Templates\bloglist-content.html" />
+    <Content Include="Templates\format-aparat.html" />
     <Content Include="Templates\format-audio.html" />
     <Content Include="Templates\format-gallery.html" />
     <Content Include="Templates\format-image.html" />

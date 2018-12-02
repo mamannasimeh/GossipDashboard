@@ -1,15 +1,15 @@
 ﻿<div class="vc_row wpb_row vc_row-fluid">
     @*<div class="imgwrapper">
 
-        @using (Html.BeginForm("SaveImage", "Post", FormMethod.Post, new { enctype = "multipart/form-data", id = "myUploadForm" }))
-        {
+            @using (Html.BeginForm("SaveImage", "Post", FormMethod.Post, new { enctype = "multipart/form-data", id = "myUploadForm" }))
+            {
 
-            @Html.Upload("UploadFile")
-            <br>
-            <input type="submit" class="btn btn-primary btn-lg" value="بارگذاري تصوير" id="btnUploadFile">
-            <input id="viewbaginput" type="hidden" value="@ViewBag.RetUploadFile">
-        }
-    </div>*@
+                @Html.Upload("UploadFile")
+                <br>
+                <input type="submit" class="btn btn-primary btn-lg" value="بارگذاري تصوير" id="btnUploadFile">
+                <input id="viewbaginput" type="hidden" value="@ViewBag.RetUploadFile">
+            }
+        </div>*@
     <div class="wpb_column vc_column_container vc_col-sm-12">
         <div class="vc_column-inner ">
             <div class="wpb_wrapper">
@@ -30,547 +30,792 @@
                             <span class="news-title">وبلاگ</span>
                         </h4>
                     </div>
-                    <div class="author-grid row" id="author-grid"><article class='col-md-4 hentry  format-standard  category-bizarre '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","bizarre", new {postID = 2255})' name='2255'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1887177_724.jpg' alt='دیده‌بان حقوق بشر خواستار پیگرد بن‌سلمان شد'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","bizarre")' class=' cat-bizarre '> عجیب و غریب </a></div>
-            <a href='@Url.Action("Post","bizarre", new {postID = 2255})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","bizarre", new {postID = 2255})'>دیده‌بان حقوق بشر خواستار پیگرد بن‌سلمان شد</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2255'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                    <div class="author-grid row" id="author-grid">
+                        <article class='col-md-4 hentry  format-standard  category-bizarre '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","bizarre", new {postID = 2255})' name='2255'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1887177_724.jpg' alt='دیده‌بان حقوق بشر خواستار پیگرد بن‌سلمان شد'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","bizarre")' class=' cat-bizarre '> عجیب و غریب </a></div>
+                                    <a href='@Url.Action("Post","bizarre", new {postID = 2255})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","bizarre", new {postID = 2255})'>دیده‌بان حقوق بشر خواستار پیگرد بن‌سلمان شد</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2255'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-cute '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","cute", new {postID = 2254})' name='2254'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1887157_489.jpg' alt='قتل امام جمعه اهل سنت در گلستان'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","cute")' class=' cat-cute '> ناز </a></div>
-            <a href='@Url.Action("Post","cute", new {postID = 2254})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","cute", new {postID = 2254})'>قتل امام جمعه اهل سنت در گلستان</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2254'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-cute '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","cute", new {postID = 2254})' name='2254'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1887157_489.jpg' alt='قتل امام جمعه اهل سنت در گلستان'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","cute")' class=' cat-cute '> ناز </a></div>
+                                    <a href='@Url.Action("Post","cute", new {postID = 2254})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","cute", new {postID = 2254})'>قتل امام جمعه اهل سنت در گلستان</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2254'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-cute '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","cute", new {postID = 2253})' name='2253'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886925_430.jpg' alt='متن طرح استیضاح ظریف با عنوان پولشویی'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","cute")' class=' cat-cute '> ناز </a></div>
-            <a href='@Url.Action("Post","cute", new {postID = 2253})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","cute", new {postID = 2253})'>متن طرح استیضاح ظریف با عنوان پولشویی</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2253'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-cute '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","cute", new {postID = 2253})' name='2253'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886925_430.jpg' alt='متن طرح استیضاح ظریف با عنوان پولشویی'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","cute")' class=' cat-cute '> ناز </a></div>
+                                    <a href='@Url.Action("Post","cute", new {postID = 2253})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","cute", new {postID = 2253})'>متن طرح استیضاح ظریف با عنوان پولشویی</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2253'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-amazing '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","amazing", new {postID = 2252})' name='2252'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886848_729.png' alt='برترین‌ها پلاس؛ کارت سوخت در بلک فرایدی!'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","amazing")' class=' cat-amazing '> حیرت آور </a></div>
-            <a href='@Url.Action("Post","amazing", new {postID = 2252})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","amazing", new {postID = 2252})'>برترین‌ها پلاس؛ کارت سوخت در بلک فرایدی!</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2252'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-amazing '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","amazing", new {postID = 2252})' name='2252'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886848_729.png' alt='برترین‌ها پلاس؛ کارت سوخت در بلک فرایدی!'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","amazing")' class=' cat-amazing '> حیرت آور </a></div>
+                                    <a href='@Url.Action("Post","amazing", new {postID = 2252})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","amazing", new {postID = 2252})'>برترین‌ها پلاس؛ کارت سوخت در بلک فرایدی!</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2252'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-bizarre '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","bizarre", new {postID = 2249})' name='2249'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/4/1885251_657.jpg' alt='زیباکلام: روحانی به عربستان توهین کرد'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","bizarre")' class=' cat-bizarre '> عجیب و غریب </a></div>
-            <a href='@Url.Action("Post","bizarre", new {postID = 2249})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","bizarre", new {postID = 2249})'>زیباکلام: روحانی به عربستان توهین کرد</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2249'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article>
+                        <article class='col-md-4 hentry  format-standard  category-bizarre '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <div id="15437560721097752">
+                                        <script type="text/JavaScript" src="https://www.aparat.com/embed/0Z2eg?data[rnddiv]=15437560721097752&data[responsive]=yes"></script>
+                                    </div>
+                                  @*  <a href='@Url.Action("Post","bizarre", new {postID = 2249})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>*@
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","bizarre", new {postID = 2249})'>زیباکلام: روحانی به عربستان توهین کرد</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2249'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-amazing '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","amazing", new {postID = 2248})' name='2248'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/5/1885871_842.jpg' alt='تعجب کاربران از تغییرات ظاهری رزیتا غفاری'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","amazing")' class=' cat-amazing '> حیرت آور </a></div>
-            <a href='@Url.Action("Post","amazing", new {postID = 2248})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","amazing", new {postID = 2248})'>تعجب کاربران از تغییرات ظاهری رزیتا غفاری</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2248'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article>
+                        <article class='col-md-4 hentry  format-standard  category-amazing '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","amazing", new {postID = 2248})' name='2248'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/5/1885871_842.jpg' alt='تعجب کاربران از تغییرات ظاهری رزیتا غفاری'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","amazing")' class=' cat-amazing '> حیرت آور </a></div>
+                                    <a href='@Url.Action("Post","amazing", new {postID = 2248})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","amazing", new {postID = 2248})'>تعجب کاربران از تغییرات ظاهری رزیتا غفاری</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2248'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-sexy '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","sexy", new {postID = 2247})' name='2247'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886766_881.png' alt='ماکان‌بند؛ همین‌قدر بی‌سواد و تاسف برانگیز'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","sexy")' class='  '> هیجان انگیز </a></div>
-            <a href='@Url.Action("Post","sexy", new {postID = 2247})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","sexy", new {postID = 2247})'>ماکان‌بند؛ همین‌قدر بی‌سواد و تاسف برانگیز</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2247'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-sexy '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","sexy", new {postID = 2247})' name='2247'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886766_881.png' alt='ماکان‌بند؛ همین‌قدر بی‌سواد و تاسف برانگیز'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","sexy")' class='  '> هیجان انگیز </a></div>
+                                    <a href='@Url.Action("Post","sexy", new {postID = 2247})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","sexy", new {postID = 2247})'>ماکان‌بند؛ همین‌قدر بی‌سواد و تاسف برانگیز</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2247'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-sexy '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","sexy", new {postID = 2246})' name='2246'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886483_836.jpg' alt='کاوشگر ناسا روی مریخ نشست'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","sexy")' class='  '> هیجان انگیز </a></div>
-            <a href='@Url.Action("Post","sexy", new {postID = 2246})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","sexy", new {postID = 2246})'>کاوشگر ناسا روی مریخ نشست</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2246'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-sexy '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","sexy", new {postID = 2246})' name='2246'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886483_836.jpg' alt='کاوشگر ناسا روی مریخ نشست'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","sexy")' class='  '> هیجان انگیز </a></div>
+                                    <a href='@Url.Action("Post","sexy", new {postID = 2246})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","sexy", new {postID = 2246})'>کاوشگر ناسا روی مریخ نشست</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2246'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-films '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","films", new {postID = 2245})' name='2245'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/5/1886384_785.jpg' alt='سید احمد خمینی ازدواج کرد'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","films")' class='  '> فیلم </a></div>
-            <a href='@Url.Action("Post","films", new {postID = 2245})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","films", new {postID = 2245})'>سید احمد خمینی ازدواج کرد</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2245'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-films '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","films", new {postID = 2245})' name='2245'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/5/1886384_785.jpg' alt='سید احمد خمینی ازدواج کرد'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","films")' class='  '> فیلم </a></div>
+                                    <a href='@Url.Action("Post","films", new {postID = 2245})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","films", new {postID = 2245})'>سید احمد خمینی ازدواج کرد</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2245'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-films '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","films", new {postID = 2241})' name='2241'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886790_919.jpg' alt='خط لوله ترکید و یزد آب ندارد و...'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","films")' class='  '> فیلم </a></div>
-            <a href='@Url.Action("Post","films", new {postID = 2241})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","films", new {postID = 2241})'>خط لوله ترکید و یزد آب ندارد و...</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2241'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-films '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","films", new {postID = 2241})' name='2241'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886790_919.jpg' alt='خط لوله ترکید و یزد آب ندارد و...'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","films")' class='  '> فیلم </a></div>
+                                    <a href='@Url.Action("Post","films", new {postID = 2241})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","films", new {postID = 2241})'>خط لوله ترکید و یزد آب ندارد و...</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2241'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-sexy '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","sexy", new {postID = 2240})' name='2240'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886730_784.jpg' alt='برانکو و پرسپولیس «کی‌روش ممنوع» شدند'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","sexy")' class='  '> هیجان انگیز </a></div>
-            <a href='@Url.Action("Post","sexy", new {postID = 2240})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","sexy", new {postID = 2240})'>برانکو و پرسپولیس «کی‌روش ممنوع» شدند</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2240'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-sexy '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","sexy", new {postID = 2240})' name='2240'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886730_784.jpg' alt='برانکو و پرسپولیس «کی‌روش ممنوع» شدند'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","sexy")' class='  '> هیجان انگیز </a></div>
+                                    <a href='@Url.Action("Post","sexy", new {postID = 2240})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","sexy", new {postID = 2240})'>برانکو و پرسپولیس «کی‌روش ممنوع» شدند</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2240'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-films '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","films", new {postID = 2239})' name='2239'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/5/1885305_642.jpg' alt='واکنش حاج‌صفی به آفساید اعلام شدن گلش'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","films")' class='  '> فیلم </a></div>
-            <a href='@Url.Action("Post","films", new {postID = 2239})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","films", new {postID = 2239})'>واکنش حاج‌صفی به آفساید اعلام شدن گلش</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2239'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-films '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","films", new {postID = 2239})' name='2239'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/5/1885305_642.jpg' alt='واکنش حاج‌صفی به آفساید اعلام شدن گلش'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","films")' class='  '> فیلم </a></div>
+                                    <a href='@Url.Action("Post","films", new {postID = 2239})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","films", new {postID = 2239})'>واکنش حاج‌صفی به آفساید اعلام شدن گلش</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2239'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-entertainment '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","entertainment", new {postID = 2238})' name='2238'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/5/1886321_587.jpg' alt='فتح الله زاده: من مدیرعامل قانونی استقلالم!'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","entertainment")' class='  '> سرگرمی </a></div>
-            <a href='@Url.Action("Post","entertainment", new {postID = 2238})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","entertainment", new {postID = 2238})'>فتح الله زاده: من مدیرعامل قانونی استقلالم!</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2238'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-entertainment '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","entertainment", new {postID = 2238})' name='2238'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/5/1886321_587.jpg' alt='فتح الله زاده: من مدیرعامل قانونی استقلالم!'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","entertainment")' class='  '> سرگرمی </a></div>
+                                    <a href='@Url.Action("Post","entertainment", new {postID = 2238})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","entertainment", new {postID = 2238})'>فتح الله زاده: من مدیرعامل قانونی استقلالم!</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2238'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-entertainment '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","entertainment", new {postID = 2236})' name='2236'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/5/1885803_372.jpg' alt='اطلاعیه در مورد نحوه شهادت حسین فهمیده'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","entertainment")' class='  '> سرگرمی </a></div>
-            <a href='@Url.Action("Post","entertainment", new {postID = 2236})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","entertainment", new {postID = 2236})'>اطلاعیه در مورد نحوه شهادت حسین فهمیده</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2236'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-entertainment '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","entertainment", new {postID = 2236})' name='2236'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/5/1885803_372.jpg' alt='اطلاعیه در مورد نحوه شهادت حسین فهمیده'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","entertainment")' class='  '> سرگرمی </a></div>
+                                    <a href='@Url.Action("Post","entertainment", new {postID = 2236})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","entertainment", new {postID = 2236})'>اطلاعیه در مورد نحوه شهادت حسین فهمیده</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2236'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-amazing '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","amazing", new {postID = 2235})' name='2235'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886655_199.jpg' alt='سوشا پُست گذاشت، فحش داد، پشیمان شد'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","amazing")' class=' cat-amazing '> حیرت آور </a></div>
-            <a href='@Url.Action("Post","amazing", new {postID = 2235})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","amazing", new {postID = 2235})'>سوشا پُست گذاشت، فحش داد، پشیمان شد</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2235'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-amazing '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","amazing", new {postID = 2235})' name='2235'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886655_199.jpg' alt='سوشا پُست گذاشت، فحش داد، پشیمان شد'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","amazing")' class=' cat-amazing '> حیرت آور </a></div>
+                                    <a href='@Url.Action("Post","amazing", new {postID = 2235})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","amazing", new {postID = 2235})'>سوشا پُست گذاشت، فحش داد، پشیمان شد</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2235'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-bizarre '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","bizarre", new {postID = 2234})' name='2234'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886603_862.jpg' alt='۶ خودروساز آمریکایی که به راحتی ورشکسته شدند!'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","bizarre")' class=' cat-bizarre '> عجیب و غریب </a></div>
-            <a href='@Url.Action("Post","bizarre", new {postID = 2234})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","bizarre", new {postID = 2234})'>۶ خودروساز آمریکایی که به راحتی ورشکسته شدند!</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2234'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-bizarre '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","bizarre", new {postID = 2234})' name='2234'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/9/6/1886603_862.jpg' alt='۶ خودروساز آمریکایی که به راحتی ورشکسته شدند!'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","bizarre")' class=' cat-bizarre '> عجیب و غریب </a></div>
+                                    <a href='@Url.Action("Post","bizarre", new {postID = 2234})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","bizarre", new {postID = 2234})'>۶ خودروساز آمریکایی که به راحتی ورشکسته شدند!</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2234'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-amazing '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","amazing", new {postID = 2233})' name='2233'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/30/1881881_407.jpg' alt='عجیب‌ترین فرمان‌هایی که در خودرو‌ها دیده شده است'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","amazing")' class=' cat-amazing '> حیرت آور </a></div>
-            <a href='@Url.Action("Post","amazing", new {postID = 2233})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","amazing", new {postID = 2233})'>عجیب‌ترین فرمان‌هایی که در خودرو‌ها دیده شده است</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2233'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-amazing '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","amazing", new {postID = 2233})' name='2233'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/30/1881881_407.jpg' alt='عجیب‌ترین فرمان‌هایی که در خودرو‌ها دیده شده است'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","amazing")' class=' cat-amazing '> حیرت آور </a></div>
+                                    <a href='@Url.Action("Post","amazing", new {postID = 2233})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","amazing", new {postID = 2233})'>عجیب‌ترین فرمان‌هایی که در خودرو‌ها دیده شده است</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2233'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-places '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","places", new {postID = 2232})' name='2232'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/7/30/1850647_910.jpg' alt='ماشین‌های پرنده، برای آینده‌ای نه چندان دور'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","places")' class='  '> مکان ها </a></div>
-            <a href='@Url.Action("Post","places", new {postID = 2232})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","places", new {postID = 2232})'>ماشین‌های پرنده، برای آینده‌ای نه چندان دور</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2232'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-places '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","places", new {postID = 2232})' name='2232'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/7/30/1850647_910.jpg' alt='ماشین‌های پرنده، برای آینده‌ای نه چندان دور'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","places")' class='  '> مکان ها </a></div>
+                                    <a href='@Url.Action("Post","places", new {postID = 2232})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","places", new {postID = 2232})'>ماشین‌های پرنده، برای آینده‌ای نه چندان دور</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2232'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-quiz '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","quiz", new {postID = 2231})' name='2231'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/25/1876752_282.jpg' alt='تاریخچه محصولات ایران‌خودرو؛ از دهه ۴۰ شمسی تاکنون'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","quiz")' class=' cat-quiz '> سوال </a></div>
-            <a href='@Url.Action("Post","quiz", new {postID = 2231})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","quiz", new {postID = 2231})'>تاریخچه محصولات ایران‌خودرو؛ از دهه ۴۰ شمسی تاکنون</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2231'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-quiz '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","quiz", new {postID = 2231})' name='2231'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/25/1876752_282.jpg' alt='تاریخچه محصولات ایران‌خودرو؛ از دهه ۴۰ شمسی تاکنون'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","quiz")' class=' cat-quiz '> سوال </a></div>
+                                    <a href='@Url.Action("Post","quiz", new {postID = 2231})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","quiz", new {postID = 2231})'>تاریخچه محصولات ایران‌خودرو؛ از دهه ۴۰ شمسی تاکنون</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2231'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-bizarre '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","bizarre", new {postID = 2230})' name='2230'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/30/1882166_848.jpg' alt='چگونه مصرف سوخت خودرو در زمستان را کاهش دهیم؟'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","bizarre")' class=' cat-bizarre '> عجیب و غریب </a></div>
-            <a href='@Url.Action("Post","bizarre", new {postID = 2230})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","bizarre", new {postID = 2230})'>چگونه مصرف سوخت خودرو در زمستان را کاهش دهیم؟</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2230'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-bizarre '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","bizarre", new {postID = 2230})' name='2230'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/30/1882166_848.jpg' alt='چگونه مصرف سوخت خودرو در زمستان را کاهش دهیم؟'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","bizarre")' class=' cat-bizarre '> عجیب و غریب </a></div>
+                                    <a href='@Url.Action("Post","bizarre", new {postID = 2230})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","bizarre", new {postID = 2230})'>چگونه مصرف سوخت خودرو در زمستان را کاهش دهیم؟</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2230'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-entertainment '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","entertainment", new {postID = 2229})' name='2229'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/26/1877455_745.jpg' alt='کلکسیون خودرو‌های لوکس پل واکر، ستاره فقید هالیوود'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","entertainment")' class='  '> سرگرمی </a></div>
-            <a href='@Url.Action("Post","entertainment", new {postID = 2229})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","entertainment", new {postID = 2229})'>کلکسیون خودرو‌های لوکس پل واکر، ستاره فقید هالیوود</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2229'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-entertainment '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","entertainment", new {postID = 2229})' name='2229'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/26/1877455_745.jpg' alt='کلکسیون خودرو‌های لوکس پل واکر، ستاره فقید هالیوود'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","entertainment")' class='  '> سرگرمی </a></div>
+                                    <a href='@Url.Action("Post","entertainment", new {postID = 2229})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","entertainment", new {postID = 2229})'>کلکسیون خودرو‌های لوکس پل واکر، ستاره فقید هالیوود</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2229'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-cute '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","cute", new {postID = 2228})' name='2228'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/28/1879977_175.jpg' alt='آفرود چیست و چقدر هزینه دارد؟'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","cute")' class=' cat-cute '> ناز </a></div>
-            <a href='@Url.Action("Post","cute", new {postID = 2228})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","cute", new {postID = 2228})'>آفرود چیست و چقدر هزینه دارد؟</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2228'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-cute '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","cute", new {postID = 2228})' name='2228'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/28/1879977_175.jpg' alt='آفرود چیست و چقدر هزینه دارد؟'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","cute")' class=' cat-cute '> ناز </a></div>
+                                    <a href='@Url.Action("Post","cute", new {postID = 2228})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","cute", new {postID = 2228})'>آفرود چیست و چقدر هزینه دارد؟</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2228'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-films '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","films", new {postID = 2227})' name='2227'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/28/1879780_205.jpg' alt='اولین موتورسیکلت الکتریکی هارلی دیویدسون'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","films")' class='  '> فیلم </a></div>
-            <a href='@Url.Action("Post","films", new {postID = 2227})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","films", new {postID = 2227})'>اولین موتورسیکلت الکتریکی هارلی دیویدسون</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2227'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-films '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","films", new {postID = 2227})' name='2227'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/28/1879780_205.jpg' alt='اولین موتورسیکلت الکتریکی هارلی دیویدسون'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","films")' class='  '> فیلم </a></div>
+                                    <a href='@Url.Action("Post","films", new {postID = 2227})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","films", new {postID = 2227})'>اولین موتورسیکلت الکتریکی هارلی دیویدسون</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2227'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-cute '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","cute", new {postID = 2226})' name='2226'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/27/1879223_200.jpg' alt='وانت هیولای میتسوبیشی وارد جاده‌ها شد!'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","cute")' class=' cat-cute '> ناز </a></div>
-            <a href='@Url.Action("Post","cute", new {postID = 2226})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","cute", new {postID = 2226})'>وانت هیولای میتسوبیشی وارد جاده‌ها شد!</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2226'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-cute '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","cute", new {postID = 2226})' name='2226'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/27/1879223_200.jpg' alt='وانت هیولای میتسوبیشی وارد جاده‌ها شد!'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","cute")' class=' cat-cute '> ناز </a></div>
+                                    <a href='@Url.Action("Post","cute", new {postID = 2226})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","cute", new {postID = 2226})'>وانت هیولای میتسوبیشی وارد جاده‌ها شد!</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2226'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-entertainment '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","entertainment", new {postID = 2225})' name='2225'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/20/1871202_823.jpg' alt='زشت‌ترین خودرو‌هایی که تا به‌حال ساخته شده'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","entertainment")' class='  '> سرگرمی </a></div>
-            <a href='@Url.Action("Post","entertainment", new {postID = 2225})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","entertainment", new {postID = 2225})'>زشت‌ترین خودرو‌هایی که تا به‌حال ساخته شده</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2225'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-entertainment '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","entertainment", new {postID = 2225})' name='2225'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/20/1871202_823.jpg' alt='زشت‌ترین خودرو‌هایی که تا به‌حال ساخته شده'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","entertainment")' class='  '> سرگرمی </a></div>
+                                    <a href='@Url.Action("Post","entertainment", new {postID = 2225})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","entertainment", new {postID = 2225})'>زشت‌ترین خودرو‌هایی که تا به‌حال ساخته شده</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2225'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-entertainment '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","entertainment", new {postID = 2224})' name='2224'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/25/1876657_130.jpg' alt='چرا در باران لیز میخوریم؟ پدیده آب سواری چیست؟'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","entertainment")' class='  '> سرگرمی </a></div>
-            <a href='@Url.Action("Post","entertainment", new {postID = 2224})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","entertainment", new {postID = 2224})'>چرا در باران لیز میخوریم؟ پدیده آب سواری چیست؟</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2224'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-entertainment '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","entertainment", new {postID = 2224})' name='2224'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/25/1876657_130.jpg' alt='چرا در باران لیز میخوریم؟ پدیده آب سواری چیست؟'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","entertainment")' class='  '> سرگرمی </a></div>
+                                    <a href='@Url.Action("Post","entertainment", new {postID = 2224})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","entertainment", new {postID = 2224})'>چرا در باران لیز میخوریم؟ پدیده آب سواری چیست؟</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2224'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-cute '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","cute", new {postID = 2223})' name='2223'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/12/1863195_525.jpg' alt='هوندا بهتر است یا هیوندای؟'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","cute")' class=' cat-cute '> ناز </a></div>
-            <a href='@Url.Action("Post","cute", new {postID = 2223})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","cute", new {postID = 2223})'>هوندا بهتر است یا هیوندای؟</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2223'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-cute '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","cute", new {postID = 2223})' name='2223'>  <img width='290' height='170' src='http://cdn.bartarinha.ir/files/fa/news/1397/8/12/1863195_525.jpg' alt='هوندا بهتر است یا هیوندای؟'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","cute")' class=' cat-cute '> ناز </a></div>
+                                    <a href='@Url.Action("Post","cute", new {postID = 2223})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","cute", new {postID = 2223})'>هوندا بهتر است یا هیوندای؟</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2223'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-bizarre '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","bizarre", new {postID = 2222})' name='2222'>  <img width='290' height='170' src='http://www.irannaz.com/images/2018/08/153468815062958-irannaz-com-300x200.jpg' alt='پلاکارد تهدید روحانی و اعتراف به مرگ عمدی هاشمی (عکس)'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","bizarre")' class=' cat-bizarre '> عجیب و غریب </a></div>
-            <a href='@Url.Action("Post","bizarre", new {postID = 2222})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","bizarre", new {postID = 2222})'>پلاکارد تهدید روحانی و اعتراف به مرگ عمدی هاشمی (عکس)</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2222'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-bizarre '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","bizarre", new {postID = 2222})' name='2222'>  <img width='290' height='170' src='http://www.irannaz.com/images/2018/08/153468815062958-irannaz-com-300x200.jpg' alt='پلاکارد تهدید روحانی و اعتراف به مرگ عمدی هاشمی (عکس)'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","bizarre")' class=' cat-bizarre '> عجیب و غریب </a></div>
+                                    <a href='@Url.Action("Post","bizarre", new {postID = 2222})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","bizarre", new {postID = 2222})'>پلاکارد تهدید روحانی و اعتراف به مرگ عمدی هاشمی (عکس)</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2222'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-sexy '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","sexy", new {postID = 2221})' name='2221'>  <img width='290' height='170' src='http://www.irannaz.com/images/2017/11/151058751991859-irannaz-com-297x200.jpg' alt='خودارضایی یا جلق بیش از اندازه و عوارض آن'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","sexy")' class='  '> هیجان انگیز </a></div>
-            <a href='@Url.Action("Post","sexy", new {postID = 2221})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","sexy", new {postID = 2221})'>خودارضایی یا جلق بیش از اندازه و عوارض آن</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2221'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-sexy '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","sexy", new {postID = 2221})' name='2221'>  <img width='290' height='170' src='http://www.irannaz.com/images/2017/11/151058751991859-irannaz-com-297x200.jpg' alt='خودارضایی یا جلق بیش از اندازه و عوارض آن'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","sexy")' class='  '> هیجان انگیز </a></div>
+                                    <a href='@Url.Action("Post","sexy", new {postID = 2221})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","sexy", new {postID = 2221})'>خودارضایی یا جلق بیش از اندازه و عوارض آن</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/آرمان دانشور' title="ایجادکننده'آرمان" دانشور'="" rel='author'>آرمان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2221'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article><article class='col-md-4 hentry  format-standard  category-quiz '><div class="post-box">
-        <div class="entry-cover">
-            <a href='@Url.Action("Post","quiz", new {postID = 2220})' name='2220'>  <img width='290' height='170' src='http://www.irannaz.com/images/2018/08/153460477772076-irannaz-com-300x200.jpg' alt='مرگ داماد آملی در حین فیلمبرداری (عکس)'>  </a>
-            <div class='post-category'><a href='@Url.Action("Index","quiz")' class=' cat-quiz '> سوال </a></div>
-            <a href='@Url.Action("Post","quiz", new {postID = 2220})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
-        </div>
-        <div class="entry-content">
-            <h3 class="entry-title"> <a href='@Url.Action("Post","quiz", new {postID = 2220})'>مرگ داماد آملی در حین فیلمبرداری (عکس)</a></h3>
-        </div>
-        <div class="entry-footer">
-            <div class=' row'>
-                                                                        <div class='col-md-12'>
-                                                                            <ul class='common-meta' style='width:auto'>
-                                                                                <li>
-                                                                                    <i class='fa fa-user'></i>
-                                                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a></li><li><i class='fa fa-comment'> 0</i><a href='Comment/2220'> </a></li><li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li></ul></div></div>
+                                </div>
+                            </div>
+                        </article><article class='col-md-4 hentry  format-standard  category-quiz '>
+                            <div class="post-box">
+                                <div class="entry-cover">
+                                    <a href='@Url.Action("Post","quiz", new {postID = 2220})' name='2220'>  <img width='290' height='170' src='http://www.irannaz.com/images/2018/08/153460477772076-irannaz-com-300x200.jpg' alt='مرگ داماد آملی در حین فیلمبرداری (عکس)'>  </a>
+                                    <div class='post-category'><a href='@Url.Action("Index","quiz")' class=' cat-quiz '> سوال </a></div>
+                                    <a href='@Url.Action("Post","quiz", new {postID = 2220})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title"> <a href='@Url.Action("Post","quiz", new {postID = 2220})'>مرگ داماد آملی در حین فیلمبرداری (عکس)</a></h3>
+                                </div>
+                                <div class="entry-footer">
+                                    <div class=' row'>
+                                        <div class='col-md-12'>
+                                            <ul class='common-meta' style='width:auto'>
+                                                <li>
+                                                    <i class='fa fa-user'></i>
+                                                    <a href='Admin/ارسلان دانشور' title="ایجادکننده'ارسلان" دانشور'="" rel='author'>ارسلان دانشور</a>
+                                                </li>
+                                                <li><i class='fa fa-comment'> 0</i><a href='Comment/2220'> </a></li>
+                                                <li class='post-like'><a href='#'><p class='fa fa-eye'> </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-        </div>
-    </div></article></div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
                 </div>
                 <div class="vc_empty_space" style="height: 32px">
                     <span class="vc_empty_space_inner"></span>
