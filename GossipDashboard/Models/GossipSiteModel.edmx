@@ -5,29 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="GossipSiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Log">
-          <Key>
-            <PropertyRef Name="LogID" />
-          </Key>
-          <Property Name="LogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LogTypeID_fk" Type="int" Nullable="false" />
-          <Property Name="IP" Type="nvarchar" MaxLength="20" />
-          <Property Name="PostName" Type="nvarchar" MaxLength="2000" />
-          <Property Name="PostID" Type="int" />
-          <Property Name="ModifyDateTime" Type="datetime" />
-        </EntityType>
-        <EntityType Name="LogError">
-          <Key>
-            <PropertyRef Name="LogErorrID" />
-          </Key>
-          <Property Name="LogErorrID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IP" Type="nvarchar" MaxLength="20" />
-          <Property Name="ErrorDescription" Type="nvarchar(max)" />
-          <Property Name="ErrorID" Type="int" />
-          <Property Name="PostName" Type="nvarchar" MaxLength="2000" />
-          <Property Name="PostID" Type="int" />
-          <Property Name="ModifyDateTime" Type="datetime" />
-        </EntityType>
         <EntityType Name="Post">
           <Key>
             <PropertyRef Name="PostID" />
@@ -257,6 +234,7 @@
           <Property Name="Url" Type="nvarchar" MaxLength="2000" />
           <Property Name="UrlMP3" Type="nvarchar" MaxLength="2000" />
           <Property Name="UrlVideo" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ScriptAparat" Type="nvarchar" MaxLength="2000" />
           <Property Name="Views" Type="int" />
           <Property Name="LikePost" Type="int" />
           <Property Name="DislikePost" Type="int" />
@@ -585,6 +563,9 @@
           <Property Name="SourceSiteAuthor" Type="nvarchar" MaxLength="200" />
           <Property Name="SourceSiteName" Type="nvarchar" MaxLength="1000" />
           <Property Name="ContentHTML" Type="nvarchar(max)" />
+          <Property Name="ScriptAparat" Type="nvarchar" MaxLength="2000" />
+          <Property Name="SourceSiteLike" Type="nvarchar" MaxLength="50" />
+          <Property Name="SourceSiteQoute" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="PubBase">
           <Key>
@@ -736,8 +717,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="GossipSiteModelStoreContainer">
-          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="LogError" EntityType="Self.LogError" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAnswer" EntityType="Self.PostAnswer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAttribute" EntityType="Self.PostAttribute" Schema="dbo" store:Type="Tables" />
@@ -1085,6 +1064,7 @@
           <NavigationProperty Name="PostComments" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
           <NavigationProperty Name="PostQuestions" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="Post" ToRole="PostQuestion" />
           <NavigationProperty Name="UserPosts" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="Post" ToRole="UserPost" />
+          <Property Name="ScriptAparat" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PostAnswer">
           <Key>
@@ -1390,6 +1370,9 @@
           <Property Name="SourceSiteAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="SourceSiteName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="ContentHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ScriptAparat" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="SourceSiteLike" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SourceSiteQoute" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PubBase">
           <Key>
@@ -1576,6 +1559,7 @@
           <EntitySetMapping Name="Posts">
             <EntityTypeMapping TypeName="GossipSiteModel.Post">
               <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="ScriptAparat" ColumnName="ScriptAparat" />
                 <ScalarProperty Name="ContentHTML" ColumnName="ContentHTML" />
                 <ScalarProperty Name="SourceSiteNameFa" ColumnName="SourceSiteNameFa" />
                 <ScalarProperty Name="ContentPost1_7" ColumnName="ContentPost1_7" />
@@ -1878,6 +1862,9 @@
           <EntitySetMapping Name="PostTemperories">
             <EntityTypeMapping TypeName="GossipSiteModel.PostTemperory">
               <MappingFragment StoreEntitySet="PostTemperory">
+                <ScalarProperty Name="SourceSiteQoute" ColumnName="SourceSiteQoute" />
+                <ScalarProperty Name="SourceSiteLike" ColumnName="SourceSiteLike" />
+                <ScalarProperty Name="ScriptAparat" ColumnName="ScriptAparat" />
                 <ScalarProperty Name="ContentHTML" ColumnName="ContentHTML" />
                 <ScalarProperty Name="SourceSiteName" ColumnName="SourceSiteName" />
                 <ScalarProperty Name="SourceSiteAuthor" ColumnName="SourceSiteAuthor" />
@@ -2194,32 +2181,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Logs">
-            <EntityTypeMapping TypeName="GossipSiteModel.Log">
-              <MappingFragment StoreEntitySet="Log">
-                <ScalarProperty Name="ModifyDateTime" ColumnName="ModifyDateTime" />
-                <ScalarProperty Name="PostID" ColumnName="PostID" />
-                <ScalarProperty Name="PostName" ColumnName="PostName" />
-                <ScalarProperty Name="IP" ColumnName="IP" />
-                <ScalarProperty Name="LogTypeID_fk" ColumnName="LogTypeID_fk" />
-                <ScalarProperty Name="LogID" ColumnName="LogID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LogErrors">
-            <EntityTypeMapping TypeName="GossipSiteModel.LogError">
-              <MappingFragment StoreEntitySet="LogError">
-                <ScalarProperty Name="ModifyDateTime" ColumnName="ModifyDateTime" />
-                <ScalarProperty Name="PostID" ColumnName="PostID" />
-                <ScalarProperty Name="PostName" ColumnName="PostName" />
-                <ScalarProperty Name="ErrorID" ColumnName="ErrorID" />
-                <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
-                <ScalarProperty Name="IP" ColumnName="IP" />
-                <ScalarProperty Name="LogErorrID" ColumnName="LogErorrID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

@@ -114,6 +114,11 @@ namespace GossipDashboard.Helper
                     nodes = CreateHeadStatus(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
                     break;
 
+                case "aparat":
+                    docTemplates.Load(path + "/Templates/format-aparat.html", System.Text.Encoding.UTF8);
+                    nodes = CreateHeadAparat(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
+                    break;
+
                 default:
                     docTemplates.Load(path + "/Templates/format-standard.html", System.Text.Encoding.UTF8);
                     nodes = CreateHeadStandard(post, categoryAboveClass, categoryAboveName, urlCategory, docTemplates, postUrl);
@@ -482,7 +487,6 @@ namespace GossipDashboard.Helper
                                                                         "</blockquote>" +
                                                                     "</div>" +
                                                                 "</div>");
-
                         itemNode.ReplaceChild(newChild, oldChild);
                     }
                 }
@@ -506,6 +510,62 @@ namespace GossipDashboard.Helper
                         HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box'>" +
                                                                     "<div class='entry-content'>" +
                                                                         "<h3 class='status lead'>" + post.Subject1 + "</h3>" +
+                                                                    "</div>" +
+                                                                "</div>");
+                        itemNode.ReplaceChild(newChild, oldChild);
+                    }
+                }
+            }
+
+            return nodes;
+        }
+
+        private HtmlNodeCollection CreateHeadAparat(VM_Post post, string categoryAboveClass, string categoryAboveName, string urlCategory, HtmlDocument docTemplates, string postUrl)
+        {
+            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+            foreach (var itemNode in nodes)
+            {
+                var attrs = itemNode.Attributes;
+                foreach (var itemAttr in attrs)
+                {
+                    //defaultForAllPost پيدا كردن تگ ديو با كلاس
+                    if (itemAttr.Value.Contains("defaultForAllPost"))
+                    {
+                        HtmlNode oldChild = itemNode.SelectSingleNode("/article[1]/div[1]/div[1]");
+                        HtmlNode newChild = HtmlNode.CreateNode("<div class='post-box'>" +
+                                                                    "<div class='entry-cover'>" +
+                                                                      post.ScriptAparat +
+                                                                        //"<div id = '15437560721097752' > " +
+                                                                        //    "<script type='text/JavaScript' src='https://www.aparat.com/embed/0Z2eg?data[rnddiv]=15437560721097752&data[responsive]=yes'></script>" +
+                                                                        //"</div>" +
+                                                                        "<div class='post-category'>" +
+                                                                            "<a href = '" + urlCategory + "' class='" + categoryAboveClass + "'> " + categoryAboveName + "</a>" +
+                                                                        "</div>" +
+                                                                    //"<a href = '@Url.Action('Post','bizarre', new {postID = 2249})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>"+
+                                                                    "</div>" +
+                                                                    "<div class='entry-content'>" +
+                                                                        "<h3 class='entry-title'> <a href = '"+postUrl+"'>"+ post.Subject1 + "</a></h3>" +
+                                                                    "</div>" +
+                                                                    "<div class='entry-footer'>" +
+                                                                        "<div class=' row'>" +
+                                                                            "<div class='col-md-12'>" +
+                                                                                "<ul class='common-meta' style='width:auto'>" +
+                                                                                    "<li>" +
+                                                                                        "<i class='fa fa-user'></i>" +
+                                                                                        "<a href = 'Admin/" + post.Fullname + "' title=ایجاد شده توسط'" + post.Fullname + "' rel='author'>" + post.Fullname + "</a>" +
+                                                                                    "</li>" +
+                                                                                   "<li>" +
+                                                                                        "<i class='fa fa-comment'></i>" +
+                                                                                        "<a href = 'Comment/'" + post.CommentCount + " > 0 </ a > " +
+                                                                                    "</li > " +
+                                                                                    "<li class='post-like'>" +
+                                                                                        "<a href = '#' > " +
+                                                                                            "<i class='fa fa-eye'></i>" + post.Views +
+                                                                                        "</a>" +
+                                                                                    "</li>" +
+                                                                                "</ul>" +
+                                                                            "</div>" +
+                                                                        "</div>" +
                                                                     "</div>" +
                                                                 "</div>");
                         itemNode.ReplaceChild(newChild, oldChild);
@@ -844,7 +904,7 @@ namespace GossipDashboard.Helper
                                                                         "<h4 class='blogitem-title'>" +
                                                                             "<a href = '" + postUrl + "' > " + post.Subject11 + "</a>" +
                                                                         "</h4>" +
-                                                                        "<div class='blogitem-excerpt'>" + post.ContentPost1_1.Substring(0, (post.ContentPost1_1.Length>200 ? 200 : post.ContentPost1_1.Length)) + "</div>" +
+                                                                        "<div class='blogitem-excerpt'>" + post.ContentPost1_1.Substring(0, (post.ContentPost1_1.Length > 200 ? 200 : post.ContentPost1_1.Length)) + "</div>" +
                                                                         "<div class='blogitem-meta'>" +
                                                                             "<span class='blogitem-author'>" +
                                                                                 "<i class='fa fa-user'></i> " + post.Fullname +

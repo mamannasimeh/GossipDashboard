@@ -1918,6 +1918,7 @@
     <Content Include="Scripts\mediaelement-and-player.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\persianumber.js" />
+    <Content Include="Scripts\persianumber.min.js" />
     <Content Include="Scripts\plugins.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
