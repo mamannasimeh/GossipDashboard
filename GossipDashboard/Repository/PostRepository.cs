@@ -288,6 +288,7 @@ namespace GossipDashboard.Repository
                           SourceSiteNameFa = P.SourceSiteNameFa,
                           SourceSiteUrl = P.SourceSiteUrl,
                           ContentHTML = P.ContentHTML,
+                          ScriptAparat = P.ScriptAparat,
                           UserID_fk = UP.UserID_fk,
                           FirstName = U.FirstName,
                           LastName = U.LastName,
@@ -663,6 +664,7 @@ namespace GossipDashboard.Repository
                           FootCategory = P.SourceFootCategory,
                           DateTimePost = P.SourceDateTimePost,
                           ContentHTML = P.ContentHTML,
+                          ScriptAparat = P.ScriptAparat,
                           SourceDateTimePost = P.SourceDateTimePost,
                           SourceFootCategory = P.SourceFootCategory,
                           SourceSiteName = P.SourceSiteName,
@@ -875,7 +877,7 @@ namespace GossipDashboard.Repository
                                     break;
 
                                 case "RANGEHONAR":
-                                     entityPost.SourceSiteNameFa = "سامانه آموزش نقاشی رنگ هنر";
+                                    entityPost.SourceSiteNameFa = "سامانه آموزش نقاشی رنگ هنر";
 
                                     //اصلاح مقدار کانتنت پست 1 با شرایط زیر
                                     if (entityPost.ContentPost1_1.Contains("نویسنده") && entityPost.ContentPost1_1.Contains("بخش")

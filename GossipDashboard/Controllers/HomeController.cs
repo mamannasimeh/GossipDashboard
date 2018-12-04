@@ -84,7 +84,28 @@ namespace GossipDashboard.Controllers
                     ////////    return;
 
                     //برای قسمت اصلی داشتن  تصویر مهم است
+                    //if ((item.Image1_1 != null || item.ScriptAparat != null) && i < 30)
                     if (item.Image1_1 != null && i < 30)
+                    {
+                        //در صفحه اصلی عکس تکراری نداشته باشیم
+                        if (duplicateImage.FirstOrDefault(x => x == item.Image1_1) == null)
+                        {
+                            item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+
+                            //ايجاد محتوا براي وسط صفحه-- author-grid
+                            var itSelfNode = postManagement.CreateBloglist(item);
+                            if (itSelfNode != null)
+                            {
+                                result = postManagement.AddHeadToContentDiv(nodesIndex, "author-grid", itSelfNode);
+                            }
+
+                            i += 1;
+                            duplicateImage.Add(item.Image1_1);
+                        }
+                    }
+
+                    //برای قسمت اصلی داشتن  تصویر مهم است
+                    if (item.ScriptAparat != null)
                     {
                         //در صفحه اصلی عکس تکراری نداشته باشیم
                         if (duplicateImage.FirstOrDefault(x => x == item.Image1_1) == null)
@@ -344,7 +365,7 @@ namespace GossipDashboard.Controllers
             //اسلایدر بالایی
             ////////////////////////sp-slides sp-slider-image-top///////////////////////////////////////
             var someDaysAgoSliderTop = DateTime.Now.AddDays(-5);
-            var postSliderTop = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgoSliderTop && p.Image1_1 != null).OrderByDescending(p => p.Views).Take(6).ToList();
+            var postSliderTop = repo.SelectPostUser().Where(p => p.ModifyDate >= someDaysAgoSliderTop && p.ModifyDate < DateTime.Now && p.Image1_1 != null).OrderByDescending(p => p.Views).Take(6).ToList();
             try
             {
                 docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);

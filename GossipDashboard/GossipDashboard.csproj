@@ -1918,6 +1918,7 @@
     <Content Include="Scripts\mediaelement-and-player.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\persianumber.js" />
+    <Content Include="Scripts\persianumber.min.js" />
     <Content Include="Scripts\plugins.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -1938,6 +1939,7 @@
     <Content Include="Scripts\wp-mediaelement.min.js" />
     <Content Include="Templates\cat-list.html" />
     <Content Include="Templates\bloglist-content.html" />
+    <Content Include="Templates\format-aparat.html" />
     <Content Include="Templates\format-audio.html" />
     <Content Include="Templates\format-gallery.html" />
     <Content Include="Templates\format-image.html" />
@@ -3044,8 +3046,8 @@
     <Content Include="Views\Shared\EditorTemplates\DropDown.cshtml" />
     <Content Include="Views\Post\AudioIndex.cshtml" />
     <Content Include="Views\Post\_Comment.cshtml" />
-    <Content Include="Views\Post\Index - Copy.cshtml" />
     <Content Include="Views\ErrorHandler\NotFound.cshtml" />
+    <Content Include="Views\Post\AparatIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

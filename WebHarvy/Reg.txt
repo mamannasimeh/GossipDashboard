@@ -27,3 +27,29 @@ The RegEx string to be used is :
 
 <address>([\s\S]*?)</address>
 The portion ([\s\S]*?) matches all characters between <address> and </address>.
+------------------------------------------------------------------------------
+JS code to click on the email icon and open the email form :
+
+document.getElementsByClassName("ui_icon email")[0].click();
+
+RegEx String used :
+
+value="([^"]*)
+----------------------------------------------------------------
+https://www.youtube.com/watch?v=VFKM5nBZxlA
+
+RegEx for extracting images : 
+
+(http:\/\/[^&]*)
+
+JS code for setting the URL of the page as the Text :
+
+document.body.innerText=document.URL;
+
+RegEx Codes for Lat and Long :
+
+/@([^,]*)
+
+/@[^,]*,([^,]*)
+
+-----------------------------------------------------------------------

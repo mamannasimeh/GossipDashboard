@@ -10,9 +10,9 @@
             <PropertyRef Name="LogID" />
           </Key>
           <Property Name="LogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LogTypeID_fk" Type="int" Nullable="false" />
-          <Property Name="IP" Type="nvarchar" MaxLength="20" />
-          <Property Name="PostName" Type="nvarchar" MaxLength="2000" />
+          <Property Name="LogTypeID_fk" Type="int" />
+          <Property Name="IP" Type="nvarchar" MaxLength="50" />
+          <Property Name="PostName" Type="nvarchar" MaxLength="200" />
           <Property Name="PostID" Type="int" />
           <Property Name="ModifyDateTime" Type="datetime" />
         </EntityType>
@@ -21,10 +21,10 @@
             <PropertyRef Name="LogErorrID" />
           </Key>
           <Property Name="LogErorrID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IP" Type="nvarchar" MaxLength="20" />
+          <Property Name="IP" Type="nvarchar" MaxLength="50" />
           <Property Name="ErrorDescription" Type="nvarchar(max)" />
           <Property Name="ErrorID" Type="int" />
-          <Property Name="PostName" Type="nvarchar" MaxLength="2000" />
+          <Property Name="PostName" Type="nvarchar" MaxLength="200" />
           <Property Name="PostID" Type="int" />
           <Property Name="ModifyDateTime" Type="datetime" />
         </EntityType>
@@ -257,6 +257,7 @@
           <Property Name="Url" Type="nvarchar" MaxLength="2000" />
           <Property Name="UrlMP3" Type="nvarchar" MaxLength="2000" />
           <Property Name="UrlVideo" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ScriptAparat" Type="nvarchar" MaxLength="2000" />
           <Property Name="Views" Type="int" />
           <Property Name="LikePost" Type="int" />
           <Property Name="DislikePost" Type="int" />
@@ -585,6 +586,9 @@
           <Property Name="SourceSiteAuthor" Type="nvarchar" MaxLength="200" />
           <Property Name="SourceSiteName" Type="nvarchar" MaxLength="1000" />
           <Property Name="ContentHTML" Type="nvarchar(max)" />
+          <Property Name="ScriptAparat" Type="nvarchar" MaxLength="2000" />
+          <Property Name="SourceSiteLike" Type="nvarchar" MaxLength="50" />
+          <Property Name="SourceSiteQoute" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="PubBase">
           <Key>
@@ -1085,6 +1089,7 @@
           <NavigationProperty Name="PostComments" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
           <NavigationProperty Name="PostQuestions" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="Post" ToRole="PostQuestion" />
           <NavigationProperty Name="UserPosts" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="Post" ToRole="UserPost" />
+          <Property Name="ScriptAparat" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PostAnswer">
           <Key>
@@ -1390,6 +1395,9 @@
           <Property Name="SourceSiteAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="SourceSiteName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="ContentHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ScriptAparat" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="SourceSiteLike" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SourceSiteQoute" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PubBase">
           <Key>
@@ -1549,9 +1557,9 @@
             <PropertyRef Name="LogID" />
           </Key>
           <Property Name="LogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LogTypeID_fk" Type="Int32" Nullable="false" />
-          <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="PostName" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="LogTypeID_fk" Type="Int32" />
+          <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PostName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="PostID" Type="Int32" />
           <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
         </EntityType>
@@ -1560,10 +1568,10 @@
             <PropertyRef Name="LogErorrID" />
           </Key>
           <Property Name="LogErorrID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ErrorID" Type="Int32" />
-          <Property Name="PostName" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="PostName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="PostID" Type="Int32" />
           <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
         </EntityType>
@@ -1576,6 +1584,7 @@
           <EntitySetMapping Name="Posts">
             <EntityTypeMapping TypeName="GossipSiteModel.Post">
               <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="ScriptAparat" ColumnName="ScriptAparat" />
                 <ScalarProperty Name="ContentHTML" ColumnName="ContentHTML" />
                 <ScalarProperty Name="SourceSiteNameFa" ColumnName="SourceSiteNameFa" />
                 <ScalarProperty Name="ContentPost1_7" ColumnName="ContentPost1_7" />
@@ -1878,6 +1887,9 @@
           <EntitySetMapping Name="PostTemperories">
             <EntityTypeMapping TypeName="GossipSiteModel.PostTemperory">
               <MappingFragment StoreEntitySet="PostTemperory">
+                <ScalarProperty Name="SourceSiteQoute" ColumnName="SourceSiteQoute" />
+                <ScalarProperty Name="SourceSiteLike" ColumnName="SourceSiteLike" />
+                <ScalarProperty Name="ScriptAparat" ColumnName="ScriptAparat" />
                 <ScalarProperty Name="ContentHTML" ColumnName="ContentHTML" />
                 <ScalarProperty Name="SourceSiteName" ColumnName="SourceSiteName" />
                 <ScalarProperty Name="SourceSiteAuthor" ColumnName="SourceSiteAuthor" />
@@ -2219,7 +2231,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

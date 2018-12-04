@@ -294,7 +294,7 @@ namespace GossipDashboard.Repository
         {
             var entity = new Post()
             {
-                PostID = vm.PostID, 
+                PostID = vm.PostID,
                 Subject1 = vm.Subject1,
                 SubSubject1_1 = vm.SubSubject1_1,
                 SubSubject1_2 = vm.SubSubject1_2,
@@ -547,6 +547,8 @@ namespace GossipDashboard.Repository
                 SourceSiteName = vm.SourceSiteName,
                 SourceSiteNameFa = vm.SourceSiteNameFa,
                 SourceSiteUrl = vm.SourceSiteUrl,
+                ContentHTML = vm.ContentHTML,
+                ScriptAparat = vm.ScriptAparat
             };
             context.Posts.Add(entity);
             context.SaveChanges();
@@ -849,6 +851,8 @@ namespace GossipDashboard.Repository
                 SourceSiteName = vm.SourceSiteName,
                 SourceSiteNameFa = vm.SourceSiteNameFa,
                 SourceSiteUrl = vm.SourceSiteUrl,
+                ContentHTML = vm.ContentHTML,
+                ScriptAparat = vm.ScriptAparat
             };
 
             context.Posts.Attach(entity);

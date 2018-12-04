@@ -234,6 +234,7 @@ namespace GossipDashboard.ViewModel
         public string Url { get; set; }
         public string UrlMP3 { get; set; }
         public string UrlVideo { get; set; }
+        public string ScriptAparat { get; set; }
         public Nullable<int> Views { get; set; }
         public Nullable<int> LikePost { get; set; }
         public Nullable<int> DislikePost { get; set; }
