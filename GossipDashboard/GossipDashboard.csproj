@@ -3046,8 +3046,8 @@
     <Content Include="Views\Shared\EditorTemplates\DropDown.cshtml" />
     <Content Include="Views\Post\AudioIndex.cshtml" />
     <Content Include="Views\Post\_Comment.cshtml" />
-    <Content Include="Views\Post\Index - Copy.cshtml" />
     <Content Include="Views\ErrorHandler\NotFound.cshtml" />
+    <Content Include="Views\Post\AparatIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -5,9 +5,9 @@
       <PropertyRef Name="LogID" />
     </Key>
     <Property Name="LogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="LogTypeID_fk" Type="int" Nullable="false" />
-    <Property Name="IP" Type="nvarchar" MaxLength="20" />
-    <Property Name="PostName" Type="nvarchar" MaxLength="2000" />
+    <Property Name="LogTypeID_fk" Type="int" />
+    <Property Name="IP" Type="nvarchar" MaxLength="50" />
+    <Property Name="PostName" Type="nvarchar" MaxLength="200" />
     <Property Name="PostID" Type="int" />
     <Property Name="ModifyDateTime" Type="datetime" />
   </EntityType>
@@ -16,10 +16,10 @@
       <PropertyRef Name="LogErorrID" />
     </Key>
     <Property Name="LogErorrID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="IP" Type="nvarchar" MaxLength="20" />
+    <Property Name="IP" Type="nvarchar" MaxLength="50" />
     <Property Name="ErrorDescription" Type="nvarchar(max)" />
     <Property Name="ErrorID" Type="int" />
-    <Property Name="PostName" Type="nvarchar" MaxLength="2000" />
+    <Property Name="PostName" Type="nvarchar" MaxLength="200" />
     <Property Name="PostID" Type="int" />
     <Property Name="ModifyDateTime" Type="datetime" />
   </EntityType>
@@ -252,6 +252,7 @@
     <Property Name="Url" Type="nvarchar" MaxLength="2000" />
     <Property Name="UrlMP3" Type="nvarchar" MaxLength="2000" />
     <Property Name="UrlVideo" Type="nvarchar" MaxLength="2000" />
+    <Property Name="ScriptAparat" Type="nvarchar" MaxLength="2000" />
     <Property Name="Views" Type="int" />
     <Property Name="LikePost" Type="int" />
     <Property Name="DislikePost" Type="int" />
@@ -580,6 +581,9 @@
     <Property Name="SourceSiteAuthor" Type="nvarchar" MaxLength="200" />
     <Property Name="SourceSiteName" Type="nvarchar" MaxLength="1000" />
     <Property Name="ContentHTML" Type="nvarchar(max)" />
+    <Property Name="ScriptAparat" Type="nvarchar" MaxLength="2000" />
+    <Property Name="SourceSiteLike" Type="nvarchar" MaxLength="50" />
+    <Property Name="SourceSiteQoute" Type="nvarchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="PubBase">
     <Key>

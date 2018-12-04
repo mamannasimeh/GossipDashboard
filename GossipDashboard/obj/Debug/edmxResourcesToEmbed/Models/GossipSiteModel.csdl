@@ -304,6 +304,7 @@
     <NavigationProperty Name="PostComments" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
     <NavigationProperty Name="PostQuestions" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="Post" ToRole="PostQuestion" />
     <NavigationProperty Name="UserPosts" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="Post" ToRole="UserPost" />
+    <Property Name="ScriptAparat" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="PostAnswer">
     <Key>
@@ -609,6 +610,9 @@
     <Property Name="SourceSiteAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="SourceSiteName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="ContentHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ScriptAparat" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="SourceSiteLike" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SourceSiteQoute" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="PubBase">
     <Key>
@@ -768,9 +772,9 @@
       <PropertyRef Name="LogID" />
     </Key>
     <Property Name="LogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="LogTypeID_fk" Type="Int32" Nullable="false" />
-    <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="PostName" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="LogTypeID_fk" Type="Int32" />
+    <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PostName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="PostID" Type="Int32" />
     <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
   </EntityType>
@@ -779,10 +783,10 @@
       <PropertyRef Name="LogErorrID" />
     </Key>
     <Property Name="LogErorrID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ErrorID" Type="Int32" />
-    <Property Name="PostName" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="PostName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="PostID" Type="Int32" />
     <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
   </EntityType>

@@ -5,6 +5,29 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="GossipSiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LogTypeID_fk" Type="int" />
+          <Property Name="IP" Type="nvarchar" MaxLength="50" />
+          <Property Name="PostName" Type="nvarchar" MaxLength="200" />
+          <Property Name="PostID" Type="int" />
+          <Property Name="ModifyDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LogError">
+          <Key>
+            <PropertyRef Name="LogErorrID" />
+          </Key>
+          <Property Name="LogErorrID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IP" Type="nvarchar" MaxLength="50" />
+          <Property Name="ErrorDescription" Type="nvarchar(max)" />
+          <Property Name="ErrorID" Type="int" />
+          <Property Name="PostName" Type="nvarchar" MaxLength="200" />
+          <Property Name="PostID" Type="int" />
+          <Property Name="ModifyDateTime" Type="datetime" />
+        </EntityType>
         <EntityType Name="Post">
           <Key>
             <PropertyRef Name="PostID" />
@@ -717,6 +740,8 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="GossipSiteModelStoreContainer">
+          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogError" EntityType="Self.LogError" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAnswer" EntityType="Self.PostAnswer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAttribute" EntityType="Self.PostAttribute" Schema="dbo" store:Type="Tables" />
@@ -1532,9 +1557,9 @@
             <PropertyRef Name="LogID" />
           </Key>
           <Property Name="LogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LogTypeID_fk" Type="Int32" Nullable="false" />
-          <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="PostName" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="LogTypeID_fk" Type="Int32" />
+          <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PostName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="PostID" Type="Int32" />
           <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
         </EntityType>
@@ -1543,10 +1568,10 @@
             <PropertyRef Name="LogErorrID" />
           </Key>
           <Property Name="LogErorrID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ErrorID" Type="Int32" />
-          <Property Name="PostName" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="PostName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="PostID" Type="Int32" />
           <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
         </EntityType>
@@ -2178,6 +2203,31 @@
                 <ScalarProperty Name="PostID_fk" ColumnName="PostID_fk" />
                 <ScalarProperty Name="UserID_fk" ColumnName="UserID_fk" />
                 <ScalarProperty Name="UserPostID" ColumnName="UserPostID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="GossipSiteModel.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="ModifyDateTime" ColumnName="ModifyDateTime" />
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="PostName" ColumnName="PostName" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="LogTypeID_fk" ColumnName="LogTypeID_fk" />
+                <ScalarProperty Name="LogID" ColumnName="LogID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogErrors">
+            <EntityTypeMapping TypeName="GossipSiteModel.LogError">
+              <MappingFragment StoreEntitySet="LogError">
+                <ScalarProperty Name="ModifyDateTime" ColumnName="ModifyDateTime" />
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="PostName" ColumnName="PostName" />
+                <ScalarProperty Name="ErrorID" ColumnName="ErrorID" />
+                <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="LogErorrID" ColumnName="LogErorrID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

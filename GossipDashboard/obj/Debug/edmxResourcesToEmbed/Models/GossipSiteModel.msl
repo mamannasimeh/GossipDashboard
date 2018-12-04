@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Posts">
       <EntityTypeMapping TypeName="GossipSiteModel.Post">
         <MappingFragment StoreEntitySet="Post">
+          <ScalarProperty Name="ScriptAparat" ColumnName="ScriptAparat" />
           <ScalarProperty Name="ContentHTML" ColumnName="ContentHTML" />
           <ScalarProperty Name="SourceSiteNameFa" ColumnName="SourceSiteNameFa" />
           <ScalarProperty Name="ContentPost1_7" ColumnName="ContentPost1_7" />
@@ -306,6 +307,9 @@
     <EntitySetMapping Name="PostTemperories">
       <EntityTypeMapping TypeName="GossipSiteModel.PostTemperory">
         <MappingFragment StoreEntitySet="PostTemperory">
+          <ScalarProperty Name="SourceSiteQoute" ColumnName="SourceSiteQoute" />
+          <ScalarProperty Name="SourceSiteLike" ColumnName="SourceSiteLike" />
+          <ScalarProperty Name="ScriptAparat" ColumnName="ScriptAparat" />
           <ScalarProperty Name="ContentHTML" ColumnName="ContentHTML" />
           <ScalarProperty Name="SourceSiteName" ColumnName="SourceSiteName" />
           <ScalarProperty Name="SourceSiteAuthor" ColumnName="SourceSiteAuthor" />

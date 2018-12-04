@@ -15,7 +15,7 @@ namespace GossipDashboard.Models
     public partial class Log
     {
         public int LogID { get; set; }
-        public int LogTypeID_fk { get; set; }
+        public Nullable<int> LogTypeID_fk { get; set; }
         public string IP { get; set; }
         public string PostName { get; set; }
         public Nullable<int> PostID { get; set; }
