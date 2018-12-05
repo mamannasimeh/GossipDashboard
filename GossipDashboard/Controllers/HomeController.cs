@@ -60,32 +60,6 @@ namespace GossipDashboard.Controllers
             return View("Index");
         }
 
-        List<VM_Post> postNewOrder = new List<VM_Post>();
-        List<VM_Post> postNewOrder1 = new List<VM_Post>();
-        List<string> listSourceSiteName = new List<string>();
-        private void CreatePostNewOrder(List<VM_Post> posts, int index, int i, int postDistinctCount)
-        {
-            if (posts.Count == index + 1)
-                return;
-
-            if (!postNewOrder.Contains(posts[index]))
-            {
-                postNewOrder.Add(posts[index]);
-                i += 1;
-            }
-
-            if (i == postDistinctCount)
-            {
-                postNewOrder1.AddRange(postNewOrder);
-
-                postNewOrder = new List<VM_Post>();
-                i = 0;
-            }
-
-            index += 1;
-            CreatePostNewOrder(posts, index, i, postDistinctCount);
-        }
-
         //ایجاد صفحه اصلی
         private void CreateIndexPage(string path, PostManagement postManagement)
         {
@@ -101,73 +75,44 @@ namespace GossipDashboard.Controllers
                 //حذف محتويات ند بلاك-author-grid
                 postManagement.ClearContentNode(nodesIndex, "author-grid");
 
-                //ایجاد  تگ آرتیکل به ازای هر پست
-                int i = 0; List<string> duplicateImage = new List<string>();
-                var posts = repo.SelectPostUser().OrderByDescending(p => p.PostID).Take(200).ToList();
-                ////var postsShuffle = posts.OrderBy(p => Guid.NewGuid());
-
-                List<VM_Post> postNewOrder = new List<VM_Post>();
-                List<string> listSourceSiteName = new List<string>();
-                var postDistinct = posts.Select(p => p.SourceSiteName).Distinct().ToList();
-                int isContinue = 0;
-                foreach (var item in posts)
+                int i = 0, takeList = 10;
+                List<VM_Post> posts = new List<VM_Post>();
+                List<string> duplicateImages = new List<string>();
+                List<int> AddedPostIDs = new List<int>();
+                do
                 {
-                    if (listSourceSiteName.Count == postDistinct.Count)
-                        isContinue = 0;
-
-                    if (listSourceSiteName.Contains(item.SourceSiteName) && isContinue != 0)
-                        continue;
-
-                    postNewOrder.Add(item);
-
-                    listSourceSiteName.Add(item.SourceSiteName);
-                    isContinue += 1;
-                }
-
-
-                foreach (var item in posts)
-                {
-                    //برای قسمت اصلی داشتن  تصویر مهم است
-                    //if ((item.Image1_1 != null || item.ScriptAparat != null) && i < 30)
-                    if (item.Image1_1 != null && i < 30)
+                    //ایجاد تگ آرتیکل به ازای هر پست
+                    posts = repo.SelectPostUser().OrderByDescending(p => p.PostID).Take(takeList).ToList();
+                    foreach (var item in posts)
                     {
-                        //در صفحه اصلی عکس تکراری نداشته باشیم
-                        if (duplicateImage.FirstOrDefault(x => x == item.Image1_1) == null)
+                        //برای قسمت اصلی داشتن  تصویر مهم است
+                        //if ((item.Image1_1 != null || item.ScriptAparat != null) && i < 30)
+                        if (item.Image1_1 != null && i < 30 && !AddedPostIDs.Contains(item.PostID))
                         {
-                            item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
-
-                            //ايجاد محتوا براي وسط صفحه-- author-grid
-                            var itSelfNode = postManagement.CreateBloglist(item);
-                            if (itSelfNode != null)
+                            //در صفحه اصلی عکس تکراری نداشته باشیم
+                            if (duplicateImages.FirstOrDefault(x => x == item.Image1_1) == null)
                             {
-                                result = postManagement.AddHeadToContentDiv(nodesIndex, "author-grid", itSelfNode);
-                            }
+                                item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
-                            i += 1;
-                            duplicateImage.Add(item.Image1_1);
+                                //ايجاد محتوا براي وسط صفحه-- author-grid
+                                var itSelfNode = postManagement.CreateBloglist(item);
+                                if (itSelfNode != null)
+                                {
+                                    result = postManagement.AddHeadToContentDiv(nodesIndex, "author-grid", itSelfNode);
+
+                                    AddedPostIDs.Add(item.PostID);
+                                }
+
+                                i += 1;
+                                duplicateImages.Add(item.Image1_1);
+                            }
                         }
                     }
 
-                    ////برای قسمت اصلی داشتن  تصویر مهم است
-                    //if (item.ScriptAparat != null)
-                    //{
-                    //    //در صفحه اصلی عکس تکراری نداشته باشیم
-                    //    if (duplicateImage.FirstOrDefault(x => x == item.Image1_1) == null)
-                    //    {
-                    //        item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+                    takeList += 10;
+                } while (i < 30);
 
-                    //        //ايجاد محتوا براي وسط صفحه-- author-grid
-                    //        var itSelfNode = postManagement.CreateBloglist(item);
-                    //        if (itSelfNode != null)
-                    //        {
-                    //            result = postManagement.AddHeadToContentDiv(nodesIndex, "author-grid", itSelfNode);
-                    //        }
 
-                    //        i += 1;
-                    //        duplicateImage.Add(item.Image1_1);
-                    //    }
-                    //}
-                }
 
 
                 var htmlDoc = new HtmlDocument();
