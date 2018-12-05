@@ -60,6 +60,32 @@ namespace GossipDashboard.Controllers
             return View("Index");
         }
 
+        List<VM_Post> postNewOrder = new List<VM_Post>();
+        List<VM_Post> postNewOrder1 = new List<VM_Post>();
+        List<string> listSourceSiteName = new List<string>();
+        private void CreatePostNewOrder(List<VM_Post> posts, int index, int i, int postDistinctCount)
+        {
+            if (posts.Count == index + 1)
+                return;
+
+            if (!postNewOrder.Contains(posts[index]))
+            {
+                postNewOrder.Add(posts[index]);
+                i += 1;
+            }
+
+            if (i == postDistinctCount)
+            {
+                postNewOrder1.AddRange(postNewOrder);
+
+                postNewOrder = new List<VM_Post>();
+                i = 0;
+            }
+
+            index += 1;
+            CreatePostNewOrder(posts, index, i, postDistinctCount);
+        }
+
         //ایجاد صفحه اصلی
         private void CreateIndexPage(string path, PostManagement postManagement)
         {
@@ -77,12 +103,30 @@ namespace GossipDashboard.Controllers
 
                 //ایجاد  تگ آرتیکل به ازای هر پست
                 int i = 0; List<string> duplicateImage = new List<string>();
-                var postQuiz = repo.SelectPostUser().OrderByDescending(p => p.PostID).ToList();
-                foreach (var item in postQuiz)
-                {
-                    ////////if (item.Subject1.Contains("لاریجانی"))
-                    ////////    return;
+                var posts = repo.SelectPostUser().OrderByDescending(p => p.PostID).Take(200).ToList();
+                ////var postsShuffle = posts.OrderBy(p => Guid.NewGuid());
 
+                List<VM_Post> postNewOrder = new List<VM_Post>();
+                List<string> listSourceSiteName = new List<string>();
+                var postDistinct = posts.Select(p => p.SourceSiteName).Distinct().ToList();
+                int isContinue = 0;
+                foreach (var item in posts)
+                {
+                    if (listSourceSiteName.Count == postDistinct.Count)
+                        isContinue = 0;
+
+                    if (listSourceSiteName.Contains(item.SourceSiteName) && isContinue != 0)
+                        continue;
+
+                    postNewOrder.Add(item);
+
+                    listSourceSiteName.Add(item.SourceSiteName);
+                    isContinue += 1;
+                }
+
+
+                foreach (var item in posts)
+                {
                     //برای قسمت اصلی داشتن  تصویر مهم است
                     //if ((item.Image1_1 != null || item.ScriptAparat != null) && i < 30)
                     if (item.Image1_1 != null && i < 30)
@@ -104,25 +148,25 @@ namespace GossipDashboard.Controllers
                         }
                     }
 
-                    //برای قسمت اصلی داشتن  تصویر مهم است
-                    if (item.ScriptAparat != null)
-                    {
-                        //در صفحه اصلی عکس تکراری نداشته باشیم
-                        if (duplicateImage.FirstOrDefault(x => x == item.Image1_1) == null)
-                        {
-                            item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+                    ////برای قسمت اصلی داشتن  تصویر مهم است
+                    //if (item.ScriptAparat != null)
+                    //{
+                    //    //در صفحه اصلی عکس تکراری نداشته باشیم
+                    //    if (duplicateImage.FirstOrDefault(x => x == item.Image1_1) == null)
+                    //    {
+                    //        item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
-                            //ايجاد محتوا براي وسط صفحه-- author-grid
-                            var itSelfNode = postManagement.CreateBloglist(item);
-                            if (itSelfNode != null)
-                            {
-                                result = postManagement.AddHeadToContentDiv(nodesIndex, "author-grid", itSelfNode);
-                            }
+                    //        //ايجاد محتوا براي وسط صفحه-- author-grid
+                    //        var itSelfNode = postManagement.CreateBloglist(item);
+                    //        if (itSelfNode != null)
+                    //        {
+                    //            result = postManagement.AddHeadToContentDiv(nodesIndex, "author-grid", itSelfNode);
+                    //        }
 
-                            i += 1;
-                            duplicateImage.Add(item.Image1_1);
-                        }
-                    }
+                    //        i += 1;
+                    //        duplicateImage.Add(item.Image1_1);
+                    //    }
+                    //}
                 }
 
 
@@ -156,8 +200,8 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "tab-content");
 
                 //ایجاد  محتواي تب هاي کت ليست
-                var postQuiz = repo.SelectPostUser().Where(p => p.ModifyDate >= startDaysAgo && p.ModifyDate <= endDaysAgo).OrderByDescending(p => p.PostID).Take(50).ToList();
-                foreach (var item in postQuiz)
+                var posts = repo.SelectPostUser().Where(p => p.ModifyDate >= startDaysAgo && p.ModifyDate <= endDaysAgo).OrderByDescending(p => p.PostID).Take(50).ToList();
+                foreach (var item in posts)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
@@ -198,8 +242,8 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "row bloglist-content");
 
                 //ایجاد  محتواي تب هاي کت ليست
-                var postQuiz = repo.SelectPostUser().OrderBy(x => x.CommentCount).Take(10).ToList();
-                foreach (var item in postQuiz)
+                var posts = repo.SelectPostUser().OrderBy(x => x.CommentCount).Take(10).ToList();
+                foreach (var item in posts)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
@@ -239,8 +283,8 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "bloglist default");
 
                 //ایجاد  محتواي bloglist default
-                var postQuiz = repo.SelectPostUser().Take(5).ToList();
-                foreach (var item in postQuiz)
+                var posts = repo.SelectPostUser().Take(5).ToList();
+                foreach (var item in posts)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
@@ -468,8 +512,8 @@ namespace GossipDashboard.Controllers
 
                 ////ایجاد  محتوا
                 int rowID = 1;
-                var postQuiz = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgo).OrderByDescending(p => p.Views).Take(5).ToList();
-                foreach (var item in postQuiz)
+                var posts = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgo).OrderByDescending(p => p.Views).Take(5).ToList();
+                foreach (var item in posts)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
@@ -512,8 +556,8 @@ namespace GossipDashboard.Controllers
 
                 //ایجاد  محتوا
                 int rowID = 1;
-                var postQuiz = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgo).OrderByDescending(x => x.LikePost).Take(5).ToList();
-                foreach (var item in postQuiz)
+                var posts = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgo).OrderByDescending(x => x.LikePost).Take(5).ToList();
+                foreach (var item in posts)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
@@ -554,8 +598,8 @@ namespace GossipDashboard.Controllers
 
                 //ایجاد  محتوا
                 int rowID = 1;
-                var postQuiz = repo.SelectPostUser().OrderByDescending(x => x.PostID).Take(6).ToList();
-                foreach (var item in postQuiz)
+                var posts = repo.SelectPostUser().OrderByDescending(x => x.PostID).Take(6).ToList();
+                foreach (var item in posts)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
