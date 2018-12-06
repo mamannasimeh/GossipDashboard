@@ -55,7 +55,7 @@ public static class Utilty
     //          29
     //          22
     public static List<VM_Post> SortGroupsList(List<VM_Post> posts)
-    {
+    {   
         //ایجاد تگ آرتیکل به ازای هر پست
         List<VM_Post> listAll = new List<VM_Post>();
         List<VM_Post> listPostMaxGroup = new List<VM_Post>();
