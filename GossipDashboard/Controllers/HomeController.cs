@@ -44,7 +44,7 @@ namespace GossipDashboard.Controllers
             string path = "";
             path = ControllerContext.HttpContext.Server.MapPath("~");
             PostManagement postManagement = new PostManagement(path);
-          
+
             //ایجاد پست ها
             repo.CreatePost();
 
@@ -61,7 +61,7 @@ namespace GossipDashboard.Controllers
         //ایجاد صفحه اصلی
         private void CreateIndexPage(string path, PostManagement postManagement)
         {
-            
+
             var docIndex = new HtmlDocument();
             /////////////////////////////create bloglist/////////////////////////////
             //وسط صفحه 
@@ -83,6 +83,7 @@ namespace GossipDashboard.Controllers
                 foreach (var item in listAll)
                 {
                     //برای قسمت اصلی داشتن  تصویر مهم است
+                    // 30 پست ایجاد گردد --------  i < 30
                     if ((item.Image1_1 != null && i < 30) || (item.ScriptAparat != null && i < 30))
                     {
                         //در صفحه اصلی عکس تکراری نداشته باشیم
@@ -90,8 +91,8 @@ namespace GossipDashboard.Controllers
                         {
                             item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
-                            //ايجاد محتوا براي وسط صفحه-- author-grid
-                            var itSelfNode = postManagement.CreateBloglist(item);
+                             //ايجاد محتوا براي وسط صفحه-- author-grid
+                            var itSelfNode = postManagement.CreateBloglist(item, "CreateIndexPage", i);
                             if (itSelfNode != null)
                             {
                                 result = postManagement.AddHeadToContentDiv(nodesIndex, "author-grid", itSelfNode);
@@ -101,26 +102,6 @@ namespace GossipDashboard.Controllers
                             duplicateImage.Add(item.Image1_1);
                         }
                     }
-
-                    ////برای قسمت اصلی داشتن  تصویر مهم است
-                    //if (item.ScriptAparat != null)
-                    //{
-                    //    //در صفحه اصلی عکس تکراری نداشته باشیم
-                    //    if (duplicateImage.FirstOrDefault(x => x == item.Image1_1) == null)
-                    //    {
-                    //        item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
-
-                    //        //ايجاد محتوا براي وسط صفحه-- author-grid
-                    //        var itSelfNode = postManagement.CreateBloglist(item);
-                    //        if (itSelfNode != null)
-                    //        {
-                    //            result = postManagement.AddHeadToContentDiv(nodesIndex, "author-grid", itSelfNode);
-                    //        }
-
-                    //        i += 1;
-                    //        duplicateImage.Add(item.Image1_1);
-                    //    }
-                    //}
                 }
 
                 var htmlDoc = new HtmlDocument();

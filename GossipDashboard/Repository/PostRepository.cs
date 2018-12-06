@@ -792,7 +792,9 @@ namespace GossipDashboard.Repository
             throw new NotImplementedException();
         }
 
-        //ایجاد پست ها از جدول پست تمپروری به جدول پست
+        /// <summary>
+        /// ایجاد پست ها از جدول پست تمپروری به جدول پست
+        /// </summary>
         public void CreatePost()
         {
             var doc = new HtmlDocument();
@@ -828,7 +830,6 @@ namespace GossipDashboard.Repository
                     if (item.SourceSiteUrl.Contains("rangehonar"))
                     {
                         //اصلاح لینک یو آر ال عکس ها
-                        //String.Format()
                         var url = "src=\"https://www.rangehonar.com";
                         tempContentHTML = item.ContentHTML.Replace("src=\"", url);
                         tempHTML = tempContentHTML;
@@ -900,23 +901,6 @@ namespace GossipDashboard.Repository
                     if (isPostDeleted == true)
                         continue;
 
-                    ////در صورتی که تعداد کارکترهای کل پست کمتر از 200 باشد آن پست حذف گردد
-                    //entityPost.Subject1 = entityPost.Subject1 == null ? "" : entityPost.Subject1.Trim();
-                    //entityPost.ContentPost1_1 = entityPost.ContentPost1_1 == null ? "" : entityPost.ContentPost1_1.Trim();
-                    //entityPost.ContentPost1_2 = entityPost.ContentPost1_2 == null ? "" : entityPost.ContentPost1_2.Trim();
-                    //entityPost.ContentPost1_3 = entityPost.ContentPost1_3 == null ? "" : entityPost.ContentPost1_3.Trim();
-                    //entityPost.ContentPost1_4 = entityPost.ContentPost1_4 == null ? "" : entityPost.ContentPost1_4.Trim();
-                    //entityPost.ContentPost1_5 = entityPost.ContentPost1_5 == null ? "" : entityPost.ContentPost1_5.Trim();
-                    //entityPost.ContentPost1_6 = entityPost.ContentPost1_6 == null ? "" : entityPost.ContentPost1_6.Trim();
-                    //entityPost.ContentPost1_7 = entityPost.ContentPost1_7 == null ? "" : entityPost.ContentPost1_7.Trim();
-                    //if ((entityPost.Subject1.Length + entityPost.ContentPost1_2.Length + entityPost.ContentPost1_3.Length +
-                    //    entityPost.ContentPost1_4.Length + entityPost.ContentPost1_5.Length + entityPost.ContentPost1_6.Length + entityPost.ContentPost1_7.Length) < 200)
-                    //{
-                    //    DeletePost(entityPost.PostID);
-
-                    //    continue;
-                    //}
-
 
                     //ایجاد اتربیوت ها فرمت پست ها
                     var attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "standard").PubBaseID;
@@ -924,6 +908,10 @@ namespace GossipDashboard.Repository
                         attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "audio").PubBaseID;
                     else if (entityPost.UrlVideo != null)
                         attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "video").PubBaseID;
+                    else if (entityPost.ScriptAparat != null)
+                        attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "aparat").PubBaseID;
+                    else if (entityPost.Subject1 != null)
+                        attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "quote").PubBaseID;
 
                     context.PostAttributes.Add(new PostAttribute()
                     {
