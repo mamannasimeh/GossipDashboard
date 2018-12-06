@@ -23,7 +23,7 @@ namespace GossipDashboard.Helper
         }
 
         /// <summary>
-        /// ساخت آرتیکل های وسط صفحه
+        /// ساخت آرتیکل های وسط صفحه  
         /// </summary>
         /// <param name="post">شی پست</param>
         /// <param name="templateCategory">تمپلیتی که قصد داریم از روی آن آرتیکل را بسازیم</param>
