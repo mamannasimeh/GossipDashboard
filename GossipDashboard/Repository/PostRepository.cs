@@ -288,8 +288,8 @@ namespace GossipDashboard.Repository
                           SourceSiteUrl = P.SourceSiteUrl,
                           ContentHTML = P.ContentHTML,
                           ScriptAparat = P.ScriptAparat,
-                          Quote = P.Quote,
-                          QouteAuthor = P.QouteAuthor,
+                          Status = P.Status,
+                          StatusAuthor = P.StatusAuthor,
                           UserID_fk = UP.UserID_fk,
                           FirstName = U.FirstName,
                           LastName = U.LastName,
@@ -670,8 +670,8 @@ namespace GossipDashboard.Repository
                           SourceSiteName = P.SourceSiteName,
                           SourceSiteNameFa = P.SourceSiteNameFa,
                           SourceSiteUrl = P.SourceSiteUrl,
-                          Quote = P.Quote,
-                          QouteAuthor = P.QouteAuthor,
+                          Status = P.Status,
+                          StatusAuthor = P.StatusAuthor,
                           Fullname = U.FirstName + " " + U.LastName,
                           UserID_fk = UP.UserID_fk,
                           FirstName = U.FirstName,
@@ -729,7 +729,9 @@ namespace GossipDashboard.Repository
             bool? isPostDeleted = false;
             string tempContentHTML = "", tempHTML = "";
 
-            var tempPost = context.PostTemperories.Where(p => p.IsCreatedPost != true).OrderByDescending(p => p.PostID).ToList();
+            //پست هایی که قبلا ایجاد نشده اند
+            //پست استاتوس می تواند بیش از یکبار نیز انتشار پیدا کند
+            var tempPost = context.PostTemperories.Where(p => p.IsCreatedPost ?? false != true || p.Status != null).OrderByDescending(p => p.PostID).ToList();
             foreach (var item in tempPost)
             {
                 isPostDeleted = false;
@@ -740,7 +742,8 @@ namespace GossipDashboard.Repository
                     item.HTML = item.ContentHTML;
 
                 //قبلا این پست ایجاد نشده باشد
-                var isExist = context.Posts.FirstOrDefault(p => p.Subject1 == item.Subject1);
+                //پست استاتوس می تواند بیش از یکبار نیز انتشار پیدا کند
+                var isExist = context.Posts.FirstOrDefault(p => p.Subject1 == item.Subject1 || item.Status != null);
 
                 if (isExist == null && item.Subject1 != null && item.Subject1.Trim().Length > 3
                     && item.HTML != null && item.HTML.Trim() != ""
@@ -771,12 +774,12 @@ namespace GossipDashboard.Repository
                     entityPost.SubSubject1_2 = item.SubSubject1_2;
                     entityPost.ModifyDate = DateTime.Now;
                     entityPost.ContentHTML = tempContentHTML;
-                    entityPost.Quote = item.Quote;
-                    entityPost.QouteAuthor = item.QouteAuthor;
+                    entityPost.Status = item.Status;
+                    entityPost.StatusAuthor = item.StatusAuthor;
 
                     //برای عملکرد صحیح سایت
-                    if (entityPost.Quote != null && entityPost.SourceSiteUrl == null)
-                        entityPost.SourceSiteUrl = "http://www.Quote.com";
+                    if (entityPost.Status != null && entityPost.SourceSiteUrl == null)
+                        entityPost.SourceSiteUrl = "http://www.Status.com";
 
                     //به دست آوردن سایت مرجع جهت نمایش در سایت 
                     //var regMatch = Regex.Matches(item.HTML, @"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})");
@@ -841,8 +844,8 @@ namespace GossipDashboard.Repository
                         attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "video").PubBaseID;
                     else if (entityPost.ScriptAparat != null)
                         attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "aparat").PubBaseID;
-                    else if (entityPost.Quote != null)
-                        attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "quote").PubBaseID;
+                    else if (entityPost.Status != null)
+                        attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "status").PubBaseID;
 
                     context.PostAttributes.Add(new PostAttribute()
                     {
@@ -872,7 +875,7 @@ namespace GossipDashboard.Repository
                     //مشخص کردن اينکه اين پست قبلا ايجاد شده است
                     item.IsCreatedPost = true;
                     context.PostTemperories.Attach(item);
-                    context.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(item).State = EntityState.Modified;
 
                     context.SaveChanges();
                 }

@@ -465,8 +465,8 @@
     <Property Name="ContentPost1_7" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="SourceSiteNameFa" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="ContentHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Quote" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-    <Property Name="QouteAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="StatusAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="PostAttributes" Relationship="GossipSiteModel.FK_PostAttribute_Post" FromRole="Post" ToRole="PostAttribute" />
     <NavigationProperty Name="PostComments" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
     <NavigationProperty Name="PostQuestions" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="Post" ToRole="PostQuestion" />
@@ -733,8 +733,8 @@
     <Property Name="ContentHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ScriptAparat" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <Property Name="SourceSiteLike" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Quote" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-    <Property Name="QouteAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="StatusAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_PostAttribute_Post">
     <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="0..1">

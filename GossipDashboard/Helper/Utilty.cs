@@ -94,9 +94,9 @@ public static class Utilty
             listAll.AddRange(listPostMaxGroupOrder);
         } while (i < posts.Count);
 
-        //اضافه کردن پست نقل قول
-        //با هر 4 پابلیش نقل قول قبلی حذف می شود و نقل قول جدید اضافه می گردد
-        var quote = repo.SelectPostUser().Where(p => p.Quote != null &&  (p.PublishCount == null ? 0 : p.PublishCount) <= 4).OrderBy(p => p.PostID).FirstOrDefault();
+        //اضافه کردن پست استاتوس
+        //با هر 4 پابلیش استاتوس قبلی حذف می شود و استاتوس جدید اضافه می گردد
+        var quote = repo.SelectPostUser().Where(p => p.Status != null &&  (p.PublishCount == null ? 0 : p.PublishCount) <= 4).OrderBy(p => p.PostID).FirstOrDefault();
         if(quote != null)
         {
             listAll.Insert(15, quote);

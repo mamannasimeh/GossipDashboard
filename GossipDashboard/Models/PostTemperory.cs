@@ -271,7 +271,7 @@ namespace GossipDashboard.Models
         public string ContentHTML { get; set; }
         public string ScriptAparat { get; set; }
         public string SourceSiteLike { get; set; }
-        public string Quote { get; set; }
-        public string QouteAuthor { get; set; }
+        public string Status { get; set; }
+        public string StatusAuthor { get; set; }
     }
 }

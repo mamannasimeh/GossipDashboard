@@ -287,8 +287,8 @@
           <Property Name="ContentPost1_7" Type="nvarchar(max)" />
           <Property Name="SourceSiteNameFa" Type="nvarchar" MaxLength="1000" />
           <Property Name="ContentHTML" Type="nvarchar(max)" />
-          <Property Name="Quote" Type="nvarchar" MaxLength="300" />
-          <Property Name="QouteAuthor" Type="nvarchar" MaxLength="200" />
+          <Property Name="Status" Type="nvarchar" MaxLength="300" />
+          <Property Name="StatusAuthor" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="PostAnswer">
           <Key>
@@ -589,8 +589,8 @@
           <Property Name="ContentHTML" Type="nvarchar(max)" />
           <Property Name="ScriptAparat" Type="nvarchar" MaxLength="2000" />
           <Property Name="SourceSiteLike" Type="nvarchar" MaxLength="50" />
-          <Property Name="Quote" Type="nvarchar" MaxLength="300" />
-          <Property Name="QouteAuthor" Type="nvarchar" MaxLength="200" />
+          <Property Name="Status" Type="nvarchar" MaxLength="300" />
+          <Property Name="StatusAuthor" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="PubBase">
           <Key>
@@ -1252,8 +1252,8 @@
           <Property Name="ContentPost1_7" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SourceSiteNameFa" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="ContentHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Quote" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="QouteAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="StatusAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PostAttributes" Relationship="GossipSiteModel.FK_PostAttribute_Post" FromRole="Post" ToRole="PostAttribute" />
           <NavigationProperty Name="PostComments" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
           <NavigationProperty Name="PostQuestions" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="Post" ToRole="PostQuestion" />
@@ -1520,8 +1520,8 @@
           <Property Name="ContentHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ScriptAparat" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="SourceSiteLike" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Quote" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="QouteAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="StatusAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_PostAttribute_Post">
           <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="0..1">
@@ -1712,8 +1712,8 @@
           <EntitySetMapping Name="Posts">
             <EntityTypeMapping TypeName="GossipSiteModel.Post">
               <MappingFragment StoreEntitySet="Post">
-                <ScalarProperty Name="QouteAuthor" ColumnName="QouteAuthor" />
-                <ScalarProperty Name="Quote" ColumnName="Quote" />
+                <ScalarProperty Name="StatusAuthor" ColumnName="StatusAuthor" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ContentHTML" ColumnName="ContentHTML" />
                 <ScalarProperty Name="SourceSiteNameFa" ColumnName="SourceSiteNameFa" />
                 <ScalarProperty Name="ContentPost1_7" ColumnName="ContentPost1_7" />
@@ -1975,8 +1975,8 @@
           <EntitySetMapping Name="PostTemperories">
             <EntityTypeMapping TypeName="GossipSiteModel.PostTemperory">
               <MappingFragment StoreEntitySet="PostTemperory">
-                <ScalarProperty Name="QouteAuthor" ColumnName="QouteAuthor" />
-                <ScalarProperty Name="Quote" ColumnName="Quote" />
+                <ScalarProperty Name="StatusAuthor" ColumnName="StatusAuthor" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="SourceSiteLike" ColumnName="SourceSiteLike" />
                 <ScalarProperty Name="ScriptAparat" ColumnName="ScriptAparat" />
                 <ScalarProperty Name="ContentHTML" ColumnName="ContentHTML" />

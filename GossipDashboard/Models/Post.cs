@@ -278,8 +278,8 @@ namespace GossipDashboard.Models
         public string ContentPost1_7 { get; set; }
         public string SourceSiteNameFa { get; set; }
         public string ContentHTML { get; set; }
-        public string Quote { get; set; }
-        public string QouteAuthor { get; set; }
+        public string Status { get; set; }
+        public string StatusAuthor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostAttribute> PostAttributes { get; set; }

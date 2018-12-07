@@ -128,8 +128,8 @@
     <EntitySetMapping Name="Posts">
       <EntityTypeMapping TypeName="GossipSiteModel.Post">
         <MappingFragment StoreEntitySet="Post">
-          <ScalarProperty Name="QouteAuthor" ColumnName="QouteAuthor" />
-          <ScalarProperty Name="Quote" ColumnName="Quote" />
+          <ScalarProperty Name="StatusAuthor" ColumnName="StatusAuthor" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="ContentHTML" ColumnName="ContentHTML" />
           <ScalarProperty Name="SourceSiteNameFa" ColumnName="SourceSiteNameFa" />
           <ScalarProperty Name="ContentPost1_7" ColumnName="ContentPost1_7" />
@@ -391,8 +391,8 @@
     <EntitySetMapping Name="PostTemperories">
       <EntityTypeMapping TypeName="GossipSiteModel.PostTemperory">
         <MappingFragment StoreEntitySet="PostTemperory">
-          <ScalarProperty Name="QouteAuthor" ColumnName="QouteAuthor" />
-          <ScalarProperty Name="Quote" ColumnName="Quote" />
+          <ScalarProperty Name="StatusAuthor" ColumnName="StatusAuthor" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="SourceSiteLike" ColumnName="SourceSiteLike" />
           <ScalarProperty Name="ScriptAparat" ColumnName="ScriptAparat" />
           <ScalarProperty Name="ContentHTML" ColumnName="ContentHTML" />

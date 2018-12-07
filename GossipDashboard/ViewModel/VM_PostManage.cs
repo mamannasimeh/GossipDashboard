@@ -288,8 +288,8 @@ namespace GossipDashboard.ViewModel
         public int PostColID { get; set; }
 
         public string ContentHTML { get; set; }
-        public string Quote { get;  set; }
-        public string QouteAuthor { get;  set; }
+        public string Status { get; set; }
+        public string StatusAuthor { get; set; }
 
         public Nullable<System.DateTime> FisrtDatePostCreated { get; set; }
     }
