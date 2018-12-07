@@ -235,7 +235,6 @@ namespace GossipDashboard.Models
         public string Image20_1 { get; set; }
         public string Image20_2 { get; set; }
         public string Image20_3 { get; set; }
-        public string QuotedFrom { get; set; }
         public string Url { get; set; }
         public string UrlMP3 { get; set; }
         public string UrlVideo { get; set; }
@@ -272,6 +271,7 @@ namespace GossipDashboard.Models
         public string ContentHTML { get; set; }
         public string ScriptAparat { get; set; }
         public string SourceSiteLike { get; set; }
-        public string SourceSiteQoute { get; set; }
+        public string Quote { get; set; }
+        public string QouteAuthor { get; set; }
     }
 }

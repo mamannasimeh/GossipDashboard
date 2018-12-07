@@ -253,7 +253,6 @@ namespace GossipDashboard.Repository
                           Image20_1 = P.Image20_1,
                           Image20_2 = P.Image20_2,
                           Image20_3 = P.Image20_3,
-                          QuotedFrom = P.QuotedFrom,
                           Url = P.Url,
                           UrlMP3 = P.UrlMP3,
                           UrlVideo = P.UrlVideo,
@@ -289,6 +288,8 @@ namespace GossipDashboard.Repository
                           SourceSiteUrl = P.SourceSiteUrl,
                           ContentHTML = P.ContentHTML,
                           ScriptAparat = P.ScriptAparat,
+                          Quote = P.Quote,
+                          QouteAuthor = P.QouteAuthor,
                           UserID_fk = UP.UserID_fk,
                           FirstName = U.FirstName,
                           LastName = U.LastName,
@@ -634,7 +635,6 @@ namespace GossipDashboard.Repository
                           Image20_1 = P.Image20_1,
                           Image20_2 = P.Image20_2,
                           Image20_3 = P.Image20_3,
-                          QuotedFrom = P.QuotedFrom,
                           Url = P.Url,
                           UrlMP3 = P.UrlMP3,
                           UrlVideo = P.UrlVideo,
@@ -670,6 +670,8 @@ namespace GossipDashboard.Repository
                           SourceSiteName = P.SourceSiteName,
                           SourceSiteNameFa = P.SourceSiteNameFa,
                           SourceSiteUrl = P.SourceSiteUrl,
+                          Quote = P.Quote,
+                          QouteAuthor = P.QouteAuthor,
                           Fullname = U.FirstName + " " + U.LastName,
                           UserID_fk = UP.UserID_fk,
                           FirstName = U.FirstName,
@@ -711,81 +713,6 @@ namespace GossipDashboard.Repository
                       };
             return res;
         }
-        //public IQueryable<VM_Post> SelectPostByCategory(string postCategory)
-        //{
-        //    var postCategoryID = context.PubBases.First(p => p.NameEn == "PostCategory").PubBaseID;
-        //    var postFormatID = context.PubBases.First(p => p.NameEn == "PostFormat").PubBaseID;
-
-        //    //var LinkToAllPostCategoryID = context.PubBases.First(p => p.NameEn == "LinkToAllPostCategory").PubBaseID;
-        //    var PostColID = context.PubBases.First(p => p.NameEn == "PostCol").PubBaseID;
-
-        //    var res = from P in context.Posts
-        //              join UP in context.UserPosts on P.PostID equals UP.PostID_fk
-        //              join U in context.Users on UP.UserID_fk equals U.UserID
-        //              join postAttr in context.PostAttributes on P.PostID equals postAttr.PostID_fk
-        //              join PBase in context.PubBases on postAttr.AttributeID_fk equals PBase.PubBaseID
-        //              where PBase.NameEn == postCategory
-        //              select new VM_Post
-        //              {
-        //                  PostID = P.PostID,
-        //                  ContentPost = P.ContentPost,
-        //                  DislikePost = P.DislikePost,
-        //                  Image1 = P.Image1,
-        //                  Image2 = P.Image2,
-        //                  Image3 = P.Image3,
-        //                  Image4 = P.Image4,
-        //                  LikePost = P.LikePost,
-        //                  ModifyDate = P.ModifyDate,
-        //                  ModifyUserID = P.ModifyUserID,
-        //                  PublishCount = P.PublishCount,
-        //                  Subject = P.Subject,
-        //                  Url = P.Url,
-        //                  UrlMP3 = P.UrlMP3,
-        //                  UrlVideo = P.UrlVideo,
-        //                  Views = P.Views,
-        //                  UserID_fk = UP.UserID_fk,
-        //                  FirstName = U.FirstName,
-        //                  LastName = U.LastName,
-        //                  Fullname = U.FirstName + " " + U.LastName,
-        //                  BackgroundColor = P.BackgroundColor,
-        //                  QuotedFrom = P.QuotedFrom,
-        //                  CommentCount = context.PostComments.Count(x => x.PostID_fk == P.PostID),
-        //                  PostCategory = context.PostAttributes.Join(context.PubBases, postAttr => postAttr.AttributeID_fk, pBase => pBase.PubBaseID, (postAttr, pBase) =>
-        //                  new VM_PubBase
-        //                  {
-        //                      PubBaseID = pBase.PubBaseID,
-        //                      NameFa = pBase.NameFa,
-        //                      ClassName = pBase.ClassName,
-        //                      AbobeClassName = pBase.AbobeClassName,
-        //                      NameEn = pBase.NameEn,
-        //                      PostID = postAttr.PostID_fk,
-        //                      ParentID = pBase.ParentID
-        //                  }).Where(x => x.PostID == P.PostID && x.ParentID == postCategoryID),
-        //                  PostFormat = context.PostAttributes.Join(context.PubBases, postAttr => postAttr.AttributeID_fk, pBase => pBase.PubBaseID, (postAttr, pBase) =>
-        //                 new VM_PubBase
-        //                 {
-        //                     PubBaseID = pBase.PubBaseID,
-        //                     NameFa = pBase.NameFa,
-        //                     ClassName = pBase.ClassName,
-        //                     AbobeClassName = pBase.AbobeClassName,
-        //                     NameEn = pBase.NameEn,
-        //                     PostID = postAttr.PostID_fk,
-        //                     ParentID = pBase.ParentID
-        //                 }).Where(x => x.PostID == P.PostID && x.ParentID == postFormatID),
-        //                  PostCol = context.PostAttributes.Join(context.PubBases, postAttr => postAttr.AttributeID_fk, pBase => pBase.PubBaseID, (postAttr, pBase) =>
-        //                 new VM_PubBase
-        //                 {
-        //                     PubBaseID = pBase.PubBaseID,
-        //                     NameFa = pBase.NameFa,
-        //                     ClassName = pBase.ClassName,
-        //                     AbobeClassName = pBase.AbobeClassName,
-        //                     NameEn = pBase.NameEn,
-        //                     PostID = postAttr.PostID_fk,
-        //                     ParentID = pBase.ParentID
-        //                 }).Where(x => x.PostID == P.PostID && x.ParentID == PostColID),
-        //              };
-        //    return res;
-        //}
 
         public IQueryable<Post> SelectAll(string condition)
         {
@@ -814,6 +741,7 @@ namespace GossipDashboard.Repository
 
                 //قبلا این پست ایجاد نشده باشد
                 var isExist = context.Posts.FirstOrDefault(p => p.Subject1 == item.Subject1);
+
                 if (isExist == null && item.Subject1 != null && item.Subject1.Trim().Length > 3
                     && item.HTML != null && item.HTML.Trim() != ""
                     && item.ContentHTML != null && item.ContentHTML.Trim() != "")
@@ -827,7 +755,7 @@ namespace GossipDashboard.Repository
 
 
                     //اصلاح لینک یو آر ال عکس ها
-                    if (item.SourceSiteUrl.Contains("rangehonar"))
+                    if (item.SourceSiteUrl != null && item.SourceSiteUrl.Contains("rangehonar"))
                     {
                         //اصلاح لینک یو آر ال عکس ها
                         var url = "src=\"https://www.rangehonar.com";
@@ -843,14 +771,17 @@ namespace GossipDashboard.Repository
                     entityPost.SubSubject1_2 = item.SubSubject1_2;
                     entityPost.ModifyDate = DateTime.Now;
                     entityPost.ContentHTML = tempContentHTML;
+                    entityPost.Quote = item.Quote;
+                    entityPost.QouteAuthor = item.QouteAuthor;
+
+                    //برای عملکرد صحیح سایت
+                    if (entityPost.Quote != null && entityPost.SourceSiteUrl == null)
+                        entityPost.SourceSiteUrl = "http://www.Quote.com";
 
                     //به دست آوردن سایت مرجع جهت نمایش در سایت 
                     //var regMatch = Regex.Matches(item.HTML, @"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})");
                     if (item.SourceSiteUrl != null)
                     {
-                        ////////if (item.Subject1 == "رهبر مخالفان دولت گرجستان نتیجه انتخابات ریاست جمهوری را رد کرد")
-                        ////////    return;
-
                         entityPost.SourceSiteUrl = item.SourceSiteUrl;
                         var regMatch = Regex.Matches(item.SourceSiteUrl, @"(?:[-a-zA-Z0-9@:%_\+~.#=]{2,256}\.)?([-a-zA-Z0-9@:%_\+~#=]*)\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)");
                         if (regMatch != null && regMatch.Count != 0 && regMatch[0].Groups != null && regMatch[0].Groups[1] != null)
@@ -910,7 +841,7 @@ namespace GossipDashboard.Repository
                         attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "video").PubBaseID;
                     else if (entityPost.ScriptAparat != null)
                         attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "aparat").PubBaseID;
-                    else if (entityPost.Subject1 != null)
+                    else if (entityPost.Quote != null)
                         attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "quote").PubBaseID;
 
                     context.PostAttributes.Add(new PostAttribute()

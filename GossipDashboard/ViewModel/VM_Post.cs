@@ -277,5 +277,9 @@ namespace GossipDashboard.ViewModel
         public string SourceSiteName { get; set; }
         public string SourceSiteNameFa { get; set; }
         public string ContentHTML { get; set; }
+        public string Quote { get;  set; }
+        public string QouteAuthor { get;  set; }
+
+        public Nullable<System.DateTime> FisrtDatePostCreated { get; set; }
     }
 }

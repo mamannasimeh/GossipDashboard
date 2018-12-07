@@ -21,6 +21,7 @@ namespace GossipDashboard.Controllers
         private LogRepository repoLog = new Repository.LogRepository();
         private LogErrorRepository repoErrorLog = new Repository.LogErrorRepository();
         private PostRepository repo = new PostRepository();
+        private ManagementPostRepository repoManagementPost = new ManagementPostRepository();
         public HomeController()
         {
             //Timer aTimer = new Timer();
@@ -73,10 +74,10 @@ namespace GossipDashboard.Controllers
                 //حذف محتويات ند بلاك-author-grid
                 postManagement.ClearContentNode(nodesIndex, "author-grid");
 
-
                 ///// در هر گروه بر اساس نام سایت، بالاترین مقادیر را یکی یکی خارج می کند و لیست جدید می سازد
                 var posts = repo.SelectPostUser().OrderByDescending(p => p.PostID).Take(200).ToList();
                 List<VM_Post> listAll = Utilty.SortGroupsList(posts);
+
 
                 //ایجاد  تگ آرتیکل به ازای هر پست
                 int i = 0; List<string> duplicateImage = new List<string>();
@@ -96,6 +97,10 @@ namespace GossipDashboard.Controllers
                             if (itSelfNode != null)
                             {
                                 result = postManagement.AddHeadToContentDiv(nodesIndex, "author-grid", itSelfNode);
+
+                                //این قسمت مرحله ای است که پابلیش هر پست نهایی می شود
+                                // یک عدد به فیلد پابلیش کانت آنها اضافه کنیم
+                                repoManagementPost.UpdatePublishCount(item.PostID);
                             }
 
                             i += 1;
