@@ -248,7 +248,6 @@
     <Property Name="Image20_1" Type="nvarchar" MaxLength="1000" />
     <Property Name="Image20_2" Type="nvarchar" MaxLength="1000" />
     <Property Name="Image20_3" Type="nvarchar" MaxLength="1000" />
-    <Property Name="QuotedFrom" Type="nvarchar" MaxLength="1000" />
     <Property Name="Url" Type="nvarchar" MaxLength="2000" />
     <Property Name="UrlMP3" Type="nvarchar" MaxLength="2000" />
     <Property Name="UrlVideo" Type="nvarchar" MaxLength="2000" />
@@ -261,6 +260,7 @@
     <Property Name="ModifyUserID" Type="int" />
     <Property Name="ModifyDate" Type="datetime" />
     <Property Name="IsCreatedPost" Type="bit" />
+    <Property Name="FisrtDatePostCreated" Type="datetime" />
     <Property Name="Cat1" Type="nvarchar" MaxLength="100" />
     <Property Name="Cat2" Type="nvarchar" MaxLength="100" />
     <Property Name="Cat3" Type="nvarchar" MaxLength="100" />
@@ -282,6 +282,8 @@
     <Property Name="ContentPost1_7" Type="nvarchar(max)" />
     <Property Name="SourceSiteNameFa" Type="nvarchar" MaxLength="1000" />
     <Property Name="ContentHTML" Type="nvarchar(max)" />
+    <Property Name="Status" Type="nvarchar" MaxLength="300" />
+    <Property Name="StatusAuthor" Type="nvarchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="PostAnswer">
     <Key>
@@ -546,7 +548,6 @@
     <Property Name="Image20_1" Type="nvarchar" MaxLength="1000" />
     <Property Name="Image20_2" Type="nvarchar" MaxLength="1000" />
     <Property Name="Image20_3" Type="nvarchar" MaxLength="1000" />
-    <Property Name="QuotedFrom" Type="nvarchar" MaxLength="1000" />
     <Property Name="Url" Type="nvarchar" MaxLength="2000" />
     <Property Name="UrlMP3" Type="nvarchar" MaxLength="2000" />
     <Property Name="UrlVideo" Type="nvarchar" MaxLength="2000" />
@@ -583,7 +584,8 @@
     <Property Name="ContentHTML" Type="nvarchar(max)" />
     <Property Name="ScriptAparat" Type="nvarchar" MaxLength="2000" />
     <Property Name="SourceSiteLike" Type="nvarchar" MaxLength="50" />
-    <Property Name="SourceSiteQoute" Type="nvarchar" MaxLength="200" />
+    <Property Name="Status" Type="nvarchar" MaxLength="300" />
+    <Property Name="StatusAuthor" Type="nvarchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="PubBase">
     <Key>

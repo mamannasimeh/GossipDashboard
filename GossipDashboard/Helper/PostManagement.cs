@@ -23,12 +23,12 @@ namespace GossipDashboard.Helper
         }
 
         /// <summary>
-        /// ساخت آرتیکل های وسط صفحه
+        /// ساخت آرتیکل های وسط صفحه  
         /// </summary>
         /// <param name="post">شی پست</param>
         /// <param name="templateCategory">تمپلیتی که قصد داریم از روی آن آرتیکل را بسازیم</param>
         /// <returns></returns>
-        internal HtmlNode CreateBloglist(VM_Post post)
+        internal HtmlNode CreateBloglist(VM_Post post, string fromWhere, int rowID)
         {
             string postClassArticle = "", postClassCategory = "", postCol = "col-md-4";
             string urlCategory = "", postUrl = "";
@@ -52,11 +52,27 @@ namespace GossipDashboard.Helper
                 categoryAboveClass += " " + item.AbobeClassName + " ";
                 categoryAboveName += " " + item.NameFa + " ";
             }
-            if (post.PostCol.ToList().Count() > 0)
-                postCol = "";
             foreach (var item in post.PostCol)
             {
-                postCol = " " + item.ClassName + " ";
+                //مربوط به صفحه CreateIndexPage
+                //در صورتی که در سه پست اولیه تعداد ستون چهارتا نبود به چهار تنظیم شود
+                if (fromWhere == "CreateIndexPage" && rowID <= 2)
+                {
+                    int val = 0;
+                    var col = item.NameEn;
+                    if (col.Split('-').LastOrDefault() != null)
+                    {
+                        if (int.TryParse(col.Split('-').Last(), out val))
+                        {
+                            if (val != 4)
+                            {
+                                postCol = "col-md-4 col-lg-4";
+                            }
+                        }
+                    }
+                }
+                else
+                    postCol = " " + item.ClassName + " ";
             }
 
             //هر پست یک فرمت پست دارد
@@ -544,7 +560,7 @@ namespace GossipDashboard.Helper
                                                                     //"<a href = '@Url.Action('Post','bizarre', new {postID = 2249})' class='special-rm-arrow'><i class='fa fa-arrow-right'></i></a>"+
                                                                     "</div>" +
                                                                     "<div class='entry-content'>" +
-                                                                        "<h3 class='entry-title'> <a href = '"+postUrl+"'>"+ post.Subject1 + "</a></h3>" +
+                                                                        "<h3 class='entry-title'> <a href = '" + postUrl + "'>" + post.Subject1 + "</a></h3>" +
                                                                     "</div>" +
                                                                     "<div class='entry-footer'>" +
                                                                         "<div class=' row'>" +

@@ -18,7 +18,7 @@ namespace GossipDashboard.Models
         public Nullable<int> PostID_fk { get; set; }
         public int AttributeID_fk { get; set; }
     
-        public virtual Post Post { get; set; }
         public virtual PubBase PubBase { get; set; }
+        public virtual Post Post { get; set; }
     }
 }

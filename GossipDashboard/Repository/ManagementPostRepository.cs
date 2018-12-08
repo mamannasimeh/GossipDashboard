@@ -244,7 +244,6 @@ namespace GossipDashboard.Repository
                           Image20_1 = P.Image20_1,
                           Image20_2 = P.Image20_2,
                           Image20_3 = P.Image20_3,
-                          QuotedFrom = P.QuotedFrom,
                           Url = P.Url,
                           UrlMP3 = P.UrlMP3,
                           UrlVideo = P.UrlVideo,
@@ -278,11 +277,13 @@ namespace GossipDashboard.Repository
                           SourceSiteName = P.SourceSiteName,
                           SourceSiteNameFa = P.SourceSiteNameFa,
                           SourceSiteUrl = P.SourceSiteUrl,
+                          Status = P.Status,
+                          StatusAuthor = P.StatusAuthor,
                           CommentCount = context.PostComments.Count(x => x.PostID_fk == P.PostID),
                           PostCategoryID = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == postCategoryID select _PB.PubBaseID).FirstOrDefault(),
                           PostFormatID = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == postFormatID select _PB.PubBaseID).FirstOrDefault(),
                           PostColID = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == PostColID select _PB.PubBaseID).FirstOrDefault(),
-                          PostCategoryName =(from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == postCategoryID select _PB.NameFa).FirstOrDefault(),
+                          PostCategoryName = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == postCategoryID select _PB.NameFa).FirstOrDefault(),
                           PostFormatName = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == postFormatID select _PB.NameFa).FirstOrDefault(),
                           PostColName = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == PostColID select _PB.NameFa).FirstOrDefault(),
 
@@ -515,7 +516,6 @@ namespace GossipDashboard.Repository
                 Image20_1 = vm.Image20_1,
                 Image20_2 = vm.Image20_2,
                 Image20_3 = vm.Image20_3,
-                QuotedFrom = vm.QuotedFrom,
                 Url = vm.Url,
                 UrlMP3 = vm.UrlMP3,
                 UrlVideo = vm.UrlVideo,
@@ -819,7 +819,6 @@ namespace GossipDashboard.Repository
                 Image20_1 = vm.Image20_1,
                 Image20_2 = vm.Image20_2,
                 Image20_3 = vm.Image20_3,
-                QuotedFrom = vm.QuotedFrom,
                 Url = vm.Url,
                 UrlMP3 = vm.UrlMP3,
                 UrlVideo = vm.UrlVideo,
@@ -859,13 +858,14 @@ namespace GossipDashboard.Repository
             context.Entry(entity).State = EntityState.Modified;
 
 
-           //حذف مشخصات پست
+            //حذف مشخصات پست
             var attrs = context.PostAttributes.Where(p => p.PostID_fk == vm.PostID).ToList();
             foreach (var item in attrs)
             {
                 context.PostAttributes.Remove(item);
             }
 
+            ////////ایجاد مشخصات پشت////////
             //طبقه بندی پست
             var enntiyCat = new PostAttribute()
             {
@@ -924,5 +924,15 @@ namespace GossipDashboard.Repository
             throw new NotImplementedException();
         }
 
+        public bool UpdatePublishCount(int id)
+        {
+            var res = context.Posts.FirstOrDefault(p => p.PostID == id);
+            if (res == null)
+                return false;
+
+            res.PublishCount += 1;
+            context.SaveChanges();
+            return true;
+        }
     }
 }

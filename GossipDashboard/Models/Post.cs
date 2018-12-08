@@ -244,10 +244,10 @@ namespace GossipDashboard.Models
         public string Image20_1 { get; set; }
         public string Image20_2 { get; set; }
         public string Image20_3 { get; set; }
-        public string QuotedFrom { get; set; }
         public string Url { get; set; }
         public string UrlMP3 { get; set; }
         public string UrlVideo { get; set; }
+        public string ScriptAparat { get; set; }
         public Nullable<int> Views { get; set; }
         public Nullable<int> LikePost { get; set; }
         public Nullable<int> DislikePost { get; set; }
@@ -256,6 +256,7 @@ namespace GossipDashboard.Models
         public Nullable<int> ModifyUserID { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
         public Nullable<bool> IsCreatedPost { get; set; }
+        public Nullable<System.DateTime> FisrtDatePostCreated { get; set; }
         public string Cat1 { get; set; }
         public string Cat2 { get; set; }
         public string Cat3 { get; set; }
@@ -277,7 +278,8 @@ namespace GossipDashboard.Models
         public string ContentPost1_7 { get; set; }
         public string SourceSiteNameFa { get; set; }
         public string ContentHTML { get; set; }
-        public string ScriptAparat { get; set; }
+        public string Status { get; set; }
+        public string StatusAuthor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostAttribute> PostAttributes { get; set; }

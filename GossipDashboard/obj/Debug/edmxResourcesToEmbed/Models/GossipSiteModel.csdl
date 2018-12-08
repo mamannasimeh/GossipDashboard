@@ -1,16 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="GossipSiteModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
   <EntityContainer Name="GossipSiteEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
-    <EntitySet Name="Posts" EntityType="GossipSiteModel.Post" />
     <EntitySet Name="PostAnswers" EntityType="GossipSiteModel.PostAnswer" />
     <EntitySet Name="PostAttributes" EntityType="GossipSiteModel.PostAttribute" />
     <EntitySet Name="PostComments" EntityType="GossipSiteModel.PostComment" />
     <EntitySet Name="PostQuestions" EntityType="GossipSiteModel.PostQuestion" />
-    <EntitySet Name="PostTemperories" EntityType="GossipSiteModel.PostTemperory" />
     <EntitySet Name="PubBases" EntityType="GossipSiteModel.PubBase" />
     <EntitySet Name="Subscribers" EntityType="GossipSiteModel.Subscriber" />
     <EntitySet Name="Users" EntityType="GossipSiteModel.User" />
     <EntitySet Name="UserPosts" EntityType="GossipSiteModel.UserPost" />
+    <AssociationSet Name="FK_PostAnswer_PostQuestion" Association="GossipSiteModel.FK_PostAnswer_PostQuestion">
+      <End Role="PostQuestion" EntitySet="PostQuestions" />
+      <End Role="PostAnswer" EntitySet="PostAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostCategory_PubBase" Association="GossipSiteModel.FK_PostCategory_PubBase">
+      <End Role="PubBase" EntitySet="PubBases" />
+      <End Role="PostAttribute" EntitySet="PostAttributes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPost_User" Association="GossipSiteModel.FK_UserPost_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserPost" EntitySet="UserPosts" />
+    </AssociationSet>
+    <EntitySet Name="Logs" EntityType="GossipSiteModel.Log" />
+    <EntitySet Name="LogErrors" EntityType="GossipSiteModel.LogError" />
+    <EntitySet Name="Posts" EntityType="GossipSiteModel.Post" />
+    <EntitySet Name="PostTemperories" EntityType="GossipSiteModel.PostTemperory" />
     <AssociationSet Name="FK_PostAttribute_Post" Association="GossipSiteModel.FK_PostAttribute_Post">
       <End Role="Post" EntitySet="Posts" />
       <End Role="PostAttribute" EntitySet="PostAttributes" />
@@ -27,21 +41,171 @@
       <End Role="Post" EntitySet="Posts" />
       <End Role="UserPost" EntitySet="UserPosts" />
     </AssociationSet>
-    <AssociationSet Name="FK_PostAnswer_PostQuestion" Association="GossipSiteModel.FK_PostAnswer_PostQuestion">
-      <End Role="PostQuestion" EntitySet="PostQuestions" />
-      <End Role="PostAnswer" EntitySet="PostAnswers" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PostCategory_PubBase" Association="GossipSiteModel.FK_PostCategory_PubBase">
-      <End Role="PubBase" EntitySet="PubBases" />
-      <End Role="PostAttribute" EntitySet="PostAttributes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserPost_User" Association="GossipSiteModel.FK_UserPost_User">
-      <End Role="User" EntitySet="Users" />
-      <End Role="UserPost" EntitySet="UserPosts" />
-    </AssociationSet>
-    <EntitySet Name="Logs" EntityType="GossipSiteModel.Log" />
-    <EntitySet Name="LogErrors" EntityType="GossipSiteModel.LogError" />
   </EntityContainer>
+  <EntityType Name="PostAnswer">
+    <Key>
+      <PropertyRef Name="PostAnswerID" />
+    </Key>
+    <Property Name="PostAnswerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostQuestionID_fk" Type="Int32" Nullable="false" />
+    <Property Name="Answer" Type="Boolean" />
+    <NavigationProperty Name="PostQuestion" Relationship="GossipSiteModel.FK_PostAnswer_PostQuestion" FromRole="PostAnswer" ToRole="PostQuestion" />
+  </EntityType>
+  <EntityType Name="PostAttribute">
+    <Key>
+      <PropertyRef Name="PostAttributeID" />
+    </Key>
+    <Property Name="PostAttributeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostID_fk" Type="Int32" />
+    <Property Name="AttributeID_fk" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PubBase" Relationship="GossipSiteModel.FK_PostCategory_PubBase" FromRole="PostAttribute" ToRole="PubBase" />
+    <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostAttribute_Post" FromRole="PostAttribute" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="PostComment">
+    <Key>
+      <PropertyRef Name="PostCommentID" />
+    </Key>
+    <Property Name="PostCommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostID_fk" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="Comment" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="LikeComment" Type="Int32" />
+    <Property Name="DislikeComment" Type="Int32" />
+    <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Datetime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="PostComment" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="PostQuestion">
+    <Key>
+      <PropertyRef Name="PostQuestionID" />
+    </Key>
+    <Property Name="PostQuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostID_fk" Type="Int32" Nullable="false" />
+    <Property Name="Question" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PostAnswers" Relationship="GossipSiteModel.FK_PostAnswer_PostQuestion" FromRole="PostQuestion" ToRole="PostAnswer" />
+    <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="PostQuestion" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="PubBase">
+    <Key>
+      <PropertyRef Name="PubBaseID" />
+    </Key>
+    <Property Name="PubBaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParentID" Type="Int32" />
+    <Property Name="NameFa" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="NameEn" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="GroupBase" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ClassName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="AbobeClassName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="ModifyUserID" Type="Int32" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="PostAttributes" Relationship="GossipSiteModel.FK_PostCategory_PubBase" FromRole="PubBase" ToRole="PostAttribute" />
+  </EntityType>
+  <EntityType Name="Subscriber">
+    <Key>
+      <PropertyRef Name="SubscriberID" />
+    </Key>
+    <Property Name="SubscriberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WebSite" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Salt" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyUserID" Type="Int32" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="AboutUser" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserPosts" Relationship="GossipSiteModel.FK_UserPost_User" FromRole="User" ToRole="UserPost" />
+  </EntityType>
+  <EntityType Name="UserPost">
+    <Key>
+      <PropertyRef Name="UserPostID" />
+    </Key>
+    <Property Name="UserPostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID_fk" Type="Int32" Nullable="false" />
+    <Property Name="PostID_fk" Type="Int32" Nullable="false" />
+    <Property Name="ModifyUserID" Type="Int32" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="User" Relationship="GossipSiteModel.FK_UserPost_User" FromRole="UserPost" ToRole="User" />
+    <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="UserPost" ToRole="Post" />
+  </EntityType>
+  <Association Name="FK_PostAnswer_PostQuestion">
+    <End Type="GossipSiteModel.PostQuestion" Role="PostQuestion" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="GossipSiteModel.PostAnswer" Role="PostAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PostQuestion">
+        <PropertyRef Name="PostQuestionID" />
+      </Principal>
+      <Dependent Role="PostAnswer">
+        <PropertyRef Name="PostQuestionID_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostCategory_PubBase">
+    <End Type="GossipSiteModel.PubBase" Role="PubBase" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="GossipSiteModel.PostAttribute" Role="PostAttribute" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PubBase">
+        <PropertyRef Name="PubBaseID" />
+      </Principal>
+      <Dependent Role="PostAttribute">
+        <PropertyRef Name="AttributeID_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPost_User">
+    <End Type="GossipSiteModel.User" Role="User" Multiplicity="1" />
+    <End Type="GossipSiteModel.UserPost" Role="UserPost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserPost">
+        <PropertyRef Name="UserID_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="LogID" />
+    </Key>
+    <Property Name="LogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LogTypeID_fk" Type="Int32" />
+    <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PostName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PostID" Type="Int32" />
+    <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="LogError">
+    <Key>
+      <PropertyRef Name="LogErorrID" />
+    </Key>
+    <Property Name="LogErorrID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ErrorID" Type="Int32" />
+    <Property Name="PostName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PostID" Type="Int32" />
+    <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
+  </EntityType>
   <EntityType Name="Post">
     <Key>
       <PropertyRef Name="PostID" />
@@ -267,10 +431,10 @@
     <Property Name="Image20_1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="Image20_2" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="Image20_3" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-    <Property Name="QuotedFrom" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="Url" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <Property Name="UrlMP3" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <Property Name="UrlVideo" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="ScriptAparat" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <Property Name="Views" Type="Int32" />
     <Property Name="LikePost" Type="Int32" />
     <Property Name="DislikePost" Type="Int32" />
@@ -279,6 +443,7 @@
     <Property Name="ModifyUserID" Type="Int32" />
     <Property Name="ModifyDate" Type="DateTime" Precision="3" />
     <Property Name="IsCreatedPost" Type="Boolean" />
+    <Property Name="FisrtDatePostCreated" Type="DateTime" Precision="3" />
     <Property Name="Cat1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Cat2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Cat3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -300,55 +465,12 @@
     <Property Name="ContentPost1_7" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="SourceSiteNameFa" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="ContentHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="StatusAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="PostAttributes" Relationship="GossipSiteModel.FK_PostAttribute_Post" FromRole="Post" ToRole="PostAttribute" />
     <NavigationProperty Name="PostComments" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="Post" ToRole="PostComment" />
     <NavigationProperty Name="PostQuestions" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="Post" ToRole="PostQuestion" />
     <NavigationProperty Name="UserPosts" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="Post" ToRole="UserPost" />
-    <Property Name="ScriptAparat" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="PostAnswer">
-    <Key>
-      <PropertyRef Name="PostAnswerID" />
-    </Key>
-    <Property Name="PostAnswerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PostQuestionID_fk" Type="Int32" Nullable="false" />
-    <Property Name="Answer" Type="Boolean" />
-    <NavigationProperty Name="PostQuestion" Relationship="GossipSiteModel.FK_PostAnswer_PostQuestion" FromRole="PostAnswer" ToRole="PostQuestion" />
-  </EntityType>
-  <EntityType Name="PostAttribute">
-    <Key>
-      <PropertyRef Name="PostAttributeID" />
-    </Key>
-    <Property Name="PostAttributeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PostID_fk" Type="Int32" />
-    <Property Name="AttributeID_fk" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostAttribute_Post" FromRole="PostAttribute" ToRole="Post" />
-    <NavigationProperty Name="PubBase" Relationship="GossipSiteModel.FK_PostCategory_PubBase" FromRole="PostAttribute" ToRole="PubBase" />
-  </EntityType>
-  <EntityType Name="PostComment">
-    <Key>
-      <PropertyRef Name="PostCommentID" />
-    </Key>
-    <Property Name="PostCommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PostID_fk" Type="Int32" Nullable="false" />
-    <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="UserID" Type="Int32" />
-    <Property Name="Comment" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="LikeComment" Type="Int32" />
-    <Property Name="DislikeComment" Type="Int32" />
-    <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Datetime" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostComment_Post" FromRole="PostComment" ToRole="Post" />
-  </EntityType>
-  <EntityType Name="PostQuestion">
-    <Key>
-      <PropertyRef Name="PostQuestionID" />
-    </Key>
-    <Property Name="PostQuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PostID_fk" Type="Int32" Nullable="false" />
-    <Property Name="Question" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_PostQuestion_Post" FromRole="PostQuestion" ToRole="Post" />
-    <NavigationProperty Name="PostAnswers" Relationship="GossipSiteModel.FK_PostAnswer_PostQuestion" FromRole="PostQuestion" ToRole="PostAnswer" />
   </EntityType>
   <EntityType Name="PostTemperory">
     <Key>
@@ -575,7 +697,6 @@
     <Property Name="Image20_1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="Image20_2" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="Image20_3" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-    <Property Name="QuotedFrom" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="Url" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <Property Name="UrlMP3" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <Property Name="UrlVideo" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
@@ -612,64 +733,8 @@
     <Property Name="ContentHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ScriptAparat" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <Property Name="SourceSiteLike" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="SourceSiteQoute" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="PubBase">
-    <Key>
-      <PropertyRef Name="PubBaseID" />
-    </Key>
-    <Property Name="PubBaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ParentID" Type="Int32" />
-    <Property Name="NameFa" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="NameEn" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="GroupBase" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="ClassName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="AbobeClassName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="Active" Type="Boolean" />
-    <Property Name="ModifyUserID" Type="Int32" />
-    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="PostAttributes" Relationship="GossipSiteModel.FK_PostCategory_PubBase" FromRole="PubBase" ToRole="PostAttribute" />
-  </EntityType>
-  <EntityType Name="Subscriber">
-    <Key>
-      <PropertyRef Name="SubscriberID" />
-    </Key>
-    <Property Name="SubscriberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="WebSite" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="User">
-    <Key>
-      <PropertyRef Name="UserID" />
-    </Key>
-    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="LastName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="Salt" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
-    <Property Name="Password" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
-    <Property Name="ModifyUserID" Type="Int32" />
-    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="AboutUser" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="UserPosts" Relationship="GossipSiteModel.FK_UserPost_User" FromRole="User" ToRole="UserPost" />
-  </EntityType>
-  <EntityType Name="UserPost">
-    <Key>
-      <PropertyRef Name="UserPostID" />
-    </Key>
-    <Property Name="UserPostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserID_fk" Type="Int32" Nullable="false" />
-    <Property Name="PostID_fk" Type="Int32" Nullable="false" />
-    <Property Name="ModifyUserID" Type="Int32" />
-    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="Post" Relationship="GossipSiteModel.FK_UserPost_Post" FromRole="UserPost" ToRole="Post" />
-    <NavigationProperty Name="User" Relationship="GossipSiteModel.FK_UserPost_User" FromRole="UserPost" ToRole="User" />
+    <Property Name="Status" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="StatusAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_PostAttribute_Post">
     <End Type="GossipSiteModel.Post" Role="Post" Multiplicity="0..1">
@@ -727,67 +792,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PostAnswer_PostQuestion">
-    <End Type="GossipSiteModel.PostQuestion" Role="PostQuestion" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="GossipSiteModel.PostAnswer" Role="PostAnswer" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PostQuestion">
-        <PropertyRef Name="PostQuestionID" />
-      </Principal>
-      <Dependent Role="PostAnswer">
-        <PropertyRef Name="PostQuestionID_fk" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PostCategory_PubBase">
-    <End Type="GossipSiteModel.PubBase" Role="PubBase" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="GossipSiteModel.PostAttribute" Role="PostAttribute" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PubBase">
-        <PropertyRef Name="PubBaseID" />
-      </Principal>
-      <Dependent Role="PostAttribute">
-        <PropertyRef Name="AttributeID_fk" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserPost_User">
-    <End Type="GossipSiteModel.User" Role="User" Multiplicity="1" />
-    <End Type="GossipSiteModel.UserPost" Role="UserPost" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="UserPost">
-        <PropertyRef Name="UserID_fk" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="Log">
-    <Key>
-      <PropertyRef Name="LogID" />
-    </Key>
-    <Property Name="LogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="LogTypeID_fk" Type="Int32" />
-    <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="PostName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="PostID" Type="Int32" />
-    <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="LogError">
-    <Key>
-      <PropertyRef Name="LogErorrID" />
-    </Key>
-    <Property Name="LogErorrID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="ErrorID" Type="Int32" />
-    <Property Name="PostName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="PostID" Type="Int32" />
-    <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
-  </EntityType>
 </Schema>

@@ -20,7 +20,8 @@ namespace GossipDashboard.Controllers
         private HtmlNode result;
         private LogRepository repoLog = new Repository.LogRepository();
         private LogErrorRepository repoErrorLog = new Repository.LogErrorRepository();
-
+        private PostRepository repo = new PostRepository();
+        private ManagementPostRepository repoManagementPost = new ManagementPostRepository();
         public HomeController()
         {
             //Timer aTimer = new Timer();
@@ -45,8 +46,6 @@ namespace GossipDashboard.Controllers
             path = ControllerContext.HttpContext.Server.MapPath("~");
             PostManagement postManagement = new PostManagement(path);
 
-            PostRepository repo = new PostRepository();
-
             //ایجاد پست ها
             repo.CreatePost();
 
@@ -63,7 +62,7 @@ namespace GossipDashboard.Controllers
         //ایجاد صفحه اصلی
         private void CreateIndexPage(string path, PostManagement postManagement)
         {
-            var repo = new PostRepository();
+
             var docIndex = new HtmlDocument();
             /////////////////////////////create bloglist/////////////////////////////
             //وسط صفحه 
@@ -75,45 +74,40 @@ namespace GossipDashboard.Controllers
                 //حذف محتويات ند بلاك-author-grid
                 postManagement.ClearContentNode(nodesIndex, "author-grid");
 
-                int i = 0, takeList = 10;
-                List<VM_Post> posts = new List<VM_Post>();
-                List<string> duplicateImages = new List<string>();
-                List<int> AddedPostIDs = new List<int>();
-                do
+                ///// در هر گروه بر اساس نام سایت، بالاترین مقادیر را یکی یکی خارج می کند و لیست جدید می سازد
+                var posts = repo.SelectPostUser().OrderByDescending(p => p.PostID).Take(200).ToList();
+                List<VM_Post> listAll = Utilty.SortGroupsList(posts);
+
+
+                //ایجاد  تگ آرتیکل به ازای هر پست
+                int i = 0; List<string> duplicateImage = new List<string>();
+                foreach (var item in listAll)
                 {
-                    //ایجاد تگ آرتیکل به ازای هر پست
-                    posts = repo.SelectPostUser().OrderByDescending(p => p.PostID).Take(takeList).ToList();
-                    foreach (var item in posts)
+                    //برای قسمت اصلی داشتن  تصویر مهم است یا پست آپارات باشد یا استاتوس باشد
+                    // 30 پست ایجاد گردد --------  i < 30
+                    if ((item.Image1_1 != null && i < 30) || (item.ScriptAparat != null && i < 30) || (item.Status != null && i < 30))
                     {
-                        //برای قسمت اصلی داشتن  تصویر مهم است
-                        //if ((item.Image1_1 != null || item.ScriptAparat != null) && i < 30)
-                        if (item.Image1_1 != null && i < 30 && !AddedPostIDs.Contains(item.PostID))
+                        //در صفحه اصلی عکس تکراری نداشته باشیم
+                        if (duplicateImage.FirstOrDefault(x => x == item.Image1_1) == null)
                         {
-                            //در صفحه اصلی عکس تکراری نداشته باشیم
-                            if (duplicateImages.FirstOrDefault(x => x == item.Image1_1) == null)
+                            item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+
+                             //ايجاد محتوا براي وسط صفحه-- author-grid
+                            var itSelfNode = postManagement.CreateBloglist(item, "CreateIndexPage", i);
+                            if (itSelfNode != null)
                             {
-                                item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
+                                result = postManagement.AddHeadToContentDiv(nodesIndex, "author-grid", itSelfNode);
 
-                                //ايجاد محتوا براي وسط صفحه-- author-grid
-                                var itSelfNode = postManagement.CreateBloglist(item);
-                                if (itSelfNode != null)
-                                {
-                                    result = postManagement.AddHeadToContentDiv(nodesIndex, "author-grid", itSelfNode);
-
-                                    AddedPostIDs.Add(item.PostID);
-                                }
-
-                                i += 1;
-                                duplicateImages.Add(item.Image1_1);
+                                //این قسمت مرحله ای است که پابلیش هر پست نهایی می شود
+                                // یک عدد به فیلد پابلیش کانت آنها اضافه کنیم
+                                repoManagementPost.UpdatePublishCount(item.PostID);
                             }
+
+                            i += 1;
+                            duplicateImage.Add(item.Image1_1);
                         }
                     }
-
-                    takeList += 10;
-                } while (i < 30);
-
-
-
+                }
 
                 var htmlDoc = new HtmlDocument();
                 htmlDoc.LoadHtml(result.OuterHtml);
