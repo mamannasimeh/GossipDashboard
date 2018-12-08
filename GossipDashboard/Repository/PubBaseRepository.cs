@@ -51,5 +51,11 @@ namespace GossipDashboard.Repository
         {
             throw new NotImplementedException();
         }
+
+        public IQueryable<PubBase> SelectAll()
+        {
+            var res = context.PubBases;
+            return res;
+        }
     }
 }

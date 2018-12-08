@@ -731,9 +731,15 @@ namespace GossipDashboard.Repository
 
             //پست هایی که قبلا ایجاد نشده اند
             //پست استاتوس می تواند بیش از یکبار نیز انتشار پیدا کند
-            var tempPost = context.PostTemperories.Where(p => p.IsCreatedPost ?? false != true || p.Status != null).OrderByDescending(p => p.PostID).ToList();
+            var tempPost = context.PostTemperories.Where(p => ((p.IsCreatedPost == null || p.IsCreatedPost == false) ? false : true) != true).OrderByDescending(p => p.PostID).ToList();
             foreach (var item in tempPost)
             {
+                if (item.PostID == 1094 || item.PostID == 1099 || item.PostID == 1101 ||
+                    item.PostID == 1102 || item.PostID == 1103 || item.PostID == 1104)
+                {
+
+                }
+
                 isPostDeleted = false;
 
                 //انتیتی از روی  مقادیر فیلد اچ تی ام ال ساخته می شود
@@ -743,7 +749,7 @@ namespace GossipDashboard.Repository
 
                 //قبلا این پست ایجاد نشده باشد
                 //پست استاتوس می تواند بیش از یکبار نیز انتشار پیدا کند
-                var isExist = context.Posts.FirstOrDefault(p => p.Subject1 == item.Subject1 || item.Status != null);
+                var isExist = context.Posts.FirstOrDefault(p => p.Subject1 == item.Subject1);
 
                 if (isExist == null && item.Subject1 != null && item.Subject1.Trim().Length > 3
                     && item.HTML != null && item.HTML.Trim() != ""

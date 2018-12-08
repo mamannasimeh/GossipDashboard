@@ -96,11 +96,13 @@ public static class Utilty
 
         //اضافه کردن پست استاتوس
         //با هر 4 پابلیش استاتوس قبلی حذف می شود و استاتوس جدید اضافه می گردد
-        var quote = repo.SelectPostUser().Where(p => p.Status != null &&  (p.PublishCount == null ? 0 : p.PublishCount) <= 4).OrderBy(p => p.PostID).FirstOrDefault();
-        if(quote != null)
+        var status = repo.SelectPostUser().Where(p => p.Status != null &&  (p.PublishCount == null ? 0 : p.PublishCount) <= 4).OrderBy(p => p.PostID).FirstOrDefault();
+        if(status != null)
         {
-            listAll.Insert(15, quote);
+            listAll.Insert(15, status);
         }
+
+
 
         return listAll;
     }

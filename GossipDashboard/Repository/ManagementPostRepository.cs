@@ -930,7 +930,7 @@ namespace GossipDashboard.Repository
             if (res == null)
                 return false;
 
-            res.PublishCount += 1;
+            res.PublishCount = (res.PublishCount == null ? 0 : res.PublishCount) + 1;
             context.SaveChanges();
             return true;
         }

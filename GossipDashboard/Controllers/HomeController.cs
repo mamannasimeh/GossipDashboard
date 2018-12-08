@@ -75,7 +75,8 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "author-grid");
 
                 ///// در هر گروه بر اساس نام سایت، بالاترین مقادیر را یکی یکی خارج می کند و لیست جدید می سازد
-                var posts = repo.SelectPostUser().OrderByDescending(p => p.PostID).Take(200).ToList();
+                //پست نوع استاتوس را در داخل متد سورت گروپ ليست مقدار دهي مي کنيم
+                var posts = repo.SelectPostUser().Where(p => p.PostFormat.FirstOrDefault().NameEn != "status").OrderByDescending(p => p.PostID).Take(200).ToList();
                 List<VM_Post> listAll = Utilty.SortGroupsList(posts);
 
 
