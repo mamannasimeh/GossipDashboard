@@ -934,5 +934,36 @@ namespace GossipDashboard.Repository
             context.SaveChanges();
             return true;
         }
+
+
+        /// <summary>
+        /// فرمت پست به لينک تغيير پيدا مي کند
+        /// </summary>
+        /// <param name="postid"></param>
+        /// <returns></returns>
+        public bool CreateNewFormatPost(int postid, string formatType)
+        {
+            var linkID = context.PubBases.First(p => p.NameEn == formatType).PubBaseID;
+
+            var postFormatID = context.PubBases.First(p => p.NameEn == "PostFormat").PubBaseID;
+            var FormatIDs = context.PubBases.Where(p => p.ParentID == postFormatID).Select(p => p.PubBaseID).ToList();
+
+            var res = context.PostAttributes.Where(p => p.PostID_fk == postid && FormatIDs.Contains(p.AttributeID_fk)).ToList();
+            if (res != null)
+            {
+                context.PostAttributes.RemoveRange(res);
+
+                context.PostAttributes.Add(new PostAttribute()
+                {
+                    PostID_fk = postid,
+                    AttributeID_fk = linkID,
+                });
+
+                context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
     }
 }

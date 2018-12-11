@@ -307,7 +307,7 @@ namespace GossipDashboard.Repository
                               NameEn = pBase.NameEn,
                               PostID = postAttr.PostID_fk,
                               ParentID = pBase.ParentID
-                          }).Where(x => x.PostID == P.PostID && x.ParentID == postCategoryID),
+                          }).Where(x => x.PostID == P.PostID && x.ParentID == postCategoryID).ToList(),
                           PostFormat = context.PostAttributes.Join(context.PubBases, postAttr => postAttr.AttributeID_fk, pBase => pBase.PubBaseID, (postAttr, pBase) =>
                          new VM_PubBase
                          {
@@ -318,7 +318,7 @@ namespace GossipDashboard.Repository
                              NameEn = pBase.NameEn,
                              PostID = postAttr.PostID_fk,
                              ParentID = pBase.ParentID
-                         }).Where(x => x.PostID == P.PostID && x.ParentID == postFormatID),
+                         }).Where(x => x.PostID == P.PostID && x.ParentID == postFormatID).ToList(),
                           PostCol = context.PostAttributes.Join(context.PubBases, postAttr => postAttr.AttributeID_fk, pBase => pBase.PubBaseID, (postAttr, pBase) =>
                           new VM_PubBase
                           {
@@ -329,7 +329,7 @@ namespace GossipDashboard.Repository
                               NameEn = pBase.NameEn,
                               PostID = postAttr.PostID_fk,
                               ParentID = pBase.ParentID
-                          }).Where(x => x.PostID == P.PostID && x.ParentID == PostColID),
+                          }).Where(x => x.PostID == P.PostID && x.ParentID == PostColID).ToList(),
                       };
             return res;
         }
@@ -687,7 +687,7 @@ namespace GossipDashboard.Repository
                               NameEn = pBase.NameEn,
                               PostID = postAttr.PostID_fk,
                               ParentID = pBase.ParentID
-                          }).Where(x => x.PostID == P.PostID && x.ParentID == postCategoryID),
+                          }).Where(x => x.PostID == P.PostID && x.ParentID == postCategoryID).ToList(),
                           PostFormat = context.PostAttributes.Join(context.PubBases, postAttr => postAttr.AttributeID_fk, pBase => pBase.PubBaseID, (postAttr, pBase) =>
                          new VM_PubBase
                          {
@@ -698,7 +698,7 @@ namespace GossipDashboard.Repository
                              NameEn = pBase.NameEn,
                              PostID = postAttr.PostID_fk,
                              ParentID = pBase.ParentID
-                         }).Where(x => x.PostID == P.PostID && x.ParentID == postFormatID),
+                         }).Where(x => x.PostID == P.PostID && x.ParentID == postFormatID).ToList(),
                           PostCol = context.PostAttributes.Join(context.PubBases, postAttr => postAttr.AttributeID_fk, pBase => pBase.PubBaseID, (postAttr, pBase) =>
                          new VM_PubBase
                          {
@@ -709,7 +709,7 @@ namespace GossipDashboard.Repository
                              NameEn = pBase.NameEn,
                              PostID = postAttr.PostID_fk,
                              ParentID = pBase.ParentID
-                         }).Where(x => x.PostID == P.PostID && x.ParentID == PostColID),
+                         }).Where(x => x.PostID == P.PostID && x.ParentID == PostColID).ToList(),
                       };
             return res;
         }
@@ -734,11 +734,6 @@ namespace GossipDashboard.Repository
             var tempPost = context.PostTemperories.Where(p => ((p.IsCreatedPost == null || p.IsCreatedPost == false) ? false : true) != true).OrderByDescending(p => p.PostID).ToList();
             foreach (var item in tempPost)
             {
-                if (item.PostID == 1094 || item.PostID == 1099 || item.PostID == 1101 ||
-                    item.PostID == 1102 || item.PostID == 1103 || item.PostID == 1104)
-                {
-
-                }
 
                 isPostDeleted = false;
 
@@ -844,6 +839,7 @@ namespace GossipDashboard.Repository
 
                     //ایجاد اتربیوت ها فرمت پست ها
                     var attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "standard").PubBaseID;
+                    var attrName = context.PubBases.FirstOrDefault(p => p.NameEn == "standard").NameEn;
                     if (entityPost.UrlMP3 != null)
                         attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "audio").PubBaseID;
                     else if (entityPost.UrlVideo != null)
@@ -852,6 +848,8 @@ namespace GossipDashboard.Repository
                         attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "aparat").PubBaseID;
                     else if (entityPost.Status != null)
                         attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "status").PubBaseID;
+
+     
 
                     context.PostAttributes.Add(new PostAttribute()
                     {
@@ -893,6 +891,8 @@ namespace GossipDashboard.Repository
 
 
             }
+
+
         }
 
         /// <summary>
@@ -1049,6 +1049,7 @@ namespace GossipDashboard.Repository
             if (sourceSite.ToUpper() == "IRANNAZ".ToUpper())
             {
                 // یو آر ال هایی که عبارت نیوز کتس دارند حذف گردد. 
+                // اين پست ها مثل فال و اس ام اس و غيره هستند
                 //برای اطمینان که پستی به اشتباه حذف نشود نباید علامت درصد هم داشته باشد
                 if (entityPost.SourceSiteUrl.Contains("news_cats") && !entityPost.SourceSiteUrl.Contains("%"))
                 {

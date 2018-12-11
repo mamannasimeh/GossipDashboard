@@ -260,9 +260,9 @@ namespace GossipDashboard.ViewModel
         public string DateTimePost { get; set; }
         public string ContentPost1_6 { get; set; }
         public string ContentPost1_7 { get; set; }
-        public IQueryable<VM_PubBase> PostCategory { get;  set; }
-        public IQueryable<VM_PubBase> PostFormat { get;  set; }
-        public IQueryable<VM_PubBase> PostCol { get;  set; }
+        public List<VM_PubBase> PostCategory { get;  set; }
+        public List<VM_PubBase> PostFormat { get;  set; }
+        public List<VM_PubBase> PostCol { get;  set; }
         public string AboutUser { get;  set; }
         public byte[] ImageUser { get;  set; }
         public string JalaliModifyDate { get;  set; }
