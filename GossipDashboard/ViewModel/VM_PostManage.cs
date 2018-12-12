@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using GossipDashboard.Models;
 
 namespace GossipDashboard.ViewModel
@@ -11,6 +12,10 @@ namespace GossipDashboard.ViewModel
     public class VM_PostManage
     {
         public int PostID { get; set; }
+
+
+        [DisplayName("عنوان")]
+        [Required]
         public string Subject1 { get; set; }
         public string SubSubject1_1 { get; set; }
         public string SubSubject1_2 { get; set; }
@@ -235,11 +240,16 @@ namespace GossipDashboard.ViewModel
         public string Url { get; set; }
         public string UrlMP3 { get; set; }
         public string UrlVideo { get; set; }
+
+        [DisplayName("اسکريپت آپارات")]
+        [AllowHtml]
         public string ScriptAparat { get; set; }
         public Nullable<int> Views { get; set; }
         public Nullable<int> LikePost { get; set; }
         public Nullable<int> DislikePost { get; set; }
         public Nullable<int> PublishCount { get; set; }
+
+        [DisplayName("بک گراند")]
         public string BackgroundColor { get; set; }
         public Nullable<int> ModifyUserID { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
@@ -266,12 +276,20 @@ namespace GossipDashboard.ViewModel
         public string JalaliModifyDate { get; set; }
         public string Fullname { get; set; }
         public int CommentCount { get; set; }
-        public int UserID_fk { get;  set; }
+        public int UserID_fk { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        [DisplayName("آدرس سايت مرجع")]
+        [Required]
         public string SourceSiteUrl { get; set; }
+
+
         public string SourceFootCategory { get; set; }
         public string SourceDateTimePost { get; set; }
+
+        [DisplayName("نام سايت مرجع")]
+        [Required]
         public string SourceSiteName { get; set; }
         public string SourceSiteNameFa { get; set; }
         [DisplayName("طبقه بندی")]
@@ -287,8 +305,14 @@ namespace GossipDashboard.ViewModel
         [DisplayName("تعداد ستون")]
         public int PostColID { get; set; }
 
+        [AllowHtml]
+        [DisplayName("HTML محتوا")]
+        [Required]
         public string ContentHTML { get; set; }
+
+        [DisplayName("وضعيت")]
         public string Status { get; set; }
+        [DisplayName("نويسنده وضعيت")]
         public string StatusAuthor { get; set; }
 
         public Nullable<System.DateTime> FisrtDatePostCreated { get; set; }

@@ -279,6 +279,7 @@ namespace GossipDashboard.Repository
                           SourceSiteUrl = P.SourceSiteUrl,
                           Status = P.Status,
                           StatusAuthor = P.StatusAuthor,
+                          ContentHTML = P.ContentHTML,
                           CommentCount = context.PostComments.Count(x => x.PostID_fk == P.PostID),
                           PostCategoryID = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == postCategoryID select _PB.PubBaseID).FirstOrDefault(),
                           PostFormatID = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == postFormatID select _PB.PubBaseID).FirstOrDefault(),

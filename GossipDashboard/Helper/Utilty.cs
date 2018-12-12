@@ -62,6 +62,7 @@ public static class Utilty
         ManagementPostRepository repoManagementPost = new ManagementPostRepository();
         PubBaseRepository repoPubBase = new PubBaseRepository();
 
+
         //ایجاد تگ آرتیکل به ازای هر پست
         List<VM_Post> listAll = new List<VM_Post>();
         List<VM_Post> listPostMaxGroup = new List<VM_Post>();
