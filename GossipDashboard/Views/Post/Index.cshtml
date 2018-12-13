@@ -8,12 +8,19 @@
 <div class="col-md-12 content-area" style="direction:rtl; text-align: justify;">
     <article class="post-box ">
         <div class="entry-cover">
+
             @{
                 if (Model != null && Model.ScriptAparat != null)
                 {
                     <div id="ScriptAparat">
                         @Html.Raw(Model.ScriptAparat)
                     </div>
+                }
+                else
+                {
+                    <a href="@Html.DisplayFor(modelItem => modelItem.Url)" class="single-post-image">
+                        <img src="@Html.DisplayFor(modelItem => modelItem.Image1_1)" />
+                    </a>
                 }
             }
         </div>

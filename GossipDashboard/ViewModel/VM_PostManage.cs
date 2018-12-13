@@ -11,6 +11,7 @@ namespace GossipDashboard.ViewModel
 {
     public class VM_PostManage
     {
+        [ReadOnly(true)]
         public int PostID { get; set; }
 
 
@@ -24,6 +25,10 @@ namespace GossipDashboard.ViewModel
         public string ContentPost1_3 { get; set; }
         public string ContentPost1_4 { get; set; }
         public string ContentPost1_5 { get; set; }
+
+
+        [DisplayName("عکس")]
+        [Required]
         public string Image1_1 { get; set; }
         public string Image1_2 { get; set; }
         public string Image1_3 { get; set; }

@@ -62,7 +62,7 @@ namespace GossipDashboard.Controllers
         //ایجاد صفحه اصلی
         private void CreateIndexPage(string path, PostManagement postManagement)
         {
-
+            List<VM_Post> listAll = new List<VM_Post>();
             var docIndex = new HtmlDocument();
             /////////////////////////////create bloglist/////////////////////////////
             //وسط صفحه 
@@ -75,26 +75,27 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "author-grid");
 
                 ///// در هر گروه بر اساس نام سایت، بالاترین مقادیر را یکی یکی خارج می کند و لیست جدید می سازد
-                //پست نوع استاتوس را در داخل متد سورت گروپ ليست مقدار دهي مي کنيم
-                var posts = repo.SelectPostUser().Where(p => p.PostFormat.FirstOrDefault().NameEn != "status").OrderByDescending(p => p.PostID).Take(200).ToList();
-                List<VM_Post> listAll = Utilty.SortGroupsList(posts);
-
+                //پست نوع استاتوس  و لینک را در داخل متد سورت گروپ ليست مقدار دهي مي کنيم
+                var posts = repo.SelectPostUser().Where(p => p.PostFormat.FirstOrDefault().NameEn != "status"
+                        && p.PostFormat.FirstOrDefault().NameEn != "link" && p.PostFormat.FirstOrDefault().NameEn != "video"
+                        && p.PostFormat.FirstOrDefault().NameEn != "audio").OrderByDescending(p => p.PostID).Take(200).ToList();
+                listAll = Utilty.SortGroupsList(posts, PlaceInMainPage.MiddleIndex);
 
                 //ایجاد  تگ آرتیکل به ازای هر پست
                 int i = 0; List<string> duplicateImage = new List<string>();
                 foreach (var item in listAll)
                 {
-                    //برای قسمت اصلی داشتن  تصویر مهم است یا پست آپارات باشد یا استاتوس باشد يا ويديو
+                    // برای قسمت اصلی داشتن  تصویر مهم است یا پست آپارات باشد یا استاتوس باشد يا ويديو یا صوتی 
                     // 30 پست ایجاد گردد --------  i < 30
                     if ((item.Image1_1 != null && i < 30) || (item.ScriptAparat != null && i < 30) || (item.Status != null && i < 30)
-                        || (item.UrlVideo != null && i < 30))
+                        || (item.UrlVideo != null && i < 30) || (item.UrlMP3 != null && i < 30))
                     {
                         //در صفحه اصلی عکس تکراری نداشته باشیم
                         if (duplicateImage.FirstOrDefault(x => x == item.Image1_1) == null)
                         {
                             item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
-                             //ايجاد محتوا براي وسط صفحه-- author-grid
+                            //ايجاد محتوا براي وسط صفحه-- author-grid
                             var itSelfNode = postManagement.CreateBloglist(item, "CreateIndexPage", i);
                             if (itSelfNode != null)
                             {
@@ -122,14 +123,14 @@ namespace GossipDashboard.Controllers
                     ErrorDescription = ex.ToString(),
                     IP = Request.UserHostAddress,
                     ModifyDateTime = DateTime.Now,
-                    PostName = "Create Main Page",
+                    PostName = "Create Main Page - PlaceInMainPage.MiddleIndex",
                     PostID = -100
                 });
 
             }
 
             //////////////////////Create catlist///////////////////////////////////////
-            //دیگر رويدادها
+            //آخرین رويدادها
             try
             {
                 var startDaysAgo = DateTime.Now.AddDays(-10);
@@ -141,8 +142,9 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "tab-content");
 
                 //ایجاد  محتواي تب هاي کت ليست
-                var posts = repo.SelectPostUser().Where(p => p.ModifyDate >= startDaysAgo && p.ModifyDate <= endDaysAgo).OrderByDescending(p => p.PostID).Take(50).ToList();
-                foreach (var item in posts)
+                var posts = repo.SelectPostUser().Where(p => p.ModifyDate >= startDaysAgo && p.ModifyDate <= endDaysAgo && p.Status == null).OrderByDescending(p => p.PostID).Take(50).ToList();
+                listAll = Utilty.SortGroupsList(posts, PlaceInMainPage.LastEvent);
+                foreach (var item in listAll)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
@@ -166,7 +168,7 @@ namespace GossipDashboard.Controllers
                     ErrorDescription = ex.ToString(),
                     IP = Request.UserHostAddress,
                     ModifyDateTime = DateTime.Now,
-                    PostName = "Create Main Page",
+                    PostName = "Create Main Page - PlaceInMainPage.LastEvent",
                     PostID = -100
                 });
             }
@@ -183,8 +185,9 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "row bloglist-content");
 
                 //ایجاد  محتواي تب هاي کت ليست
-                var posts = repo.SelectPostUser().OrderBy(x => x.CommentCount).Take(10).ToList();
-                foreach (var item in posts)
+                var posts = repo.SelectPostUser().Where(p => p.Status == null).OrderBy(x => x.CommentCount).Take(10).ToList();
+                listAll = Utilty.SortGroupsList(posts, PlaceInMainPage.InterestingStuff);
+                foreach (var item in listAll)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
@@ -208,7 +211,7 @@ namespace GossipDashboard.Controllers
                     ErrorDescription = ex.ToString(),
                     IP = Request.UserHostAddress,
                     ModifyDateTime = DateTime.Now,
-                    PostName = "Create Main Page",
+                    PostName = "Create Main Page - PlaceInMainPage.InterestingStuff",
                     PostID = -100
                 });
             }
@@ -224,8 +227,9 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "bloglist default");
 
                 //ایجاد  محتواي bloglist default
-                var posts = repo.SelectPostUser().Take(5).ToList();
-                foreach (var item in posts)
+                var posts = repo.SelectPostUser().Where(p => p.Status == null).Take(5).ToList();
+                listAll = Utilty.SortGroupsList(posts, PlaceInMainPage.BloglistDefault);
+                foreach (var item in listAll)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
@@ -249,7 +253,7 @@ namespace GossipDashboard.Controllers
                     ErrorDescription = ex.ToString(),
                     IP = Request.UserHostAddress,
                     ModifyDateTime = DateTime.Now,
-                    PostName = "Create Main Page",
+                    PostName = "Create Main Page - PlaceInMainPage.BloglistDefault",
                     PostID = -100
                 });
             }
@@ -258,7 +262,8 @@ namespace GossipDashboard.Controllers
             //////////////////////Create postslider-container slider-image-bottom///////////////////////////////////////
             var startDateSliderButtom = DateTime.Now.AddDays(-4);
             var endDateSliderButtom = DateTime.Now.AddDays(-2);
-            var postSliderButton = repo.SelectPostUser().Where(p => p.ModifyDate >= startDateSliderButtom && p.ModifyDate <= endDateSliderButtom && p.Image1_1 != null).OrderByDescending(p => p.LikePost).Take(6).ToList();
+            var postSliderButton = repo.SelectPostUser().Where(p => p.ModifyDate >= startDateSliderButtom && p.ModifyDate <= endDateSliderButtom && p.Image1_1 != null && p.Status == null).OrderByDescending(p => p.LikePost).Take(6).ToList();
+            listAll = Utilty.SortGroupsList(postSliderButton, PlaceInMainPage.SliderBottom);
             try
             {
                 var someDaysAgo = DateTime.Now.AddDays(-5);
@@ -269,7 +274,7 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "sp-slides sp-slider-image");
 
                 //ایجاد  محتواي slider-image-bottom
-                foreach (var item in postSliderButton)
+                foreach (var item in listAll)
                 {
                     //اسلایدر بالا حتما عکس داشته باشد
                     if (item.Image1_1.Trim() == "")
@@ -297,7 +302,7 @@ namespace GossipDashboard.Controllers
                     ErrorDescription = ex.ToString(),
                     IP = Request.UserHostAddress,
                     ModifyDateTime = DateTime.Now,
-                    PostName = "Create Main Page",
+                    PostName = "Create Main Page - PlaceInMainPage.SliderBottom",
                     PostID = -100
                 });
             }
@@ -313,7 +318,7 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "sp-thumbnails sp-slider-image");
 
                 //ایجاد  محتواي slider-image-bottom
-                foreach (var item in postSliderButton)
+                foreach (var item in listAll)
                 {
                     //اسلایدر بالا حتما عکس داشته باشد
                     if (item.Image1_1.Trim() == "")
@@ -341,7 +346,7 @@ namespace GossipDashboard.Controllers
                     ErrorDescription = ex.ToString(),
                     IP = Request.UserHostAddress,
                     ModifyDateTime = DateTime.Now,
-                    PostName = "Create Main Page",
+                    PostName = "Create Main Page - PlaceInMainPage.SliderBottom - Picture",
                     PostID = -100
                 });
             }
@@ -350,7 +355,8 @@ namespace GossipDashboard.Controllers
             //اسلایدر بالایی
             ////////////////////////sp-slides sp-slider-image-top///////////////////////////////////////
             var someDaysAgoSliderTop = DateTime.Now.AddDays(-5);
-            var postSliderTop = repo.SelectPostUser().Where(p => p.ModifyDate >= someDaysAgoSliderTop && p.ModifyDate < DateTime.Now && p.Image1_1 != null).OrderByDescending(p => p.Views).Take(6).ToList();
+            var postSliderTop = repo.SelectPostUser().Where(p => p.ModifyDate >= someDaysAgoSliderTop && p.ModifyDate < DateTime.Now && p.Image1_1 != null && p.Status == null).OrderByDescending(p => p.Views).Take(6).ToList();
+            listAll = Utilty.SortGroupsList(postSliderTop, PlaceInMainPage.SliderTop);
             try
             {
                 docIndex.Load(path + "/Views/Home/Index.cshtml", System.Text.Encoding.UTF8);
@@ -360,7 +366,7 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "sp-slides sp-slider-image-top");
 
                 //ایجاد  محتوا
-                foreach (var item in postSliderTop)
+                foreach (var item in listAll)
                 {
                     //اسلایدر بالا حتما عکس داشته باشد
                     if (item.Image1_1.Trim() == "")
@@ -388,7 +394,7 @@ namespace GossipDashboard.Controllers
                     ErrorDescription = ex.ToString(),
                     IP = Request.UserHostAddress,
                     ModifyDateTime = DateTime.Now,
-                    PostName = "Create Main Page",
+                    PostName = "Create Main Page - PlaceInMainPage.SliderTop",
                     PostID = -100
                 });
             }
@@ -404,7 +410,7 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "sp-thumbnails sp-slider-image-top");
 
                 //ایجاد  محتوا
-                foreach (var item in postSliderTop)
+                foreach (var item in listAll)
                 {
                     //اسلایدر بالا حتما عکس داشته باشد
                     if (item.Image1_1.Trim() == "")
@@ -432,7 +438,7 @@ namespace GossipDashboard.Controllers
                     ErrorDescription = ex.ToString(),
                     IP = Request.UserHostAddress,
                     ModifyDateTime = DateTime.Now,
-                    PostName = "Create Main Page",
+                    PostName = "Create Main Page - PlaceInMainPage.SliderTop - Picture",
                     PostID = -100
                 });
             }
@@ -453,8 +459,9 @@ namespace GossipDashboard.Controllers
 
                 ////ایجاد  محتوا
                 int rowID = 1;
-                var posts = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgo).OrderByDescending(p => p.Views).Take(5).ToList();
-                foreach (var item in posts)
+                var posts = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgo && p.Status == null).OrderByDescending(p => p.Views).Take(5).ToList();
+                listAll = Utilty.SortGroupsList(posts, PlaceInMainPage.Mostviewed);
+                foreach (var item in listAll)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
@@ -479,7 +486,7 @@ namespace GossipDashboard.Controllers
                     ErrorDescription = ex.ToString(),
                     IP = Request.UserHostAddress,
                     ModifyDateTime = DateTime.Now,
-                    PostName = "Create Main Page",
+                    PostName = "Create Main Page - PlaceInMainPage.Mostviewed",
                     PostID = -100
                 });
             }
@@ -497,8 +504,9 @@ namespace GossipDashboard.Controllers
 
                 //ایجاد  محتوا
                 int rowID = 1;
-                var posts = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgo).OrderByDescending(x => x.LikePost).Take(5).ToList();
-                foreach (var item in posts)
+                var posts = repo.SelectPostUser().Where(p => p.ModifyDate > someDaysAgo && p.Status == null).OrderByDescending(x => x.LikePost).Take(5).ToList();
+                listAll = Utilty.SortGroupsList(posts, PlaceInMainPage.Popular);
+                foreach (var item in listAll)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
@@ -523,12 +531,12 @@ namespace GossipDashboard.Controllers
                     ErrorDescription = ex.ToString(),
                     IP = Request.UserHostAddress,
                     ModifyDateTime = DateTime.Now,
-                    PostName = "Create Main Page",
+                    PostName = "Create Main Page - PlaceInMainPage.Popular",
                     PostID = -100
                 });
             }
 
-            ////////////////////////// آخرين پست ها///////////////////////////////////////
+            ////////////////////////// آخرين خبرها///////////////////////////////////////
             try
             {
                 docIndex.Load(path + "/Views/Shared/_Layout.cshtml", System.Text.Encoding.UTF8);
@@ -539,8 +547,9 @@ namespace GossipDashboard.Controllers
 
                 //ایجاد  محتوا
                 int rowID = 1;
-                var posts = repo.SelectPostUser().OrderByDescending(x => x.PostID).Take(6).ToList();
-                foreach (var item in posts)
+                var posts = repo.SelectPostUser().Where(p => p.Status == null).OrderByDescending(x => x.PostID).Take(6).ToList();
+                listAll = Utilty.SortGroupsList(posts, PlaceInMainPage.LaseNews);
+                foreach (var item in listAll)
                 {
                     item.JalaliModifyDate = item.ModifyDate.ToPersianDateTime();
 
@@ -565,7 +574,7 @@ namespace GossipDashboard.Controllers
                     ErrorDescription = ex.ToString(),
                     IP = Request.UserHostAddress,
                     ModifyDateTime = DateTime.Now,
-                    PostName = "Create Main Page",
+                    PostName = "Create Main Page - PlaceInMainPage.LaseNews",
                     PostID = -100
                 });
             }

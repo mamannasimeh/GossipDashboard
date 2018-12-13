@@ -91,7 +91,7 @@ namespace GossipDashboard.Controllers
 
             //ایجاد  تگ آرتیکل به ازای هر پست
             var repo = new PostRepository();
-            var postQuiz = repo.SelectPostByCategory("entertainment").ToList();
+            var postQuiz = repo.SelectPostByCategory("entertainment").OrderByDescending(p => p.PostID).Take(200).ToList();
             foreach (var item in postQuiz)
             {
                 //ايجاد محتوا براي وسط صفحه-- author-grid 

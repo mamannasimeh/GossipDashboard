@@ -1,84 +1,118 @@
 ﻿@model GossipDashboard.ViewModel.VM_Post
+
 @{
     ViewBag.Title = @Html.DisplayFor(modelItem => modelItem.Subject1);
 }
 
 <input type="hidden" id="postIDHidden" value="@Html.DisplayFor(modelItem => modelItem.PostID)" />
-<div class="col-md-12 content-area" style="direction:rtl;">
-    <article class="format-audio hentry category-cute">
-        <div class="post-box">
-            <div class="entry-cover">
-                <div class="entry-cover">
-                    <a href="@Html.DisplayFor(modelItem => modelItem.Url)" class="single-post-image">
-                        <img src="@Html.DisplayFor(modelItem => modelItem.Image1_1)" />
-                    </a>
-                </div>
-                <div class="audio-container">
-                    <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
-                    <audio class="wp-audio-shortcode" id="audio-429-1" preload="none" style="width: 100%;" controls="controls">
-                        <source type="audio/mpeg" src="@Html.DisplayFor(modelItem => modelItem.UrlMP3)" />
-                        <a href="@Html.DisplayFor(modelItem => modelItem.UrlMP3)">"@Html.DisplayFor(modelItem => modelItem.UrlMP3)"</a>
-                    </audio>
-                </div>
+<div class="col-md-12 content-area" style="direction:rtl; text-align: justify;">
+    <article class="post-box ">
+        <div class="entry-cover">
+            @{
+        if (Model != null && Model.UrlMP3 != null)
+        {
+
+            <div class="audio-container">
+                <a href="@Html.DisplayFor(modelItem => modelItem.Url)" class="single-post-image">
+                    <img src="@Html.DisplayFor(modelItem => modelItem.Image1_1)" />
+                </a>
+                <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+                <audio class="wp-audio-shortcode" id="audio-429-1" preload="none" style="width: 100%;" controls="controls">
+                    <source type="audio/mpeg" src="@Html.DisplayFor(modelItem => modelItem.UrlMP3)" />
+                    <a href="@Html.DisplayFor(modelItem => modelItem.UrlMP3)">"@Html.DisplayFor(modelItem => modelItem.UrlMP3)"</a>
+                </audio>
             </div>
-            <div class="entry-content">
-                @{if (Model.JalaliModifyDate != null && Model.JalaliModifyDate != "")
+}
+
+            }
+        </div>
+        <div class="entry-content">
+            @{
+                if (Model != null)
+                {
+                    if (Model.JalaliModifyDate != null && Model.JalaliModifyDate != "")
                     {
                         <p id="JalaliModifyDate" style="display:inline-block">
-                            تاریخ انتشار:  @Html.DisplayFor(modelItem => modelItem.JalaliModifyDate)
+                            تاریخ :  @Html.DisplayFor(modelItem => modelItem.JalaliModifyDate)
+                        </p>
+                    }
+
+                    if (Model.Subject1 != null && Model.Subject1 != "")
+                    {
+                        <h2 class="post-single-title" id="Subject2" style="margin-bottom: 25px; margin-top: 15px;">
+
+                            @Html.DisplayFor(modelItem => modelItem.Subject1)
+                        </h2>
+                    }
+
+                    if (Model.SubSubject1_1 != null && Model.SubSubject1_1.Trim() != "")
+                    {
+                        <p id="SubSubject1_1" style="background-color: darkslategray; color: white; padding-right: 20px; padding-left: 20px; padding-top: 10px;padding-bottom: 10px;">@Html.DisplayFor(modelItem => modelItem.SubSubject1_1)</p>
+                    }
+
+                    if (Model.SubSubject1_2 != null && Model.SubSubject1_2 != "")
+                    {
+                        <p id="SubSubject1_2">@Html.DisplayFor(modelItem => modelItem.SubSubject1_2)</p>
+                    }
+
+
+                    if (Model.SubSubject1_2 != null && Model.SubSubject1_2 != "")
+                    {
+                        <p id="SubSubject1_2">@Html.DisplayFor(modelItem => modelItem.SubSubject1_2)</p>
+                    }
+
+
+                    if (Model.ContentHTML != null && Model.ContentHTML != "")
+                    {
+                        <div id="ContentHTML">
+                            @Html.Raw(Model.ContentHTML)
+                        </div>
+                    }
+
+
+
+                    <div class="heateorSssClear"></div>
+                    <div class="heateorSssClear"></div>
+                    <div class="entry-meta row">
+                        <div class="col-md-12">
+                            <ul class="common-meta">
+                                <li>
+                                    <i class="fa fa-user"></i>
+                                    <a href="@Url.Action("Index", "Admin")" title="ايجاد شده توسط @Html.DisplayFor(modelItem => modelItem.Fullname)" rel="author">@Html.DisplayFor(modelItem => modelItem.Fullname)</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-comment"></i>
+                                    <a href="@Url.Action("Index", "Comment")"> @Html.DisplayFor(modelItem => modelItem.CommentCount)</a>
+                                </li>
+                                <li class="post-like">
+                                    <a href="#"><i class="fa fa-eye"></i> @Html.DisplayFor(modelItem => modelItem.Views)</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    if (Model.SourceSiteNameFa != null && Model.SourceSiteNameFa != "")
+                    {
+                        <p id="SourceSiteNameFa">
+                            <div style="display:inline-block">سایت مرجع:&nbsp;</div><a href="@Model.SourceSiteUrl" target="_blank">@Model.SourceSiteNameFa</a>
                         </p>
                     }
                 }
-                <h3 class="entry-title">
-                    <a href="#">"@Html.DisplayFor(modelItem => modelItem.Subject)"</a>
-                </h3>
-
-                <img src="@Html.DisplayFor(modelItem => modelItem.Image2)" style="margin-bottom: 10px;" />
-                <p>
-                    @Html.DisplayFor(modelItem => modelItem.ContentPost)
-                </p>
-                <h3>@Html.DisplayFor(modelItem => modelItem.Subject2)</h3>
-                <p>
-                    @Html.DisplayFor(modelItem => modelItem.ContentPost1)
-                </p>
-                <img src="@Html.DisplayFor(modelItem => modelItem.Image3)" style="margin-bottom: 10px;" />
-                <p>
-                    @Html.DisplayFor(modelItem => modelItem.ContentPost2)
-                </p>
-                <img src="@Html.DisplayFor(modelItem => modelItem.Image4)" style="margin-bottom: 10px; margin-top:10px" />
-
                 <div class="tag-block">
+
                     @{
                         if (Model != null && Model.PostCategory != null)
                         {
                             foreach (var item in Model.PostCategory.ToList())
                             {
-                                <span class="tags-caption">@item.NameFa </span>
+                                <span class="tags-caption">@item.NameFa</span>
                             }
                         }
                     }
 
+
                 </div>
-            </div>
-            <div class='entry-footer'>
-                <div class=' row'>
-                    <div class='col-md-12'>
-                        <ul class="common-meta">
-                            <li>
-                                <i class="fa fa-user"></i>
-                                <a href="@Url.Action("Index","Admin")" title="ايجاد شده توسط @Html.DisplayFor(modelItem => modelItem.Fullname)" rel="author">@Html.DisplayFor(modelItem => modelItem.Fullname)</a>
-                            </li>
-                            <li>
-                                <i class="fa fa-comment"></i>
-                                <a href="@Url.Action("Index","Comment")">@Html.DisplayFor(modelItem => modelItem.CommentCount)</a>
-                            </li>
-                            <li class="post-like">
-                                <a href="#"><i class="fa fa-eye"></i>@Html.DisplayFor(modelItem => modelItem.Views)</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </article>
 
@@ -129,8 +163,10 @@
             </div>
         </div>
     </div>
+
     <!-- Show comments -->
     @Html.Partial("~/Views/Post/_Comment.cshtml")
+
     <!-- Show related posts -->
     <div id="related-tab">
         <h3 class="related-posts-title">مطالب مشابه</h3><div class="related-posts row">

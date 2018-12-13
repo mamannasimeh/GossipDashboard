@@ -731,7 +731,7 @@ namespace GossipDashboard.Repository
 
             //پست هایی که قبلا ایجاد نشده اند
             //پست استاتوس می تواند بیش از یکبار نیز انتشار پیدا کند
-            var tempPost = context.PostTemperories.Where(p => ((p.IsCreatedPost == null || p.IsCreatedPost == false) ? false : true) != true).OrderByDescending(p => p.PostID).ToList();
+            var tempPost = context.PostTemperories.Where(p => ((p.IsCreatedPost == null || p.IsCreatedPost == false) ? false : true) != true).OrderBy(p => p.PostID).ToList();
             foreach (var item in tempPost)
             {
 
@@ -777,6 +777,7 @@ namespace GossipDashboard.Repository
                     entityPost.ContentHTML = tempContentHTML;
                     entityPost.Status = item.Status;
                     entityPost.StatusAuthor = item.StatusAuthor;
+                    entityPost.SourceSiteName = "Gossip";
 
                     //برای عملکرد صحیح سایت
                     if (entityPost.Status != null && entityPost.SourceSiteUrl == null)
@@ -832,6 +833,9 @@ namespace GossipDashboard.Repository
                         }
                     }
 
+                    context.Posts.Add(entityPost);
+                    context.SaveChanges();
+
                     //در صورتی که پست حذف شد اتریبیوت های آن ایجاد نشود
                     if (isPostDeleted == true)
                         continue;
@@ -849,7 +853,7 @@ namespace GossipDashboard.Repository
                     else if (entityPost.Status != null)
                         attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "status").PubBaseID;
 
-     
+
 
                     context.PostAttributes.Add(new PostAttribute()
                     {
@@ -1012,9 +1016,8 @@ namespace GossipDashboard.Repository
                 }
             }
 
-
-            context.Posts.Add(entity);
-            context.SaveChanges();
+            //context.Posts.Add(entity);
+            //context.SaveChanges();
 
             return entity;
         }
