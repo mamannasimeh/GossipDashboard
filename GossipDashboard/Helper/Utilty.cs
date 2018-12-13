@@ -4,6 +4,8 @@ using GossipDashboard.Repository;
 using GossipDashboard.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.Linq;
 using System.Web;
@@ -155,4 +157,36 @@ public static class Utilty
 
         return listAll;
     }
+
+    public static List<PropertiesImage> GetPropertiesImage(string path)
+    {
+        List<PropertiesImage> propImages = new List<PropertiesImage>();
+
+        // Create an Image object. 
+        Image theImage = new Bitmap(path);
+
+        // Get the PropertyItems property from image.
+        PropertyItem[] propItems = theImage.PropertyItems;
+
+        foreach (PropertyItem propItem in propItems)
+        {
+            propImages.Add(new PropertiesImage()
+            { 
+                Id = propItem.Id,
+                Value = propItem.Value,
+                Type = propItem.Type,
+                Len = propItem.Len,
+            });
+        }
+
+        return propImages;
+    }
+}
+
+public class PropertiesImage
+{
+    public int Id { get; set; }
+    public byte[] Value { get; set; }
+    public short Type { get; set; }
+    public int Len { get; set; }
 }

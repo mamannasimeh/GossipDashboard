@@ -7,6 +7,7 @@ using System.Data.Entity;
 using AutoMapper;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
+using GossipDashboard.Helper;
 
 namespace GossipDashboard.Repository
 {
@@ -995,7 +996,16 @@ namespace GossipDashboard.Repository
                     //چک کردن موجود بودن یو آر ال تصویر 
                     var regMatch = Regex.Matches(item.OuterHtml, "(http|https)://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?.(?:jpg|bmp|gif|png)");
                     if (regMatch != null && regMatch.Count > 0)
+                    {
                         urlImg = regMatch[0].Value;
+
+                        //این قسمت زمان بر است
+                        //در صورتی که ابعاد عکس کوچک باشد یو آر ال آن را در فیلدهای دیتابیس اینسرت نکند
+                        Uri uri = new Uri(urlImg);
+                        var dimension = ImageUtilities.GetWebDimensions(uri);
+                        if (dimension.Width > 0 && (dimension.Width < 150 || dimension.Height < 150))
+                            continue;
+                    }
                     else
                         continue;
 

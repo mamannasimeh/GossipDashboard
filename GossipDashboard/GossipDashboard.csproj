@@ -232,6 +232,7 @@
     </Compile>
     <Compile Include="Helper\DynamicQueryable.cs" />
     <Compile Include="Helper\EnumGeneral.cs" />
+    <Compile Include="Helper\ImageHelper.cs" />
     <Compile Include="Helper\PostManagement.cs" />
     <Compile Include="Helper\UploadHelper.cs" />
     <Compile Include="Helper\Utilty.cs" />
