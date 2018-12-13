@@ -75,7 +75,8 @@ namespace GossipDashboard.Controllers
                 postManagement.ClearContentNode(nodesIndex, "author-grid");
 
                 ///// در هر گروه بر اساس نام سایت، بالاترین مقادیر را یکی یکی خارج می کند و لیست جدید می سازد
-                var posts = repo.SelectPostUser().OrderByDescending(p => p.PostID).Take(200).ToList();
+                //پست نوع استاتوس را در داخل متد سورت گروپ ليست مقدار دهي مي کنيم
+                var posts = repo.SelectPostUser().Where(p => p.PostFormat.FirstOrDefault().NameEn != "status").OrderByDescending(p => p.PostID).Take(200).ToList();
                 List<VM_Post> listAll = Utilty.SortGroupsList(posts);
 
 
@@ -83,9 +84,10 @@ namespace GossipDashboard.Controllers
                 int i = 0; List<string> duplicateImage = new List<string>();
                 foreach (var item in listAll)
                 {
-                    //برای قسمت اصلی داشتن  تصویر مهم است یا پست آپارات باشد یا استاتوس باشد
+                    //برای قسمت اصلی داشتن  تصویر مهم است یا پست آپارات باشد یا استاتوس باشد يا ويديو
                     // 30 پست ایجاد گردد --------  i < 30
-                    if ((item.Image1_1 != null && i < 30) || (item.ScriptAparat != null && i < 30) || (item.Status != null && i < 30))
+                    if ((item.Image1_1 != null && i < 30) || (item.ScriptAparat != null && i < 30) || (item.Status != null && i < 30)
+                        || (item.UrlVideo != null && i < 30))
                     {
                         //در صفحه اصلی عکس تکراری نداشته باشیم
                         if (duplicateImage.FirstOrDefault(x => x == item.Image1_1) == null)

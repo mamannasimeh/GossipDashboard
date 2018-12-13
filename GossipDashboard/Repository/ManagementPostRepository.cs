@@ -279,6 +279,7 @@ namespace GossipDashboard.Repository
                           SourceSiteUrl = P.SourceSiteUrl,
                           Status = P.Status,
                           StatusAuthor = P.StatusAuthor,
+                          ContentHTML = P.ContentHTML,
                           CommentCount = context.PostComments.Count(x => x.PostID_fk == P.PostID),
                           PostCategoryID = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == postCategoryID select _PB.PubBaseID).FirstOrDefault(),
                           PostFormatID = (from _P in context.Posts join _PA in context.PostAttributes on _P.PostID equals _PA.PostID_fk join _PB in context.PubBases on _PA.AttributeID_fk equals _PB.PubBaseID where _P.PostID == P.PostID && _PB.ParentID == postFormatID select _PB.PubBaseID).FirstOrDefault(),
@@ -930,9 +931,40 @@ namespace GossipDashboard.Repository
             if (res == null)
                 return false;
 
-            res.PublishCount += 1;
+            res.PublishCount = (res.PublishCount == null ? 0 : res.PublishCount) + 1;
             context.SaveChanges();
             return true;
+        }
+
+
+        /// <summary>
+        /// فرمت پست به لينک تغيير پيدا مي کند
+        /// </summary>
+        /// <param name="postid"></param>
+        /// <returns></returns>
+        public bool CreateNewFormatPost(int postid, string formatType)
+        {
+            var linkID = context.PubBases.First(p => p.NameEn == formatType).PubBaseID;
+
+            var postFormatID = context.PubBases.First(p => p.NameEn == "PostFormat").PubBaseID;
+            var FormatIDs = context.PubBases.Where(p => p.ParentID == postFormatID).Select(p => p.PubBaseID).ToList();
+
+            var res = context.PostAttributes.Where(p => p.PostID_fk == postid && FormatIDs.Contains(p.AttributeID_fk)).ToList();
+            if (res != null)
+            {
+                context.PostAttributes.RemoveRange(res);
+
+                context.PostAttributes.Add(new PostAttribute()
+                {
+                    PostID_fk = postid,
+                    AttributeID_fk = linkID,
+                });
+
+                context.SaveChanges();
+                return true;
+            }
+
+            return false;
         }
     }
 }

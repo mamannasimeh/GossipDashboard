@@ -1,4 +1,5 @@
-﻿using GossipDashboard.Repository;
+﻿using GossipDashboard.Models;
+using GossipDashboard.Repository;
 using GossipDashboard.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,9 @@ public static class Utilty
     public static List<VM_Post> SortGroupsList(List<VM_Post> posts)
     {
         PostRepository repo = new PostRepository();
+        ManagementPostRepository repoManagementPost = new ManagementPostRepository();
+        PubBaseRepository repoPubBase = new PubBaseRepository();
+
 
         //ایجاد تگ آرتیکل به ازای هر پست
         List<VM_Post> listAll = new List<VM_Post>();
@@ -96,10 +100,31 @@ public static class Utilty
 
         //اضافه کردن پست استاتوس
         //با هر 4 پابلیش استاتوس قبلی حذف می شود و استاتوس جدید اضافه می گردد
-        var quote = repo.SelectPostUser().Where(p => p.Status != null &&  (p.PublishCount == null ? 0 : p.PublishCount) <= 4).OrderBy(p => p.PostID).FirstOrDefault();
-        if(quote != null)
+        var status = repo.SelectPostUser().Where(p => p.Status != null && (p.PublishCount == null ? 0 : p.PublishCount) <= 4).OrderBy(p => p.PostID).FirstOrDefault();
+        if (status != null)
         {
-            listAll.Insert(15, quote);
+            listAll.Insert(15, status);
+        }
+
+        //يک پست لينک اضافه مي کنيم
+        if (listAll.Count >= 50)
+        {
+            var allFormatIDs = repoPubBase.SelectByParentName("PostFormat").Select(p => p.PubBaseID).ToList();
+
+            var link = listAll[50];
+            if ((link.BackgroundColor == null ? "" : link.BackgroundColor.Trim()) == "")
+                link.BackgroundColor = "#cf3d2e";
+            link.PostFormat.RemoveAt(0);
+            link.PostFormat.Add(new VM_PubBase()
+            {
+                PubBaseID = 26,
+                Active = true,
+                NameEn = "link",
+                ClassName = "format-link",
+                NameFa = "پیوند"
+            });
+
+            listAll.Insert(10, link);
         }
 
         return listAll;

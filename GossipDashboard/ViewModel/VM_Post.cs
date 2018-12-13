@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using AutoMapper;
@@ -260,9 +262,9 @@ namespace GossipDashboard.ViewModel
         public string DateTimePost { get; set; }
         public string ContentPost1_6 { get; set; }
         public string ContentPost1_7 { get; set; }
-        public IQueryable<VM_PubBase> PostCategory { get;  set; }
-        public IQueryable<VM_PubBase> PostFormat { get;  set; }
-        public IQueryable<VM_PubBase> PostCol { get;  set; }
+        public List<VM_PubBase> PostCategory { get;  set; }
+        public List<VM_PubBase> PostFormat { get;  set; }
+        public List<VM_PubBase> PostCol { get;  set; }
         public string AboutUser { get;  set; }
         public byte[] ImageUser { get;  set; }
         public string JalaliModifyDate { get;  set; }
@@ -274,7 +276,13 @@ namespace GossipDashboard.ViewModel
         public string SourceSiteUrl { get; set; }
         public string SourceFootCategory { get; set; }
         public string SourceDateTimePost { get; set; }
+
+        [DisplayName("سايت مرجع")]
+
         public string SourceSiteName { get; set; }
+
+        [DisplayName("سايت مرجع")]
+        [Required]
         public string SourceSiteNameFa { get; set; }
         public string ContentHTML { get; set; }
         public string Status { get;  set; }

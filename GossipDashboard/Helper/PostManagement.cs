@@ -467,7 +467,7 @@ namespace GossipDashboard.Helper
                                                                         "<h3>" +
                                                                            post.Subject1 +
                                                                         "</h3>" +
-                                                                       " <a href = '" + postUrl + "' > " +
+                                                                       " <a href = '" + post.SourceSiteUrl + "' target='_blank'> " +
                                                                             "<i class='fa fa-link'></i> لینک خبر" +
                                                                         "</a>" +
                                                                     "</div>" +
