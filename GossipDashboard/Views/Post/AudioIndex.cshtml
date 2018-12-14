@@ -1,4 +1,7 @@
-﻿@model GossipDashboard.ViewModel.VM_Post
+﻿<link href="~/Content/CSS/index-style.css" rel="stylesheet" />
+<link href="~/Content/CSS/ajibtarin.css" rel="stylesheet" />
+
+@model GossipDashboard.ViewModel.VM_Post
 
 @{
     ViewBag.Title = @Html.DisplayFor(modelItem => modelItem.Subject1);
@@ -9,20 +12,20 @@
     <article class="post-box ">
         <div class="entry-cover">
             @{
-        if (Model != null && Model.UrlMP3 != null)
-        {
+                if (Model != null && Model.UrlMP3 != null)
+                {
 
-            <div class="audio-container">
-                <a href="@Html.DisplayFor(modelItem => modelItem.Url)" class="single-post-image">
-                    <img src="@Html.DisplayFor(modelItem => modelItem.Image1_1)" />
-                </a>
-                <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
-                <audio class="wp-audio-shortcode" id="audio-429-1" preload="none" style="width: 100%;" controls="controls">
-                    <source type="audio/mpeg" src="@Html.DisplayFor(modelItem => modelItem.UrlMP3)" />
-                    <a href="@Html.DisplayFor(modelItem => modelItem.UrlMP3)">"@Html.DisplayFor(modelItem => modelItem.UrlMP3)"</a>
-                </audio>
-            </div>
-}
+                    <div class="audio-container">
+                        <a href="@Html.DisplayFor(modelItem => modelItem.Url)" class="single-post-image">
+                            <img src="@Html.DisplayFor(modelItem => modelItem.Image1_1)" />
+                        </a>
+                        <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+                        <audio class="wp-audio-shortcode" id="audio-429-1" preload="none" style="width: 100%;" controls="controls">
+                            <source type="audio/mpeg" src="@Html.DisplayFor(modelItem => modelItem.UrlMP3)" />
+                            <a href="@Html.DisplayFor(modelItem => modelItem.UrlMP3)">"@Html.DisplayFor(modelItem => modelItem.UrlMP3)"</a>
+                        </audio>
+                    </div>
+                }
 
             }
         </div>
@@ -93,9 +96,10 @@
 
                     if (Model.SourceSiteNameFa != null && Model.SourceSiteNameFa != "")
                     {
-                        <p id="SourceSiteNameFa">
-                            <div style="display:inline-block">سایت مرجع:&nbsp;</div><a href="@Model.SourceSiteUrl" target="_blank">@Model.SourceSiteNameFa</a>
-                        </p>
+                        <div id="SourceSiteNameFa" class="source-link-gossip">
+                            <div style="display:inline-block">سایت مرجع:&nbsp;</div>
+                            <a href="@Model.SourceSiteUrl" target="_blank">@Model.SourceSiteNameFa</a>
+                        </div>
                     }
                 }
                 <div class="tag-block">

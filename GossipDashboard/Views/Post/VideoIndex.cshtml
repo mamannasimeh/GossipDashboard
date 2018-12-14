@@ -1,4 +1,7 @@
-﻿@model GossipDashboard.ViewModel.VM_Post
+﻿<link href="~/Content/CSS/index-style.css" rel="stylesheet" />
+<link href="~/Content/CSS/ajibtarin.css" rel="stylesheet" />
+
+@model GossipDashboard.ViewModel.VM_Post
 
 @{
     ViewBag.Title = @Html.DisplayFor(modelItem => modelItem.Subject1);
@@ -9,18 +12,18 @@
     <article class="post-box ">
         <div class="entry-cover">
             @{
-        if (Model != null && Model.UrlVideo != null)
-        {
-            <div class='flex-video'>
-                <div style='width: 640px;' class='wp-video'>
-                    <!--[if lt IE 9]><script>document.createElement('video');</script><![endif]-->
-                    <video class='wp-video-shortcode' id='video-446-1' width='640' height='360' preload='metadata' controls='controls'>
-                        <source type='video/mp4' src="@Html.DisplayFor(modelItem => modelItem.UrlVideo)" />
-                        <a href="@Html.DisplayFor(modelItem => modelItem.UrlVideo)">"@Html.DisplayFor(modelItem => modelItem.UrlVideo)"</a>
-                    </video>
-                </div>
-            </div>
-}
+                if (Model != null && Model.UrlVideo != null)
+                {
+                    <div class='flex-video'>
+                        <div style='width: 640px;' class='wp-video'>
+                            <!--[if lt IE 9]><script>document.createElement('video');</script><![endif]-->
+                            <video class='wp-video-shortcode' id='video-446-1' width='640' height='360' preload='metadata' controls='controls'>
+                                <source type='video/mp4' src="@Html.DisplayFor(modelItem => modelItem.UrlVideo)" />
+                                <a href="@Html.DisplayFor(modelItem => modelItem.UrlVideo)">"@Html.DisplayFor(modelItem => modelItem.UrlVideo)"</a>
+                            </video>
+                        </div>
+                    </div>
+                }
 
             }
         </div>
@@ -91,9 +94,10 @@
 
                     if (Model.SourceSiteNameFa != null && Model.SourceSiteNameFa != "")
                     {
-                        <p id="SourceSiteNameFa">
-                            <div style="display:inline-block">سایت مرجع:&nbsp;</div><a href="@Model.SourceSiteUrl" target="_blank">@Model.SourceSiteNameFa</a>
-                        </p>
+                        <div id="SourceSiteNameFa" class="source-link-gossip">
+                            <div style="display:inline-block">سایت مرجع:&nbsp;</div>
+                            <a href="@Model.SourceSiteUrl" target="_blank">@Model.SourceSiteNameFa</a>
+                        </div>
                     }
                 }
                 <div class="tag-block">

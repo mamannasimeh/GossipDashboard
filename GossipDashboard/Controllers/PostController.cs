@@ -127,7 +127,8 @@ namespace GossipDashboard.Controllers
             PostController postCtr = new PostController();
             postCtr.CreateAllCategory(path);
 
-            return View("Index");
+            return RedirectToAction("Index", "Dashboard");
+            //return View("Dashboard/Index");
         }
 
         //ایجاد صفحه اصلی

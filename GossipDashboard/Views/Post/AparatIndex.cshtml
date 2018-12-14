@@ -1,4 +1,7 @@
-﻿@model GossipDashboard.ViewModel.VM_Post
+﻿<link href="~/Content/CSS/index-style.css" rel="stylesheet" />
+<link href="~/Content/CSS/ajibtarin.css" rel="stylesheet" />
+
+@model GossipDashboard.ViewModel.VM_Post
 @{
     ViewBag.Title = @Html.DisplayFor(modelItem => modelItem.Subject1);
 }
@@ -75,12 +78,12 @@
                             </ul>
                         </div>
                     </div>
-
                     if (Model.SourceSiteNameFa != null && Model.SourceSiteNameFa != "")
                     {
-                        <p id="SourceSiteNameFa">
-                            <div style="display:inline-block">سایت مرجع:&nbsp;</div><a href="@Model.SourceSiteUrl" target="_blank">@Model.SourceSiteNameFa</a>
-                        </p>
+                        <div id="SourceSiteNameFa" class="source-link-gossip">
+                            <div style="display:inline-block">سایت مرجع:&nbsp;</div>
+                            <a href="@Model.SourceSiteUrl" target="_blank">@Model.SourceSiteNameFa</a>
+                        </div>
                     }
                 }
                 <div class="tag-block">
