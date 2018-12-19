@@ -7,6 +7,7 @@ using System.Data.Entity;
 using AutoMapper;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
+using GossipDashboard.Helper;
 
 namespace GossipDashboard.Repository
 {
@@ -728,14 +729,91 @@ namespace GossipDashboard.Repository
             List<string> matchList = new List<string>();
             bool? isPostDeleted = false;
             string tempContentHTML = "", tempHTML = "";
+            var docIndex = new HtmlDocument();
+            PostManagement postManagement = new PostManagement();
 
             //پست هایی که قبلا ایجاد نشده اند
             //پست استاتوس می تواند بیش از یکبار نیز انتشار پیدا کند
-            var tempPost = context.PostTemperories.Where(p => ((p.IsCreatedPost == null || p.IsCreatedPost == false) ? false : true) != true).OrderByDescending(p => p.PostID).ToList();
+            var tempPost = context.PostTemperories.Where(p => ((p.IsCreatedPost == null || p.IsCreatedPost == false) ? false : true) != true).OrderBy(p => p.PostID).ToList();
             foreach (var item in tempPost)
             {
-
                 isPostDeleted = false;
+
+                //در بعضی سایت ها قسمت هایی که می خواهم حذف شود را مشخص می کنیم و سپس حذف می کنیم
+                //مانند لینک های تبلیغاتی
+                if (item.SourceSiteUrl != null)
+                {
+                    docIndex.LoadHtml(item.ContentHTML);
+
+                    if (item.SourceSiteUrl.Contains("gadgetnews"))
+                    {
+                        var allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'source-link')]");
+                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                        item.ContentHTML = docIndex.DocumentNode.OuterHtml;
+                    }
+
+                    if (item.SourceSiteUrl.Contains("ajibtarin"))
+                    {
+                        var allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'rating_form_wrap')]");
+                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'essb_links')]");
+                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'metax')]");
+                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'bij-top-post-ads-section')]");
+                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'pagination')]");
+                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                        item.ContentHTML = docIndex.DocumentNode.OuterHtml;
+                    }
+
+                    if (item.SourceSiteUrl.Contains("karnaval"))
+                    {
+                        var allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'post-related-content')]");
+                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'advertise-block')]");
+                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'asd-mt-bilit-container')]");
+                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'post-content-in-html-anchor')]");
+                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                        item.ContentHTML = docIndex.DocumentNode.OuterHtml;
+                    }
+
+
+                    if (item.SourceSiteUrl.Contains("irannaz"))
+                    {
+                        var allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//div[contains(@class,'CenterBlock')]//h1[1]");
+                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//div[contains(@class,'CenterBlock')]//div[contains(@class,'PostCat')][1]");
+                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//div[contains(@class,'CenterBlock')]//div[contains(@class,'shakhes')][1]");
+                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//div[contains(@class,'PostTextarea')]//h1[2]");
+                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                        //allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//a[@href='http://www.irannaz.com/news_cats_3.html']");
+                        //postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+
+                        item.ContentHTML = docIndex.DocumentNode.OuterHtml;
+                    }
+
+                }
+
 
                 //انتیتی از روی  مقادیر فیلد اچ تی ام ال ساخته می شود
                 //اگر این فیلد مقدار نداشت به روش زیر عمل می کنیم
@@ -777,6 +855,7 @@ namespace GossipDashboard.Repository
                     entityPost.ContentHTML = tempContentHTML;
                     entityPost.Status = item.Status;
                     entityPost.StatusAuthor = item.StatusAuthor;
+                    entityPost.SourceSiteName = "Gossip";
 
                     //برای عملکرد صحیح سایت
                     if (entityPost.Status != null && entityPost.SourceSiteUrl == null)
@@ -799,7 +878,8 @@ namespace GossipDashboard.Repository
                                     break;
                                 case "EURONEWS":
                                     entityPost.SourceSiteNameFa = "یورونیوز فارسی";
-                                    entityPost.ContentHTML = item.ContentHTML.Replace("اندازه متن Aa Aa", "");
+                                    entityPost.ContentHTML = item.ContentHTML.Replace("اندازه متن", "");
+                                    entityPost.ContentHTML = item.ContentHTML.Replace("Aa", "");
 
                                     //عکس اول یورونیوز فارسی با وب هاروی ست شدده است
                                     if (item.Image1_1 != null && item.Image1_1 != "")
@@ -832,6 +912,9 @@ namespace GossipDashboard.Repository
                         }
                     }
 
+                    context.Posts.Add(entityPost);
+                    context.SaveChanges();
+
                     //در صورتی که پست حذف شد اتریبیوت های آن ایجاد نشود
                     if (isPostDeleted == true)
                         continue;
@@ -849,7 +932,7 @@ namespace GossipDashboard.Repository
                     else if (entityPost.Status != null)
                         attrID = context.PubBases.FirstOrDefault(p => p.NameEn == "status").PubBaseID;
 
-     
+
 
                     context.PostAttributes.Add(new PostAttribute()
                     {
@@ -977,6 +1060,7 @@ namespace GossipDashboard.Repository
             //---------------------------------------------------------------------------
             //به دست آوردن مقادیر تمامی ندهای اسپن
             nodes = doc.DocumentNode.SelectNodes("//img");
+            bool isImage1_1Set = false;
 
             //Image فیلتر پراپرتی ها بر اساس 
             var images = values.Where(p => p.Name.Contains("Image"));
@@ -991,7 +1075,16 @@ namespace GossipDashboard.Repository
                     //چک کردن موجود بودن یو آر ال تصویر 
                     var regMatch = Regex.Matches(item.OuterHtml, "(http|https)://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?.(?:jpg|bmp|gif|png)");
                     if (regMatch != null && regMatch.Count > 0)
+                    {
                         urlImg = regMatch[0].Value;
+
+                        //این قسمت زمان بر است
+                        //در صورتی که ابعاد عکس کوچک باشد یو آر ال آن را در فیلدهای دیتابیس اینسرت نکند
+                        Uri uri = new Uri(urlImg);
+                        var dimension = ImageUtilities.GetWebDimensions(uri);
+                        if (dimension.Width > 0 && (dimension.Width < 150 || dimension.Height < 150))
+                            continue;
+                    }
                     else
                         continue;
 
@@ -1004,17 +1097,22 @@ namespace GossipDashboard.Repository
                             //entity.Subject1 = ....
                             entity.GetType().GetProperty(item_1.Name).SetValue(entity, urlImg);
 
+                            //فعلا تنها آدرس یک تصویر ذخیره می کنیم زیرا چک کردن ابعاد همه تصاویر به صورت آنلاین زمان زیادی می خواهد
+                            isImage1_1Set = true;
+
                             //با تنظیم مقدار هر پراپرتی  جدول پست از حلقه اول خارج می شویم
                             //و به دنبال پراپرتی بعدی برای تنظیم مقدار آن می رویم
                             break;
                         }
                     }
+
+                    if (isImage1_1Set == true)
+                        break;
                 }
             }
 
-
-            context.Posts.Add(entity);
-            context.SaveChanges();
+            //context.Posts.Add(entity);
+            //context.SaveChanges();
 
             return entity;
         }

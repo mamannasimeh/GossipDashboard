@@ -1,8 +1,11 @@
-﻿using GossipDashboard.Models;
+﻿using GossipDashboard.Helper;
+using GossipDashboard.Models;
 using GossipDashboard.Repository;
 using GossipDashboard.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.Linq;
 using System.Web;
@@ -56,7 +59,7 @@ public static class Utilty
     //          31
     //          29
     //          22
-    public static List<VM_Post> SortGroupsList(List<VM_Post> posts)
+    public static List<VM_Post> SortGroupsList(List<VM_Post> posts, PlaceInMainPage placePost)
     {
         PostRepository repo = new PostRepository();
         ManagementPostRepository repoManagementPost = new ManagementPostRepository();
@@ -98,35 +101,92 @@ public static class Utilty
             listAll.AddRange(listPostMaxGroupOrder);
         } while (i < posts.Count);
 
-        //اضافه کردن پست استاتوس
-        //با هر 4 پابلیش استاتوس قبلی حذف می شود و استاتوس جدید اضافه می گردد
-        var status = repo.SelectPostUser().Where(p => p.Status != null && (p.PublishCount == null ? 0 : p.PublishCount) <= 4).OrderBy(p => p.PostID).FirstOrDefault();
-        if (status != null)
-        {
-            listAll.Insert(15, status);
-        }
 
-        //يک پست لينک اضافه مي کنيم
-        if (listAll.Count >= 50)
+        //به قسمت صفحه اصلی  پست صوتی ، تصویری، استاتوس و لینک نیز اضافه می کنیم
+        if(placePost == PlaceInMainPage.MiddleIndex)
         {
-            var allFormatIDs = repoPubBase.SelectByParentName("PostFormat").Select(p => p.PubBaseID).ToList();
-
-            var link = listAll[50];
-            if ((link.BackgroundColor == null ? "" : link.BackgroundColor.Trim()) == "")
-                link.BackgroundColor = "#cf3d2e";
-            link.PostFormat.RemoveAt(0);
-            link.PostFormat.Add(new VM_PubBase()
+            //يک پست لينک اضافه مي کنيم
+            if (listAll.Count >= 50)
             {
-                PubBaseID = 26,
-                Active = true,
-                NameEn = "link",
-                ClassName = "format-link",
-                NameFa = "پیوند"
-            });
+                //هر پستی را به عنوان پیوند می توان انتخاب کرد
+                var link = listAll[50];
 
-            listAll.Insert(10, link);
+                if ((link.BackgroundColor == null ? "" : link.BackgroundColor.Trim()) == "")
+                    link.BackgroundColor = "#cf3d2e";
+                link.PostFormat.RemoveAt(0);
+                link.PostFormat.Add(new VM_PubBase()
+                {
+                    PubBaseID = 26,
+                    Active = true,
+                    NameEn = "link",
+                    ClassName = "format-link",
+                    NameFa = "پیوند"
+                });
+
+                listAll.Insert(10, link);
+            }
+
+
+            //اضافه کردن پست استاتوس
+            //با هر 4 پابلیش استاتوس قبلی حذف می شود و استاتوس جدید اضافه می گردد
+            var status = repo.SelectPostUser().Where(p => p.Status != null && (p.PublishCount == null ? 0 : p.PublishCount) <= 4).OrderBy(p => p.PostID).FirstOrDefault();
+            if (status != null)
+            {
+                listAll.Insert(15, status);
+            }
+
+
+            //اضافه کردن پست تصویری
+            //با هر 4 پابلیش تصویری قبلی حذف می شود و تصویری جدید اضافه می گردد
+            var video = repo.SelectPostUser().Where(p => p.UrlVideo != null && (p.PublishCount == null ? 0 : p.PublishCount) <= 4).OrderByDescending(p => p.PostID).FirstOrDefault();
+            if (video != null)
+            {
+                listAll.Insert(20, video);
+            }
+
+
+            //اضافه کردن پست صوتی
+            //با هر 4 پابلیش صوتی قبلی حذف می شود و صوتی جدید اضافه می گردد
+            var mp3 = repo.SelectPostUser().Where(p => p.UrlMP3 != null && (p.PublishCount == null ? 0 : p.PublishCount) <= 4).OrderByDescending(p => p.PostID).FirstOrDefault();
+            if (mp3 != null)
+            {
+                listAll.Insert(7, mp3);
+            }
         }
+       
 
         return listAll;
     }
+
+    public static List<PropertiesImage> GetPropertiesImage(string path)
+    {
+        List<PropertiesImage> propImages = new List<PropertiesImage>();
+
+        // Create an Image object. 
+        Image theImage = new Bitmap(path);
+
+        // Get the PropertyItems property from image.
+        PropertyItem[] propItems = theImage.PropertyItems;
+
+        foreach (PropertyItem propItem in propItems)
+        {
+            propImages.Add(new PropertiesImage()
+            { 
+                Id = propItem.Id,
+                Value = propItem.Value,
+                Type = propItem.Type,
+                Len = propItem.Len,
+            });
+        }
+
+        return propImages;
+    }
+}
+
+public class PropertiesImage
+{
+    public int Id { get; set; }
+    public byte[] Value { get; set; }
+    public short Type { get; set; }
+    public int Len { get; set; }
 }

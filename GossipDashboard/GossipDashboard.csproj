@@ -232,6 +232,7 @@
     </Compile>
     <Compile Include="Helper\DynamicQueryable.cs" />
     <Compile Include="Helper\EnumGeneral.cs" />
+    <Compile Include="Helper\ImageHelper.cs" />
     <Compile Include="Helper\PostManagement.cs" />
     <Compile Include="Helper\UploadHelper.cs" />
     <Compile Include="Helper\Utilty.cs" />
@@ -317,6 +318,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\comment.css" />
+    <Content Include="Content\CSS\ajibtarin.css" />
     <Content Include="Content\CSS\bigplay.svg" />
     <Content Include="Content\CSS\bootstrap-rtl.css" />
     <Content Include="Content\CSS\bootstrap-theme-rtl.css" />
@@ -329,6 +331,7 @@
     <Content Include="Content\CSS\dynamic-styles.php.css" />
     <Content Include="Content\CSS\front-style.css" />
     <Content Include="Content\CSS\full-screen-preview.css" />
+    <Content Include="Content\CSS\index-style.css" />
     <Content Include="Content\CSS\loading.gif" />
     <Content Include="Content\CSS\mediaelementplayer.min.css" />
     <Content Include="Content\CSS\normalize.css" />

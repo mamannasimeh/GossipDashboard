@@ -728,6 +728,27 @@ namespace GossipDashboard.Helper
             return false;
         }
 
+        /// <summary>
+        /// حذف کردن ند
+        /// </summary>
+        /// <param name="nodesIndex">
+        /// ندی که قصد دارید تمامی محتوا یا قسمتی از محتوای آن را حذف کنید
+        /// </param>
+        /// <param name="attrValue">نام کلاسی که مشخص می کند محتوا از این قسمت پاک گردد</param>
+        /// <returns>bool</returns>
+        public bool DeleteNodes(HtmlNodeCollection nodesIndex)
+        {
+            if (nodesIndex != null)
+            {
+                foreach (var itemNode in nodesIndex)
+                {
+                    itemNode.RemoveAll();
+                }
+            }
+
+            return true;
+        }
+
         //catlist-heading
         public HtmlNode CreateCatListHeading(List<PubBase> category)
         {

@@ -39,5 +39,10 @@ namespace GossipDashboard.Repository
         {
             throw new NotImplementedException();
         }
+
+        internal IEnumerable<object> SelectPostUser()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
