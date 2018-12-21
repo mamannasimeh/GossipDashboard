@@ -237,6 +237,9 @@
     <Compile Include="Helper\UploadHelper.cs" />
     <Compile Include="Helper\Utilty.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BlackList.cs">
+      <DependentUpon>GossipSiteModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GossipSiteModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

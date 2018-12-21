@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="GossipSiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BlackList">
+    <Key>
+      <PropertyRef Name="BlackListID" />
+    </Key>
+    <Property Name="BlackListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentID" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="ModifyDateTime" Type="datetime" />
+  </EntityType>
   <EntityType Name="Log">
     <Key>
       <PropertyRef Name="LogID" />
@@ -28,7 +38,7 @@
       <PropertyRef Name="PostID" />
     </Key>
     <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Subject1" Type="nvarchar(max)" />
+    <Property Name="Subject1" Type="nvarchar(max)" Nullable="false" />
     <Property Name="SubSubject1_1" Type="nvarchar(max)" />
     <Property Name="SubSubject1_2" Type="nvarchar(max)" />
     <Property Name="ContentPost1_1" Type="nvarchar(max)" />
@@ -274,14 +284,14 @@
     <Property Name="Tag8" Type="nvarchar" MaxLength="1000" />
     <Property Name="Tag9" Type="nvarchar" MaxLength="1000" />
     <Property Name="Tag10" Type="nvarchar" MaxLength="1000" />
-    <Property Name="SourceSiteUrl" Type="nvarchar" MaxLength="1000" />
-    <Property Name="SourceSiteName" Type="nvarchar" MaxLength="1000" />
+    <Property Name="SourceSiteUrl" Type="nvarchar" MaxLength="1000" Nullable="false" />
+    <Property Name="SourceSiteName" Type="nvarchar" MaxLength="1000" Nullable="false" />
     <Property Name="SourceFootCategory" Type="nvarchar" MaxLength="1000" />
     <Property Name="SourceDateTimePost" Type="nvarchar" MaxLength="200" />
     <Property Name="ContentPost1_6" Type="nvarchar(max)" />
     <Property Name="ContentPost1_7" Type="nvarchar(max)" />
     <Property Name="SourceSiteNameFa" Type="nvarchar" MaxLength="1000" />
-    <Property Name="ContentHTML" Type="nvarchar(max)" />
+    <Property Name="ContentHTML" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Status" Type="nvarchar" MaxLength="300" />
     <Property Name="StatusAuthor" Type="nvarchar" MaxLength="200" />
   </EntityType>
@@ -737,6 +747,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="GossipSiteModelStoreContainer">
+    <EntitySet Name="BlackList" EntityType="Self.BlackList" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LogError" EntityType="Self.LogError" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />

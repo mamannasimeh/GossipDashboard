@@ -135,7 +135,11 @@ namespace GossipDashboard.Controllers
         private void CreateIndexPage(string path, PostManagement postManagement)
         {
             List<VM_Post> listAll = new List<VM_Post>();
+            List<string> blackList = new List<string>();
             var docIndex = new HtmlDocument();
+
+
+
             /////////////////////////////create bloglist/////////////////////////////
             //وسط صفحه 
             try
@@ -151,6 +155,8 @@ namespace GossipDashboard.Controllers
                 var posts = repo.SelectPostUser().Where(p => p.PostFormat.FirstOrDefault().NameEn != "status"
                         && p.PostFormat.FirstOrDefault().NameEn != "link" && p.PostFormat.FirstOrDefault().NameEn != "video"
                         && p.PostFormat.FirstOrDefault().NameEn != "audio").OrderByDescending(p => p.PostID).Take(200).ToList();
+
+
                 listAll = Utilty.SortGroupsList(posts, PlaceInMainPage.MiddleIndex);
 
                 //ایجاد  تگ آرتیکل به ازای هر پست
@@ -202,7 +208,7 @@ namespace GossipDashboard.Controllers
             }
 
             //////////////////////Create catlist///////////////////////////////////////
-            //آخرین رويدادها
+            //رویدادهای دیگر
             try
             {
                 var startDaysAgo = DateTime.Now.AddDays(-10);
@@ -240,7 +246,7 @@ namespace GossipDashboard.Controllers
                     ErrorDescription = ex.ToString(),
                     IP = Request.UserHostAddress,
                     ModifyDateTime = DateTime.Now,
-                    PostName = "Create Main Page - PlaceInMainPage.LastEvent",
+                    PostName = "Create Main Page - PlaceInMainPage.OtherEvent",
                     PostID = -100
                 });
             }

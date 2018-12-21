@@ -24,6 +24,7 @@
         <AssociationConnector Association="GossipSiteModel.FK_PostComment_Post" />
         <AssociationConnector Association="GossipSiteModel.FK_PostQuestion_Post" />
         <AssociationConnector Association="GossipSiteModel.FK_UserPost_Post" />
+        <EntityTypeShape EntityType="GossipSiteModel.BlackList" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

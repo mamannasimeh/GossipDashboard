@@ -778,7 +778,7 @@ namespace GossipDashboard.Helper
 
                         HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]/div[1]");
                         HtmlNode newChild = HtmlNode.CreateNode("<div><h4>" +
-                                                                    "<span class='catlist-title'>آخرين رويدادها</span>" +
+                                                                    "<span class='catlist-title'>رویدادهای دیگر</span>" +
                                                                 "</h4>"
                                                                 + ul + "</div>"
                                                                 );
@@ -821,7 +821,7 @@ namespace GossipDashboard.Helper
                     if (itemAttr.Value.Contains("tab-content"))
                     {
                         HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[2]/div[1]");
-                        HtmlNode newChild = HtmlNode.CreateNode("<div class='col-md-6 catlist-posts small-posts " + catListClass + "  ' style='position: absolute; display: none;'>" +
+                        HtmlNode newChild = HtmlNode.CreateNode("<div class='col-md-6 catlist-posts small-posts " + catListClass + "  ' style='position: absolute; display: none; right:0px;'>" +
                                                                     "<a href = '" + postUrl + "' > " +
                                                                         "<img width = '70' height = '70' src = '" + post.Image1_1 + "' class='' alt='' srcset='' sizes='(max-width: 70px) 100vw, 70px'>" +
                                                                     "</a>" +

@@ -37,5 +37,6 @@ namespace GossipDashboard.Models
         public virtual DbSet<LogError> LogErrors { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<PostTemperory> PostTemperories { get; set; }
+        public virtual DbSet<BlackList> BlackLists { get; set; }
     }
 }

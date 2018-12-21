@@ -741,7 +741,7 @@ namespace GossipDashboard.Repository
 
                 //در بعضی سایت ها قسمت هایی که می خواهم حذف شود را مشخص می کنیم و سپس حذف می کنیم
                 //مانند لینک های تبلیغاتی
-                if (item.SourceSiteUrl != null)
+                if (item.SourceSiteUrl != null && item.ContentHTML != null && item.ContentHTML.Trim() != "")
                 {
                     docIndex.LoadHtml(item.ContentHTML);
 
