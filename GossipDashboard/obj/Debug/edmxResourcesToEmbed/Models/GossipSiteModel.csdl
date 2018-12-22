@@ -41,6 +41,7 @@
       <End Role="Post" EntitySet="Posts" />
       <End Role="UserPost" EntitySet="UserPosts" />
     </AssociationSet>
+    <EntitySet Name="BlackLists" EntityType="GossipSiteModel.BlackList" />
   </EntityContainer>
   <EntityType Name="PostAnswer">
     <Key>
@@ -211,7 +212,7 @@
       <PropertyRef Name="PostID" />
     </Key>
     <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Subject1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Subject1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="SubSubject1_1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="SubSubject1_2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ContentPost1_1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -457,14 +458,14 @@
     <Property Name="Tag8" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="Tag9" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="Tag10" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-    <Property Name="SourceSiteUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-    <Property Name="SourceSiteName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="SourceSiteUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SourceSiteName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="SourceFootCategory" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="SourceDateTimePost" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="ContentPost1_6" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ContentPost1_7" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="SourceSiteNameFa" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-    <Property Name="ContentHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ContentHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Status" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
     <Property Name="StatusAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="PostAttributes" Relationship="GossipSiteModel.FK_PostAttribute_Post" FromRole="Post" ToRole="PostAttribute" />
@@ -792,4 +793,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="BlackList">
+    <Key>
+      <PropertyRef Name="BlackListID" />
+    </Key>
+    <Property Name="BlackListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParentID" Type="Int32" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyDateTime" Type="DateTime" Precision="3" />
+  </EntityType>
 </Schema>

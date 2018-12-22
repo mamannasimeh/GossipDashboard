@@ -499,7 +499,7 @@ article .audio-container iframe{width: 100%;}
 /**** Special category listing widget ****/
 
 .vertical-menu ul.custom-menu, ul.list-special{list-style:none; padding-left:0; margin:0}
-.list-special.style1, .list-special.style2{text-align:right; margin-right:-60px;}
+.list-special.style1, .list-special.style2{text-align:right; margin-right:-115px;}
 .list-special.style1  li, .list-special.style2  li {
 	display:inline-block;  -ms-transform: skewX(-20deg);
 	-webkit-transform: skewX(-20deg);
@@ -2907,7 +2907,7 @@ ul.social-widget.footer li a i, ul.social-widget.footer li a i:hover{
 }
 
 .news a {
-margin-top: 7px;
+margin-top: 4px;
   opacity:0.856;
 }
 
