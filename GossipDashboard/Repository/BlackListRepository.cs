@@ -25,6 +25,31 @@ namespace GossipDashboard.Repository
             throw new NotImplementedException();
         }
 
+
+        public IQueryable<VM_BlackList> SelectByParentName(string parentName)
+        {
+            if (parentName != "")
+            {
+                var parent = context.BlackLists.FirstOrDefault(p => p.Description == parentName);
+                if (parent != null)
+                {
+                    var res = context.BlackLists.Where(p => p.ParentID == parent.BlackListID)
+                        .Select(p => new VM_BlackList()
+                        {
+                            BlackListID = p.BlackListID,
+                            Description = p.Description,
+                            ModifyDateTime = p.ModifyDateTime,
+                            Name = p.Name,
+                            ParentID = p.ParentID
+                        });
+
+                    return res;
+                }
+            }
+
+            return null;
+        }
+
         public IQueryable<VM_BlackList> SelectAll(string condition)
         {
             return context.BlackLists.Select(p => new VM_BlackList()

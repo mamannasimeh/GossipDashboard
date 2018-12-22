@@ -734,15 +734,24 @@ namespace GossipDashboard.Repository
             BlackListRepository blackListRepo = new BlackListRepository();
 
             //پست هايي که شامل بلک ليست هستند ناديده گرفته مي شود
-            var blackList = blackListRepo.SelectAll("").Select(p => p.Name).ToList();
+            var blackList = blackListRepo.SelectByParentName("Political").Select(p => p.Name).ToList();
+            blackList.AddRange(blackListRepo.SelectByParentName("Insulting").Select(p => p.Name).ToList());
 
             //پست هایی که قبلا ایجاد نشده اند
             //پست استاتوس می تواند بیش از یکبار نیز انتشار پیدا کند
-            var tempPost = context.PostTemperories.Where(p => ((p.IsCreatedPost == null || p.IsCreatedPost == false) ? false : true) != true && !blackList.Contains(p.Subject1)).OrderBy(p => p.PostID).ToList();
-  
+            var tempPost = context.PostTemperories.Where(p => ((p.IsCreatedPost == null || p.IsCreatedPost == false) ? false : true) != true).OrderBy(p => p.PostID).ToList();
+
             foreach (var item in tempPost)
             {
                 isPostDeleted = false;
+
+                //تطبیق پست ها با لیست سیاه
+                var isBlack = CheckBlackList(blackList, item);
+                if (isBlack)
+                {
+                    context.SaveChanges();
+                    continue;
+                }
 
                 // در بعضی سایت ها قسمت هایی که می خواهم حذف شود را مشخص می کنیم و سپس حذف می کنیم
                 //مانند لينک هاي تبليغاتي
@@ -909,6 +918,27 @@ namespace GossipDashboard.Repository
             }
 
 
+        }
+
+
+        /// <summary>
+        /// این متد پست ها را با لیست سیاه چک می کند و پست های نامناسب را علامت می گذارد
+        /// </summary>
+        /// <param name="blackList"></param>
+        /// <param name="item"></param>
+        public static bool CheckBlackList(List<string> blackList, PostTemperory item)
+        {
+            foreach (string itemBlackList in blackList)
+            {
+                if (item.Subject1.Contains(itemBlackList) || item.ContentHTML.Contains(itemBlackList))
+                {
+                    item.IsCreatedPost = true;
+                    item.Subject1 = item.Subject1 + " این رو چک کنید";
+                    return true; ;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
