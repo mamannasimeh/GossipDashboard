@@ -294,6 +294,7 @@
       <DependentUpon>GossipSiteModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\BlackListRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\LogErrorRepository.cs" />
     <Compile Include="Repository\LogRepository.cs" />
@@ -311,6 +312,7 @@
     <Compile Include="ViewModel\VM_Post.cs" />
     <Compile Include="ViewModel\VM_PubBase.cs" />
     <Compile Include="ViewModel\VM_Subscriber.cs" />
+    <Compile Include="ViewModel\VM_BlackList.cs" />
     <Compile Include="ViewModel\VM_User.cs" />
   </ItemGroup>
   <ItemGroup>

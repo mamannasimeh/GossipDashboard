@@ -6,8 +6,8 @@
     </Key>
     <Property Name="BlackListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ParentID" Type="int" />
-    <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
     <Property Name="ModifyDateTime" Type="datetime" />
   </EntityType>
   <EntityType Name="Log">

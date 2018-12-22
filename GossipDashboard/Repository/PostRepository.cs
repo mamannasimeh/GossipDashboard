@@ -731,89 +731,22 @@ namespace GossipDashboard.Repository
             string tempContentHTML = "", tempHTML = "";
             var docIndex = new HtmlDocument();
             PostManagement postManagement = new PostManagement();
+            BlackListRepository blackListRepo = new BlackListRepository();
+
+            //پست هايي که شامل بلک ليست هستند ناديده گرفته مي شود
+            var blackList = blackListRepo.SelectAll("").Select(p => p.Name).ToList();
 
             //پست هایی که قبلا ایجاد نشده اند
             //پست استاتوس می تواند بیش از یکبار نیز انتشار پیدا کند
-            var tempPost = context.PostTemperories.Where(p => ((p.IsCreatedPost == null || p.IsCreatedPost == false) ? false : true) != true).OrderBy(p => p.PostID).ToList();
+            var tempPost = context.PostTemperories.Where(p => ((p.IsCreatedPost == null || p.IsCreatedPost == false) ? false : true) != true && !blackList.Contains(p.Subject1)).OrderBy(p => p.PostID).ToList();
+  
             foreach (var item in tempPost)
             {
                 isPostDeleted = false;
 
-                //در بعضی سایت ها قسمت هایی که می خواهم حذف شود را مشخص می کنیم و سپس حذف می کنیم
-                //مانند لینک های تبلیغاتی
-                if (item.SourceSiteUrl != null && item.ContentHTML != null && item.ContentHTML.Trim() != "")
-                {
-                    docIndex.LoadHtml(item.ContentHTML);
-
-                    if (item.SourceSiteUrl.Contains("gadgetnews"))
-                    {
-                        var allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'source-link')]");
-                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-                        item.ContentHTML = docIndex.DocumentNode.OuterHtml;
-                    }
-
-                    if (item.SourceSiteUrl.Contains("ajibtarin"))
-                    {
-                        var allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'rating_form_wrap')]");
-                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'essb_links')]");
-                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'metax')]");
-                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'bij-top-post-ads-section')]");
-                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'pagination')]");
-                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-                        item.ContentHTML = docIndex.DocumentNode.OuterHtml;
-                    }
-
-                    if (item.SourceSiteUrl.Contains("karnaval"))
-                    {
-                        var allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'post-related-content')]");
-                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'advertise-block')]");
-                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'asd-mt-bilit-container')]");
-                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'post-content-in-html-anchor')]");
-                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-                        item.ContentHTML = docIndex.DocumentNode.OuterHtml;
-                    }
-
-
-                    if (item.SourceSiteUrl.Contains("irannaz"))
-                    {
-                        var allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//div[contains(@class,'CenterBlock')]//h1[1]");
-                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//div[contains(@class,'CenterBlock')]//div[contains(@class,'PostCat')][1]");
-                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//div[contains(@class,'CenterBlock')]//div[contains(@class,'shakhes')][1]");
-                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-                        allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//div[contains(@class,'PostTextarea')]//h1[2]");
-                        postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-                        //allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//a[@href='http://www.irannaz.com/news_cats_3.html']");
-                        //postManagement.DeleteNodes(allElementsWithSpeceficClass);
-
-
-                        item.ContentHTML = docIndex.DocumentNode.OuterHtml;
-                    }
-
-                }
-
+                // در بعضی سایت ها قسمت هایی که می خواهم حذف شود را مشخص می کنیم و سپس حذف می کنیم
+                //مانند لينک هاي تبليغاتي
+                DeleteTag(docIndex, postManagement, item);
 
                 //انتیتی از روی  مقادیر فیلد اچ تی ام ال ساخته می شود
                 //اگر این فیلد مقدار نداشت به روش زیر عمل می کنیم
@@ -976,6 +909,89 @@ namespace GossipDashboard.Repository
             }
 
 
+        }
+
+        /// <summary>
+        /// در بعضی سایت ها قسمت هایی که می خواهم حذف شود را مشخص می کنیم و سپس حذف می کنیم
+        ///مانند لینک های تبلیغاتی
+        /// </summary>
+        /// <param name="docIndex"></param>
+        /// <param name="postManagement"></param>
+        /// <param name="item"></param>
+        private static void DeleteTag(HtmlDocument docIndex, PostManagement postManagement, PostTemperory item)
+        {
+            if (item.SourceSiteUrl != null && item.ContentHTML != null && item.ContentHTML.Trim() != "")
+            {
+                docIndex.LoadHtml(item.ContentHTML);
+
+                if (item.SourceSiteUrl.Contains("gadgetnews"))
+                {
+                    var allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'source-link')]");
+                    postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                    item.ContentHTML = docIndex.DocumentNode.OuterHtml;
+                }
+
+                if (item.SourceSiteUrl.Contains("ajibtarin"))
+                {
+                    var allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'rating_form_wrap')]");
+                    postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                    allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'essb_links')]");
+                    postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                    allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'metax')]");
+                    postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                    allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'bij-top-post-ads-section')]");
+                    postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                    allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'pagination')]");
+                    postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                    item.ContentHTML = docIndex.DocumentNode.OuterHtml;
+                }
+
+                if (item.SourceSiteUrl.Contains("karnaval"))
+                {
+                    var allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'post-related-content')]");
+                    postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                    allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'advertise-block')]");
+                    postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                    allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'asd-mt-bilit-container')]");
+                    postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                    allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//*[contains(@class,'post-content-in-html-anchor')]");
+                    postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                    item.ContentHTML = docIndex.DocumentNode.OuterHtml;
+                }
+
+
+                if (item.SourceSiteUrl.Contains("irannaz"))
+                {
+                    var allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//div[contains(@class,'CenterBlock')]//h1[1]");
+                    postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                    allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//div[contains(@class,'CenterBlock')]//div[contains(@class,'PostCat')][1]");
+                    postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                    allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//div[contains(@class,'CenterBlock')]//div[contains(@class,'shakhes')][1]");
+                    postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                    allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//div[contains(@class,'PostTextarea')]//h1[2]");
+                    postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+                    //allElementsWithSpeceficClass = docIndex.DocumentNode.SelectNodes("//a[@href='http://www.irannaz.com/news_cats_3.html']");
+                    //postManagement.DeleteNodes(allElementsWithSpeceficClass);
+
+
+                    item.ContentHTML = docIndex.DocumentNode.OuterHtml;
+                }
+
+            }
         }
 
         /// <summary>

@@ -138,8 +138,6 @@ namespace GossipDashboard.Controllers
             List<string> blackList = new List<string>();
             var docIndex = new HtmlDocument();
 
-
-
             /////////////////////////////create bloglist/////////////////////////////
             //وسط صفحه 
             try
