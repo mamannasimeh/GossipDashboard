@@ -22,7 +22,7 @@ namespace GossipDashboard.Repository
             var isBlack = CheckBlackList(blackList, vm);
             if (isBlack)
             {
-                return null;
+                return new VM_Comment();
             }
 
             var entity = new PostComment()
@@ -86,7 +86,7 @@ namespace GossipDashboard.Repository
         {
             foreach (string itemBlackList in blackList)
             {
-                if (item.Comment.Contains(itemBlackList))
+                if (item.Comment.Contains(itemBlackList) || item.FullName.Contains(itemBlackList))
                 {
                     return true; ;
                 }

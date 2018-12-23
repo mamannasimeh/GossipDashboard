@@ -930,6 +930,11 @@ namespace GossipDashboard.Repository
         {
             foreach (string itemBlackList in blackList)
             {
+                if (item.Subject1 == null)
+                    item.Subject1 = "";
+                if (item.ContentHTML == null)
+                    item.ContentHTML = "";
+
                 if (item.Subject1.Contains(itemBlackList) || item.ContentHTML.Contains(itemBlackList))
                 {
                     item.IsCreatedPost = true;
