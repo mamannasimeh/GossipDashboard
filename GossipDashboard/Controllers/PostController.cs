@@ -88,9 +88,9 @@ namespace GossipDashboard.Controllers
                 var user = new User
                 {
                     FirstName = "ارسلان",
+                    LastName = "آرماني",
                     AboutUser = "يکي از نويسنده هاي نامدار ايران",
                     Image = fileContect,
-                    LastName = "آرماني",
                     ModifyDate = DateTime.Now,
                     ModifyUserID = 1,
                     Password = "123",

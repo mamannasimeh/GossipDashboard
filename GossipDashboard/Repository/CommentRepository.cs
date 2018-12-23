@@ -12,6 +12,19 @@ namespace GossipDashboard.Repository
         private GossipSiteEntities context = new GossipSiteEntities();
         public VM_Comment Add(VM_Comment vm)
         {
+            BlackListRepository blackListRepo = new BlackListRepository();
+
+            //پست هايي که شامل بلک ليست هستند ناديده گرفته مي شود
+            var blackList = blackListRepo.SelectByParentName("Political").Select(p => p.Name).ToList();
+            blackList.AddRange(blackListRepo.SelectByParentName("Insulting").Select(p => p.Name).ToList());
+
+            //تطبیق پست ها با لیست سیاه
+            var isBlack = CheckBlackList(blackList, vm);
+            if (isBlack)
+            {
+                return null;
+            }
+
             var entity = new PostComment()
             {
                 FullName = vm.FullName,
@@ -62,6 +75,24 @@ namespace GossipDashboard.Repository
         public VM_Comment Update(VM_Comment vm)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// این متد پست ها را با لیست سیاه چک می کند و پست های نامناسب را علامت می گذارد
+        /// </summary>
+        /// <param name="blackList"></param>
+        /// <param name="item"></param>
+        private bool CheckBlackList(List<string> blackList, VM_Comment item)
+        {
+            foreach (string itemBlackList in blackList)
+            {
+                if (item.Comment.Contains(itemBlackList))
+                {
+                    return true; ;
+                }
+            }
+
+            return false;
         }
 
     }
