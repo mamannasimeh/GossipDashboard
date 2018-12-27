@@ -212,6 +212,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AmazingController.cs" />
+    <Compile Include="Controllers\AnimalController.cs" />
     <Compile Include="Controllers\BizarreController.cs" />
     <Compile Include="Controllers\CuteController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -3056,6 +3057,7 @@
     <Content Include="Views\Post\_Comment.cshtml" />
     <Content Include="Views\ErrorHandler\NotFound.cshtml" />
     <Content Include="Views\Post\AparatIndex.cshtml" />
+    <Content Include="Views\Animal\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
