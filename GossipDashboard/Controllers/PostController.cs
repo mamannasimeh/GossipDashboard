@@ -127,6 +127,10 @@ namespace GossipDashboard.Controllers
             PostController postCtr = new PostController();
             postCtr.CreateAllCategory(path);
 
+            //ایجاد صفحه حيوانات 
+            AnimalController animaltCtr = new AnimalController();
+            animaltCtr.CreateAnimalMenu(path);
+
             return RedirectToAction("Index", "Dashboard");
             //return View("Dashboard/Index");
         }
