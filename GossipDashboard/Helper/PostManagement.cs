@@ -900,71 +900,78 @@ namespace GossipDashboard.Helper
 
         internal HtmlNode CreateBloglistDefault(VM_Post post)
         {
-            string urlCategory = "", postUrl = "";
-            string categoryAboveClass = "", categoryAboveName = "";
-
-
-            foreach (var item in post.PostCategory)
+            try
             {
-                urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
-                postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
-
-                var postFormat = post.PostFormat.ToList().FirstOrDefault();
-                if (postFormat != null && postFormat.NameEn == "video")
-                    postUrl = "@Url.Action(\"VideoPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
-                else if (postFormat != null && postFormat.NameEn == "audio")
-                    postUrl = "@Url.Action(\"AudioPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+                string urlCategory = "", postUrl = "";
+                string categoryAboveClass = "", categoryAboveName = "";
 
 
-                categoryAboveClass += " " + item.AbobeClassName + " ";
-                categoryAboveName += " " + item.NameFa + " ";
-            }
+                foreach (var item in post.PostCategory)
+                {
+                    urlCategory = "@Url.Action(\"Index\",\"" + post.PostCategory.ToList().First().NameEn + "\")";
+                    postUrl = "@Url.Action(\"Post\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
 
-            var docTemplates = new HtmlDocument();
-            docTemplates.Load(path + "/Templates/bloglist-default.html", System.Text.Encoding.UTF8);
-            var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+                    var postFormat = post.PostFormat.ToList().FirstOrDefault();
+                    if (postFormat != null && postFormat.NameEn == "video")
+                        postUrl = "@Url.Action(\"VideoPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
+                    else if (postFormat != null && postFormat.NameEn == "audio")
+                        postUrl = "@Url.Action(\"AudioPost\",\"" + post.PostCategory.ToList().First().NameEn + "\", new {postID = " + post.PostID + "})";
 
-            var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "bloglist default");
-            if (itemNode != null)
-            {
-                HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]");
-                HtmlNode newChild = HtmlNode.CreateNode("<div class='bloglist-posts'>" +
-                                                            "<article class='row'>" +
-                                                                "<div class='blogitem-media col-md-4'>" +
-                                                                    "<a href = '" + postUrl + "' > " +
-                                                                        "<img width='290' height='170' src='" + post.Image1_1 + "' class='' alt=''>" +
-                                                                    "</a>" +
-                                                                    "<a href = '" + urlCategory + "' class='post-cat " + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
-                                                                "</div>" +
-                                                                "<div class='col-md-8'>" +
-                                                                    "<div class='blogitem-content'>" +
-                                                                        "<h4 class='blogitem-title'>" +
-                                                                            "<a href = '" + postUrl + "' > " + post.Subject11 + "</a>" +
-                                                                        "</h4>" +
-                                                                        "<div class='blogitem-excerpt'>" + post.ContentPost1_1.Substring(0, (post.ContentPost1_1.Length > 200 ? 200 : post.ContentPost1_1.Length)) + "</div>" +
-                                                                        "<div class='blogitem-meta'>" +
-                                                                            "<span class='blogitem-author'>" +
-                                                                                "<i class='fa fa-user'></i> " + post.Fullname +
-                                                                            "</span>" +
-                                                                            "<span class='blogitem-comment'>" +
-                                                                                "<i class='fa fa-comment'></i> " + post.CommentCount +
-                                                                            "</span>" +
-                                                                            "<span class='blogitem-view'>" +
-                                                                                "<i class='fa fa-eye'></i>" + post.Views +
-                                                                            "</span>" +
-                                                                            "<span class='blogitem-date'>" +
-                                                                                "<i class='fa fa-calendar'></i>ا" + post.JalaliModifyDate +
-                                                                            "</span>" +
+
+                    categoryAboveClass += " " + item.AbobeClassName + " ";
+                    categoryAboveName += " " + item.NameFa + " ";
+                }
+
+                var docTemplates = new HtmlDocument();
+                docTemplates.Load(path + "/Templates/bloglist-default.html", System.Text.Encoding.UTF8);
+                var nodes = docTemplates.DocumentNode.SelectNodes("//div");
+
+                var itemNode = nodes.FirstOrDefault(x => x.Attributes.FirstOrDefault().Value == "bloglist default");
+                if (itemNode != null)
+                {
+                    HtmlNode oldChild = itemNode.SelectSingleNode("/div[1]/div[1]");
+                    HtmlNode newChild = HtmlNode.CreateNode("<div class='bloglist-posts'>" +
+                                                                "<article class='row'>" +
+                                                                    "<div class='blogitem-media col-md-4'>" +
+                                                                        "<a href = '" + postUrl + "' > " +
+                                                                            "<img width='290' height='170' src='" + post.Image1_1 + "' class='' alt=''>" +
+                                                                        "</a>" +
+                                                                        "<a href = '" + urlCategory + "' class='post-cat " + categoryAboveClass + "'>" + categoryAboveName + "</a>" +
+                                                                    "</div>" +
+                                                                    "<div class='col-md-8'>" +
+                                                                        "<div class='blogitem-content'>" +
+                                                                            "<h4 class='blogitem-title'>" +
+                                                                                "<a href = '" + postUrl + "' > " + post.Subject11 + "</a>" +
+                                                                            "</h4>" +
+                                                                            "<div class='blogitem-excerpt'>" + post.ContentPost1_1.Substring(0, (post.ContentPost1_1.Length > 200 ? 200 : post.ContentPost1_1.Length)) + "</div>" +
+                                                                            "<div class='blogitem-meta'>" +
+                                                                                "<span class='blogitem-author'>" +
+                                                                                    "<i class='fa fa-user'></i> " + post.Fullname +
+                                                                                "</span>" +
+                                                                                "<span class='blogitem-comment'>" +
+                                                                                    "<i class='fa fa-comment'></i> " + post.CommentCount +
+                                                                                "</span>" +
+                                                                                "<span class='blogitem-view'>" +
+                                                                                    "<i class='fa fa-eye'></i>" + post.Views +
+                                                                                "</span>" +
+                                                                                "<span class='blogitem-date'>" +
+                                                                                    "<i class='fa fa-calendar'></i>ا" + post.JalaliModifyDate +
+                                                                                "</span>" +
+                                                                            "</div>" +
                                                                         "</div>" +
                                                                     "</div>" +
-                                                                "</div>" +
-                                                            "</article>" +
-                                                            "<a href = '" + postUrl + "' class='readmore'>" +
-                                                                "<span>بیشتر بخوانيد</span>" +
-                                                            "</a>" +
-                                                        "</div>");
+                                                                "</article>" +
+                                                                "<a href = '" + postUrl + "' class='readmore'>" +
+                                                                    "<span>بیشتر بخوانيد</span>" +
+                                                                "</a>" +
+                                                            "</div>");
 
-                return itemNode.ReplaceChild(newChild, oldChild);
+                    return itemNode.ReplaceChild(newChild, oldChild);
+                }
+            }
+            catch (Exception e)
+            {
+
             }
 
             return null;
