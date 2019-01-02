@@ -1029,6 +1029,51 @@ namespace GossipDashboard.Repository
             }
         }
 
+
+        /// <summary>
+        /// اصلاح آدرس يوآرال ها از نسبي به مطلق
+        /// </summary>
+        /// <param name="doc"></param>
+        private void CorrectRelativeURL(HtmlAgilityPack.HtmlDocument doc)
+        {
+            var nodes = doc.DocumentNode.SelectNodes("//img");
+
+            if (nodes != null)
+            {
+                foreach (var item in nodes)
+                {
+                    var regMatchHttpImage = Regex.Matches(item.OuterHtml, "(http|https)://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?.(?:jpg|bmp|gif|png)");
+                    var regMatchOnlyDomain = Regex.Matches(item.OuterHtml, @"^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)");
+                    var regMatchOnlyImageName = Regex.Matches(item.OuterHtml, @"[\w-]+.(jpg|png|gif|bmp)");
+
+                    //ابتدا چک مي کند نقادير خالي نباشد
+                    //سپس چک مي کند که دو رشته برابر هستند يا نه 
+                    //اگر برابر نباشند يعني 
+                    if (regMatchHttpImage != null && regMatchHttpImage.Count > 0 && regMatchOnlyImageName != null && regMatchOnlyImageName.Count > 0)
+                    {
+                        if ((regMatchHttpImage[0].Value).Contains(regMatchOnlyImageName[0].Value) && regMatchHttpImage[0].Value.Length != regMatchOnlyImageName[0].Value.Length)
+                        {
+
+                        }
+                    }
+
+
+                    //foreach (var itemOnlyImageName in regMatchOnlyImageName)
+                    //{
+                    //    foreach (var itemHttpImage in regMatchHttpImage)
+                    //    {
+                    //        if (((string)itemHttpImage).Contains((string)itemOnlyImageName))
+                    //        {
+
+                    //        }
+
+                    //    }
+                    //}
+                }
+            }
+
+        }
+
         /// <summary>
         /// ایجاد انتیتی پست و تنظیم مقادیر آن با کمک رفلکشن
         /// </summary>
@@ -1123,11 +1168,22 @@ namespace GossipDashboard.Repository
                     if (item.OuterHtml.Trim() == "")
                         continue;
 
+                    //var regMatchOnlyImageName = Regex.Matches(item.OuterHtml, @"[\w-]+.(jpg|png|gif|bmp)");
+                    var regMatchHttpImage = Regex.Matches(item.OuterHtml, "(http|https)://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?.(?:jpg|bmp|gif|png)");
+
+                    //foreach (var itemOnlyImageName in regMatchOnlyImageName)
+                    //{
+                    //    foreach (var itemHttpImage in regMatchHttpImage)
+                    //    {
+                    //        int a = 0;
+                    //    }
+                    //}
+
                     //چک کردن موجود بودن یو آر ال تصویر 
-                    var regMatch = Regex.Matches(item.OuterHtml, "(http|https)://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?.(?:jpg|bmp|gif|png)");
-                    if (regMatch != null && regMatch.Count > 0)
+
+                    if (regMatchHttpImage != null && regMatchHttpImage.Count > 0)
                     {
-                        urlImg = regMatch[0].Value;
+                        urlImg = regMatchHttpImage[0].Value;
 
                         //این قسمت زمان بر است
                         //در صورتی که ابعاد عکس کوچک باشد یو آر ال آن را در فیلدهای دیتابیس اینسرت نکند
